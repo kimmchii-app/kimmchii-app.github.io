@@ -1,0 +1,259 @@
+/* 角色宣傳長海報：共用樣式
+   每張海報只要在自己的 <style> 裡改 :root 的顏色，就能換成那個角色的氛圍。
+
+   可用的區塊（照需要排列、複製、刪除）：
+   .hero        封面：檔案照紙卡＋角色名＋代號
+   .block       一般段落區塊，裡面放 .label（小標）＋ h2（大標）＋內容
+   .story       序章文字；最後一段加 .climax 會變成重點句
+   .paper       米色紙張卡片（人物檔案用），裡面用 .fields 排欄位；
+                加上 .dossier 再放一個 figure.pinned，就會在右上角釘一張照片
+   .split       左圖右文（窄螢幕自動上下排）
+   .shot        單張滿版插圖＋圖說（想多放圖時用）
+   .traits      性格小卡（兩欄）
+   .relation    人物關係（直排：人物卡 → 關係說明 → 人物卡）
+   .ways        條列（例如「他會這樣對你」）
+   .ending      結尾大字
+   在任何元素加 data-reveal，捲到時會淡入 */
+
+:root {
+  --bg: #121018;
+  --bg-2: #1b1824;
+  --ink: #ece7f3;
+  --muted: #a59fb4;
+  --accent: #a58be0;
+  --gold: #c9a24a;
+  --line: rgba(201, 162, 74, .3);
+  --paper: #f2ede2;
+  --paper-ink: #2b2620;
+  --paper-muted: #6f6556;
+  --paper-accent: #8f6f2c;
+  --stamp: #b4413c;
+  --serif: "Noto Serif TC", "Songti TC", serif;
+  --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+.poster { max-width: 720px; margin: 0 auto; overflow: hidden; }
+
+/* 照片不給存 */
+img { display: block; max-width: 100%; pointer-events: none; -webkit-user-drag: none; }
+figure { margin: 0; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+
+/* 一般區塊 */
+.block { padding: clamp(44px, 9vw, 76px) clamp(20px, 6vw, 52px); }
+.label {
+  display: flex; align-items: center; gap: 12px;
+  margin: 0 0 6px;
+  font-size: 12px; letter-spacing: .32em;
+  color: var(--gold);
+}
+.label::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent); }
+.block h2 {
+  margin: 0 0 24px;
+  font-family: var(--serif);
+  font-size: clamp(24px, 5vw, 32px);
+  line-height: 1.4;
+  letter-spacing: .08em;
+}
+
+/* 封面 */
+.hero {
+  padding: clamp(48px, 10vw, 80px) clamp(20px, 6vw, 52px) clamp(48px, 9vw, 72px);
+  text-align: center;
+  background: radial-gradient(80% 55% at 50% 38%, rgba(165, 139, 224, .2), transparent 70%), var(--bg);
+}
+.kicker { margin: 0; font-size: 12px; letter-spacing: .36em; color: var(--gold); }
+.tagline { max-width: 30em; margin: 14px auto 0; font-size: 14px; line-height: 1.8; color: var(--muted); }
+.hero h1 {
+  margin: 34px 0 0;
+  font-family: var(--serif);
+  font-size: clamp(52px, 13vw, 84px);
+  line-height: 1.1;
+  letter-spacing: .3em;
+  padding-left: .3em; /* 抵銷最後一個字的字距 */
+}
+.codename { margin: 10px 0 0; font-size: 14px; letter-spacing: .3em; color: var(--accent); }
+
+/* 檔案照：紙卡＋膠帶＋印章 */
+.photo-card {
+  position: relative;
+  width: min(300px, 72%);
+  margin: 34px auto 0;
+  padding: 12px 12px 42px;
+  background: var(--paper);
+  box-shadow: 0 26px 50px -18px rgba(0, 0, 0, .75);
+  transform: rotate(-2deg);
+}
+.photo-card::before {
+  content: "";
+  position: absolute; top: -13px; left: 50%;
+  width: 96px; height: 26px; margin-left: -48px;
+  background: rgba(236, 226, 200, .55);
+  transform: rotate(3deg);
+}
+.photo-card img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: center top; }
+.photo-card figcaption {
+  position: absolute; left: 0; right: 0; bottom: 10px;
+  font-family: var(--serif); font-size: 13px; letter-spacing: .2em;
+  color: var(--paper-muted);
+}
+.stamp {
+  position: absolute; right: -16px; bottom: 34px;
+  padding: 2px 12px;
+  font-family: var(--serif); font-size: 18px; font-weight: 700; letter-spacing: .2em;
+  color: var(--stamp);
+  border: 2px solid var(--stamp);
+  border-radius: 4px;
+  transform: rotate(-12deg);
+  opacity: .85;
+}
+
+/* 序章 */
+.story p { margin: 0 0 1.3em; }
+.story p:first-of-type { font-family: var(--serif); font-size: 19px; color: #fff; }
+.story .climax {
+  margin: 2em 0 0;
+  padding-left: 16px;
+  font-family: var(--serif); font-size: 18px;
+  color: #fff;
+  border-left: 2px solid var(--gold);
+}
+
+/* 紙張卡片＋欄位 */
+.paper {
+  padding: clamp(24px, 5vw, 36px);
+  color: var(--paper-ink);
+  background: var(--paper);
+  box-shadow: 0 22px 44px -20px rgba(0, 0, 0, .75);
+}
+.paper .label { color: var(--paper-accent); }
+.paper .label::after { background: linear-gradient(90deg, rgba(143, 111, 44, .4), transparent); }
+.fields { margin: 0; }
+/* 紙張卡片右上角釘一張照片（窄螢幕改成照片在上） */
+.dossier { display: grid; grid-template-columns: 1fr minmax(140px, 32%); gap: clamp(18px, 4vw, 30px); align-items: start; }
+.dossier > .pinned { order: 2; }
+.pinned {
+  position: relative;
+  margin-top: 6px;
+  padding: 8px;
+  background: #fff;
+  box-shadow: 0 12px 26px -12px rgba(0, 0, 0, .5);
+  transform: rotate(2.5deg);
+}
+.pinned::before {
+  content: "";
+  position: absolute; top: -11px; left: 50%;
+  width: 70px; height: 22px; margin-left: -35px;
+  background: rgba(214, 200, 166, .6);
+  transform: rotate(-4deg);
+}
+.pinned img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: center top; }
+.fields > div {
+  display: grid; grid-template-columns: 4.5em 1fr; gap: 16px;
+  padding: 11px 0;
+  border-bottom: 1px dashed rgba(43, 38, 32, .2);
+}
+.fields > div:last-child { border-bottom: 0; }
+.fields dt { font-size: 13px; letter-spacing: .15em; color: var(--paper-muted); }
+.fields dd { margin: 0; }
+
+/* 左圖右文 */
+.split { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(22px, 5vw, 40px); align-items: center; }
+.split figure {
+  padding: 10px 10px 34px;
+  background: var(--paper);
+  box-shadow: 0 22px 44px -20px rgba(0, 0, 0, .75);
+  transform: rotate(1.5deg);
+  position: relative;
+}
+.split figcaption {
+  position: absolute; left: 0; right: 0; bottom: 6px;
+  text-align: center; font-family: var(--serif); font-size: 12px; letter-spacing: .2em;
+  color: var(--paper-muted);
+}
+.split p { margin: 0 0 1em; }
+.split p:last-child { margin-bottom: 0; }
+
+/* 單張滿版插圖 */
+.shot img { width: 100%; }
+.shot figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); text-align: center; }
+
+/* 性格小卡 */
+.traits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.trait {
+  padding: 18px 20px;
+  background: var(--bg-2);
+  border: 1px solid rgba(165, 139, 224, .18);
+  border-radius: 4px;
+}
+.trait .no { font-family: var(--serif); font-size: 13px; letter-spacing: .2em; color: var(--accent); }
+.trait h3 { margin: 2px 0 6px; font-family: var(--serif); font-size: 17px; letter-spacing: .05em; }
+.trait p { margin: 0; font-size: 14px; line-height: 1.8; color: var(--muted); }
+
+/* 人物關係 */
+.relation { display: grid; justify-items: center; text-align: center; }
+.person {
+  width: min(100%, 360px);
+  padding: 16px 20px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+}
+.person strong { display: block; font-family: var(--serif); font-size: 20px; letter-spacing: .12em; }
+.person span { display: block; font-size: 13px; line-height: 1.8; color: var(--muted); }
+.person.is-center { border-color: var(--accent); box-shadow: 0 0 40px -12px rgba(165, 139, 224, .55); }
+.bond { max-width: 24em; padding: 0 0 14px; font-size: 13px; line-height: 1.8; color: var(--accent); }
+.bond::before {
+  content: "";
+  display: block;
+  width: 1px; height: 30px;
+  margin: 0 auto 10px;
+  background: linear-gradient(var(--line), var(--accent));
+}
+
+/* 條列 */
+.ways { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.ways li { position: relative; padding-left: 26px; }
+.ways li::before {
+  content: "";
+  position: absolute; left: 4px; top: .78em;
+  width: 7px; height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* 結尾 */
+.ending {
+  text-align: center;
+  background: radial-gradient(70% 60% at 50% 100%, rgba(165, 139, 224, .18), transparent 70%), var(--bg);
+}
+.ending .line {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(20px, 4.6vw, 26px);
+  line-height: 1.8;
+}
+
+/* 捲到才淡入（poster.js 會加上 .js）。用 translate 而不是 transform，才不會蓋掉卡片本身的傾斜角度 */
+.js [data-reveal] { opacity: 0; translate: 0 18px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+.js [data-reveal].is-visible { opacity: 1; translate: none; }
+
+@media (max-width: 520px) {
+  .split { grid-template-columns: 1fr; }
+  .dossier { grid-template-columns: 1fr; }
+  .dossier > .pinned { order: 0; width: min(190px, 65%); margin: 6px auto 4px; }
+  .split figure { width: min(280px, 85%); margin: 0 auto; }
+  .traits { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+}

@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f9f9f4">
+<title>菜園宇宙</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root {
+    /* 主色：綠 */
+    --primary: #4c8a5e;
+    --primary-deep: #2f6542;
+    --primary-tint: #e3efdd;
+    /* 輔色：古銅金，文字主要用這組 */
+    --secondary: #6f5219;
+    --secondary-deep: #553e12;
+    --secondary-muted: #8a6b30;
+    /* 金色點綴（圖示、分隔線） */
+    --gold: #c9a24a;
+    /* 面板與卡片 */
+    --mist: #f9f9f4;
+    --glass: rgba(255, 255, 255, .66);
+    --card: rgba(255, 255, 255, .9);
+    --line: rgba(197, 217, 188, .9);
+    --shadow-sm: 0 1px 2px rgba(47, 101, 66, .06), 0 6px 16px -8px rgba(47, 101, 66, .16);
+    --shadow-lg: 0 2px 6px rgba(47, 101, 66, .06), 0 22px 44px -18px rgba(47, 101, 66, .3);
+    --radius-lg: 22px;
+    --radius: 14px;
+    --radius-sm: 10px;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background-color: var(--mist);
+    color: var(--secondary);
+    font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+  :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+  /* 菜園背景：固定在視窗後面，捲動時不動，手機上也不會被頁面長度拉長。
+     最上層半透明白把圖壓淡，內容才不會被搶走；菜園一律貼齊畫面底部 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(rgba(249, 249, 244, .3), rgba(249, 249, 244, .3)),
+      var(--bg-img, url("images/bg.jpg")) center bottom / cover no-repeat,
+      var(--mist);
+  }
+  /* 直式螢幕（手機、直拿平板）換成直式版本：菜園在底部，上面是霧 */
+  @media (orientation: portrait) {
+    body::before { --bg-img: url("images/bg-mobile.jpg"); }
+  }
+
+  /* 線條圖示（定義在 body 開頭的 symbol） */
+  .icon {
+    width: 1.15em; height: 1.15em; flex: none;
+    fill: none; stroke: currentColor; stroke-width: 1.8;
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  /* 金色嫩芽分隔線 */
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    max-width: 280px; margin: 14px auto 10px;
+    color: var(--gold);
+  }
+  .divider::before, .divider::after { content: ""; flex: 1; height: 1px; }
+  .divider::before { background: linear-gradient(90deg, transparent, var(--gold)); }
+  .divider::after  { background: linear-gradient(90deg, var(--gold), transparent); }
+  .divider .icon { width: 20px; height: 20px; stroke-width: 1.5; }
+
+  /* 標題列 */
+  header { padding: 56px 0 28px; text-align: center; }
+  header h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(40px, 7vw, 60px);
+    line-height: 1.2;
+    letter-spacing: .2em;
+    padding-left: .2em; /* 抵銷最後一個字後面的字距，讓標題真的置中 */
+    background: linear-gradient(180deg, #c09441 0%, #8a6420 55%, #5f4513 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  header p { margin: 0; color: var(--secondary-muted); font-size: 15px; letter-spacing: .12em; }
+
+  /* 分頁按鈕：毛玻璃底座 */
+  nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    padding: 6px;
+    border-radius: 18px;
+    background: var(--glass);
+    border: 1px solid rgba(255, 255, 255, .75);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-sm);
+  }
+  nav button {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 11px 12px;
+    font: inherit; font-size: 15px; font-weight: 700; letter-spacing: .04em;
+    color: var(--secondary);
+    background: transparent;
+    border: 0;
+    border-radius: 13px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color .2s var(--ease), color .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  nav button .icon { color: var(--gold); transition: color .2s var(--ease); }
+  @media (hover: hover) {
+    nav button:not([aria-selected="true"]):hover { background: rgba(255, 255, 255, .8); }
+  }
+  nav button[aria-selected="true"] {
+    color: #fff;
+    background: linear-gradient(180deg, #579a6a, var(--primary-deep));
+    box-shadow: 0 6px 16px -8px rgba(47, 101, 66, .8), inset 0 1px 0 rgba(255, 255, 255, .25);
+  }
+  nav button[aria-selected="true"] .icon { color: #f3e2b0; }
+
+  /* 展示區：毛玻璃面板 */
+  main { flex: 1; padding: 18px 0 32px; }
+  .stage {
+    min-height: 440px;
+    padding: 32px;
+    border-radius: var(--radius-lg);
+    background: var(--glass);
+    border: 1px solid rgba(255, 255, 255, .8);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    backdrop-filter: blur(14px) saturate(1.1);
+    box-shadow: var(--shadow-lg);
+  }
+  [role="tabpanel"][hidden] { display: none; }
+  [role="tabpanel"] { animation: panel-in .28s var(--ease); }
+  @keyframes panel-in { from { opacity: 0; transform: translateY(6px); } }
+
+  .panel-head { display: flex; align-items: center; gap: 10px; }
+  .panel-head .icon { width: 22px; height: 22px; color: var(--gold); }
+  .stage h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 24px;
+    letter-spacing: .06em;
+    color: var(--secondary-deep);
+  }
+  .stage .hint {
+    margin: 2px 0 22px;
+    padding-bottom: 16px;
+    font-size: 14px;
+    color: var(--secondary-muted);
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(90deg, rgba(201, 162, 74, .55), transparent 70%) 1;
+  }
+
+  /* 卡片共用 */
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .card {
+    display: flex; flex-direction: column;
+    padding: 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
+  }
+  @media (hover: hover) {
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: rgba(76, 138, 94, .45); }
+  }
+  .card h3 { margin: 2px 0 2px; font-family: var(--serif); font-size: 18px; color: var(--secondary-deep); }
+  .card p { margin: 0; font-size: 14px; color: var(--secondary-muted); }
+  .card p:not(:last-child) { margin-bottom: 16px; }
+
+  /* 角色卡：之後把 <img> 放進 .portrait 就會自動填滿 */
+  .portrait {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    margin-bottom: 12px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: radial-gradient(120% 80% at 50% 0%, #f7fbf4 0%, #e4efdf 60%, #d4e6cd 100%);
+    display: grid; place-content: center; justify-items: center; gap: 6px;
+    color: var(--primary); font-size: 13px;
+  }
+  .portrait > .icon { width: 40px; height: 40px; stroke-width: 1.3; opacity: .7; }
+  /* 照片不給存：擋右鍵選單、手機長按選單、拖曳（JS 另外擋 contextmenu / dragstart） */
+  .portrait { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  .portrait img { pointer-events: none; -webkit-user-drag: none; }
+  .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  a.card { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+
+  /* 角色頁：左邊照片＋年齡簡介，右邊宣傳長海報（在框裡往下捲） */
+  .view { animation: panel-in .28s var(--ease); }
+  .view[hidden] { display: none; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    padding: 6px 14px 6px 10px;
+    font-size: 14px; font-weight: 500;
+    color: var(--primary-deep);
+    text-decoration: none;
+    border-radius: 99px;
+    transition: background-color .2s var(--ease);
+  }
+  .back .icon { width: 16px; height: 16px; transform: scaleX(-1); transition: transform .2s var(--ease); }
+  @media (hover: hover) {
+    .back:hover { background: var(--primary-tint); }
+    .back:hover .icon { transform: scaleX(-1) translateX(2px); }
+  }
+  .detail { display: grid; grid-template-columns: minmax(200px, 260px) 1fr; gap: 24px; align-items: start; }
+  .detail-side { display: grid; gap: 16px; }
+  .detail-side .portrait { margin: 0; border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+
+  /* 角色頁照片：左右切換＋第幾張／共幾張 */
+  .gallery { touch-action: pan-y; }
+  .gallery img, .gallery-btn, .gallery-count { display: none; }
+  .gallery.has-photo img { display: block; }
+  .gallery.has-photo > .icon { display: none; }
+  .gallery.multi .gallery-btn { display: grid; }
+  .gallery.multi .gallery-count { display: block; }
+  .gallery-btn {
+    position: absolute; top: 50%; z-index: 1;
+    width: 32px; height: 32px; margin-top: -16px; padding: 0;
+    place-items: center;
+    color: var(--primary-deep);
+    background: rgba(255, 255, 255, .8);
+    border: 1px solid rgba(255, 255, 255, .9);
+    border-radius: 50%;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color .2s var(--ease), transform .15s var(--ease);
+  }
+  .gallery-btn.prev { left: 8px; }
+  .gallery-btn.next { right: 8px; }
+  .gallery-btn .icon { width: 16px; height: 16px; stroke-width: 2.2; }
+  .gallery-btn.prev .icon { transform: scaleX(-1); }
+  @media (hover: hover) { .gallery-btn:hover { background: #fff; } }
+  .gallery-btn:active { transform: scale(.92); }
+  .gallery-count {
+    position: absolute; left: 50%; bottom: 8px; z-index: 1;
+    transform: translateX(-50%);
+    padding: 1px 10px;
+    font-size: 12px; font-weight: 500; letter-spacing: .06em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: #fff;
+    background: rgba(40, 52, 36, .55);
+    border-radius: 99px;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .profile {
+    padding: 16px 18px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+  }
+  .stage .profile h2 {
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(201, 162, 74, .35);
+  }
+  /* 年齡／身高／職業／下載角色卡：左標籤、右內容 */
+  .profile dl {
+    margin: 0;
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 10px 14px;
+    align-items: baseline;
+  }
+  .profile dt { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--secondary-muted); white-space: nowrap; }
+  .profile dd { margin: 0; min-width: 0; font-size: 14px; white-space: pre-line; }
+  .profile dd.empty { color: rgba(138, 107, 48, .55); }
+  .downloads { display: flex; flex-wrap: wrap; gap: 6px; }
+  .downloads .btn { padding: 3px 10px; font-size: 12.5px; }
+  .downloads .btn .icon { width: 14px; height: 14px; }
+  .poster {
+    height: clamp(520px, 78vh, 960px);
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+  }
+  .poster iframe { display: block; width: 100%; height: 100%; border: 0; }
+  .poster-empty {
+    height: 100%;
+    display: grid; place-content: center; justify-items: center; gap: 8px;
+    font-size: 14px;
+    color: var(--secondary-muted);
+    background: radial-gradient(120% 80% at 50% 0%, #fbfdf9 0%, #eef5ea 70%, #e4efdf 100%);
+  }
+  .poster-empty .icon { width: 44px; height: 44px; stroke-width: 1.3; color: var(--primary); opacity: .6; }
+
+  /* 程式卡 */
+  .tag {
+    align-self: flex-start;
+    margin-bottom: 8px;
+    padding: 2px 10px;
+    font-size: 12px; font-weight: 500; letter-spacing: .04em;
+    color: var(--primary-deep);
+    background: var(--primary-tint);
+    border-radius: 99px;
+  }
+
+  /* 小按鈕（開啟、複製） */
+  .btn {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px;
+    font: inherit; font-size: 13px; font-weight: 500;
+    color: var(--primary-deep);
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), transform .15s var(--ease);
+  }
+  .btn .icon { width: 15px; height: 15px; transition: transform .2s var(--ease); }
+  .card .btn { margin-top: auto; }
+  @media (hover: hover) {
+    .btn:hover { color: #fff; background: var(--primary); border-color: var(--primary); }
+    .btn:hover .icon-arrow { transform: translateX(2px); }
+  }
+  .btn:active { transform: scale(.97); }
+  .btn.done { color: #fff; background: var(--primary); border-color: var(--primary); }
+
+  /* 修正咒語 */
+  .spells { display: grid; gap: 14px; }
+  .spell {
+    position: relative;
+    padding: 16px 18px 16px 22px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .spell::before {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--primary), #a7caae);
+  }
+  .spell-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  .spell h3 { margin: 0; font-size: 16px; color: var(--secondary-deep); }
+  .spell .btn { flex: none; }
+  .spell pre {
+    margin: 0;
+    padding: 12px 14px;
+    font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 13.5px; line-height: 1.7;
+    color: var(--secondary);
+    white-space: pre-wrap; word-break: break-word;
+    background: #fbfcf8;
+    border: 1px dashed rgba(201, 162, 74, .5);
+    border-radius: var(--radius-sm);
+  }
+
+  /* 向外連結 */
+  .links { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+  .links a {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px;
+    color: var(--secondary-deep);
+    text-decoration: none;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
+  }
+  .link-badge {
+    flex: none;
+    display: grid; place-items: center;
+    width: 40px; height: 40px;
+    color: var(--primary-deep);
+    background: var(--primary-tint);
+    border-radius: 12px;
+  }
+  .link-text { flex: 1; min-width: 0; font-weight: 700; }
+  .link-text small { display: block; font-size: 13px; font-weight: 400; color: var(--secondary-muted); }
+  .links a > .icon { color: var(--gold); transition: transform .2s var(--ease); }
+  @media (hover: hover) {
+    .links a:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: rgba(76, 138, 94, .45); }
+    .links a:hover > .icon { transform: translateX(3px); }
+  }
+
+  /* 聯絡資訊 */
+  footer { padding: 4px 0 36px; font-size: 14px; color: var(--secondary-muted); text-align: center; }
+  footer .divider { max-width: 200px; margin: 0 auto 12px; }
+  /* 頁尾剛好疊在菜園上，墊一塊毛玻璃讓字讀得清楚 */
+  .contact {
+    display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 4px 28px;
+    padding: 10px 22px;
+    background: var(--glass);
+    border: 1px solid rgba(255, 255, 255, .8);
+    border-radius: 16px;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-sm);
+  }
+  footer a {
+    color: var(--secondary);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201, 162, 74, .5);
+    transition: color .2s var(--ease), border-color .2s var(--ease);
+  }
+  @media (hover: hover) {
+    footer a:hover { color: var(--primary-deep); border-color: var(--primary); }
+  }
+
+  /* 手機 */
+  @media (max-width: 640px) {
+    header { padding: 40px 0 22px; }
+    nav { grid-template-columns: repeat(2, 1fr); }
+    .stage { min-height: 360px; padding: 22px 16px; border-radius: 18px; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .card { padding: 10px; }
+    .card h3 { font-size: 16px; }
+    .detail { grid-template-columns: 1fr; gap: 16px; }
+    /* 照片佔四成寬；照片和右邊資料卡上下齊平（誰比較高，另一邊就拉到一樣高） */
+    .detail-side { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: stretch; }
+    /* 寬度固定吃滿欄位，最矮維持 3:4，資料卡比較高時才往下拉長 */
+    .detail-side .portrait { width: 100%; }
+    .gallery-btn { width: 28px; height: 28px; margin-top: -14px; }
+    .gallery-btn.prev { left: 4px; }
+    .gallery-btn.next { right: 4px; }
+    .poster { height: 75vh; }
+  }
+
+  /* 很窄的手機：照片放上面、資料卡放下面，照片才不會被擠成細長條 */
+  @media (max-width: 440px) {
+    .detail-side { grid-template-columns: 1fr; }
+    .detail-side .portrait { aspect-ratio: 4 / 5; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 圖示 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sprout" viewBox="0 0 24 24"><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 8-7 0 4-3 7-8 7z"/><path d="M12 14.5c0-3-2.5-5.5-7-5.5 0 3 2.5 5.5 7 5.5z"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M9 7l-5 5 5 5"/><path d="M15 7l5 5-5 5"/></symbol>
+  <symbol id="i-wand" viewBox="0 0 24 24"><path d="M4 20L14 10"/><path d="M17 3v4M15 5h4"/><path d="M20 10v2M19 11h2"/><path d="M10 3v2M9 4h2"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h9"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap">
+    <h1>菜園宇宙</h1>
+    <div class="divider" aria-hidden="true"><svg class="icon"><use href="#i-sprout"/></svg></div>
+    <p>菜菜子的角色卡總整理</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav role="tablist" aria-label="主選單">
+    <button role="tab" id="tab-characters" aria-controls="characters" aria-selected="true"><svg class="icon" aria-hidden="true"><use href="#i-person"/></svg>角色選單</button>
+    <button role="tab" id="tab-vibe" aria-controls="vibe" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>VIBE程式</button>
+    <button role="tab" id="tab-spells" aria-controls="spells" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-wand"/></svg>修正咒語</button>
+    <button role="tab" id="tab-links" aria-controls="links" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg>向外連結</button>
+  </nav>
+</div>
+
+<main>
+  <div class="wrap">
+    <div class="stage">
+
+      <section role="tabpanel" id="characters" aria-labelledby="tab-characters">
+        <!-- 角色卡列表：卡片由 characters.js 的清單產生 -->
+        <div class="view" id="character-list">
+          <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg><h2>角色選單</h2></div>
+          <p class="hint" id="character-count">角色卡片</p>
+          <div class="grid" id="character-grid"></div>
+        </div>
+        <!-- 角色頁：點卡片後顯示 -->
+        <div class="view" id="character-detail" hidden>
+          <a class="back" href="#characters"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>返回角色選單</a>
+          <div class="detail">
+            <aside class="detail-side">
+              <div class="portrait gallery" id="detail-photo">
+                <svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg>
+                <img alt="" draggable="false">
+                <button type="button" class="gallery-btn prev" aria-label="上一張照片"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+                <button type="button" class="gallery-btn next" aria-label="下一張照片"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+                <span class="gallery-count" aria-live="polite"></span>
+              </div>
+              <div class="profile">
+                <h2 id="detail-name"></h2>
+                <dl>
+                  <dt>年齡</dt><dd id="detail-age"></dd>
+                  <dt>身高</dt><dd id="detail-height"></dd>
+                  <dt>職業</dt><dd id="detail-job"></dd>
+                  <dt>下載角色卡</dt><dd id="detail-downloads" class="downloads"></dd>
+                </dl>
+              </div>
+            </aside>
+            <div class="poster" id="detail-poster"></div>
+          </div>
+        </div>
+      </section>
+
+      <section role="tabpanel" id="vibe" aria-labelledby="tab-vibe" hidden>
+        <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg><h2>VIBE程式</h2></div>
+        <p class="hint">做過的小工具與程式。</p>
+        <div class="grid">
+          <div class="card"><span class="tag">網頁</span><h3>程式 A</h3><p>用途說明</p><a class="btn" href="#">開啟<svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+          <div class="card"><span class="tag">機器人</span><h3>程式 B</h3><p>用途說明</p><a class="btn" href="#">開啟<svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+          <div class="card"><span class="tag">工具</span><h3>程式 C</h3><p>用途說明</p><a class="btn" href="#">開啟<svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+        </div>
+      </section>
+
+      <section role="tabpanel" id="spells" aria-labelledby="tab-spells" hidden>
+        <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg><h2>修正咒語</h2></div>
+        <p class="hint">常用的修正提示詞，按「複製」直接帶走。</p>
+        <div class="spells">
+          <div class="spell">
+            <div class="spell-head"><h3>咒語 A：問題描述</h3><button type="button" class="btn" data-copy><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>複製</span></button></div>
+            <pre>這裡放提示詞內容</pre>
+          </div>
+          <div class="spell">
+            <div class="spell-head"><h3>咒語 B：問題描述</h3><button type="button" class="btn" data-copy><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>複製</span></button></div>
+            <pre>這裡放提示詞內容</pre>
+          </div>
+          <div class="spell">
+            <div class="spell-head"><h3>咒語 C：問題描述</h3><button type="button" class="btn" data-copy><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>複製</span></button></div>
+            <pre>這裡放提示詞內容</pre>
+          </div>
+        </div>
+      </section>
+
+      <section role="tabpanel" id="links" aria-labelledby="tab-links" hidden>
+        <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg><h2>向外連結</h2></div>
+        <p class="hint">其他平台的頁面。</p>
+        <div class="links">
+          <a href="#" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">連結 A<small>平台名稱</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a href="#" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">連結 B<small>平台名稱</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a href="#" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">連結 C<small>平台名稱</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="divider" aria-hidden="true"><svg class="icon"><use href="#i-sprout"/></svg></div>
+    <div class="contact">
+      <span>聯絡信箱：<a href="#">your@email.com</a></span>
+      <span>社群：<a href="#">@帳號</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="characters.js"></script>
+<script>
+  const characters = window.CHARACTERS || [];
+  const tablist = document.querySelector('[role="tablist"]');
+  const tabs = [...tablist.querySelectorAll('[role="tab"]')];
+  const tabIds = tabs.map(t => t.getAttribute('aria-controls'));
+  const grid = document.getElementById('character-grid');
+  const listView = document.getElementById('character-list');
+  const detailView = document.getElementById('character-detail');
+  const characterHref = name => '#characters/' + encodeURIComponent(name);
+
+  // 照片不給存：照片區擋右鍵選單和拖曳
+  for (const type of ['contextmenu', 'dragstart']) {
+    document.addEventListener(type, e => { if (e.target.closest?.('.portrait')) e.preventDefault(); });
+  }
+
+  // 角色卡：照 characters.js 的清單產生，第一張照片當封面，點了開角色頁
+  for (const c of characters) {
+    const card = document.createElement('a');
+    card.className = 'card';
+    card.href = characterHref(c.name);
+    card.dataset.name = c.name;
+    const portrait = document.createElement('div');
+    portrait.className = 'portrait';
+    const cover = (c.photos || [])[0];
+    if (cover) {
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.draggable = false;
+      img.alt = c.name;
+      img.src = cover;
+      portrait.append(img);
+    } else {
+      portrait.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg>';
+    }
+    const name = document.createElement('h3');
+    name.textContent = c.name;
+    card.append(portrait, name);
+    grid.append(card);
+  }
+  document.getElementById('character-count').textContent = `共 ${characters.length} 位角色，點卡片看詳細資料`;
+
+  function setField(id, text) {
+    const el = document.getElementById(id);
+    el.textContent = text || '尚未填寫';
+    el.classList.toggle('empty', !text);
+  }
+
+  // 角色頁照片：左右按鈕或手機左右滑切換，下方顯示第幾張／共幾張
+  const gallery = document.getElementById('detail-photo');
+  const galleryImg = gallery.querySelector('img');
+  let photos = [];
+  let photoIndex = 0;
+
+  function showPhoto(i) {
+    if (!photos.length) return;
+    photoIndex = (i + photos.length) % photos.length;
+    galleryImg.src = photos[photoIndex];
+    gallery.querySelector('.gallery-count').textContent = `${photoIndex + 1} / ${photos.length}`;
+  }
+
+  function setGallery(c) {
+    photos = c.photos || [];
+    gallery.classList.toggle('has-photo', photos.length > 0);
+    gallery.classList.toggle('multi', photos.length > 1);
+    galleryImg.alt = c.name;
+    if (photos.length) showPhoto(0);
+    else galleryImg.removeAttribute('src');
+    photos.slice(1).forEach(src => { new Image().src = src; }); // 先載好，切換時不用等
+  }
+
+  gallery.querySelector('.prev').addEventListener('click', () => showPhoto(photoIndex - 1));
+  gallery.querySelector('.next').addEventListener('click', () => showPhoto(photoIndex + 1));
+
+  let swipeStart = null;
+  gallery.addEventListener('pointerdown', e => {
+    if (photos.length > 1 && !e.target.closest('button')) swipeStart = e.clientX;
+  });
+  gallery.addEventListener('pointerup', e => {
+    if (swipeStart === null) return;
+    const dx = e.clientX - swipeStart;
+    swipeStart = null;
+    if (Math.abs(dx) > 40) showPhoto(photoIndex + (dx < 0 ? 1 : -1));
+  });
+  gallery.addEventListener('pointercancel', () => { swipeStart = null; });
+
+  // 雲端硬碟分享連結 → 直接下載的網址（不會先開預覽頁）
+  function driveDownloadUrl(url) {
+    const m = url.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:.*&)?id=)([\w-]+)/);
+    return m ? `https://drive.google.com/uc?export=download&id=${m[1]}` : null;
+  }
+
+  function linkButton(href, icon, label) {
+    const a = document.createElement('a');
+    a.className = 'btn';
+    a.href = href;
+    a.innerHTML = `<svg class="icon" aria-hidden="true"><use href="#${icon}"/></svg>`;
+    a.append(label);
+    return a;
+  }
+
+  // 下載角色卡：JSON 卡一鍵下載；雲端硬碟、卿卿我我 App 版開新分頁
+  function setDownloads(c) {
+    const box = document.getElementById('detail-downloads');
+    box.replaceChildren();
+    if (c.json) {
+      const a = linkButton(driveDownloadUrl(c.json) || c.json, 'i-download', 'JSON 卡');
+      a.download = c.name + '.json';
+      box.append(a);
+    }
+    for (const [href, icon, label] of [[c.drive, 'i-link', '雲端硬碟'], [c.app, 'i-phone', '卿卿我我 App 版']]) {
+      if (!href) continue;
+      const a = linkButton(href, icon, label);
+      a.target = '_blank';
+      a.rel = 'noopener';
+      box.append(a);
+    }
+    if (!box.children.length) box.textContent = '尚未提供';
+    box.classList.toggle('empty', !box.children.length);
+  }
+
+  // 角色頁內容
+  function showDetail(c) {
+    setGallery(c);
+    document.getElementById('detail-name').textContent = c.name;
+    setField('detail-age', c.age);
+    setField('detail-height', c.height);
+    setField('detail-job', c.job);
+    setDownloads(c);
+    const poster = document.getElementById('detail-poster');
+    poster.replaceChildren();
+    if (c.poster) {
+      const frame = document.createElement('iframe');
+      frame.title = c.name + ' 宣傳海報';
+      frame.src = c.poster;
+      poster.append(frame);
+    } else {
+      poster.innerHTML = '<div class="poster-empty"><svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg><span>宣傳海報還沒放上來</span></div>';
+    }
+  }
+
+  // 依網址決定畫面：#vibe 開分頁，#characters/角色名 開角色頁
+  let lastCharacter = null;
+  function render(focusTab) {
+    let [tab, ...rest] = location.hash.slice(1).split('/');
+    if (!tabIds.includes(tab)) tab = 'characters';
+    tabs.forEach(t => {
+      const on = t.getAttribute('aria-controls') === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      if (on && focusTab) t.focus();
+    });
+    if (tab !== 'characters') return;
+
+    let name = null;
+    try { name = rest.length ? decodeURIComponent(rest.join('/')) : null; } catch {}
+    const c = name ? characters.find(x => x.name === name) : null;
+    listView.hidden = !!c;
+    detailView.hidden = !c;
+    if (c) {
+      showDetail(c);
+      lastCharacter = c.name;
+      const top = document.querySelector('.stage').getBoundingClientRect().top;
+      if (top < 0) window.scrollBy(0, top - 16);
+    } else if (lastCharacter) {
+      // 從角色頁回來時，捲回剛剛點的那張卡
+      [...grid.children].find(a => a.dataset.name === lastCharacter)?.scrollIntoView({ block: 'center' });
+      lastCharacter = null;
+    }
+  }
+
+  function go(hash, focusTab) {
+    history.replaceState(null, '', hash);
+    render(focusTab);
+  }
+
+  tabs.forEach(t => t.addEventListener('click', () => go('#' + t.getAttribute('aria-controls'))));
+
+  // 鍵盤左右鍵切換分頁
+  tablist.addEventListener('keydown', e => {
+    const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+    const i = tabs.indexOf(document.activeElement);
+    if (!step || i < 0) return;
+    e.preventDefault();
+    go('#' + tabIds[(i + step + tabs.length) % tabs.length], true);
+  });
+
+  window.addEventListener('hashchange', () => render());
+  render();
+
+  // 修正咒語的複製按鈕
+  document.querySelectorAll('[data-copy]').forEach(btn => btn.addEventListener('click', async () => {
+    const label = btn.querySelector('span');
+    const text = btn.closest('.spell').querySelector('pre').textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+      label.textContent = '已複製';
+      btn.classList.add('done');
+    } catch {
+      label.textContent = '複製失敗';
+    }
+    setTimeout(() => { label.textContent = '複製'; btn.classList.remove('done'); }, 1400);
+  }));
+</script>
+</body>
+</html>
