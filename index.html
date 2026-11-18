@@ -466,6 +466,27 @@
     .copybox-body { padding-left: 16px; padding-right: 16px; }
   }
 
+  /* 成人向提醒燈箱 */
+  .agegate {
+    width: min(400px, calc(100vw - 32px));
+    max-width: none;
+    padding: 26px 22px 22px;
+    text-align: center;
+    color: var(--secondary);
+    background: var(--mist);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+  .agegate[open] { animation: panel-in .24s var(--ease); }
+  .agegate::backdrop { background: rgba(38, 52, 40, .72); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .agegate h2 { margin: 0 0 8px; font-family: var(--serif); font-size: 21px; letter-spacing: .06em; color: var(--secondary-deep); }
+  .agegate p { margin: 0; font-size: 15px; }
+  .agegate-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 20px; }
+  .agegate-actions .btn { align-self: stretch; justify-content: center; padding: 9px 10px; font-size: 14px; }
+  .agegate-actions .is-primary { color: #fff; background: var(--primary-deep); border-color: var(--primary-deep); }
+  @media (max-width: 400px) { .agegate-actions { grid-template-columns: minmax(0, 1fr); } }
+
   /* 向外連結 */
   .links { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
   .links a {
@@ -684,6 +705,16 @@
   </div>
   <div class="copybox-tabs" id="copybox-tabs"></div>
   <div class="copybox-body" id="copybox-body"></div>
+</dialog>
+
+<!-- 成人向提醒：characters.js 的 adult 為 1 的角色，進角色頁前先確認 -->
+<dialog class="agegate" id="agegate" aria-labelledby="agegate-title" aria-describedby="agegate-text">
+  <h2 id="agegate-title">成人向角色提醒</h2>
+  <p id="agegate-text"></p>
+  <div class="agegate-actions">
+    <button type="button" class="btn" id="agegate-back" autofocus>返回角色選單</button>
+    <button type="button" class="btn is-primary" id="agegate-ok">我已成年，繼續瀏覽</button>
+  </div>
 </dialog>
 
 <script src="characters.js"></script>
@@ -959,10 +990,35 @@
     }
   }
 
+  // 成人向提醒：每次進成人向角色頁都要先確認，確認前不載入角色內容（直接貼網址進來也一樣）
+  const ageGate = document.getElementById('agegate');
+  let pendingAdult = null;
+  let confirmedAdult = null;
+
+  function openAgeGate(c) {
+    pendingAdult = c.name;
+    document.getElementById('agegate-text').textContent = `「${c.name}」是成人向角色，請確認年齡符合後再繼續瀏覽內容。`;
+    ageGate.showModal();
+  }
+
+  function leaveAgeGate() {
+    ageGate.close();
+    go('#characters');
+  }
+
+  document.getElementById('agegate-back').addEventListener('click', leaveAgeGate);
+  ageGate.addEventListener('cancel', e => { e.preventDefault(); leaveAgeGate(); }); // 按 Esc 等於返回
+  document.getElementById('agegate-ok').addEventListener('click', () => {
+    confirmedAdult = pendingAdult;
+    ageGate.close();
+    render();
+  });
+
   // 依網址決定畫面：#vibe 開分頁，#characters/角色名 開角色頁
   let lastCharacter = null;
   function render(focusTab) {
     if (copybox.open) copybox.close();
+    if (ageGate.open) ageGate.close();
     let [tab, ...rest] = location.hash.slice(1).split('/');
     if (!tabIds.includes(tab)) tab = 'characters';
     tabs.forEach(t => {
@@ -972,14 +1028,21 @@
       document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
       if (on && focusTab) t.focus();
     });
-    if (tab !== 'characters') return;
+    if (tab !== 'characters') {
+      confirmedAdult = null;
+      return;
+    }
 
     let name = null;
     try { name = rest.length ? decodeURIComponent(rest.join('/')) : null; } catch {}
     const c = name ? characters.find(x => x.name === name) : null;
-    listView.hidden = !!c;
-    detailView.hidden = !c;
-    if (c) {
+    if (confirmedAdult !== c?.name) confirmedAdult = null;
+    const gated = c?.adult === 1 && !confirmedAdult;
+    listView.hidden = !!c && !gated;
+    detailView.hidden = !c || gated;
+    if (gated) {
+      openAgeGate(c);
+    } else if (c) {
       showDetail(c);
       lastCharacter = c.name;
       const top = document.querySelector('.stage').getBoundingClientRect().top;
