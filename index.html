@@ -452,6 +452,19 @@
   .copy-keys .btn { padding: 2px 10px; font-size: 12.5px; }
   .copy-notes { margin: 0; padding-left: 1.5em; font-size: 14px; }
   .copy-notes li + li { margin-top: 10px; }
+  /* 可視故事：沿用鴨達版燈箱，內文放大、行距拉開，方便閱讀長文 */
+  .story-text { padding: 4px 2px 8px; font-family: var(--serif); font-size: 16px; line-height: 2; color: var(--secondary-deep); }
+  .story-text p { margin: 0; white-space: pre-line; overflow-wrap: anywhere; }
+  .story-text p + p { margin-top: 1.1em; }
+  /* 爆雷預警：按鈕上的小標籤，以及閱讀前的提醒畫面 */
+  .spoiler-tag { padding: 0 7px; font-size: 11px; font-weight: 700; line-height: 1.7; color: var(--secondary-deep); background: #f5e8c4; border-radius: 999px; }
+  .spoiler-warn { padding: 32px 4px 28px; text-align: center; }
+  .spoiler-warn h3 { margin: 0 0 8px; font-family: var(--serif); font-size: 20px; letter-spacing: .06em; color: var(--secondary-deep); }
+  .spoiler-warn p { margin: 0; font-size: 15px; }
+  .spoiler-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
+  .spoiler-actions .btn { align-self: stretch; padding: 8px 20px; font-size: 14px; }
+  .spoiler-actions .is-primary { color: #fff; background: var(--primary-deep); border-color: var(--primary-deep); }
+  @media (max-width: 640px) { .spoiler-warn { padding-top: 22vh; } }
   @media (max-width: 640px) {
     .copybox {
       width: 100%;
@@ -587,6 +600,7 @@
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h9"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7c-2-1.7-4.700-2.300-8-2v13c3.300-.3 6 .3 8 2 2-1.700 4.700-2.300 8-2V5c-3.300-.3-6 .3-8 2z"/><path d="M12 7v13"/></symbol>
 </svg>
 
 <header>
@@ -635,6 +649,7 @@
                   <dt>年齡</dt><dd id="detail-age"></dd>
                   <dt>身高</dt><dd id="detail-height"></dd>
                   <dt>職業</dt><dd id="detail-job"></dd>
+                  <dt>可視故事</dt><dd id="detail-stories" class="downloads"></dd>
                   <dt>下載角色卡</dt><dd id="detail-downloads" class="downloads"></dd>
                 </dl>
               </div>
@@ -854,7 +869,7 @@
   const copybox = document.getElementById('copybox');
   const copyboxTabs = document.getElementById('copybox-tabs');
   const copyboxBody = document.getElementById('copybox-body');
-  const caveduckCards = new Map();
+  const copyboxFiles = new Map();
   let copyboxRequest = 0;
 
   function makeEl(tag, className, text) {
@@ -919,29 +934,84 @@
     showCopyGroup(0);
   }
 
-  async function openCaveduck(c) {
+  // 可視故事的內文：空一行算一段
+  function fillStory(text) {
+    const story = makeEl('div', 'story-text');
+    story.append(...text.trim().split(/\r?\n\s*\r?\n/).map(paragraph => makeEl('p', '', paragraph)));
+    copyboxBody.replaceChildren(story);
+    copyboxBody.scrollTop = 0;
+  }
+
+  // 爆雷預警：每次打開都先提醒，按「繼續閱讀」才顯示內文
+  function fillSpoiler(name, text) {
+    const skip = makeEl('button', 'btn', '先不看');
+    skip.type = 'button';
+    skip.addEventListener('click', () => copybox.close());
+    const read = makeEl('button', 'btn is-primary', '繼續閱讀');
+    read.type = 'button';
+    read.addEventListener('click', () => {
+      fillStory(text);
+      copybox.querySelector('.copybox-close').focus();
+    });
+    const actions = makeEl('div', 'spoiler-actions');
+    actions.append(skip, read);
+    const warn = makeEl('div', 'spoiler-warn');
+    warn.append(makeEl('h3', '', '爆雷預警'), makeEl('p', '', `這篇故事會揭露${name}的劇情真相，建議先玩過角色再閱讀。`), actions);
+    copyboxBody.replaceChildren(warn);
+    copyboxBody.scrollTop = 0;
+  }
+
+  // 開燈箱並載入內容檔，載過的檔案不重新下載
+  async function openCopybox(title, file, parse, fill) {
     const request = ++copyboxRequest;
-    document.getElementById('copybox-title').textContent = c.name + '｜鴨達版';
+    document.getElementById('copybox-title').textContent = title;
     copyboxTabs.replaceChildren();
     copyboxBody.replaceChildren(makeEl('p', 'copybox-msg', '載入中…'));
     copybox.showModal();
     try {
-      if (!caveduckCards.has(c.caveduck)) {
-        const res = await fetch(c.caveduck);
+      if (!copyboxFiles.has(file)) {
+        const res = await fetch(file);
         if (!res.ok) throw new Error(res.status);
-        caveduckCards.set(c.caveduck, await res.json());
+        copyboxFiles.set(file, await parse(res));
       }
-      if (request === copyboxRequest) fillCopybox(caveduckCards.get(c.caveduck));
+      if (request === copyboxRequest) fill(copyboxFiles.get(file));
     } catch {
       if (request === copyboxRequest) copyboxBody.replaceChildren(makeEl('p', 'copybox-msg', '內容載入失敗，請重新整理頁面再試一次。'));
     }
   }
+
+  const openCaveduck = c => openCopybox(c.name + '｜鴨達版', c.caveduck, res => res.json(), fillCopybox);
+  const openStory = (c, story) => openCopybox(`${c.name}｜${story.title}`, story.file, res => res.text(),
+    text => (story.spoiler ? fillSpoiler(c.name, text) : fillStory(text)));
 
   // 關閉：右上角按鈕、Esc（瀏覽器內建）、點燈箱外面
   copybox.querySelector('.copybox-close').addEventListener('click', () => copybox.close());
   let pressedBackdrop = false;
   copybox.addEventListener('pointerdown', e => { pressedBackdrop = e.target === copybox; });
   copybox.addEventListener('click', e => { if (e.target === copybox && pressedBackdrop) copybox.close(); });
+
+  function dialogButton(icon, label, onClick) {
+    const btn = makeEl('button', 'btn');
+    btn.type = 'button';
+    btn.setAttribute('aria-haspopup', 'dialog');
+    btn.innerHTML = `<svg class="icon" aria-hidden="true"><use href="#${icon}"/></svg>`;
+    btn.append(label);
+    btn.addEventListener('click', onClick);
+    return btn;
+  }
+
+  // 可視故事：每篇一顆按鈕，點了開燈箱閱讀
+  function setStories(c) {
+    const box = document.getElementById('detail-stories');
+    const stories = c.stories || [];
+    box.replaceChildren(...stories.map(story => {
+      const btn = dialogButton('i-book', story.title, () => openStory(c, story));
+      if (story.spoiler) btn.append(makeEl('span', 'spoiler-tag', '爆雷'));
+      return btn;
+    }));
+    if (!stories.length) box.textContent = '尚未提供';
+    box.classList.toggle('empty', !stories.length);
+  }
 
   // 下載角色卡：JSON 卡一鍵下載；鴨達版開燈箱；雲端硬碟、卿卿我我 App 版開新分頁
   function setDownloads(c) {
@@ -952,15 +1022,7 @@
       a.download = c.name + '.json';
       box.append(a);
     }
-    if (c.caveduck) {
-      const btn = makeEl('button', 'btn');
-      btn.type = 'button';
-      btn.setAttribute('aria-haspopup', 'dialog');
-      btn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>';
-      btn.append('鴨達版');
-      btn.addEventListener('click', () => openCaveduck(c));
-      box.append(btn);
-    }
+    if (c.caveduck) box.append(dialogButton('i-copy', '鴨達版', () => openCaveduck(c)));
     for (const [href, icon, label] of [[c.drive, 'i-link', '雲端硬碟'], [c.app, 'i-phone', '卿卿我我 App 版']]) {
       if (!href) continue;
       const a = linkButton(href, icon, label);
@@ -980,6 +1042,7 @@
     setField('detail-height', c.height);
     setField('detail-job', c.job);
     setDownloads(c);
+    setStories(c);
     const poster = document.getElementById('detail-poster');
     poster.replaceChildren();
     if (c.poster) {
