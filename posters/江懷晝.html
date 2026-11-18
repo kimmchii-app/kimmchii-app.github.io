@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>江懷晝｜大港觀光導覽</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：大港漁會發行的觀光導覽。前半是陽光下的港都，導覽結束後潛進夜裡的鐵鉤 -->
+<style>
+  :root {
+    --cream: #f7efdc;
+    --paper: #fffaf0;
+    --sand: #f3d999;
+    --teal: #0e5f57;
+    --coral: #d8492f;
+    --coral-text: #b5351e;
+    --mustard: #e5a823;
+    --ink: #17322e;
+    --ink-2: #47605a;
+    --night: #06191b;
+    --night-2: #0d2a2b;
+    --moon: #efe6cf;
+    --moon-2: #a9bdb6;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --gutter: clamp(18px, 6vw, 48px);
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    /* 大港街角的魚磁磚 */
+    --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cdefs%3E%3Cpath id='f' d='M8 24c7-10 20-10 27 0-7 10-20 10-27 0Zm26 0 9-7v14Z'/%3E%3C/defs%3E%3Crect width='96' height='96' fill='%230e5f57'/%3E%3Cpath fill='%23f7efdc' d='M48 0h48v48H48zM0 48h48v48H0z'/%3E%3Cuse href='%23f' fill='%23f7efdc'/%3E%3Cuse href='%23f' x='48' y='48' fill='%23f7efdc'/%3E%3Cuse href='%23f' transform='matrix(-1 0 0 1 96 0)' fill='%23d8492f'/%3E%3Cuse href='%23f' transform='matrix(-1 0 0 1 48 48)' fill='%23e5a823'/%3E%3C/svg%3E");
+    --tile-night: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cdefs%3E%3Cpath id='f' d='M8 24c7-10 20-10 27 0-7 10-20 10-27 0Zm26 0 9-7v14Z'/%3E%3C/defs%3E%3Crect width='96' height='96' fill='%2306191b'/%3E%3Cpath fill='%230d2a2b' d='M48 0h48v48H48zM0 48h48v48H0z'/%3E%3Cg fill='%23e5a823' fill-opacity='.5'%3E%3Cuse href='%23f'/%3E%3Cuse href='%23f' x='48' y='48'/%3E%3Cuse href='%23f' transform='matrix(-1 0 0 1 96 0)'/%3E%3Cuse href='%23f' transform='matrix(-1 0 0 1 48 48)'/%3E%3C/g%3E%3C/svg%3E");
+    --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='18'%3E%3Cpath d='M0 18V9c12 0 12-8 18-8s6 8 18 8 12-8 18-8 6 8 18 8v9Z'/%3E%3C/svg%3E");
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--night);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet { max-width: 720px; margin: 0 auto; overflow: hidden; background: var(--cream); }
+  h1, h2, h3, p, ol, dl, dd { margin: 0; padding: 0; }
+  ol { list-style: none; }
+
+  /* 照片不給存 */
+  img { display: block; width: 100%; pointer-events: none; -webkit-user-drag: none; }
+  figure { margin: 0; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+
+  section { padding: clamp(46px, 9vw, 72px) var(--gutter); }
+  .tiles { height: 48px; background: var(--tile) 0 0 / 48px 48px; }
+  /* 區塊上緣的浪：顏色跟著該區塊的底色 */
+  .wavy { position: relative; }
+  .wavy::before {
+    content: "";
+    position: absolute; left: 0; right: 0; top: -17px;
+    height: 18px;
+    background: inherit;
+    -webkit-mask: var(--wave) 0 0 / 72px 18px repeat-x;
+    mask: var(--wave) 0 0 / 72px 18px repeat-x;
+  }
+  /* 手繪招牌式的標題 */
+  .sign {
+    display: inline-block;
+    margin-bottom: 22px;
+    padding: 3px 16px 4px;
+    font-family: var(--serif);
+    font-size: clamp(20px, 4.6vw, 26px);
+    line-height: 1.5;
+    letter-spacing: .1em;
+    color: var(--cream);
+    background: var(--coral-text);
+    border-radius: 6px;
+  }
+
+  /* 封面 */
+  .cover { padding-bottom: clamp(52px, 10vw, 76px); }
+  .cover-in { padding: 22px var(--gutter) 0; }
+  .issuer { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; font-weight: 700; letter-spacing: .14em; color: var(--teal); }
+  .hiya {
+    margin-top: 6px;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(76px, 25vw, 168px);
+    line-height: 1.12;
+    letter-spacing: .02em;
+    color: var(--coral);
+  }
+  .welcome { font-family: var(--serif); font-size: clamp(19px, 5vw, 30px); font-weight: 700; letter-spacing: .3em; color: var(--teal); }
+  .cover-art {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(14px, 4vw, 30px);
+    align-items: end;
+    margin-top: clamp(26px, 6vw, 40px);
+  }
+  .cover-art::before {
+    content: "";
+    position: absolute; right: -14%; top: -9%;
+    width: 78%; aspect-ratio: 1;
+    background: var(--mustard);
+    border-radius: 50%;
+  }
+  .vname { position: relative; display: flex; flex-direction: row-reverse; gap: 8px; writing-mode: vertical-rl; align-self: start; }
+  .vname h1 { font-family: var(--serif); font-size: clamp(52px, 15vw, 96px); line-height: 1.1; letter-spacing: .1em; color: var(--teal); }
+  .vname p { font-size: 13px; font-weight: 700; letter-spacing: .24em; color: var(--ink-2); }
+  .arch {
+    position: relative;
+    overflow: hidden;
+    border-radius: 999px 999px 0 0;
+    box-shadow: 0 0 0 5px var(--cream), 0 0 0 9px var(--teal);
+  }
+  .arch img { aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; }
+  .badge {
+    position: absolute; right: -4px; bottom: -22px;
+    display: grid; place-content: center;
+    width: 104px; height: 104px;
+    font-size: 12.5px; font-weight: 700; line-height: 1.45; text-align: center;
+    color: var(--paper);
+    background: var(--coral-text);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--cream);
+    transform: rotate(-10deg);
+  }
+
+  /* 認識代言人 */
+  .meet { background: var(--teal); color: var(--paper); }
+  .meet .sign { color: var(--teal); background: var(--mustard); }
+  .card {
+    display: grid;
+    grid-template-columns: minmax(104px, 30%) 1fr;
+    gap: clamp(16px, 4vw, 26px);
+    margin: 22px 0;
+    padding: clamp(16px, 4vw, 24px);
+    color: var(--ink);
+    background: var(--paper);
+    border-radius: 10px;
+    box-shadow: 0 16px 30px -18px rgba(0, 0, 0, .6);
+  }
+  .card img { aspect-ratio: 3 / 4; object-fit: cover; object-position: center top; border-radius: 6px; }
+  .org { font-size: 13px; font-weight: 700; letter-spacing: .16em; color: var(--coral-text); }
+  .card-name { font-family: var(--serif); font-size: clamp(30px, 7vw, 40px); font-weight: 700; line-height: 1.3; letter-spacing: .12em; }
+  .stats { display: flex; flex-wrap: wrap; gap: 4px 22px; margin: 6px 0 8px; font-weight: 700; color: var(--teal); }
+  .stats dt { display: inline; margin-right: 6px; font-size: 13px; font-weight: 400; color: var(--ink-2); }
+  .stats dd { display: inline; }
+  .looks { font-size: 14px; line-height: 1.75; color: var(--ink-2); }
+
+  /* 導覽地圖 */
+  .guide { background: var(--cream); }
+  .map { overflow: hidden; border-radius: 10px; box-shadow: 0 0 0 3px var(--teal); }
+  .map svg { display: block; width: 100%; height: auto; }
+  .spots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 24px; margin-top: 26px; counter-reset: spot; }
+  .spots li { position: relative; padding-left: 38px; counter-increment: spot; font-size: 14px; line-height: 1.75; color: var(--ink-2); }
+  .spots li::before {
+    content: counter(spot);
+    position: absolute; left: 0; top: 2px;
+    width: 28px; height: 28px;
+    font-size: 15px; font-weight: 700; line-height: 28px; text-align: center;
+    color: var(--paper);
+    background: var(--coral-text);
+    border-radius: 50%;
+  }
+  .spots b { display: block; font-family: var(--serif); font-size: 17px; color: var(--ink); }
+
+  /* 哪裡遇得到會長 */
+  .tips { background: var(--sand); }
+  .tips-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1fr); gap: clamp(20px, 5vw, 36px); align-items: end; }
+  .tips .arch { box-shadow: 0 0 0 5px var(--sand), 0 0 0 9px var(--coral-text); }
+  .tips dt { font-family: var(--serif); font-size: 17px; font-weight: 700; color: var(--teal); }
+  .tips dd { margin-bottom: 14px; font-size: 14px; line-height: 1.75; }
+  .tips dd:last-child { margin-bottom: 0; }
+
+  /* 導覽結束 */
+  .turn { padding-bottom: clamp(40px, 8vw, 60px); text-align: center; color: var(--paper); background: var(--teal); }
+  .hook { font-size: 15px; color: #cfe5dd; }
+  .punch { margin-top: 4px; font-family: var(--serif); font-size: clamp(25px, 6.4vw, 38px); font-weight: 700; line-height: 1.45; color: var(--mustard); }
+  .closed {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 8px 20px;
+    font-size: 14px; line-height: 1.7; letter-spacing: .08em;
+    border: 1px dashed rgba(255, 250, 240, .6);
+    border-radius: 6px;
+  }
+
+  /* 往下潛：五個深度 */
+  .depth { padding: 0; color: var(--moon); }
+  .depth li { padding: 0 var(--gutter); background: var(--level); }
+  .depth li > div {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3.4em minmax(0, 1fr);
+    gap: 14px;
+    padding: 24px 0 24px 22px;
+    border-left: 1px solid rgba(229, 168, 35, .55);
+  }
+  .depth li > div::before {
+    content: "";
+    position: absolute; left: -5px; top: 33px;
+    width: 9px; height: 9px;
+    background: var(--mustard);
+    transform: rotate(45deg);
+  }
+  .level { font-size: 13px; font-weight: 700; letter-spacing: .1em; line-height: 2; color: var(--mustard); }
+  .depth h3 { font-family: var(--serif); font-size: 18px; letter-spacing: .06em; line-height: 1.6; }
+  .depth p:last-child { font-size: 14px; line-height: 1.8; color: #d5e0da; }
+
+  /* 名片背面 */
+  .back { padding: 0 0 clamp(46px, 9vw, 72px); color: var(--moon); background: var(--night); }
+  .back figure { -webkit-mask-image: linear-gradient(#000 65%, transparent); mask-image: linear-gradient(#000 65%, transparent); }
+  .back img { aspect-ratio: 5 / 4; object-fit: cover; object-position: center 22%; }
+  .back-in { position: relative; margin-top: -74px; padding: 0 var(--gutter); }
+  .card-back {
+    width: min(100%, 330px);
+    margin-bottom: 26px;
+    padding: 18px 22px;
+    background: var(--night-2);
+    border: 1px solid rgba(229, 168, 35, .6);
+    border-radius: 10px;
+  }
+  .card-back .org { color: var(--mustard); }
+  .card-back small { display: block; font-size: 13px; color: var(--moon-2); }
+  .back-in > p { margin-bottom: 1em; }
+  .gear { margin-top: 24px; padding-left: 14px; font-size: 14px; color: var(--moon-2); border-left: 2px solid var(--mustard); }
+  .gear b { display: block; font-family: var(--serif); font-size: 16px; color: var(--moon); }
+
+  /* 夜裡的標題：沒有招牌，只有一行字 */
+  .night-title { margin-bottom: 20px; font-family: var(--serif); font-size: clamp(23px, 5.4vw, 30px); letter-spacing: .14em; color: var(--mustard); }
+
+  /* 漁網守則 */
+  .rules { color: var(--moon); background: var(--night) var(--tile-night) 0 0 / 72px 72px; }
+  .rules-box { padding: clamp(22px, 5vw, 34px); background: rgba(6, 25, 27, .93); border-radius: 10px; }
+  .rules li { display: grid; grid-template-columns: 1.5em minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 11px 0; border-top: 1px solid rgba(239, 230, 207, .16); }
+  .rules li:first-child { border-top: 0; }
+  .rules i { font-family: var(--serif); font-size: 28px; font-style: normal; font-weight: 700; line-height: 1.2; color: var(--mustard); }
+
+  /* 海面下的人 */
+  .people { color: var(--moon); background: var(--night); }
+  .people-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(22px, 5vw, 36px); }
+  .rel { font-family: var(--serif); font-size: clamp(38px, 9vw, 54px); font-weight: 700; line-height: 1.2; letter-spacing: .08em; color: #5a938a; }
+  .people h3 { margin-top: 2px; font-family: var(--serif); font-size: 20px; letter-spacing: .1em; }
+  .people-grid p:last-child { font-size: 14px; line-height: 1.8; color: var(--moon-2); }
+  .footnote { margin-top: 34px; font-size: 12.5px; color: var(--moon-2); }
+
+  /* 結尾 */
+  .end { position: relative; padding: 0; background: var(--night); }
+  .end::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6, 25, 27, .9), rgba(6, 25, 27, .45) 26%, transparent 48%); }
+  .vline {
+    position: absolute; z-index: 1; top: clamp(22px, 6vw, 44px); left: clamp(14px, 4vw, 34px);
+    display: flex; flex-direction: column; gap: .5em;
+    writing-mode: vertical-rl;
+    font-family: var(--serif);
+    font-size: clamp(15px, 3.4vw, 22px);
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: .14em;
+    color: var(--moon);
+  }
+
+  /* 捲到才淡入（poster.js 會加上 .js） */
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+  }
+
+  @media (max-width: 480px) {
+    .spots, .people-grid, .tips-grid { grid-template-columns: minmax(0, 1fr); }
+    .tips .arch { width: min(230px, 76%); margin: 0 auto; }
+    .badge { width: 88px; height: 88px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <!-- 封面 -->
+  <header class="cover">
+    <div class="tiles"></div>
+    <div class="cover-in">
+      <p class="issuer"><span>大港觀光導覽</span><span>大港漁會 發行</span></p>
+      <p class="hiya">嗨呀！</p>
+      <p class="welcome">歡迎來到大港</p>
+      <div class="cover-art">
+        <div class="vname">
+          <h1>江懷晝</h1>
+          <p>大港漁產最佳代言人</p>
+        </div>
+        <figure class="arch"><img src="../images/characters/江懷晝-2.jpg" alt="坐在沙發上的江懷晝"></figure>
+        <p class="badge">連續幾年<br>最佳漁會<br>會長</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 認識代言人 -->
+  <section class="meet wavy">
+    <h2 class="sign">認識代言人</h2>
+    <p data-reveal>這座很大的港灣養活了好幾代人，整個城鎮因此叫做大港。街上的每個角落，都看得到魚類的地磚、磁磚和彩繪。</p>
+    <article class="card" data-reveal>
+      <figure><img src="../images/characters/江懷晝-1.jpg" alt="江懷晝的證件照"></figure>
+      <div>
+        <p class="org">大港漁會　會長</p>
+        <p class="card-name">江懷晝</p>
+        <dl class="stats">
+          <div><dt>年齡</dt><dd>50</dd></div>
+          <div><dt>身高</dt><dd>183</dd></div>
+        </dl>
+        <p class="looks">白色及肩長髮綁成馬尾，綠色眼睛，戴著一副眼鏡，總是帶著優雅的笑臉。</p>
+      </div>
+    </article>
+    <p data-reveal>不少觀光客是看到這位帥氣的會長，才來到大港旅遊。</p>
+  </section>
+
+  <!-- 導覽地圖 -->
+  <section class="guide wavy">
+    <h2 class="sign">導覽地圖</h2>
+    <figure class="map" data-reveal>
+      <svg viewBox="0 0 640 400" role="img" aria-label="大港導覽地圖，標出大港漁會、嗨呀魚市場、碼頭和燈塔觀景台的位置">
+        <rect width="640" height="400" fill="#a8d8cd"/>
+        <g fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="3" stroke-linecap="round">
+          <path d="M36 318q12-12 24 0t24 0"/>
+          <path d="M170 366q12-12 24 0t24 0"/>
+          <path d="M236 282q12-12 24 0t24 0"/>
+          <path d="M486 352q12-12 24 0t24 0"/>
+          <path d="M548 262q12-12 24 0t24 0"/>
+        </g>
+        <g fill="#0e5f57" fill-opacity=".55">
+          <path d="M110 268c7-10 20-10 27 0-7 10-20 10-27 0Zm26 0 9-7v14Z"/>
+          <path d="M320 352c7-10 20-10 27 0-7 10-20 10-27 0Zm26 0 9-7v14Z"/>
+          <path d="M556 326c7-10 20-10 27 0-7 10-20 10-27 0Zm26 0 9-7v14Z"/>
+        </g>
+        <!-- 陸地 -->
+        <path fill="#f3e2b4" stroke="#0e5f57" stroke-width="4" d="M-4-4H644V158C610 182 585 208 545 203 500 197 490 152 430 152 370 152 350 207 290 217 225 227 190 182 130 197 80 209 40 237-4 232Z"/>
+        <!-- 大港漁會：白色網狀錐形小樓 -->
+        <g stroke="#0e5f57" stroke-width="3" stroke-linejoin="round">
+          <path fill="#fff" d="M62 172 106 48l44 124Z"/>
+          <path fill="none" stroke-width="2" d="M88 100h36M76 136h60M106 48 84 172M106 48l22 124"/>
+        </g>
+        <!-- 嗨呀魚市場 -->
+        <g stroke="#0e5f57" stroke-width="3" stroke-linejoin="round">
+          <path fill="#fffaf0" d="M216 112h92v62h-92Z"/>
+          <path fill="#d8492f" d="M208 88h108l6 26H202Z"/>
+          <path fill="#fffaf0" d="M232 88h20l-3 26h-26ZM276 88h20l7 26h-26Z"/>
+          <path fill="#0e5f57" stroke="none" d="M238 146c6-8 17-8 23 0-6 8-17 8-23 0Zm22 0 8-6v12Z"/>
+        </g>
+        <!-- 碼頭與船 -->
+        <path fill="#b9793f" stroke="#0e5f57" stroke-width="3" stroke-linejoin="round" d="M394 154h30l10 150h-50Z"/>
+        <path fill="none" stroke="#0e5f57" stroke-width="2" d="M392 190h34M390 226h40M388 262h46"/>
+        <g stroke="#0e5f57" stroke-width="3" stroke-linejoin="round">
+          <path fill="#d8492f" d="M300 292h58l-10 18h-38Z"/>
+          <path fill="#fffaf0" d="M328 288v-44l24 44Z"/>
+          <path fill="#e5a823" d="M462 262h58l-10 18h-38Z"/>
+          <path fill="#fffaf0" d="M490 258v-44l-24 44Z"/>
+        </g>
+        <!-- 燈塔 -->
+        <path fill="#e5a823" fill-opacity=".4" d="M564 66 410 18v84Z"/>
+        <g stroke="#0e5f57" stroke-width="3" stroke-linejoin="round">
+          <path fill="#fff" d="m546 168 9-96h20l9 96Z"/>
+          <path fill="#d8492f" d="M551 116h28l2 22h-32Z"/>
+          <path fill="#e5a823" d="M552 56h26v16h-26Z"/>
+          <path fill="#0e5f57" d="m548 56 17-16 17 16Z"/>
+        </g>
+        <!-- 編號 -->
+        <g font-family="Noto Sans TC, sans-serif" font-size="21" font-weight="700" text-anchor="middle" fill="#fffaf0">
+          <g><circle cx="162" cy="66" r="18" fill="#b5351e" stroke="#fffaf0" stroke-width="3"/><text x="162" y="74">1</text></g>
+          <g><circle cx="262" cy="56" r="18" fill="#b5351e" stroke="#fffaf0" stroke-width="3"/><text x="262" y="64">2</text></g>
+          <g><circle cx="452" cy="200" r="18" fill="#b5351e" stroke="#fffaf0" stroke-width="3"/><text x="452" y="208">3</text></g>
+          <g><circle cx="608" cy="62" r="18" fill="#b5351e" stroke="#fffaf0" stroke-width="3"/><text x="608" y="70">4</text></g>
+        </g>
+      </svg>
+    </figure>
+    <ol class="spots">
+      <li data-reveal><b>大港漁會</b>三層樓的白色網狀錐形小樓。走廊彎繞得像迷宮，請照標示走。</li>
+      <li data-reveal><b>嗨呀魚市場</b>漁人的口頭禪是「嗨呀」。當地人要買魚貨，都說去嗨呀買就好。</li>
+      <li data-reveal><b>碼頭</b>停泊漁船和觀光渡輪，每年夏天舉辦「好漁友釣魚大會」。</li>
+      <li data-reveal><b>燈塔觀景台</b>著名的約會景點，可以看到整個大港的外海。</li>
+    </ol>
+  </section>
+
+  <!-- 哪裡遇得到會長 -->
+  <section class="tips wavy">
+    <h2 class="sign">哪裡遇得到會長</h2>
+    <div class="tips-grid">
+      <figure class="arch" data-reveal><img src="../images/characters/江懷晝-3.jpg" alt="帶著笑容的江懷晝"></figure>
+      <dl data-reveal>
+        <dt>嗨呀魚市場</dt>
+        <dd>魚販阿姨和大嬸們經常投餵他，他也很喜歡拿攤販送的漁產。來這裡時，他會換上親民的便服。</dd>
+        <dt>每年的活動</dt>
+        <dd>釣魚大會、漁產品大賞等活動，都有他協助安排。</dd>
+        <dt>認得出他</dt>
+        <dd>白色襯衫、綠色西裝背心、卡其色西裝褲，身上總帶著一張小漁網。</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 導覽結束 -->
+  <section class="turn wavy">
+    <p class="hook" data-reveal>他說，那張小漁網隨時可以抓魚。</p>
+    <p class="punch" data-reveal>基本上，是拿來抓人用的。</p>
+    <p class="closed" data-reveal>導覽到這裡結束<br>以下海域，不對觀光客開放</p>
+  </section>
+
+  <!-- 往下潛 -->
+  <section class="depth" aria-label="面對不同的人，他的思考和行動由亮到暗">
+    <ol>
+      <li style="--level:#0e5f57"><div data-reveal>
+        <span class="level">淺灘</span>
+        <div><h3>大港的民眾</h3><p>十分友善。這是他要親手守護的光明面。</p></div>
+      </div></li>
+      <li style="--level:#0c4f49"><div data-reveal>
+        <span class="level">近岸</span>
+        <div><h3>漁會</h3><p>平易近人的高人氣會長。他覺得這裡是自己距離光明最近的地方。</p></div>
+      </div></li>
+      <li style="--level:#0a3f3b"><div data-reveal>
+        <span class="level">外海</span>
+        <div><h3>言鐶舂</h3><p>既是兄弟，也是老大。很會開他玩笑，喜歡看他緊張。</p></div>
+      </div></li>
+      <li style="--level:#082e2d"><div data-reveal>
+        <span class="level">深海</span>
+        <div><h3>道上的事</h3><p>斯文的外表底下，有黑道的冷漠與距離感，手段很直接。</p></div>
+      </div></li>
+      <li style="--level:#06191b"><div data-reveal>
+        <span class="level">海溝</span>
+        <div><h3>黔鯨</h3><p>收起平易近人的樣子，像風平浪靜的海轉為波濤洶湧。</p></div>
+      </div></li>
+    </ol>
+  </section>
+
+  <!-- 名片背面 -->
+  <section class="back">
+    <figure><img src="../images/characters/江懷晝-4.jpg" alt="回過頭的江懷晝"></figure>
+    <div class="back-in">
+      <article class="card-back" data-reveal>
+        <p class="org">鐵鉤　副手與代理人</p>
+        <p class="card-name">江懷晝</p>
+        <small>代表自己的物件：漁網</small>
+      </article>
+      <p data-reveal>鐵鉤是從漁會分出來的黑道。漁會在明處，鐵鉤在暗處。</p>
+      <p data-reveal>只要言鐶舂不在場，鐵鉤的事就交給他處理。他也代表鐵鉤與政府機構、企業交涉，協助言鐶舂推動黑道轉型。</p>
+      <p class="gear" data-reveal><b>漁網發射器</b>綠色的小型發射器，貼著一張漁網貼紙。用了很多年，他視作「戰友」，非常寶貝。</p>
+    </div>
+  </section>
+
+  <!-- 漁網守則 -->
+  <section class="rules">
+    <div class="rules-box" data-reveal>
+      <h2 class="night-title">漁網守則</h2>
+      <ol>
+        <li><i>一</i><p>靜靜觀察，摸清對方的底細才出手。</p></li>
+        <li><i>二</i><p>不做沒有把握的事。必須出手時，一定出手。</p></li>
+        <li><i>三</i><p>不傷害普通民眾，也不過度重傷黑道成員。</p></li>
+        <li><i>四</i><p>不在民眾面前提起鐵鉤。</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 海面下的人 -->
+  <section class="people">
+    <h2 class="night-title" data-reveal>海面下的人</h2>
+    <div class="people-grid">
+      <article data-reveal>
+        <p class="rel">兄弟</p>
+        <h3>言鐶舂</h3>
+        <p>鐵鉤的老大。年輕時兩人爭過老大的位置，後來江懷晝把位置讓給了他。江懷晝覺得黑道轉型的想法很蠢、很可愛，還是選擇支持，也曾在他的錢包裡放夜總會的名片。</p>
+      </article>
+      <article data-reveal>
+        <p class="rel">對手</p>
+        <h3>黔鯨</h3>
+        <p>幫主施十鉞帶領的新生代地下組織，目標是剷除鐵鉤。江懷晝暗中派手下阻擋，想在言鐶舂不知情的情況下剷除他們，替兄弟分憂。</p>
+      </article>
+    </div>
+    <p class="footnote" data-reveal>附註：他水性很好，私底下會衝浪。這件事沒有人知道。</p>
+  </section>
+
+  <!-- 結尾 -->
+  <section class="end">
+    <figure><img src="../images/characters/江懷晝-5.jpg" alt="摘下眼鏡的江懷晝"></figure>
+    <p class="vline"><span>安靜的時候，他是一張靜靜躺著的漁網。</span><span>動手的時候，必定手到擒拿。</span></p>
+  </section>
+
+</main>
+</body>
+</html>
