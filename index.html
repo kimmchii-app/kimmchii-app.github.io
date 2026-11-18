@@ -381,6 +381,91 @@
     border-radius: var(--radius-sm);
   }
 
+  /* 鴨達版燈箱：每段內容的下方放標題和複製鈕 */
+  .copybox {
+    width: min(640px, calc(100vw - 32px));
+    max-width: none;
+    max-height: min(86vh, 820px);
+    max-height: min(86dvh, 820px);
+    padding: 0;
+    color: var(--secondary);
+    background: var(--mist);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .copybox[open] { display: flex; flex-direction: column; animation: panel-in .24s var(--ease); }
+  .copybox::backdrop { background: rgba(38, 52, 40, .5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+  .copybox-head { display: flex; align-items: center; gap: 12px; padding: 14px 14px 10px 22px; }
+  .copybox-head h2 { flex: 1; min-width: 0; margin: 0; font-family: var(--serif); font-size: 20px; letter-spacing: .06em; color: var(--secondary-deep); }
+  .copybox-close {
+    flex: none;
+    display: grid; place-items: center;
+    width: 36px; height: 36px; padding: 0;
+    color: var(--primary-deep);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color .2s var(--ease), color .2s var(--ease);
+  }
+  @media (hover: hover) { .copybox-close:hover { color: #fff; background: var(--primary); } }
+  .copybox-tabs { display: flex; gap: 4px; margin: 0 22px 12px; padding: 4px; background: var(--primary-tint); border-radius: 12px; }
+  .copybox-tabs:empty { display: none; }
+  .copybox-tabs button {
+    flex: 1; min-width: 0;
+    padding: 6px 4px;
+    font: inherit; font-size: 13.5px; font-weight: 700;
+    color: var(--secondary);
+    background: transparent;
+    border: 0;
+    border-radius: 9px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color .2s var(--ease), color .2s var(--ease);
+  }
+  .copybox-tabs button[aria-pressed="true"] { color: #fff; background: var(--primary-deep); }
+  .copybox-body { flex: 1; min-height: 0; padding: 2px 22px 22px; overflow-y: auto; overscroll-behavior: contain; }
+  .copybox-msg { margin: 0; padding: 28px 0; font-size: 14px; text-align: center; color: var(--secondary-muted); }
+  .copybox-hint { margin: 0; font-size: 13px; color: var(--secondary-muted); }
+  .copy-group { display: grid; gap: 14px; }
+  .copy-group[hidden] { display: none; }
+  .copy-item { min-width: 0; padding: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+  .copy-text {
+    max-height: 168px;
+    margin: 0;
+    padding: 10px 12px;
+    overflow-y: auto;
+    font: inherit; font-size: 13.5px; line-height: 1.75;
+    white-space: pre-wrap; word-break: break-word;
+    background: #fbfcf8;
+    border: 1px solid rgba(76, 138, 94, .45);
+    border-radius: var(--radius-sm);
+  }
+  .copy-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; }
+  .copy-foot h3 { min-width: 0; margin: 0; font-family: var(--serif); font-size: 16px; line-height: 1.45; color: var(--secondary-deep); }
+  .copy-foot .btn { flex: none; align-self: center; color: #fff; background: var(--primary-deep); border-color: var(--primary-deep); }
+  .copy-foot .btn.done { background: var(--primary); border-color: var(--primary); }
+  .copy-keys { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(201, 162, 74, .5); }
+  .copy-keys .btn { padding: 2px 10px; font-size: 12.5px; }
+  .copy-notes { margin: 0; padding-left: 1.5em; font-size: 14px; }
+  .copy-notes li + li { margin-top: 10px; }
+  @media (max-width: 640px) {
+    .copybox {
+      width: 100%;
+      max-height: 90vh;
+      max-height: 90dvh;
+      margin: auto 0 0;
+      border-width: 1px 0 0;
+      border-radius: 18px 18px 0 0;
+    }
+    .copybox-head { padding-left: 16px; }
+    .copybox-tabs { margin-left: 16px; margin-right: 16px; }
+    .copybox-body { padding-left: 16px; padding-right: 16px; }
+  }
+
   /* 向外連結 */
   .links { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
   .links a {
@@ -478,6 +563,7 @@
   <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h9"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></symbol>
 </svg>
 
 <header>
@@ -588,6 +674,16 @@
   </div>
 </footer>
 
+<!-- 鴨達版燈箱：內容由 characters.js 的 caveduck 檔案產生 -->
+<dialog class="copybox" id="copybox" aria-labelledby="copybox-title">
+  <div class="copybox-head">
+    <h2 id="copybox-title"></h2>
+    <button type="button" class="copybox-close" aria-label="關閉"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+  </div>
+  <div class="copybox-tabs" id="copybox-tabs"></div>
+  <div class="copybox-body" id="copybox-body"></div>
+</dialog>
+
 <script src="characters.js"></script>
 <script>
   const characters = window.CHARACTERS || [];
@@ -690,7 +786,129 @@
     return a;
   }
 
-  // 下載角色卡：JSON 卡、鴨達版一鍵下載；雲端硬碟、卿卿我我 App 版開新分頁
+  // 複製文字：部分 App 內建瀏覽器不支援新版寫法時，改用舊方法
+  async function writeClipboard(text, host) {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.readOnly = true;
+      area.style.cssText = 'position:fixed;opacity:0';
+      host.append(area);
+      area.select();
+      const ok = document.execCommand('copy');
+      area.remove();
+      if (!ok) throw new Error('copy failed');
+    }
+  }
+
+  // 按下複製鈕：按鈕文字短暫變成「已複製」，再換回原本的字
+  async function copyWithFeedback(btn, text) {
+    const label = btn.querySelector('span');
+    btn.dataset.idle ??= label.textContent;
+    let ok = true;
+    try { await writeClipboard(text, btn.parentElement); } catch { ok = false; }
+    label.textContent = ok ? '已複製' : '複製失敗';
+    btn.classList.toggle('done', ok);
+    clearTimeout(btn.copyTimer);
+    btn.copyTimer = setTimeout(() => { label.textContent = btn.dataset.idle; btn.classList.remove('done'); }, 1400);
+  }
+
+  // 鴨達版燈箱
+  const copybox = document.getElementById('copybox');
+  const copyboxTabs = document.getElementById('copybox-tabs');
+  const copyboxBody = document.getElementById('copybox-body');
+  const caveduckCards = new Map();
+  let copyboxRequest = 0;
+
+  function makeEl(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function copyButton(label, text, icon) {
+    const btn = makeEl('button', 'btn');
+    btn.type = 'button';
+    if (icon) btn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>';
+    btn.append(makeEl('span', '', label));
+    btn.querySelector('span').setAttribute('aria-live', 'polite');
+    btn.addEventListener('click', () => copyWithFeedback(btn, text));
+    return btn;
+  }
+
+  // 一段內容：上面是文字框，下面左邊標題、右邊複製鈕；關鍵字書多一排可單獨複製的關鍵字
+  function copyItem({ title, text, keys }) {
+    const item = makeEl('article', 'copy-item');
+    const box = makeEl('pre', 'copy-text', text);
+    box.tabIndex = 0;
+    const foot = makeEl('div', 'copy-foot');
+    foot.append(makeEl('h3', '', title), copyButton('複製', text, true));
+    item.append(box, foot);
+    if (keys) {
+      const row = makeEl('div', 'copy-keys');
+      row.append(...keys.map(key => copyButton(key, key)));
+      item.append(row);
+    }
+    return item;
+  }
+
+  function showCopyGroup(index) {
+    [...copyboxTabs.children].forEach((tab, i) => tab.setAttribute('aria-pressed', i === index));
+    [...copyboxBody.children].forEach((group, i) => { group.hidden = i !== index; });
+    copyboxBody.scrollTop = 0;
+  }
+
+  function fillCopybox(card) {
+    const groups = card.sections.map(section => {
+      const group = makeEl('div', 'copy-group');
+      if (section.items.some(item => item.keys)) group.append(makeEl('p', 'copybox-hint', '點關鍵字可以單獨複製。'));
+      group.append(...section.items.map(copyItem));
+      return [`${section.title}（${section.items.length}）`, group];
+    });
+    const notes = makeEl('ol', 'copy-notes');
+    notes.append(...card.notes.map(note => makeEl('li', '', note)));
+    const noteGroup = makeEl('div', 'copy-group');
+    noteGroup.append(notes);
+    groups.push(['注意事項', noteGroup]);
+
+    copyboxTabs.replaceChildren(...groups.map(([label], i) => {
+      const tab = makeEl('button', '', label);
+      tab.type = 'button';
+      tab.addEventListener('click', () => showCopyGroup(i));
+      return tab;
+    }));
+    copyboxBody.replaceChildren(...groups.map(([, group]) => group));
+    showCopyGroup(0);
+  }
+
+  async function openCaveduck(c) {
+    const request = ++copyboxRequest;
+    document.getElementById('copybox-title').textContent = c.name + '｜鴨達版';
+    copyboxTabs.replaceChildren();
+    copyboxBody.replaceChildren(makeEl('p', 'copybox-msg', '載入中…'));
+    copybox.showModal();
+    try {
+      if (!caveduckCards.has(c.caveduck)) {
+        const res = await fetch(c.caveduck);
+        if (!res.ok) throw new Error(res.status);
+        caveduckCards.set(c.caveduck, await res.json());
+      }
+      if (request === copyboxRequest) fillCopybox(caveduckCards.get(c.caveduck));
+    } catch {
+      if (request === copyboxRequest) copyboxBody.replaceChildren(makeEl('p', 'copybox-msg', '內容載入失敗，請重新整理頁面再試一次。'));
+    }
+  }
+
+  // 關閉：右上角按鈕、Esc（瀏覽器內建）、點燈箱外面
+  copybox.querySelector('.copybox-close').addEventListener('click', () => copybox.close());
+  let pressedBackdrop = false;
+  copybox.addEventListener('pointerdown', e => { pressedBackdrop = e.target === copybox; });
+  copybox.addEventListener('click', e => { if (e.target === copybox && pressedBackdrop) copybox.close(); });
+
+  // 下載角色卡：JSON 卡一鍵下載；鴨達版開燈箱；雲端硬碟、卿卿我我 App 版開新分頁
   function setDownloads(c) {
     const box = document.getElementById('detail-downloads');
     box.replaceChildren();
@@ -700,9 +918,13 @@
       box.append(a);
     }
     if (c.caveduck) {
-      const a = linkButton(driveDownloadUrl(c.caveduck) || c.caveduck, 'i-download', '鴨達版');
-      a.download = c.name + '-鴨達版.txt';
-      box.append(a);
+      const btn = makeEl('button', 'btn');
+      btn.type = 'button';
+      btn.setAttribute('aria-haspopup', 'dialog');
+      btn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>';
+      btn.append('鴨達版');
+      btn.addEventListener('click', () => openCaveduck(c));
+      box.append(btn);
     }
     for (const [href, icon, label] of [[c.drive, 'i-link', '雲端硬碟'], [c.app, 'i-phone', '卿卿我我 App 版']]) {
       if (!href) continue;
@@ -738,6 +960,7 @@
   // 依網址決定畫面：#vibe 開分頁，#characters/角色名 開角色頁
   let lastCharacter = null;
   function render(focusTab) {
+    if (copybox.open) copybox.close();
     let [tab, ...rest] = location.hash.slice(1).split('/');
     if (!tabIds.includes(tab)) tab = 'characters';
     tabs.forEach(t => {
@@ -786,17 +1009,8 @@
   render();
 
   // 修正咒語的複製按鈕
-  document.querySelectorAll('[data-copy]').forEach(btn => btn.addEventListener('click', async () => {
-    const label = btn.querySelector('span');
-    const text = btn.closest('.spell').querySelector('pre').textContent;
-    try {
-      await navigator.clipboard.writeText(text);
-      label.textContent = '已複製';
-      btn.classList.add('done');
-    } catch {
-      label.textContent = '複製失敗';
-    }
-    setTimeout(() => { label.textContent = '複製'; btn.classList.remove('done'); }, 1400);
+  document.querySelectorAll('[data-copy]').forEach(btn => btn.addEventListener('click', () => {
+    copyWithFeedback(btn, btn.closest('.spell').querySelector('pre').textContent);
   }));
 </script>
 </body>

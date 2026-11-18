@@ -6,7 +6,7 @@
 //   job    職業    ┘
 //   json   JSON 角色卡：放在 cards/ 資料夾的檔案路徑（例如 "cards/江懷晝.json"），
 //          或 Google 雲端硬碟的分享連結；兩種點了都會直接下載檔案
-//   caveduck 鴨達版（Caveduck）分欄貼上用的文字檔路徑：點了會直接下載
+//   caveduck 鴨達版（Caveduck）燈箱的內容檔路徑：點了會開燈箱，讓使用者逐欄複製
 //   drive  雲端硬碟連結：點了在新分頁開啟
 //   app    卿卿我我 App 版的角色連結：點了在新分頁開啟
 //   poster 宣傳長海報的 HTML 檔路徑（建議放在 posters/ 資料夾），留空會顯示「宣傳海報還沒放上來」
@@ -16,7 +16,7 @@ window.CHARACTERS = [
   {"name": "月華社區：居家好ㄍㄟˋ蜜", "photos": ["images/characters/月華社區：居家好ㄍㄟˋ蜜-1.jpg", "images/characters/月華社區：居家好ㄍㄟˋ蜜-2.jpg"], "age": "", "height": "", "job": "", "json": "", "caveduck": "", "drive": "", "app": "https://loveydovey.onelink.me/vs4G/jhm7mfwi", "poster": ""},
   {"name": "金苹果夜總會", "photos": ["images/characters/金苹果夜總會-1.jpg"], "age": "", "height": "", "job": "", "json": "", "caveduck": "", "drive": "", "app": "https://loveydovey.onelink.me/vs4G/kl2esfle", "poster": ""},
   {"name": "江懷晝", "photos": ["images/characters/江懷晝-2.jpg", "images/characters/江懷晝-1.jpg", "images/characters/江懷晝-3.jpg", "images/characters/江懷晝-4.jpg", "images/characters/江懷晝-5.jpg"], "age": "50 歲", "height": "183 cm", "job": "大港漁會會長／「鐵鉤」副手", "json": "", "caveduck": "", "drive": "", "app": "https://loveydovey.onelink.me/vs4G/56d32j75", "poster": "posters/江懷晝.html"},
-  {"name": "櫆向", "photos": ["images/characters/櫆向-7.jpg", "images/characters/櫆向-1.jpg", "images/characters/櫆向-2.jpg", "images/characters/櫆向-3.jpg", "images/characters/櫆向-4.jpg", "images/characters/櫆向-5.jpg", "images/characters/櫆向-6.jpg"], "age": "28 歲", "height": "179 cm", "job": "黑道「狍樓」幹部", "json": "cards/櫆向.json", "caveduck": "cards/櫆向-鴨達版.txt", "drive": "", "app": "https://loveydovey.onelink.me/vs4G/dkyouijw", "poster": "posters/櫆向.html"},
+  {"name": "櫆向", "photos": ["images/characters/櫆向-7.jpg", "images/characters/櫆向-1.jpg", "images/characters/櫆向-2.jpg", "images/characters/櫆向-3.jpg", "images/characters/櫆向-4.jpg", "images/characters/櫆向-5.jpg", "images/characters/櫆向-6.jpg"], "age": "28 歲", "height": "179 cm", "job": "黑道「狍樓」幹部", "json": "cards/櫆向.json", "caveduck": "cards/櫆向-鴨達版.json", "drive": "", "app": "https://loveydovey.onelink.me/vs4G/dkyouijw", "poster": "posters/櫆向.html"},
   {"name": "言鐶舂", "photos": [], "age": "", "height": "", "job": "", "json": "", "caveduck": "", "drive": "", "app": "https://loveydovey.onelink.me/vs4G/2mby6bmi", "poster": ""},
   {"name": "瑟雷西", "photos": [], "age": "", "height": "", "job": "", "json": "", "caveduck": "", "drive": "", "app": "https://loveydovey.onelink.me/vs4G/n2my8l01", "poster": ""},
   {"name": "不赦火", "photos": [], "age": "", "height": "", "job": "", "json": "", "caveduck": "", "drive": "", "app": "https://loveydovey.onelink.me/vs4G/4dcwz2vr", "poster": ""},
