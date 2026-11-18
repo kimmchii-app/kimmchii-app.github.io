@@ -687,13 +687,18 @@
     return a;
   }
 
-  // 下載角色卡：JSON 卡一鍵下載；雲端硬碟、卿卿我我 App 版開新分頁
+  // 下載角色卡：JSON 卡、鴨達版一鍵下載；雲端硬碟、卿卿我我 App 版開新分頁
   function setDownloads(c) {
     const box = document.getElementById('detail-downloads');
     box.replaceChildren();
     if (c.json) {
       const a = linkButton(driveDownloadUrl(c.json) || c.json, 'i-download', 'JSON 卡');
       a.download = c.name + '.json';
+      box.append(a);
+    }
+    if (c.caveduck) {
+      const a = linkButton(driveDownloadUrl(c.caveduck) || c.caveduck, 'i-download', '鴨達版');
+      a.download = c.name + '-鴨達版.txt';
       box.append(a);
     }
     for (const [href, icon, label] of [[c.drive, 'i-link', '雲端硬碟'], [c.app, 'i-phone', '卿卿我我 App 版']]) {
