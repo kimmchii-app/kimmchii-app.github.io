@@ -548,6 +548,115 @@
   .agegate-actions .is-primary { color: #fff; background: var(--primary-deep); border-color: var(--primary-deep); }
   @media (max-width: 400px) { .agegate-actions { grid-template-columns: minmax(0, 1fr); } }
 
+  /* 菜園廣播燈箱：VIBE程式的卡片點開的機器人介紹 */
+  /* 主圖是正方形，裁成 16:10 只留中間那畦菜圃，天空和草地各留一點 */
+  .bot-hero {
+    position: relative;
+    margin: 0 0 16px;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .bot-hero img {
+    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 58%;
+    -webkit-user-select: none; user-select: none; -webkit-user-drag: none;
+  }
+  .bot-hero figcaption { position: absolute; left: 12px; bottom: 12px; }
+  .bot-hero figcaption a {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 14px 6px 10px;
+    font-size: 13px; font-weight: 700; letter-spacing: .04em;
+    color: var(--primary-deep);
+    text-decoration: none;
+    background: rgba(255, 255, 255, .88);
+    border-radius: 99px;
+    box-shadow: var(--shadow-sm);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    transition: background .15s, transform .15s;
+  }
+  .bot-hero figcaption a:hover { background: #fff; transform: translateY(-1px); }
+  .bot-hero figcaption a:focus-visible { outline: 2px solid var(--primary-deep); outline-offset: 2px; }
+  .bot-hero figcaption .icon { width: 17px; height: 17px; }
+
+  .bot-lead { margin: 0 0 16px; font-size: 15px; line-height: 1.85; color: var(--secondary); text-wrap: pretty; }
+  .bot-cta {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    background: var(--primary-tint);
+    border: 1px solid rgba(76, 138, 94, .3);
+    border-radius: var(--radius);
+  }
+  .bot-cta .btn {
+    align-self: center;
+    padding: 9px 20px;
+    font-size: 14px;
+    color: #fff;
+    background: var(--primary-deep);
+    border-color: var(--primary-deep);
+  }
+  .bot-cta small { flex: 1; min-width: 190px; font-size: 13px; line-height: 1.7; color: var(--secondary-muted); }
+
+  /* 四塊各給一個菜園裡的顏色：番茄、紅蘿蔔、葉菜、花 */
+  .bot-groups { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); }
+  .bot-group {
+    --accent: var(--primary-deep);
+    --accent-soft: var(--primary-tint);
+    position: relative;
+    padding: 16px 18px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .bot-group::before {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: var(--accent);
+    opacity: .7;
+  }
+  .bot-group.is-tomato { --accent: #c9543f; --accent-soft: #fbe7e1; }
+  .bot-group.is-carrot { --accent: #c97a2c; --accent-soft: #fbeedc; }
+  .bot-group.is-leaf { --accent: #4c8a5e; --accent-soft: #e3efdd; }
+  .bot-group.is-bloom { --accent: #be6a92; --accent-soft: #fae6ef; }
+  .bot-group h3 {
+    display: flex; align-items: center; gap: 8px;
+    margin: 0 0 14px;
+    font-family: var(--serif); font-size: 17px;
+    color: var(--secondary-deep);
+  }
+  .bot-group h3 .icon { width: 19px; height: 19px; color: var(--accent); }
+  .bot-group dl { margin: 0; }
+  .bot-group dt {
+    display: inline-block;
+    padding: 3px 11px;
+    font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 13px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 8px;
+  }
+  .bot-group dd { margin: 7px 0 14px; font-size: 14px; line-height: 1.7; color: var(--secondary-muted); text-wrap: pretty; }
+  .bot-group dd:last-child { margin-bottom: 0; }
+  .bot-group > p { margin: 14px 0 0; font-size: 13px; line-height: 1.7; color: var(--secondary-muted); }
+  .bot-note {
+    margin: 16px 0 0;
+    padding: 14px 16px;
+    font-size: 14px; line-height: 1.8;
+    color: var(--secondary-muted);
+    background: rgba(255, 255, 255, .6);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+  }
+  .bot-note strong { color: var(--secondary-deep); }
+
   /* 向外連結 */
   .links { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
   .links button { width: 100%; font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
@@ -652,6 +761,7 @@
   <symbol id="i-message" viewBox="0 0 24 24"><path d="M20 5H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4v4l5-4h7a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/></symbol>
   <symbol id="i-licence" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M9 14l2 2 4-4"/></symbol>
   <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 1 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4.5V8"/><circle cx="12" cy="3.4" r="1.2"/><path d="M9.5 13v1.6M14.5 13v1.6"/><path d="M10 17.3h4"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7c-2-1.7-4.700-2.300-8-2v13c3.300-.3 6 .3 8 2 2-1.700 4.700-2.300 8-2V5c-3.300-.3-6 .3-8 2z"/><path d="M12 7v13"/></symbol>
 </svg>
 
@@ -716,7 +826,8 @@
         <p class="hint">做過的小工具與程式。</p>
         <div class="grid">
           <div class="card"><span class="tag">網頁</span><h3>程式 A</h3><p>用途說明</p><a class="btn" href="#">開啟<svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
-          <div class="card"><span class="tag">機器人</span><h3>程式 B</h3><p>用途說明</p><a class="btn" href="#">開啟<svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+          <!-- 菜園廣播：點「看功能介紹」把 #bot-guide 的內容倒進燈箱 -->
+          <div class="card"><span class="tag">機器人</span><h3>菜園廣播</h3><p>菜園宇宙的 Discord 機器人。發公告、查角色卡、送授權申請。</p><button type="button" class="btn" id="bot-open" aria-haspopup="dialog">看功能介紹<svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
           <div class="card"><span class="tag">工具</span><h3>程式 C</h3><p>用途說明</p><a class="btn" href="#">開啟<svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
         </div>
       </section>
@@ -770,6 +881,73 @@
 </footer>
 
 <!-- 鴨達版燈箱：內容由 characters.js 的 caveduck 檔案產生 -->
+<!-- 菜園廣播的功能介紹：VIBE程式那張卡片點下去，整塊搬進燈箱。
+     只列一般成員用得到的指令，管理功能不放上來 -->
+<template id="bot-guide">
+  <figure class="bot-hero">
+    <img src="images/bot-garden.webp" alt="一方木框菜圃，裡面種著粉色小花、葉菜、花椰菜、紅蘿蔔和番茄" width="1024" height="1024" loading="lazy" draggable="false">
+    <figcaption><a href="https://discord.com/oauth2/authorize?client_id=1548947513082511451&amp;scope=bot+applications.commands&amp;permissions=19456" target="_blank" rel="noopener" aria-label="菜園廣播電臺：邀請機器人到你的伺服器"><svg class="icon" aria-hidden="true"><use href="#i-bot"/></svg>菜園廣播電臺</a></figcaption>
+  </figure>
+
+  <p class="bot-lead">公告會發到伺服器的公告頻道，有訂閱的人另外收到一份私訊。角色卡和其他資料都來自試算表，菜菜子改完後最多 5 分鐘更新。</p>
+
+  <div class="bot-cta">
+    <a class="btn" href="https://discord.gg/2vAfyc8fkt" target="_blank" rel="noopener">加入菜園宇宙DC<svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <small>機器人住在這個伺服器裡，進來就能用下面這些指令。在輸入框打一個斜線，清單會自己跳出來。</small>
+  </div>
+
+  <div class="bot-groups">
+    <div class="bot-group is-tomato">
+      <h3><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg>公告通知</h3>
+      <dl>
+        <dt>/訂閱</dt>
+        <dd>公告多送一份到你的私訊，也可以只訂其中一類。</dd>
+        <dt>/取消訂閱</dt>
+        <dd>不再收私訊通知。</dd>
+        <dt>/我的設定</dt>
+        <dd>看自己訂了哪些分類，也可以複選修改。</dd>
+        <dt>/公告列表</dt>
+        <dd>最近發過哪些公告。</dd>
+        <dt>/公告 編號:12</dt>
+        <dd>看某一則公告的完整內容。</dd>
+      </dl>
+    </div>
+
+    <div class="bot-group is-carrot">
+      <h3><svg class="icon" aria-hidden="true"><use href="#i-person"/></svg>查角色卡</h3>
+      <dl>
+        <dt>/角色 名稱:言鐶舂</dt>
+        <dd>先顯示連結與算圖資訊，個人資料、性格那些用選單展開。</dd>
+        <dt>/角色18</dt>
+        <dd>成人向的角色卡。Discord 會依你帳號上的生日把關，只在年齡限制頻道、或你自己開了成人指令的私訊裡出現。</dd>
+      </dl>
+      <p>兩支指令的名稱欄位都有自動完成，打字就會列出可以選的角色。</p>
+    </div>
+
+    <div class="bot-group is-leaf">
+      <h3><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>查其他資料</h3>
+      <dl>
+        <dt>/查 資料表:… 關鍵字:…</dt>
+        <dd>查試算表裡的資料，兩個欄位都有自動完成，打開選就好。</dd>
+        <dt>/重整快取</dt>
+        <dd>試算表剛改好、機器人卻還給舊的時候用。每人半小時一次。</dd>
+      </dl>
+    </div>
+
+    <div class="bot-group is-bloom">
+      <h3><svg class="icon" aria-hidden="true"><use href="#i-licence"/></svg>聯繫菜菜子</h3>
+      <dl>
+        <dt>/聯繫菜菜子 授權申請</dt>
+        <dd>申請角色卡的改作或公開授權，要填一個收正式授權書的 Email。跟「向外連結」裡的表單是同一件事。</dd>
+        <dt>/聯繫菜菜子 匿名投稿</dt>
+        <dd>送出的訊息在菜菜子那邊顯示為「匿名」，她可以用編號回覆你，回覆會私訊回來。</dd>
+      </dl>
+    </div>
+  </div>
+
+  <p class="bot-note"><strong>收不到私訊？</strong>Discord 不讓機器人被加好友，它只能私訊「跟它有共同伺服器」的人。所以要先待在菜園宇宙DC裡，再點伺服器名稱，打開「隱私設定」，確認「私人訊息」是開啟的。在 Discord 裡打 /說明 可以看所有指令。</p>
+</template>
+
 <dialog class="copybox" id="copybox" aria-labelledby="copybox-title">
   <div class="copybox-head">
     <h2 id="copybox-title"></h2>
@@ -1383,6 +1561,19 @@
   }
 
   document.getElementById('remind-open').addEventListener('click', openRemindGuide);
+
+  // 菜園廣播：內容寫死在 #bot-guide 的 template 裡，這裡只負責複製一份進燈箱
+  function openBotGuide() {
+    copyboxRequest++;
+    removeContactWidget();
+    document.getElementById('copybox-title').textContent = '菜園廣播';
+    copyboxTabs.replaceChildren();
+    copyboxBody.replaceChildren(document.getElementById('bot-guide').content.cloneNode(true));
+    copyboxBody.scrollTop = 0;
+    if (!copybox.open) copybox.showModal();
+  }
+
+  document.getElementById('bot-open').addEventListener('click', openBotGuide);
 
   const contactOpen = document.getElementById('contact-open');
   const licenceOpen = document.getElementById('licence-open');
