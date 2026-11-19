@@ -918,13 +918,16 @@
       group.append(...section.items.map(copyItem));
       return [`${section.title}（${section.items.length}）`, group];
     });
-    const notes = makeEl('ol', 'copy-notes');
-    notes.append(...card.notes.map(note => makeEl('li', '', note)));
-    const noteGroup = makeEl('div', 'copy-group');
-    noteGroup.append(notes);
-    groups.push(['注意事項', noteGroup]);
+    if (card.notes.length) {
+      const notes = makeEl('ol', 'copy-notes');
+      notes.append(...card.notes.map(note => makeEl('li', '', note)));
+      const noteGroup = makeEl('div', 'copy-group');
+      noteGroup.append(notes);
+      groups.push(['注意事項', noteGroup]);
+    }
 
-    copyboxTabs.replaceChildren(...groups.map(([label], i) => {
+    // 只有一組內容時不顯示分頁
+    copyboxTabs.replaceChildren(...(groups.length > 1 ? groups : []).map(([label], i) => {
       const tab = makeEl('button', '', label);
       tab.type = 'button';
       tab.addEventListener('click', () => showCopyGroup(i));
@@ -981,6 +984,7 @@
   }
 
   const openCaveduck = c => openCopybox(c.name + '｜鴨達版', c.caveduck, res => res.json(), fillCopybox);
+  const openBackend = c => openCopybox(c.name + '｜卿卿我我後台版', c.backend, res => res.json(), fillCopybox);
   const openStory = (c, story) => openCopybox(`${c.name}｜${story.title}`, story.file, res => res.text(),
     text => (story.spoiler ? fillSpoiler(c.name, text) : fillStory(text)));
 
@@ -1013,7 +1017,7 @@
     box.classList.toggle('empty', !stories.length);
   }
 
-  // 下載角色卡：JSON 卡一鍵下載；鴨達版開燈箱；雲端硬碟、卿卿我我 App 版開新分頁
+  // 下載角色卡：JSON 卡一鍵下載；鴨達版、卿卿我我後台版開燈箱；雲端硬碟、卿卿我我 App 版開新分頁
   function setDownloads(c) {
     const box = document.getElementById('detail-downloads');
     box.replaceChildren();
@@ -1023,6 +1027,7 @@
       box.append(a);
     }
     if (c.caveduck) box.append(dialogButton('i-copy', '鴨達版', () => openCaveduck(c)));
+    if (c.backend) box.append(dialogButton('i-copy', '卿卿我我後台版', () => openBackend(c)));
     for (const [href, icon, label] of [[c.drive, 'i-link', '雲端硬碟'], [c.app, 'i-phone', '卿卿我我 App 版']]) {
       if (!href) continue;
       const a = linkButton(href, icon, label);
