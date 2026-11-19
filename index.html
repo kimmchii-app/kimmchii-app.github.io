@@ -465,6 +465,31 @@
   .spoiler-actions .btn { align-self: stretch; padding: 8px 20px; font-size: 14px; }
   .spoiler-actions .is-primary { color: #fff; background: var(--primary-deep); border-color: var(--primary-deep); }
   @media (max-width: 640px) { .spoiler-warn { padding-top: 22vh; } }
+
+  /* 傳訊息給菜菜子 */
+  .contact-form { display: grid; gap: 14px; }
+  .contact-field { display: grid; gap: 6px; min-width: 0; }
+  .contact-label { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; font-weight: 700; color: var(--secondary-deep); }
+  .contact-count { font-weight: 400; font-size: 13px; color: var(--secondary-muted); }
+  .contact-field textarea, .contact-field input {
+    width: 100%; min-width: 0;
+    padding: 10px 12px;
+    font: inherit; font-size: 16px; line-height: 1.6;
+    color: var(--secondary-deep);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+  }
+  .contact-field textarea { min-height: 150px; resize: vertical; }
+  .contact-field textarea:focus-visible, .contact-field input:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+  .contact-trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .contact-widget { min-height: 65px; }
+  .contact-status { margin: 0; font-size: 14px; color: var(--secondary-muted); }
+  .contact-status:empty { display: none; }
+  .contact-status.is-error { color: #a13d2d; }
+  .contact-send { justify-self: end; padding: 8px 22px; font-size: 14px; color: #fff; background: var(--primary-deep); border-color: var(--primary-deep); }
+  .contact-send:disabled { opacity: .6; cursor: default; }
+  .contact-form .copybox-hint a { color: var(--primary-deep); }
   @media (max-width: 640px) {
     .copybox {
       width: 100%;
@@ -504,7 +529,9 @@
 
   /* 向外連結 */
   .links { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
-  .links a {
+  .links button { width: 100%; font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .links button[hidden] { display: none; }
+  .links a, .links button {
     display: flex; align-items: center; gap: 14px;
     padding: 14px 16px;
     color: var(--secondary-deep);
@@ -525,10 +552,10 @@
   }
   .link-text { flex: 1; min-width: 0; font-weight: 700; }
   .link-text small { display: block; font-size: 13px; font-weight: 400; color: var(--secondary-muted); }
-  .links a > .icon { color: var(--gold); transition: transform .2s var(--ease); }
+  .links a > .icon, .links button > .icon { color: var(--gold); transition: transform .2s var(--ease); }
   @media (hover: hover) {
-    .links a:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: rgba(76, 138, 94, .45); }
-    .links a:hover > .icon { transform: translateX(3px); }
+    .links a:hover, .links button:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: rgba(76, 138, 94, .45); }
+    .links a:hover > .icon, .links button:hover > .icon { transform: translateX(3px); }
   }
 
   /* 聯絡資訊 */
@@ -600,6 +627,7 @@
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h9"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M20 5H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4v4l5-4h7a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7c-2-1.7-4.700-2.300-8-2v13c3.300-.3 6 .3 8 2 2-1.700 4.700-2.300 8-2V5c-3.300-.3-6 .3-8 2z"/><path d="M12 7v13"/></symbol>
 </svg>
 
@@ -692,6 +720,7 @@
         <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg><h2>向外連結</h2></div>
         <p class="hint">其他平台的頁面。</p>
         <div class="links">
+          <button type="button" id="contact-open" aria-haspopup="dialog" hidden><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg></span><span class="link-text">傳訊息給菜菜子<small>私訊到 Discord</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
           <a href="https://discord.gg/2vAfyc8fkt" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">Discord群組<small>Discord</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a href="https://www.threads.com/@kimmchii.obg" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">Threads<small>@kimmchii.obg</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a href="https://loveydovey.onelink.me/vs4G/arul4vty" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">卿卿我我帳號<small>卿卿我我 App</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -987,6 +1016,182 @@
   const openBackend = c => openCopybox(c.name + '｜卿卿我我後台版', c.backend, res => res.json(), fillCopybox);
   const openStory = (c, story) => openCopybox(`${c.name}｜${story.title}`, story.file, res => res.text(),
     text => (story.spoiler ? fillSpoiler(c.name, text) : fillStory(text)));
+
+  // 傳訊息給菜菜子：訊息送到菜園廣播機器人，再私訊給菜菜子。turnstileSiteKey 填好才會顯示入口
+  const SITE_CONTACT = {
+    endpoint: 'https://caiyuan-broadcast.kimmchii.workers.dev/api/site-contact',
+    turnstileSiteKey: '0x4AAAAAAGH_hWO-JTBDEkCe',
+  };
+  let contactForm = null;
+  let contactWidget = null;
+  let contactToken = '';
+  let contactRender = 0;
+  let turnstileLoading = null;
+
+  // 打開表單時才載入 Cloudflare 的驗證程式，沒用到這個功能的訪客不會連過去
+  function loadTurnstile() {
+    turnstileLoading ??= new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      script.onload = () => resolve(window.turnstile);
+      script.onerror = () => {
+        script.remove();
+        turnstileLoading = null;
+        reject(new Error('turnstile'));
+      };
+      document.head.append(script);
+    });
+    return turnstileLoading;
+  }
+
+  function removeContactWidget() {
+    contactRender++;
+    contactToken = '';
+    if (contactWidget !== null) window.turnstile?.remove(contactWidget);
+    contactWidget = null;
+  }
+
+  async function renderContactWidget(box) {
+    removeContactWidget();
+    const render = contactRender;
+    box.replaceChildren(makeEl('p', 'copybox-hint', '真人驗證載入中…'));
+    try {
+      const turnstile = await loadTurnstile();
+      if (render !== contactRender) return;
+      box.replaceChildren();
+      contactWidget = turnstile.render(box, {
+        sitekey: SITE_CONTACT.turnstileSiteKey,
+        language: 'zh-tw',
+        theme: 'light',
+        size: window.innerWidth < 360 ? 'compact' : 'flexible',
+        callback: token => { contactToken = token; },
+        'expired-callback': () => { contactToken = ''; },
+        'error-callback': () => { contactToken = ''; },
+      });
+    } catch {
+      if (render === contactRender) {
+        box.replaceChildren(makeEl('p', 'contact-status is-error', '真人驗證載入失敗，請重新整理頁面，或改寄信到 yabai7788@gmail.com。'));
+      }
+    }
+  }
+
+  function showContactDone(id, hasContact) {
+    const close = makeEl('button', 'btn', '關閉');
+    close.type = 'button';
+    close.addEventListener('click', () => copybox.close());
+    const again = makeEl('button', 'btn is-primary', '再傳一則');
+    again.type = 'button';
+    again.addEventListener('click', openContactForm);
+    const actions = makeEl('div', 'spoiler-actions');
+    actions.append(close, again);
+    const done = makeEl('div', 'spoiler-warn');
+    const follow = hasContact ? '如果需要回覆，菜菜子會用你留下的聯絡方式。' : '你沒有留下聯絡方式，所以不會收到回覆。';
+    done.append(makeEl('h3', '', '訊息已送出'), makeEl('p', '', `${id ? `編號 #${id}。` : ''}${follow}`), actions);
+    copyboxBody.replaceChildren(done);
+    copyboxBody.scrollTop = 0;
+  }
+
+  function buildContactForm() {
+    const form = makeEl('form', 'contact-form');
+    form.noValidate = true;
+
+    const message = makeEl('textarea');
+    Object.assign(message, { name: 'message', rows: 7, maxLength: 2000, required: true, placeholder: '想對菜菜子說的話' });
+    const count = makeEl('span', 'contact-count', '0 / 2000');
+    message.addEventListener('input', () => { count.textContent = `${message.value.length} / 2000`; });
+    const messageTitle = makeEl('span', 'contact-label');
+    messageTitle.append(makeEl('span', '', '訊息'), count);
+    const messageField = makeEl('label', 'contact-field');
+    messageField.append(messageTitle, message);
+
+    const contact = makeEl('input');
+    Object.assign(contact, { type: 'text', name: 'contact', maxLength: 200, autocomplete: 'off', placeholder: 'Discord 帳號、信箱或 Threads' });
+    const contactField = makeEl('label', 'contact-field');
+    contactField.append(makeEl('span', 'contact-label', '聯絡方式（選填，想收到回覆請留下）'), contact);
+
+    // 給機器程式填的陷阱欄位，真人看不到
+    const trap = makeEl('input', 'contact-trap');
+    Object.assign(trap, { type: 'text', name: 'website', tabIndex: -1, autocomplete: 'off' });
+    trap.setAttribute('aria-hidden', 'true');
+
+    const licence = makeEl('p', 'copybox-hint');
+    const discord = makeEl('a', '', 'Discord 群組');
+    Object.assign(discord, { href: 'https://discord.gg/2vAfyc8fkt', target: '_blank', rel: 'noopener' });
+    licence.append('角色卡授權申請請到 ', discord, ' 使用 /聯繫菜菜子。');
+
+    const widget = makeEl('div', 'contact-widget');
+    const status = makeEl('p', 'contact-status');
+    status.setAttribute('role', 'status');
+    const send = makeEl('button', 'btn contact-send', '送出訊息');
+    send.type = 'submit';
+
+    const setStatus = (text, isError = false) => {
+      status.textContent = text;
+      status.classList.toggle('is-error', isError);
+    };
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (send.disabled) return;
+      if (!message.value.trim()) {
+        setStatus('請先寫下想說的話。', true);
+        message.focus();
+        return;
+      }
+      if (!contactToken) {
+        setStatus('請先完成上方的真人驗證。', true);
+        return;
+      }
+      send.disabled = true;
+      send.textContent = '送出中…';
+      setStatus('');
+      let failure = '訊息暫時送不出去，請稍後再試。';
+      try {
+        const res = await fetch(SITE_CONTACT.endpoint, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ message: message.value, contact: contact.value, website: trap.value, turnstileToken: contactToken }),
+        });
+        const data = await res.json();
+        if (res.ok && data.ok) {
+          const hasContact = !!contact.value.trim();
+          form.reset();
+          count.textContent = '0 / 2000';
+          removeContactWidget();
+          showContactDone(data.id, hasContact);
+          return;
+        }
+        failure = data.message || failure;
+      } catch {
+        // 連線失敗時顯示預設訊息，表單內容保留
+      } finally {
+        send.disabled = false;
+        send.textContent = '送出訊息';
+      }
+      setStatus(failure, true);
+      contactToken = '';
+      if (contactWidget !== null) window.turnstile?.reset(contactWidget);
+    });
+
+    form.append(messageField, contactField, trap, licence, widget, status, send);
+    return { form, verify: () => { setStatus(''); renderContactWidget(widget); } };
+  }
+
+  function openContactForm() {
+    copyboxRequest++;
+    contactForm ??= buildContactForm();
+    document.getElementById('copybox-title').textContent = '傳訊息給菜菜子';
+    copyboxTabs.replaceChildren();
+    copyboxBody.replaceChildren(contactForm.form);
+    copyboxBody.scrollTop = 0;
+    if (!copybox.open) copybox.showModal();
+    contactForm.verify();
+  }
+
+  const contactOpen = document.getElementById('contact-open');
+  contactOpen.hidden = !SITE_CONTACT.turnstileSiteKey;
+  contactOpen.addEventListener('click', openContactForm);
+  copybox.addEventListener('close', removeContactWidget);
 
   // 關閉：右上角按鈕、Esc（瀏覽器內建）、點燈箱外面
   copybox.querySelector('.copybox-close').addEventListener('click', () => copybox.close());
