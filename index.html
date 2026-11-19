@@ -464,14 +464,15 @@
   .spoiler-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
   .spoiler-actions .btn { align-self: stretch; padding: 8px 20px; font-size: 14px; }
   .spoiler-actions .is-primary { color: #fff; background: var(--primary-deep); border-color: var(--primary-deep); }
+  .licence-notice p + p { margin-top: 10px; }
   @media (max-width: 640px) { .spoiler-warn { padding-top: 22vh; } }
 
-  /* 傳訊息給菜菜子 */
+  /* 匿名信箱、角色卡授權申請 */
   .contact-form { display: grid; gap: 14px; }
   .contact-field { display: grid; gap: 6px; min-width: 0; }
   .contact-label { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; font-weight: 700; color: var(--secondary-deep); }
   .contact-count { font-weight: 400; font-size: 13px; color: var(--secondary-muted); }
-  .contact-field textarea, .contact-field input {
+  .contact-field textarea, .contact-field input, .contact-field select {
     width: 100%; min-width: 0;
     padding: 10px 12px;
     font: inherit; font-size: 16px; line-height: 1.6;
@@ -481,7 +482,7 @@
     border-radius: var(--radius-sm);
   }
   .contact-field textarea { min-height: 150px; resize: vertical; }
-  .contact-field textarea:focus-visible, .contact-field input:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+  .contact-field textarea:focus-visible, .contact-field input:focus-visible, .contact-field select:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
   .contact-trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
   .contact-widget { min-height: 65px; }
   .contact-status { margin: 0; font-size: 14px; color: var(--secondary-muted); }
@@ -489,7 +490,7 @@
   .contact-status.is-error { color: #a13d2d; }
   .contact-send { justify-self: end; padding: 8px 22px; font-size: 14px; color: #fff; background: var(--primary-deep); border-color: var(--primary-deep); }
   .contact-send:disabled { opacity: .6; cursor: default; }
-  .contact-form .copybox-hint a { color: var(--primary-deep); }
+  .contact-link { padding: 0; font: inherit; color: var(--primary-deep); text-decoration: underline; background: none; border: 0; cursor: pointer; }
   @media (max-width: 640px) {
     .copybox {
       width: 100%;
@@ -531,6 +532,7 @@
   .links { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
   .links button { width: 100%; font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
   .links button[hidden] { display: none; }
+  .links .link-text small { text-wrap: balance; }
   .links a, .links button {
     display: flex; align-items: center; gap: 14px;
     padding: 14px 16px;
@@ -628,6 +630,7 @@
   <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h9"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></symbol>
   <symbol id="i-message" viewBox="0 0 24 24"><path d="M20 5H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4v4l5-4h7a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/></symbol>
+  <symbol id="i-licence" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M9 14l2 2 4-4"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7c-2-1.7-4.700-2.300-8-2v13c3.300-.3 6 .3 8 2 2-1.700 4.700-2.300 8-2V5c-3.300-.3-6 .3-8 2z"/><path d="M12 7v13"/></symbol>
 </svg>
 
@@ -720,8 +723,9 @@
         <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg><h2>向外連結</h2></div>
         <p class="hint">其他平台的頁面。</p>
         <div class="links">
-          <button type="button" id="contact-open" aria-haspopup="dialog" hidden><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg></span><span class="link-text">傳訊息給菜菜子<small>私訊到 Discord</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-          <a href="https://discord.gg/2vAfyc8fkt" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">Discord群組<small>Discord</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <button type="button" id="contact-open" aria-haspopup="dialog" hidden><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg></span><span class="link-text">匿名信箱<small>傳送匿名訊息給菜菜子</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button type="button" id="licence-open" aria-haspopup="dialog" hidden><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-licence"/></svg></span><span class="link-text">角色卡授權申請<small>申請正式授權書</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <a href="https://discord.gg/2vAfyc8fkt" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">菜園宇宙DC<small>Discord</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a href="https://www.threads.com/@kimmchii.obg" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">Threads<small>@kimmchii.obg</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a href="https://loveydovey.onelink.me/vs4G/arul4vty" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">卿卿我我帳號<small>卿卿我我 App</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a href="https://caveduck.io/zh-hant/share/user/gardenuniverse?_share_hash=" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">鴨答帳號<small>Caveduck</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -1017,12 +1021,13 @@
   const openStory = (c, story) => openCopybox(`${c.name}｜${story.title}`, story.file, res => res.text(),
     text => (story.spoiler ? fillSpoiler(c.name, text) : fillStory(text)));
 
-  // 傳訊息給菜菜子：訊息送到菜園廣播機器人，再私訊給菜菜子。turnstileSiteKey 填好才會顯示入口
+  // 匿名信箱、角色卡授權申請：送到菜園廣播機器人，再私訊給菜菜子。turnstileSiteKey 填好才會顯示入口
   const SITE_CONTACT = {
     endpoint: 'https://caiyuan-broadcast.kimmchii.workers.dev/api/site-contact',
     turnstileSiteKey: '0x4AAAAAAGH_hWO-JTBDEkCe',
   };
   let contactForm = null;
+  let licenceForm = null;
   let contactWidget = null;
   let contactToken = '';
   let contactRender = 0;
@@ -1075,20 +1080,84 @@
     }
   }
 
-  function showContactDone(id, hasContact) {
+  function showSiteFormDone(title, text, again) {
     const close = makeEl('button', 'btn', '關閉');
     close.type = 'button';
     close.addEventListener('click', () => copybox.close());
-    const again = makeEl('button', 'btn is-primary', '再傳一則');
-    again.type = 'button';
-    again.addEventListener('click', openContactForm);
     const actions = makeEl('div', 'spoiler-actions');
-    actions.append(close, again);
+    actions.append(close);
+    if (again) {
+      const more = makeEl('button', 'btn is-primary', again.label);
+      more.type = 'button';
+      more.addEventListener('click', again.open);
+      actions.append(more);
+    }
     const done = makeEl('div', 'spoiler-warn');
-    const follow = hasContact ? '如果需要回覆，菜菜子會用你留下的聯絡方式。' : '你沒有留下聯絡方式，所以不會收到回覆。';
-    done.append(makeEl('h3', '', '訊息已送出'), makeEl('p', '', `${id ? `編號 #${id}。` : ''}${follow}`), actions);
+    done.append(makeEl('h3', '', title), makeEl('p', '', text), actions);
     copyboxBody.replaceChildren(done);
     copyboxBody.scrollTop = 0;
+  }
+
+  function makeContactTrap() {
+    // 給機器程式填的陷阱欄位，真人看不到
+    const trap = makeEl('input', 'contact-trap');
+    Object.assign(trap, { type: 'text', name: 'website', tabIndex: -1, autocomplete: 'off' });
+    trap.setAttribute('aria-hidden', 'true');
+    return trap;
+  }
+
+  // 兩張表單共用的送出流程：失敗時保留填好的內容，重新驗證後可以再送
+  function makeSiteFormControls(form, sendLabel, { check, payload, done }) {
+    const trap = makeContactTrap();
+    const widget = makeEl('div', 'contact-widget');
+    const status = makeEl('p', 'contact-status');
+    status.setAttribute('role', 'status');
+    const send = makeEl('button', 'btn contact-send', sendLabel);
+    send.type = 'submit';
+
+    const setStatus = (text, isError = false) => {
+      status.textContent = text;
+      status.classList.toggle('is-error', isError);
+    };
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (send.disabled) return;
+      if (!check(setStatus)) return;
+      if (!contactToken) {
+        setStatus('請先完成上方的真人驗證。', true);
+        return;
+      }
+      send.disabled = true;
+      send.textContent = '送出中…';
+      setStatus('');
+      let failure = '暫時送不出去，請稍後再試。';
+      try {
+        const res = await fetch(SITE_CONTACT.endpoint, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ ...payload(), website: trap.value, turnstileToken: contactToken }),
+        });
+        const data = await res.json();
+        if (res.ok && data.ok) {
+          done(data.id);
+          form.reset();
+          removeContactWidget();
+          return;
+        }
+        failure = data.message || failure;
+      } catch {
+        // 連線失敗時顯示預設訊息，表單內容保留
+      } finally {
+        send.disabled = false;
+        send.textContent = sendLabel;
+      }
+      setStatus(failure, true);
+      contactToken = '';
+      if (contactWidget !== null) window.turnstile?.reset(contactWidget);
+    });
+
+    return { trap, widget, status, send, verify: () => { setStatus(''); renderContactWidget(widget); } };
   }
 
   function buildContactForm() {
@@ -1109,88 +1178,159 @@
     const contactField = makeEl('label', 'contact-field');
     contactField.append(makeEl('span', 'contact-label', '聯絡方式（選填，想收到回覆請留下）'), contact);
 
-    // 給機器程式填的陷阱欄位，真人看不到
-    const trap = makeEl('input', 'contact-trap');
-    Object.assign(trap, { type: 'text', name: 'website', tabIndex: -1, autocomplete: 'off' });
-    trap.setAttribute('aria-hidden', 'true');
-
     const licence = makeEl('p', 'copybox-hint');
-    const discord = makeEl('a', '', 'Discord 群組');
-    Object.assign(discord, { href: 'https://discord.gg/2vAfyc8fkt', target: '_blank', rel: 'noopener' });
-    licence.append('角色卡授權申請請到 ', discord, ' 使用 /聯繫菜菜子。');
+    const licenceLink = makeEl('button', 'contact-link', '授權申請表單');
+    licenceLink.type = 'button';
+    licenceLink.addEventListener('click', openLicenceNotice);
+    licence.append('角色卡授權申請請改用', licenceLink, '。');
 
-    const widget = makeEl('div', 'contact-widget');
-    const status = makeEl('p', 'contact-status');
-    status.setAttribute('role', 'status');
-    const send = makeEl('button', 'btn contact-send', '送出訊息');
-    send.type = 'submit';
-
-    const setStatus = (text, isError = false) => {
-      status.textContent = text;
-      status.classList.toggle('is-error', isError);
-    };
-
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      if (send.disabled) return;
-      if (!message.value.trim()) {
+    const controls = makeSiteFormControls(form, '送出訊息', {
+      check: setStatus => {
+        if (message.value.trim()) return true;
         setStatus('請先寫下想說的話。', true);
         message.focus();
-        return;
-      }
-      if (!contactToken) {
-        setStatus('請先完成上方的真人驗證。', true);
-        return;
-      }
-      send.disabled = true;
-      send.textContent = '送出中…';
-      setStatus('');
-      let failure = '訊息暫時送不出去，請稍後再試。';
-      try {
-        const res = await fetch(SITE_CONTACT.endpoint, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ message: message.value, contact: contact.value, website: trap.value, turnstileToken: contactToken }),
-        });
-        const data = await res.json();
-        if (res.ok && data.ok) {
-          const hasContact = !!contact.value.trim();
-          form.reset();
-          count.textContent = '0 / 2000';
-          removeContactWidget();
-          showContactDone(data.id, hasContact);
-          return;
-        }
-        failure = data.message || failure;
-      } catch {
-        // 連線失敗時顯示預設訊息，表單內容保留
-      } finally {
-        send.disabled = false;
-        send.textContent = '送出訊息';
-      }
-      setStatus(failure, true);
-      contactToken = '';
-      if (contactWidget !== null) window.turnstile?.reset(contactWidget);
+        return false;
+      },
+      payload: () => ({ message: message.value, contact: contact.value }),
+      done: id => {
+        const follow = contact.value.trim() ? '如果需要回覆，菜菜子會用你留下的聯絡方式。' : '你沒有留下聯絡方式，所以不會收到回覆。';
+        count.textContent = '0 / 2000';
+        showSiteFormDone('訊息已送出', `${id ? `編號 #${id}。` : ''}${follow}`, { label: '再傳一則', open: openContactForm });
+      },
     });
 
-    form.append(messageField, contactField, trap, licence, widget, status, send);
-    return { form, verify: () => { setStatus(''); renderContactWidget(widget); } };
+    form.append(messageField, contactField, controls.trap, licence, controls.widget, controls.status, controls.send);
+    return { form, verify: controls.verify };
+  }
+
+  function makeLicenceInput(label, attrs) {
+    const input = makeEl('input');
+    Object.assign(input, { type: 'text', required: true, autocomplete: 'off', ...attrs });
+    const field = makeEl('label', 'contact-field');
+    field.append(makeEl('span', 'contact-label', label), input);
+    return { input, field };
+  }
+
+  function buildLicenceForm() {
+    const form = makeEl('form', 'contact-form');
+    form.noValidate = true;
+
+    const character = makeEl('select');
+    Object.assign(character, { name: 'character', required: true });
+    character.append(new Option('請選擇角色', ''), ...characters.map(c => new Option(c.name, c.name)));
+    const characterField = makeEl('label', 'contact-field');
+    characterField.append(makeEl('span', 'contact-label', '申請角色'), character);
+
+    const applicant = makeLicenceInput('申請人名稱', { name: 'applicant', maxLength: 100, placeholder: '授權書上要寫的名稱' });
+    const email = makeLicenceInput('Email（收正式授權書用）', { type: 'email', name: 'email', maxLength: 254, autocomplete: 'email', placeholder: 'name@example.com' });
+    const platform = makeLicenceInput('預計開放平台', { name: 'platform', maxLength: 200, placeholder: '例如：卿卿我我、Floze或任何AI平台' });
+
+    const purpose = makeEl('textarea');
+    Object.assign(purpose, { name: 'purpose', rows: 6, maxLength: 1000, required: true, placeholder: '要做什麼、怎麼改、是否涉及營利' });
+    const count = makeEl('span', 'contact-count', '0 / 1000');
+    purpose.addEventListener('input', () => { count.textContent = `${purpose.value.length} / 1000`; });
+    const purposeTitle = makeEl('span', 'contact-label');
+    purposeTitle.append(makeEl('span', '', '用途說明'), count);
+    const purposeField = makeEl('label', 'contact-field');
+    purposeField.append(purposeTitle, purpose);
+
+    const note = makeEl('p', 'copybox-hint', 'Email 只用來寄送正式授權書。');
+
+    const required = [
+      [character, '請選擇要申請的角色。'],
+      [applicant.input, '請填寫申請人名稱。'],
+      [email.input, '請填寫收授權書的 Email。'],
+      [platform.input, '請填寫預計開放平台。'],
+      [purpose, '請填寫用途說明。'],
+    ];
+
+    const controls = makeSiteFormControls(form, '送出申請', {
+      check: setStatus => {
+        const missing = required.find(([input]) => !input.value.trim());
+        if (missing) {
+          setStatus(missing[1], true);
+          missing[0].focus();
+          return false;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.input.value.trim())) {
+          setStatus('Email 格式不正確，正式授權書會寄到這個信箱。', true);
+          email.input.focus();
+          return false;
+        }
+        return true;
+      },
+      payload: () => ({
+        kind: 'licence',
+        character: character.value,
+        applicant: applicant.input.value,
+        email: email.input.value,
+        platform: platform.input.value,
+        purpose: purpose.value,
+      }),
+      done: id => {
+        const mail = email.input.value.trim();
+        count.textContent = '0 / 1000';
+        showSiteFormDone('申請已送出', `${id ? `編號 #${id}。` : ''}菜菜子同意後，正式授權書會寄到 ${mail}。同意之前請先不要公開。`);
+      },
+    });
+
+    form.append(characterField, applicant.field, email.field, platform.field, purposeField, note, controls.trap, controls.widget, controls.status, controls.send);
+    return { form, verify: controls.verify };
+  }
+
+  function showSiteForm(title, entry) {
+    copyboxRequest++;
+    document.getElementById('copybox-title').textContent = title;
+    copyboxTabs.replaceChildren();
+    copyboxBody.replaceChildren(entry.form);
+    copyboxBody.scrollTop = 0;
+    if (!copybox.open) copybox.showModal();
+    entry.verify();
   }
 
   function openContactForm() {
-    copyboxRequest++;
     contactForm ??= buildContactForm();
-    document.getElementById('copybox-title').textContent = '傳訊息給菜菜子';
+    showSiteForm('匿名信箱', contactForm);
+  }
+
+  function openLicenceForm() {
+    licenceForm ??= buildLicenceForm();
+    showSiteForm('角色卡授權申請', licenceForm);
+  }
+
+  // 先提醒私人使用不用申請，確定要公開改作才進表單
+  function openLicenceNotice() {
+    copyboxRequest++;
+    removeContactWidget();
+    document.getElementById('copybox-title').textContent = '角色卡授權申請';
     copyboxTabs.replaceChildren();
-    copyboxBody.replaceChildren(contactForm.form);
+
+    const skip = makeEl('button', 'btn', '私人使用，不用申請');
+    skip.type = 'button';
+    skip.addEventListener('click', () => copybox.close());
+    const next = makeEl('button', 'btn is-primary', '我要改作後公開，繼續申請');
+    next.type = 'button';
+    next.addEventListener('click', openLicenceForm);
+    const actions = makeEl('div', 'spoiler-actions');
+    actions.append(skip, next);
+
+    const notice = makeEl('div', 'spoiler-warn licence-notice');
+    notice.append(
+      makeEl('h3', '', '注意事項'),
+      makeEl('p', '', '⚠️ 角色卡僅適用私人用途，請勿用於公開角色或任何商業用途（包含作為官方角色公開、改編角色再進行廣告宣傳）。'),
+      makeEl('p', '', '只有需要改作後公開時，才需要提出授權申請。私人、私下使用不需要申請。'),
+      actions,
+    );
+    copyboxBody.replaceChildren(notice);
     copyboxBody.scrollTop = 0;
     if (!copybox.open) copybox.showModal();
-    contactForm.verify();
   }
 
   const contactOpen = document.getElementById('contact-open');
-  contactOpen.hidden = !SITE_CONTACT.turnstileSiteKey;
+  const licenceOpen = document.getElementById('licence-open');
+  contactOpen.hidden = licenceOpen.hidden = !SITE_CONTACT.turnstileSiteKey;
   contactOpen.addEventListener('click', openContactForm);
+  licenceOpen.addEventListener('click', openLicenceNotice);
   copybox.addEventListener('close', removeContactWidget);
 
   // 關閉：右上角按鈕、Esc（瀏覽器內建）、點燈箱外面
