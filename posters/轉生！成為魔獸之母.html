@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>轉生！成為魔獸之母｜就任手冊</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：第二十一代魔獸之母的就任手冊。黑曜岩的暗紫、紫月的淡紫、帳本的金與羊皮紙色；三位領袖各有代表色 -->
+<style>
+  :root {
+    --bg: #0d0a14;
+    --bg-2: #141020;
+    --panel: #1b1529;
+    --line: rgba(201, 167, 255, .17);
+    --ink: #ece6f5;
+    --muted: #a99fbb;
+    --moon: #cfb2ff;
+    --moon-deep: #9b6cf0;
+    --gold: #d8b46a;
+    --gold-text: #ecca84;
+    --parch: #ece2cc;
+    --parch-2: #e2d6ba;
+    --parch-ink: #2c2433;
+    --minus: #f0788a;
+    --plus: #86d9ae;
+    --abyss: #a49bff;
+    --lava: #f39050;
+    --sky: #93c8ff;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --gutter: clamp(20px, 6vw, 48px);
+    --ease: cubic-bezier(.22, .61, .36, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet { max-width: 720px; margin: 0 auto; overflow: hidden; background: var(--bg); }
+  h1, h2, h3, p, ol, ul, dl, dd, figure { margin: 0; padding: 0; }
+  ol, ul { list-style: none; }
+  button { font: inherit; color: inherit; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  /* 照片不給存 */
+  img { display: block; width: 100%; height: auto; pointer-events: none; -webkit-user-drag: none; }
+  figure { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+
+  section { position: relative; padding: clamp(48px, 9vw, 76px) var(--gutter); }
+  /* 小標：一顆紫月 */
+  .tag {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 6px;
+    font-size: 12.5px; letter-spacing: .3em;
+    color: var(--moon);
+  }
+  .tag::before {
+    content: ""; flex: none; width: 10px; height: 10px; border-radius: 50%;
+    box-shadow: inset -3px 0 0 var(--moon), 0 0 8px rgba(207, 178, 255, .5);
+  }
+  h2 {
+    margin-bottom: 24px;
+    font-family: var(--serif);
+    font-size: clamp(25px, 5.6vw, 34px);
+    line-height: 1.4;
+    letter-spacing: .1em;
+    text-shadow: 0 0 18px rgba(155, 108, 240, .45);
+  }
+  section > p + p { margin-top: 1em; }
+  .note { font-size: 14px; color: var(--muted); }
+
+  /* 封面：紫月下的城堡 */
+  /* 封面不超過視窗高度，放在角色頁的框裡也能一眼看到標題 */
+  .cover { position: relative; height: clamp(480px, min(125vw, 100vh), 900px); height: clamp(480px, min(125vw, 100svh), 900px); padding: 0; isolation: isolate; }
+  .cover > img { position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: center 30%; z-index: -2; }
+  .cover::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, rgba(13, 10, 20, .55), transparent 20%, transparent 40%, rgba(13, 10, 20, .88) 72%, var(--bg));
+  }
+  .hud {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 16px var(--gutter);
+    font-size: 12px; letter-spacing: .24em;
+    color: var(--moon);
+  }
+  .cover-title { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(60px, 13vw, 96px); text-align: center; }
+  .kicker {
+    display: block;
+    text-shadow: none;
+    font-family: var(--serif); font-size: clamp(20px, 5vw, 30px); font-weight: 700; letter-spacing: .3em;
+    color: var(--gold-text);
+  }
+  .cover h1 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 11vw, 74px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: .12em;
+    color: #f6f0ff;
+    text-shadow: 0 0 24px rgba(155, 108, 240, .85), 0 0 2px rgba(255, 255, 255, .6);
+  }
+  .balance {
+    display: inline-flex; align-items: baseline; gap: 12px;
+    margin-top: 14px; padding: 4px 18px;
+    font-size: 13px; letter-spacing: .24em;
+    color: var(--gold-text);
+    border: 1px solid rgba(216, 180, 106, .55);
+    background: rgba(13, 10, 20, .55);
+  }
+  .balance b { font-family: var(--serif); font-size: 26px; letter-spacing: 0; color: #fff; }
+  .start {
+    position: absolute; left: 0; right: 0; bottom: 20px;
+    font-size: 12px; letter-spacing: .3em; text-align: center;
+    color: var(--muted);
+  }
+  .start::after { content: " ▼"; animation: blink 1.6s steps(1) infinite; }
+
+  /* 就任須知 */
+  .lead { font-family: var(--serif); font-size: 17px; line-height: 1.9; color: #fff; }
+  .rulebook { margin-top: 28px; border-top: 1px solid var(--line); }
+  .rulebook li { display: grid; grid-template-columns: 3.4em minmax(0, 1fr); gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .rulebook .k { font-family: var(--serif); font-size: 15px; font-weight: 700; letter-spacing: .2em; line-height: 1.9; color: var(--gold-text); }
+
+  /* 國庫：羊皮紙與三只木箱 */
+  .vault { background: linear-gradient(180deg, var(--bg), var(--bg-2) 50%, var(--bg)); }
+  .parchment {
+    position: relative;
+    margin: 4px auto 30px; padding: 22px 24px 26px;
+    max-width: 440px;
+    text-align: center;
+    color: var(--parch-ink);
+    background: radial-gradient(120% 90% at 50% 40%, var(--parch), var(--parch-2));
+    box-shadow: 0 22px 40px -20px rgba(0, 0, 0, .9);
+    transform: rotate(-1.5deg);
+  }
+  .parchment::before, .parchment::after {
+    content: ""; position: absolute; top: 10px; width: 10px; height: 10px; border-radius: 50%;
+    background: #6b5a3f; box-shadow: 0 1px 0 rgba(255, 255, 255, .4);
+  }
+  .parchment::before { left: 12px; }
+  .parchment::after { right: 12px; }
+  .parchment .where { font-size: 12px; letter-spacing: .2em; color: #6e6152; }
+  .zero { font-family: var(--serif); font-size: clamp(120px, 34vw, 190px); font-weight: 700; line-height: 1.05; }
+  .parchment .unit { font-size: 13px; letter-spacing: .3em; color: #6e6152; }
+  .crates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 26px 0 18px; }
+  .crate {
+    position: relative;
+    padding: 30px 10px 14px;
+    font-family: var(--serif); font-size: 15px; line-height: 1.5; text-align: center;
+    color: #f0e3cc;
+    background: repeating-linear-gradient(0deg, #4a3826 0 17px, #3c2d1f 17px 19px);
+    border: 2px solid #2a1f15;
+  }
+  .crate::before {
+    content: "退貨";
+    position: absolute; top: 6px; left: 50%; translate: -50% 0;
+    padding: 0 6px;
+    font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: .2em; line-height: 1.6;
+    color: #2c2433; background: #f2ead7;
+    rotate: -4deg;
+  }
+  .crate:nth-child(2)::before { rotate: 3deg; }
+  .crate:nth-child(3)::before { rotate: -1deg; }
+
+  /* 三位領袖 */
+  .leader {
+    --c: var(--moon);
+    margin-top: 30px; padding: clamp(14px, 3.5vw, 22px);
+    background: var(--panel);
+    border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+  }
+  .leader.derian { --c: var(--abyss); }
+  .leader.rex { --c: var(--lava); }
+  .leader.seren { --c: var(--sky); }
+  .leader-head { display: grid; grid-template-columns: minmax(120px, 40%) minmax(0, 1fr); gap: clamp(16px, 4vw, 26px); align-items: start; }
+  .leader figure { position: relative; }
+  .leader img { aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; }
+  .leader figcaption {
+    position: absolute; left: 8px; top: 8px;
+    padding: 0 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: .2em;
+    color: #120d1c; background: var(--c);
+  }
+  .title { font-size: 12.5px; letter-spacing: .2em; color: var(--c); }
+  .name { margin-bottom: 8px; font-family: var(--serif); font-size: clamp(22px, 5vw, 28px); font-weight: 700; line-height: 1.35; letter-spacing: .06em; }
+  .stats > div { display: grid; grid-template-columns: 3.2em minmax(0, 1fr); gap: 10px; padding: 6px 0; border-bottom: 1px dashed var(--line); }
+  .stats > div:last-child { border-bottom: 0; }
+  .stats dt { font-size: 12.5px; letter-spacing: .12em; line-height: 2; color: var(--muted); }
+  .stats dd { font-size: 14px; line-height: 1.8; }
+  .stats .big { font-family: var(--serif); font-size: 18px; font-weight: 700; color: var(--c); }
+  .stats .big small { font-family: var(--sans); font-size: 12.5px; font-weight: 400; color: var(--muted); }
+  .bought { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .bought h3, .weak h3 { margin-bottom: 6px; font-size: 13px; letter-spacing: .2em; color: var(--c); }
+  .bought li { position: relative; padding-left: 20px; font-size: 14.5px; line-height: 1.75; }
+  .bought li + li { margin-top: 4px; }
+  .bought li::before { content: "－"; position: absolute; left: 0; font-weight: 700; color: var(--minus); }
+  .weak { margin-top: 14px; }
+  .weak p { font-size: 14.5px; line-height: 1.8; }
+  .room { margin-top: 14px; padding: 10px 14px; font-size: 14px; line-height: 1.8; color: var(--muted); border-left: 3px solid var(--c); background: rgba(255, 255, 255, .03); }
+
+  /* 罰跪 */
+  .kneel { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 26px 0 10px; }
+  .kneel figure { text-align: center; }
+  .kneel img { aspect-ratio: 4 / 5; object-fit: cover; object-position: center 20%; filter: saturate(.85); }
+  .kneel figcaption { margin-top: 8px; font-family: var(--serif); font-size: 15px; letter-spacing: .1em; }
+  .kneel .dent { display: block; font-family: var(--sans); font-size: 12px; letter-spacing: .1em; color: var(--gold-text); }
+  .tally { margin: 28px 0 18px; padding: 18px 20px; background: #19151f; border: 1px solid #2f2838; }
+  .tally .where { margin-bottom: 10px; font-size: 12px; letter-spacing: .2em; color: var(--muted); }
+  .tally li { display: grid; grid-template-columns: 3.6em minmax(0, 1fr); gap: 12px; align-items: center; padding: 8px 0; }
+  .tally li + li { border-top: 1px dashed #2f2838; }
+  .tally b { font-family: var(--serif); font-size: 15px; }
+  .marks { position: relative; height: 26px; }
+  .marks i { display: block; height: 100%; }
+  /* 刻痕：五道一組，數量不寫死，往右淡出 */
+  .marks.many i {
+    background:
+      linear-gradient(118deg, transparent 47%, #bfb3cf 47% 51%, transparent 51%) 0 0 / 58px 100% repeat-x,
+      linear-gradient(90deg, transparent 4px, #bfb3cf 4px 6px, transparent 6px 14px, #bfb3cf 14px 16px, transparent 16px 24px, #bfb3cf 24px 26px, transparent 26px 34px, #bfb3cf 34px 36px, transparent 36px) 0 0 / 58px 100% repeat-x;
+    -webkit-mask-image: linear-gradient(90deg, #000 60%, transparent);
+    mask-image: linear-gradient(90deg, #000 60%, transparent);
+  }
+  .marks.many.long i { width: 100%; }
+  .marks.many.mid i { width: 58%; }
+  .marks.neat i { width: 24px; background: linear-gradient(90deg, transparent 4px, #e6dcf3 4px 6px, transparent 6px 16px, #e6dcf3 16px 18px, transparent 18px); }
+  .tally .say { grid-column: 2; margin-top: -4px; font-size: 13px; color: var(--muted); }
+
+  /* 紫月 */
+  .moon-sec { background: radial-gradient(80% 50% at 70% 0%, rgba(155, 108, 240, .2), transparent 70%), var(--bg); }
+  .moon-box { display: grid; grid-template-columns: minmax(150px, 40%) minmax(0, 1fr); gap: clamp(18px, 4vw, 28px); align-items: center; margin-top: 8px; }
+  .moon-box svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .moon-lit { fill: url(#moon-grad); filter: drop-shadow(0 0 14px rgba(186, 140, 255, .75)); }
+  .phase-name { font-family: var(--serif); font-size: clamp(26px, 6vw, 34px); font-weight: 700; letter-spacing: .14em; color: var(--moon); }
+  .phase-range { font-size: 13px; letter-spacing: .14em; color: var(--gold-text); }
+  .phase-text { margin-top: 10px; display: grid; gap: 6px; }
+  .phase-text li { position: relative; padding-left: 16px; font-size: 14.5px; line-height: 1.75; }
+  .phase-text li::before { content: ""; position: absolute; left: 1px; top: .7em; width: 6px; height: 6px; border-radius: 50%; background: var(--moon); }
+  .phases { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; margin-top: 24px; }
+  .phases button {
+    padding: 8px 2px 6px;
+    font-family: var(--serif); font-size: 14px; line-height: 1.3;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color .2s, border-color .2s;
+  }
+  .phases button small { display: block; margin-top: 3px; font-family: var(--sans); font-size: 10.5px; letter-spacing: 0; color: var(--muted); }
+  .phases button:hover, .phases button:focus-visible { border-color: var(--moon); outline: none; }
+  .phases button[aria-pressed="true"] { color: #120d1c; background: var(--moon); border-color: var(--moon); }
+  .phases button[aria-pressed="true"] small { color: #3b2b55; }
+  .now[hidden] { display: none; }
+  .now { display: inline-block; margin-left: 8px; padding: 0 6px; font-family: var(--sans); font-size: 11px; letter-spacing: .1em; vertical-align: 4px; color: #120d1c; background: var(--gold); }
+
+  /* 帳房規則 */
+  .ledger { display: grid; gap: 14px; margin-top: 8px; }
+  .book { padding: 16px 18px; color: var(--parch-ink); background: var(--parch); box-shadow: 0 16px 30px -18px rgba(0, 0, 0, .9); }
+  .book h3 { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; font-family: var(--serif); font-size: 18px; letter-spacing: .12em; }
+  .book h3 small { font-family: var(--sans); font-size: 12px; font-weight: 400; letter-spacing: .1em; color: #6e6152; }
+  .book li { display: grid; grid-template-columns: 1.6em 7.4em minmax(0, 1fr); gap: 8px; padding: 6px 0; font-size: 14px; line-height: 1.7; border-top: 1px solid rgba(44, 36, 51, .14); }
+  .book .tier { font-family: var(--serif); font-weight: 700; }
+  .book .amt { font-family: var(--serif); font-weight: 700; color: #2f6b4b; white-space: nowrap; }
+  .book .rule { display: block; padding: 8px 0 0; font-size: 13px; color: #6e6152; border-top: 1px solid rgba(44, 36, 51, .14); }
+  .book.bad .amt { color: #7a3b1d; }
+  .book.flirt .amt { color: #6a3d97; }
+  .debit {
+    margin-top: 18px; padding: 14px 18px;
+    font-size: 14.5px; line-height: 1.8;
+    background: rgba(240, 120, 138, .08);
+    border-left: 3px solid var(--minus);
+  }
+  .debit b { color: var(--minus); white-space: nowrap; }
+  .tick { margin-top: 14px; font-size: 14px; color: var(--muted); }
+  .tick code { padding: 1px 8px; font-family: var(--sans); color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 3px; }
+
+  /* 城堡剖面 */
+  .floor { background: var(--bg-2); }
+  .plan { padding: clamp(12px, 3vw, 20px); background: var(--bg); border: 1px solid var(--line); }
+  .plan-scroll { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; }
+  .plan svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .swipe { display: none; }
+  .plan .t { font-family: var(--serif); font-size: 20px; font-weight: 700; fill: #ece6f5; text-anchor: middle; pointer-events: none; }
+  .plan .s { font-family: var(--sans); font-size: 14px; fill: #a99fbb; text-anchor: middle; pointer-events: none; }
+  .plan .fl { font-family: var(--sans); font-size: 12px; fill: #7d7390; pointer-events: none; }
+  .zone { cursor: pointer; outline: none; }
+  .zone .r { fill: #1d1729; stroke: #4b4060; stroke-width: 2; transition: fill .2s, stroke .2s; }
+  .zone:hover .r, .zone:focus-visible .r { stroke: var(--moon); }
+  .zone.is-on .r { fill: rgba(155, 108, 240, .32); stroke: var(--moon); }
+  .zone .hit { fill: none; stroke: transparent; stroke-width: 22; }
+  .zone .walk { fill: none; stroke: var(--moon); stroke-width: 2.5; stroke-dasharray: 8 6; transition: stroke-width .2s; }
+  .zone.is-on .walk { stroke-width: 4; }
+  .plan .wing { fill: #191427; stroke: #4b4060; stroke-width: 2; }
+  .plan .box { fill: #6b5236; stroke: #2a1f15; stroke-width: 1.5; }
+  .plan .river { fill: none; stroke: #7d63b8; stroke-width: 2; }
+  .plan .fall { fill: none; stroke: #8fa6d8; stroke-width: 1.6; opacity: .7; }
+  .plan .ground { stroke: #6a5f7d; stroke-width: 2; }
+  .floors { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+  .floors button {
+    padding: 4px 12px;
+    font-size: 13.5px; line-height: 1.6;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .floors button:hover, .floors button:focus-visible { border-color: var(--moon); outline: none; }
+  .floors button[aria-pressed="true"] { color: #120d1c; background: var(--moon); border-color: var(--moon); }
+  .pick {
+    min-height: 5.4em; margin-top: 16px; padding: 14px 18px;
+    font-size: 14.5px; line-height: 1.8;
+    color: var(--muted);
+    background: var(--panel);
+    border-left: 3px solid var(--moon);
+  }
+  .pick b { display: block; margin-bottom: 2px; font-family: var(--serif); font-size: 16px; letter-spacing: .1em; color: var(--moon); }
+  .pick span { color: var(--ink); }
+
+  /* 起源迴廊 */
+  .gallery { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; margin: 6px 0 26px; }
+  .gallery i { aspect-ratio: 3 / 4; background: linear-gradient(160deg, #3a2f52, #241d33); border: 2px solid #6c5a3a; }
+  .gallery i:nth-child(odd) { background: linear-gradient(200deg, #3d3157, #221b31); }
+  .gallery i:last-child { position: relative; background: transparent; border: 2px dashed var(--gold); }
+  .gallery i:last-child::after { content: "21"; position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--serif); font-size: 15px; font-style: normal; color: var(--gold-text); }
+  .gallery-note { margin-top: -18px; margin-bottom: 24px; font-size: 12.5px; text-align: right; color: var(--muted); }
+  .routes { display: grid; gap: 14px; margin-top: 26px; }
+  .routes li { display: grid; grid-template-columns: 3.4em minmax(0, 1fr); gap: 12px; padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); }
+  .routes .k { font-family: var(--serif); font-size: 15px; font-weight: 700; letter-spacing: .14em; line-height: 1.8; color: var(--gold-text); }
+  .routes p { font-size: 14.5px; line-height: 1.8; }
+
+  /* 結尾 */
+  .end { padding-top: clamp(30px, 6vw, 48px); padding-bottom: clamp(64px, 12vw, 96px); text-align: center; background: radial-gradient(70% 70% at 50% 100%, rgba(155, 108, 240, .28), transparent 70%), var(--bg); }
+  .end .sys-line { font-size: 12px; letter-spacing: .24em; color: var(--muted); }
+  .end .line { margin-top: 14px; font-family: var(--serif); font-size: clamp(21px, 5vw, 28px); line-height: 1.8; color: #f6f0ff; }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* 捲到才淡入（poster.js 會加上 .js）。用 translate 才不會蓋掉卡片本身的傾斜角度 */
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .start::after { animation: none; }
+  }
+
+  @media (max-width: 520px) {
+    .leader-head, .moon-box { grid-template-columns: minmax(0, 1fr); }
+    .leader figure { width: min(240px, 72%); }
+    .moon-box svg { width: min(200px, 60%); margin: 0 auto; }
+    .phases { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .crates { grid-template-columns: minmax(0, 1fr); }
+    .crate { padding: 26px 10px 12px; }
+    .kneel { gap: 8px; }
+    .kneel figcaption { font-size: 13.5px; letter-spacing: .04em; }
+    .book li { grid-template-columns: 1.6em minmax(0, 1fr); }
+    .book .what { grid-column: 2; }
+    /* 手機上剖面圖維持可讀的字級，改成左右滑動 */
+    .plan svg { width: 540px; max-width: none; }
+    .swipe { display: block; margin-top: 8px; font-size: 12.5px; text-align: center; color: var(--muted); }
+    .hud { font-size: 11px; letter-spacing: .16em; }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <!-- 封面 -->
+  <header class="cover">
+    <img src="../images/posters/轉生-城堡.webp" width="1024" height="1536" alt="紫月下的魔都與魔母城堡">
+    <p class="hud"><span>不詳世界・魔都</span><span>第 21 代魔獸之母</span></p>
+    <div class="cover-title">
+      <h1><span class="kicker">轉生！</span>成為魔獸之母</h1>
+      <p class="balance">國庫餘額<b>0</b>魔幣</p>
+    </div>
+    <p class="start">往下捲動，接手魔都</p>
+  </header>
+
+  <!-- 就任須知 -->
+  <section>
+    <p class="tag" data-reveal>就任須知</p>
+    <h2 data-reveal>歡迎就任，母親</h2>
+    <p class="lead" data-reveal>不詳世界是令人聞風喪膽的魔族世界，與墮落、邪惡、征服為伍。你醒來時，已經是第二十一代魔獸之母，不詳世界的領導者。</p>
+    <ol class="rulebook">
+      <li data-reveal><span class="k">居城</span><p>魔母城堡。魔都最高處的哥德式尖塔群，用黑曜岩與深淵晶砌成。牆體吸光，白天看起來也是暗的。</p></li>
+      <li data-reveal><span class="k">三族</span><p>深淵族、異獸族、幻妖族各有部落，一起效忠魔母一族。三族的領袖都常駐在城裡。</p></li>
+      <li data-reveal><span class="k">血脈</span><p>母系氏族，以女性傳位。魔母生下的公主是繼承人；三族領袖則由那族最強的魔獸擔任，不世襲。</p></li>
+      <li data-reveal><span class="k">人手</span><p>幽靈僕役沒有聲音、完全聽令，也不用發薪水。石像鬼守門，認人不認事。需要判斷的事，都得魔母或三位領袖親自出面。</p></li>
+      <li data-reveal><span class="k">目標</span><p>攻打聖耀世界，獲得勝利，統治聖耀。</p></li>
+      <li data-reveal><span class="k">現況</span><p>聖耀世界的零食、偶像周邊和各種新奇玩意，每天透過貨運傳送門送進城堡。近三年新增的物品，比過去兩百年都多。</p></li>
+    </ol>
+  </section>
+
+  <!-- 國庫 -->
+  <section class="vault">
+    <p class="tag" data-reveal>帳房報告</p>
+    <h2 data-reveal>國庫只剩回音</h2>
+    <figure class="parchment" data-reveal>
+      <p class="where">帳房・最新一張羊皮紙</p>
+      <p class="zero" aria-label="0">0</p>
+      <p class="unit">魔幣</p>
+    </figure>
+    <p data-reveal>這張羊皮紙掛在議事間收支表的正中央。國庫在地下第一層，九排架子全空，只有第一排被擦過。歷代最滿是第十四代，九排全滿，還要往地上堆。</p>
+    <ul class="crates" data-reveal aria-label="國庫裡剩下的三只木箱">
+      <li class="crate">燒壞的儀器</li>
+      <li class="crate">過期的肉乾</li>
+      <li class="crate">全套盒裝</li>
+    </ul>
+    <p data-reveal>現在國庫裡只剩門邊這三只木箱。箱子上都貼了退貨標籤，但沒有人知道要退到哪裡。</p>
+    <p class="note" data-reveal>庫門仍然每天由算帳魔上鎖。沒有人提議停止這個程序。</p>
+  </section>
+
+  <!-- 三位領袖 -->
+  <section>
+    <p class="tag" data-reveal>帳房調查</p>
+    <h2 data-reveal>國庫是被誰買空的</h2>
+    <p data-reveal>三族領袖知道應該反抗聖耀世界的誘惑，卻一直被新奇玩意吸引。三人看起來感情不好，其實十分緊密，像三個很愛吵架的兄弟。他們稱呼你為母親。</p>
+
+    <article class="leader derian" data-reveal>
+      <div class="leader-head">
+        <figure>
+          <img src="../images/characters/轉生！成為魔獸之母-7.jpg" width="600" height="749" alt="背上長著觸手的德里安">
+          <figcaption>深淵族</figcaption>
+        </figure>
+        <div>
+          <p class="title">深淵族領袖</p>
+          <p class="name">深潛之星．德里安</p>
+          <dl class="stats">
+            <div><dt>年齡</dt><dd class="big">256 <small>人類的 25 歲</small></dd></div>
+            <div><dt>身高</dt><dd class="big">187</dd></div>
+            <div><dt>外觀</dt><dd>黑色短髮，銀河色眼睛，紫色帶點星塵的皮膚，背上四根滑膩的觸手</dd></div>
+            <div><dt>能力</dt><dd>心靈控制術，範圍比一般深淵族更廣，效力也更久</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="bought">
+        <h3>消費紀錄</h3>
+        <ul>
+          <li>聖耀世界商城宣稱有用的科技產品，結果都是垃圾</li>
+          <li>明星周邊，收在寢間一個上鎖的「空櫃」裡</li>
+        </ul>
+      </div>
+      <div class="weak">
+        <h3>破綻</h3>
+        <p>對數字和圖表很敏感，只要不是廣告都判斷得準。面對廣告，腦波很弱。緊張時皮膚會變成粉色，觸手的黏液也會變多。</p>
+      </div>
+      <p class="room">深淵翼的儀器間照購入順序排滿產品，第三排以後的東西從來沒有通過電。</p>
+    </article>
+
+    <article class="leader rex" data-reveal>
+      <div class="leader-head">
+        <figure>
+          <img src="../images/characters/轉生！成為魔獸之母-6.jpg" width="600" height="750" alt="金髮狼耳的銳克斯">
+          <figcaption>異獸族</figcaption>
+        </figure>
+        <div>
+          <p class="title">異獸族領袖</p>
+          <p class="name">火山狼牙．銳克斯</p>
+          <dl class="stats">
+            <div><dt>年齡</dt><dd class="big">287 <small>人類的 28 歲</small></dd></div>
+            <div><dt>身高</dt><dd class="big">197</dd></div>
+            <div><dt>外觀</dt><dd>金色短髮、狼耳與尾巴，熔岩色的眼睛飄著不詳之氣。可以變成人，也可以變成狼</dd></div>
+            <div><dt>能力</dt><dd>身手矯健、速度敏捷，爪子和利牙是戰鬥上的利器</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="bought">
+        <h3>消費紀錄</h3>
+        <ul>
+          <li>聖耀世界的寵物肉乾點心</li>
+          <li>限定口味，捨不得吃，鎖在一只木箱裡</li>
+        </ul>
+      </div>
+      <div class="weak">
+        <h3>破綻</h3>
+        <p>火爆一根筋，喜歡就非常喜歡，討厭就非常討厭。本來只吃肉，現在抗拒不了加工的肉乾，最近很容易被零食誘惑。</p>
+      </div>
+      <p class="room">異獸翼是全城唯一曬得到光的地方。北側的武器庫有一半改放零食，零食包裝袋的聲音是全城最容易辨識的聲音之一。</p>
+    </article>
+
+    <article class="leader seren" data-reveal>
+      <div class="leader-head">
+        <figure>
+          <img src="../images/characters/轉生！成為魔獸之母-5.jpg" width="600" height="750" alt="抱著豎琴的賽倫">
+          <figcaption>幻妖族</figcaption>
+        </figure>
+        <div>
+          <p class="title">幻妖族領袖</p>
+          <p class="name">黑百合．賽倫</p>
+          <dl class="stats">
+            <div><dt>年齡</dt><dd class="big">351 <small>人類的 35 歲，三人中最老</small></dd></div>
+            <div><dt>身高</dt><dd class="big">177</dd></div>
+            <div><dt>外觀</dt><dd>天藍色長髮，長耳朵，寶石紅色的眼睛</dd></div>
+            <div><dt>能力</dt><dd>歌舞專精，有用歌聲迷惑對方致死的紀錄。發動魅惑時，雙眼會閃爍光芒</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="bought">
+        <h3>消費紀錄</h3>
+        <ul>
+          <li>各種看劇平台的訂閱</li>
+          <li>小說和漫畫</li>
+        </ul>
+      </div>
+      <div class="weak">
+        <h3>破綻</h3>
+        <p>惡作劇的心態很重。連續劇看太多，常常從別人的一個舉動，自行幻想出一整段劇情。</p>
+      </div>
+      <p class="room">幻妖翼的螺旋梯下堆著追劇平台的訂閱憑證。最新一張的日期是上個月，帳已經付不出來。</p>
+    </article>
+  </section>
+
+  <!-- 罰跪 -->
+  <section>
+    <p class="tag" data-reveal>星髓大廳・第三階</p>
+    <h2 data-reveal>罰跪的位置是固定的</h2>
+    <p data-reveal>王座設在大廳北端的高台上，共七階。第三階下方的石面跪出了三個凹痕，深度不一，大概不是第一天罰跪了。</p>
+    <div class="kneel" data-reveal>
+      <figure><img src="../images/characters/轉生！成為魔獸之母-3.jpg" width="600" height="767" alt="德里安"><figcaption>德里安</figcaption></figure>
+      <figure><img src="../images/characters/轉生！成為魔獸之母-2.jpg" width="600" height="750" alt="銳克斯"><figcaption>銳克斯<span class="dent">凹痕最深</span></figcaption></figure>
+      <figure><img src="../images/characters/轉生！成為魔獸之母-1.jpg" width="600" height="750" alt="賽倫"><figcaption>賽倫</figcaption></figure>
+    </div>
+    <div class="tally" data-reveal>
+      <p class="where">地牢第一間・門邊牆上的刻痕統計表</p>
+      <ul>
+        <li><b>銳克斯</b><span class="marks many long" role="img" aria-label="刻痕很多，遙遙領先"><i></i></span><span class="say">遙遙領先</span></li>
+        <li><b>賽倫</b><span class="marks many mid" role="img" aria-label="刻痕第二多"><i></i></span><span class="say">第二名</span></li>
+        <li><b>德里安</b><span class="marks neat" role="img" aria-label="兩道刻痕"><i></i></span><span class="say">只有兩道，刻法比較工整</span></li>
+      </ul>
+    </div>
+    <p data-reveal>他們真正害怕的懲罰是沒收，不是疼痛。這一點所有人都知道，包括他們自己。</p>
+    <p class="note" data-reveal>第四間牢房裡有人偷藏了零食，到現在還沒被發現。</p>
+  </section>
+
+  <!-- 紫月 -->
+  <section class="moon-sec">
+    <p class="tag" data-reveal>紫月</p>
+    <h2 data-reveal>月亮跟著國庫走</h2>
+    <p data-reveal>紫月終年懸在城堡正上方。它是刻度，只跟著國庫的數字動，與時間無關。數字一到，天就換了。</p>
+    <div class="moon-box" data-reveal>
+      <svg viewBox="-60 -60 120 120" role="img" aria-labelledby="moon-name">
+        <defs>
+          <radialGradient id="moon-grad" cx="35%" cy="35%" r="75%">
+            <stop offset="0" stop-color="#f4ebff"/>
+            <stop offset=".55" stop-color="#cfb2ff"/>
+            <stop offset="1" stop-color="#8c5ee6"/>
+          </radialGradient>
+        </defs>
+        <circle r="48" fill="rgba(207,178,255,.05)" stroke="rgba(207,178,255,.22)" stroke-width="1"/>
+        <path class="moon-lit" id="moon-lit" d="M0 -48A48 48 0 0 1 0 48A44.6 48 0 0 0 0 -48Z"/>
+      </svg>
+      <div aria-live="polite">
+        <p class="phase-name"><span id="moon-name">殘月</span><span class="now" id="moon-now">目前</span></p>
+        <p class="phase-range" id="moon-range">國庫 0 魔幣</p>
+        <ul class="phase-text" id="moon-text">
+          <li>細得像指甲刮痕，照不出影子</li>
+          <li>城裡安靜得像聖耀世界一座普通的山城</li>
+          <li>寢殿的窗不震，已經幾年沒震過</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phases" role="group" aria-label="紫月的七種月相" data-reveal>
+      <button type="button" data-phase="0" aria-pressed="false">無月<small>負債</small></button>
+      <button type="button" data-phase="1" aria-pressed="true">殘月<small>0</small></button>
+      <button type="button" data-phase="2" aria-pressed="false">眉月<small>1 萬起</small></button>
+      <button type="button" data-phase="3" aria-pressed="false">上弦<small>100 萬起</small></button>
+      <button type="button" data-phase="4" aria-pressed="false">盈凸<small>5000 萬起</small></button>
+      <button type="button" data-phase="5" aria-pressed="false">近滿<small>10 億起</small></button>
+      <button type="button" data-phase="6" aria-pressed="false">滿月<small>100 億起</small></button>
+    </div>
+    <p class="note" data-reveal style="margin-top:18px">只有魔母寢殿看得見紫月全貌。其他地方只看得到反光、缺角，或被塔尖切斷的一段。</p>
+  </section>
+
+  <!-- 帳房規則 -->
+  <section>
+    <p class="tag" data-reveal>帳房規則</p>
+    <h2 data-reveal>把國庫填回來</h2>
+    <p data-reveal>征服城鎮、搶劫、買賣、經營自媒體、賭博，合法或非法都行。金額依劇情規模落在級距裡，不能自行超額。</p>
+    <div class="ledger">
+      <article class="book bad" data-reveal>
+        <h3>壞事<small>有三成機率被反追</small></h3>
+        <ul>
+          <li><span class="tier">小</span><span class="amt">50〜200 萬</span><span class="what">坑路人、賭桌小贏、順手牽羊</span></li>
+          <li><span class="tier">中</span><span class="amt">300〜800 萬</span><span class="what">洗劫商隊、控制商會、在賭場作弊</span></li>
+          <li><span class="tier">大</span><span class="amt">1000〜3000 萬</span><span class="what">攻陷城鎮、掏空對方金庫</span></li>
+        </ul>
+        <p class="rule">被反追時，該筆改為負值。</p>
+      </article>
+      <article class="book" data-reveal>
+        <h3>好事<small>穩定，不會被追討</small></h3>
+        <ul>
+          <li><span class="tier">小</span><span class="amt">50〜150 萬</span><span class="what">替人解決麻煩，對方回禮</span></li>
+          <li><span class="tier">中</span><span class="amt">200〜600 萬</span><span class="what">善舉被聖耀世界的自媒體轉載，收到贊助</span></li>
+          <li><span class="tier">大</span><span class="amt">800〜2000 萬</span><span class="what">形象翻轉，接到跨世界代言</span></li>
+        </ul>
+        <p class="rule">金額比壞事低，但不會被追討。</p>
+      </article>
+      <article class="book flirt" data-reveal>
+        <h3>曖昧互動<small>不影響紫月</small></h3>
+        <ul>
+          <li><span class="tier">小</span><span class="amt">100〜300 萬</span><span class="what">牽手、對視、耳語</span></li>
+          <li><span class="tier">中</span><span class="amt">400〜900 萬</span><span class="what">獨處、告白、同榻</span></li>
+          <li><span class="tier">大</span><span class="amt">1200〜2500 萬</span><span class="what">三人同時在場的修羅場，銷量最高</span></li>
+        </ul>
+        <p class="rule">被當事人抓到時，該筆收入沒收。</p>
+      </article>
+    </div>
+    <p class="debit" data-reveal>三人還是會私自下單。每三次事件，帳上就會多一筆 <b>－100〜500 萬</b> 的扣款。</p>
+    <p class="tick" data-reveal>每筆收支，都會記在回覆下方：<code>💰 本次 ＋/－OOO</code></p>
+  </section>
+
+  <!-- 城堡剖面：照菜菜子提供的平面圖重畫 -->
+  <section class="floor">
+    <p class="tag" data-reveal>城堡剖面</p>
+    <h2 data-reveal>主塔七層，地下三層</h2>
+    <figure class="plan" data-reveal>
+      <div class="plan-scroll">
+      <svg viewBox="0 0 600 740" role="img" aria-labelledby="plan-title">
+        <title id="plan-title">魔母城堡剖面示意：南邊是前庭與城門；主塔一至三層是星髓大廳，二層議事間與帳房，三層三翼交會，四至六層客房，七層魔母寢殿；起源迴廊懸空連接大廳與寢殿；地下由上而下是國庫、刑房、地牢</title>
+        <text class="s" x="20" y="30" style="text-anchor:start">南 ← → 北</text>
+
+        <!-- 紫月（殘月） -->
+        <circle cx="530" cy="78" r="30" fill="rgba(207,178,255,.06)" stroke="rgba(207,178,255,.25)"/>
+        <path d="M530 48A30 30 0 0 1 530 108A27.5 30 0 0 0 530 48Z" fill="#cfb2ff" style="filter:drop-shadow(0 0 8px rgba(186,140,255,.8))"/>
+        <text class="s" x="530" y="132">紫月・殘月</text>
+
+        <!-- 地面與紫河、瀑布 -->
+        <path class="ground" d="M16 542H584"/>
+        <path class="river" d="M18 560q8-6 16 0t16 0t16 0M18 574q8-6 16 0t16 0t16 0"/>
+        <text class="s" x="42" y="598">紫河</text>
+        <path class="fall" d="M400 470C430 480 455 510 470 556M400 482C426 494 446 520 458 556"/>
+        <path class="river" d="M450 566q8-6 16 0t16 0t16 0t16 0t16 0t16 0t16 0M450 580q8-6 16 0t16 0t16 0t16 0t16 0t16 0t16 0"/>
+        <text class="s" x="520" y="606">瀑布落入紫河</text>
+
+        <!-- 幻妖翼（北側，三至五層） -->
+        <rect class="wing" x="400" y="262" width="56" height="168"/>
+        <text class="s" x="444" y="382" style="writing-mode:vertical-rl;letter-spacing:4px">幻妖翼</text>
+
+        <!-- 前庭 -->
+        <g class="zone" data-zone="court" tabindex="0" role="button" aria-label="前庭">
+          <rect class="r" x="70" y="528" width="146" height="14"/>
+          <rect class="box" x="84" y="508" width="22" height="20"/><rect class="box" x="108" y="512" width="18" height="16"/>
+          <rect class="box" x="92" y="490" width="20" height="18"/><rect class="box" x="128" y="514" width="20" height="14"/>
+          <circle cx="190" cy="514" r="10" fill="none" stroke="#cfb2ff" stroke-width="2.5"/>
+          <rect x="54" y="498" width="12" height="44" fill="#2a2238" stroke="#4b4060" stroke-width="2"/>
+          <text class="t" x="140" y="450">前庭</text>
+          <text class="s" x="140" y="472" style="font-size:12px">紙箱山・傳送門</text>
+          <text class="s" x="60" y="490" style="font-size:12px">城門</text>
+        </g>
+
+        <!-- 主塔 -->
+        <g class="zone" data-zone="bed" tabindex="0" role="button" aria-label="七層 魔母寢殿">
+          <rect class="r" x="220" y="150" width="180" height="56"/>
+          <path d="M240 152H380" stroke="#cfb2ff" stroke-width="3"/>
+          <text class="t" x="310" y="186">魔母寢殿</text>
+        </g>
+        <g class="zone" data-zone="guest" tabindex="0" role="button" aria-label="四至六層 客房與儲藏">
+          <rect class="r" x="220" y="206" width="180" height="168"/>
+          <path d="M220 262H400M220 318H400" stroke="#4b4060" stroke-width="2"/>
+          <text class="t" x="310" y="296" style="font-size:18px">客房・儲藏</text>
+          <text class="s" x="310" y="346">歷代魔母舊居</text>
+        </g>
+        <g class="zone" data-zone="wings" tabindex="0" role="button" aria-label="三層 三翼交會">
+          <rect class="r" x="220" y="374" width="60" height="56"/>
+          <text class="t" x="250" y="409" style="font-size:16px">三翼</text>
+        </g>
+        <g class="zone" data-zone="council" tabindex="0" role="button" aria-label="二層 議事間與帳房">
+          <rect class="r" x="220" y="430" width="60" height="56"/>
+          <text class="t" x="250" y="465" style="font-size:16px">帳房</text>
+        </g>
+        <g class="zone" data-zone="kitchen" tabindex="0" role="button" aria-label="一層 膳房與門廳">
+          <rect class="r" x="220" y="486" width="60" height="56"/>
+          <text class="t" x="250" y="521" style="font-size:16px">膳房</text>
+        </g>
+        <g class="zone" data-zone="hall" tabindex="0" role="button" aria-label="一至三層 星髓大廳">
+          <rect class="r" x="280" y="374" width="120" height="168"/>
+          <text class="t" x="340" y="448">星髓大廳</text>
+          <text class="s" x="340" y="472">貫穿一至三層</text>
+          <rect x="372" y="508" width="20" height="30" fill="none" stroke="#d8b46a" stroke-width="2"/>
+          <text class="s" x="382" y="500" style="font-size:12px;fill:#ecca84">王座</text>
+        </g>
+        <g class="zone" data-zone="vault" tabindex="0" role="button" aria-label="地下一層 國庫">
+          <rect class="r" x="220" y="542" width="180" height="56"/>
+          <text class="t" x="310" y="577" style="font-size:18px">國庫</text>
+          <text class="s" x="372" y="576" style="font-size:12px">九排全空</text>
+        </g>
+        <g class="zone" data-zone="torture" tabindex="0" role="button" aria-label="地下二層 刑房">
+          <rect class="r" x="220" y="598" width="180" height="56"/>
+          <text class="t" x="310" y="633" style="font-size:18px">刑房</text>
+        </g>
+        <g class="zone" data-zone="dungeon" tabindex="0" role="button" aria-label="地下三層 地牢">
+          <rect class="r" x="220" y="654" width="180" height="56"/>
+          <text class="t" x="310" y="689" style="font-size:18px">地牢</text>
+          <text class="s" x="370" y="688" style="font-size:12px">六間</text>
+        </g>
+
+        <!-- 樓層編號 -->
+        <text class="fl" x="214" y="183" style="text-anchor:end">7F</text>
+        <text class="fl" x="214" y="239" style="text-anchor:end">6F</text>
+        <text class="fl" x="214" y="295" style="text-anchor:end">5F</text>
+        <text class="fl" x="214" y="351" style="text-anchor:end">4F</text>
+        <text class="fl" x="214" y="407" style="text-anchor:end">3F</text>
+        <text class="fl" x="214" y="463" style="text-anchor:end">2F</text>
+        <text class="fl" x="214" y="519" style="text-anchor:end">1F</text>
+        <text class="fl" x="214" y="575" style="text-anchor:end">B1</text>
+        <text class="fl" x="214" y="631" style="text-anchor:end">B2</text>
+        <text class="fl" x="214" y="687" style="text-anchor:end">B3</text>
+
+        <!-- 起源迴廊：懸空橫過中庭，連接大廳北端與寢殿 -->
+        <g class="zone" data-zone="corridor" tabindex="0" role="button" aria-label="起源迴廊">
+          <path class="hit" d="M404 396L486 168"/>
+          <path class="walk" d="M398 394L478 166M410 398L490 170"/>
+          <text class="t" x="498" y="232" style="font-size:17px;text-anchor:start">起源迴廊</text>
+          <text class="s" x="498" y="254" style="font-size:12px;text-anchor:start">懸空・通往寢殿</text>
+        </g>
+      </svg>
+      </div>
+      <p class="swipe" aria-hidden="true">← 左右滑動，看完整剖面 →</p>
+    </figure>
+    <div class="floors" role="group" aria-label="選擇樓層">
+      <button type="button" data-zone="bed" aria-pressed="false">7F 寢殿</button>
+      <button type="button" data-zone="guest" aria-pressed="false">4〜6F 客房</button>
+      <button type="button" data-zone="corridor" aria-pressed="false">起源迴廊</button>
+      <button type="button" data-zone="wings" aria-pressed="false">3F 三翼</button>
+      <button type="button" data-zone="council" aria-pressed="false">2F 帳房</button>
+      <button type="button" data-zone="hall" aria-pressed="false">星髓大廳</button>
+      <button type="button" data-zone="kitchen" aria-pressed="false">1F 膳房</button>
+      <button type="button" data-zone="court" aria-pressed="false">前庭</button>
+      <button type="button" data-zone="vault" aria-pressed="false">B1 國庫</button>
+      <button type="button" data-zone="torture" aria-pressed="false">B2 刑房</button>
+      <button type="button" data-zone="dungeon" aria-pressed="false">B3 地牢</button>
+    </div>
+    <p class="pick" id="pick" aria-live="polite">點剖面圖上的樓層，或上面的按鈕，看看裡面。</p>
+  </section>
+
+  <!-- 起源迴廊 -->
+  <section>
+    <p class="tag" data-reveal>起源迴廊</p>
+    <h2 data-reveal>第二十一幅還空著</h2>
+    <p data-reveal>起源迴廊懸空橫過中庭，牆上依代序掛著每一代魔獸之母與三族魔獸的故事。第一幅是起源魔母葛拉莉絲，與初代三魔獸艾苛、泰達、拉。</p>
+    <p data-reveal>有故事才能畫。這一代，還沒有掛上去。</p>
+    <div class="gallery" data-reveal aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="gallery-note" data-reveal aria-hidden="true">第十五代至第二十一代</p>
+    <ol class="routes">
+      <li data-reveal><span class="k">賺錢</span><p>把國庫填回來，讓紫月重新盈滿。</p></li>
+      <li data-reveal><span class="k">延續</span><p>選擇一位或多位領袖，生下下一代的公主。魔母一族曾經有三族一同扶養後嗣的歷史。</p></li>
+      <li data-reveal><span class="k">結局</span><p>和聖耀世界達成和平、侵佔，或者被毀滅。</p></li>
+    </ol>
+  </section>
+
+  <!-- 結尾 -->
+  <section class="end">
+    <p class="sys-line" data-reveal>不詳世界・魔都｜魔母城堡</p>
+    <p class="line" data-reveal>這一代的故事，<br>從一個巨大的「0」開始。</p>
+  </section>
+
+</main>
+<script>
+  // 紫月：七種月相，數字一到天就換了
+  const R = 48;
+  const PHASES = [
+    { name: '無月', range: '國庫低於 0（負債）', k: 0, text: ['紫月該在的位置只剩一圈暗痕，抬頭什麼也看不見', '不詳之氣稀薄到魔族會犯睏，石像鬼整天不動', '三人不談錢，也不看天'] },
+    { name: '殘月', range: '國庫 0 魔幣', k: .035, text: ['細得像指甲刮痕，照不出影子', '城裡安靜得像聖耀世界一座普通的山城', '寢殿的窗不震，已經幾年沒震過'] },
+    { name: '眉月', range: '國庫 1〜99 萬', k: .17, text: ['有了弧度，夜裡地面開始出現淡紫反光', '硫味回來一點，石像鬼開始換姿勢', '三人假裝沒注意，但會多往窗邊走'] },
+    { name: '上弦', range: '國庫 100 萬〜4999 萬', k: .5, text: ['半輪。瀑布的水面第一次映得出月形', '不詳之氣夠濃，議事間的爭執開始變大聲'] },
+    { name: '盈凸', range: '國庫 5000 萬〜9 億', k: .76, text: ['明顯鼓起。紫光壓過城裡的燭火，連吸光的牆體都蓋不住', '魔都夜市恢復人潮，聖耀貨的攤位被擠到邊上', '三人的族性外顯，自制力下降'] },
+    { name: '近滿', range: '國庫 10 億〜99 億', k: .93, text: ['只缺一小角。寢殿的窗開始震，隔著牆都聽得見', '不詳之氣濃到嗆人，普通魔族連續數日興奮不睡', '三人易怒，議事間必吵，而且吵的是戰略不是零食'] },
+    { name: '滿月', range: '國庫 100 億以上', k: 1, text: ['完整的紫輪佔滿天空，白晝也看得見', '上一次是第十四代，當代沒有人親眼見過', '魔都全面備戰。三人會同時跪到王座前，而且不是被罰'] },
+  ];
+  function moonPath(k) {
+    if (k <= 0) return 'M0 0Z';
+    if (k >= 1) return `M0 ${-R}A${R} ${R} 0 1 1 0 ${R}A${R} ${R} 0 1 1 0 ${-R}Z`;
+    const rx = (R * Math.abs(1 - 2 * k)).toFixed(1);
+    return `M0 ${-R}A${R} ${R} 0 0 1 0 ${R}A${rx} ${R} 0 0 ${k < .5 ? 0 : 1} 0 ${-R}Z`;
+  }
+  const lit = document.getElementById('moon-lit');
+  const phaseButtons = [...document.querySelectorAll('[data-phase]')];
+  function setPhase(i) {
+    const p = PHASES[i];
+    lit.setAttribute('d', moonPath(p.k));
+    document.getElementById('moon-name').textContent = p.name;
+    document.getElementById('moon-now').hidden = i !== 1;
+    document.getElementById('moon-range').textContent = p.range;
+    const list = document.getElementById('moon-text');
+    list.replaceChildren(...p.text.map(t => Object.assign(document.createElement('li'), { textContent: t })));
+    phaseButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.phase === String(i))));
+  }
+  phaseButtons.forEach(b => b.addEventListener('click', () => setPhase(Number(b.dataset.phase))));
+
+  // 城堡剖面：點樓層或按鈕，兩邊一起標亮，並在下方顯示說明
+  const FLOORS = {
+    bed: ['七層｜魔母寢殿', '全城唯一看得見紫月全貌的位置。北面整片開窗，正對紫月，沒有窗簾。歷代魔母共用同一座巢式床架，尺寸極不合理，因為設計之初就預設要睡下不只一人。'],
+    guest: ['四至六層｜客房・儲藏', '歷代魔母的舊居，現在當客房與儲藏用，平常沒有人。越往上越靜，到了寢殿只剩風。'],
+    corridor: ['起源迴廊', '懸空橫過中庭，連接星髓大廳北端與寢殿，走廊會隨風極輕微地晃。這是三人上寢殿的必經之路，他們的腳步走到這裡都會變慢。'],
+    wings: ['三層｜三翼交會', '深淵翼向東、異獸翼向西、幻妖翼向北，三人各自常駐在自己那一翼。拖鞋、爪子、赤足三種腳步，光聽就知道誰往哪一翼走。'],
+    council: ['二層｜議事間・帳房', '議事間中央一張長石桌、三個座位，魔母坐桌首。本來是討論戰略的地方，實際上多半在討論怎麼弄錢。隔壁帳房由四名算帳魔輪班，不參與討論，也不抬頭。'],
+    hall: ['一至三層｜星髓大廳', '二十一根巨柱撐起穹頂，每根刻一代魔母之名，第二十一根要等繼承人誕生後才刻上。穹頂是一整片緩慢流動的星塵。魔母入座時，全場會停一息。'],
+    kitchen: ['一層｜膳房・門廳', '三座大灶只剩中間那座還在用。儲藏架下層塞滿聖耀世界的零食，貼著一張分配表，三人各自改過，字跡疊了三層。舊守衛廳自從石像鬼接手後就閒置了，下雨時牠們會擠進去。'],
+    court: ['前庭', '原本是閱兵場，現在是紙箱山。聖耀世界的貨運傳送門晨、午、夜各開一次，整座前庭會震一下。深夜取件時，三組腳步在走道中央相遇，停住數息，然後往三個方向散開。'],
+    vault: ['地下一層｜國庫', '九排架子全空。地上的拖曳痕又密又整齊，全部朝向門口。門後的出入登記簿，最後一筆是三個月前。'],
+    torture: ['地下二層｜刑房', '刑具保養良好，幾乎沒用過。最顯眼的是深淵族製的觸手吊架，二十一代以來使用不到十次。'],
+    dungeon: ['地下三層｜地牢', '六間石門牢房，由石像鬼看守。牠們不回話，所以討價還價從來沒有成功過。最下層有一段未完成的階梯，通往哪裡沒有紀錄。'],
+  };
+  const pick = document.getElementById('pick');
+  function choose(id) {
+    document.querySelectorAll('.zone').forEach(z => z.classList.toggle('is-on', z.dataset.zone === id));
+    document.querySelectorAll('.floors button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.zone === id)));
+    const [head, body] = FLOORS[id];
+    const b = document.createElement('b');
+    b.textContent = head;
+    const s = document.createElement('span');
+    s.textContent = body;
+    pick.replaceChildren(b, s);
+  }
+  document.addEventListener('click', e => {
+    const target = e.target.closest('.zone, .floors button');
+    if (target) choose(target.dataset.zone);
+  });
+  document.addEventListener('keydown', e => {
+    const target = e.target.closest?.('.zone');
+    if (target && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); choose(target.dataset.zone); }
+  });
+
+  // 手機上剖面圖可以左右滑動，一開始先對準主塔
+  const scroller = document.querySelector('.plan-scroll');
+  scroller.scrollLeft = (scroller.scrollWidth - scroller.clientWidth) / 2;
+</script>
+</body>
+</html>
