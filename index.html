@@ -381,7 +381,7 @@
     border-radius: var(--radius-sm);
   }
 
-  /* 鴨達版燈箱：每段內容的下方放標題和複製鈕 */
+  /* 鴨答版燈箱：每段內容的下方放標題和複製鈕 */
   .copybox {
     width: min(640px, calc(100vw - 32px));
     max-width: none;
@@ -452,7 +452,7 @@
   .copy-keys .btn { padding: 2px 10px; font-size: 12.5px; }
   .copy-notes { margin: 0; padding-left: 1.5em; font-size: 14px; }
   .copy-notes li + li { margin-top: 10px; }
-  /* 可視故事：沿用鴨達版燈箱，內文放大、行距拉開，方便閱讀長文 */
+  /* 可視故事：沿用鴨答版燈箱，內文放大、行距拉開，方便閱讀長文 */
   .story-text { padding: 4px 2px 8px; font-family: var(--serif); font-size: 16px; line-height: 2; color: var(--secondary-deep); }
   .story-text p { margin: 0; white-space: pre-line; overflow-wrap: anywhere; }
   .story-text p + p { margin-top: 1.1em; }
@@ -880,7 +880,7 @@
   </div>
 </footer>
 
-<!-- 鴨達版燈箱：內容由 characters.js 的 caveduck 檔案產生 -->
+<!-- 鴨答版燈箱：內容由 characters.js 的 caveduck 檔案產生 -->
 <!-- 菜園廣播的功能介紹：VIBE程式那張卡片點下去，整塊搬進燈箱。
      只列一般成員用得到的指令，管理功能不放上來 -->
 <template id="bot-guide">
@@ -1098,7 +1098,7 @@
     btn.copyTimer = setTimeout(() => { label.textContent = btn.dataset.idle; btn.classList.remove('done'); }, 1400);
   }
 
-  // 鴨達版燈箱
+  // 鴨答版燈箱
   const copybox = document.getElementById('copybox');
   const copyboxTabs = document.getElementById('copybox-tabs');
   const copyboxBody = document.getElementById('copybox-body');
@@ -1216,7 +1216,7 @@
     }
   }
 
-  const openCaveduck = c => openCopybox(c.name + '｜鴨達版', c.caveduck, res => res.json(), fillCopybox);
+  const openCaveduck = c => openCopybox(c.name + '｜鴨答版', c.caveduck, res => res.json(), fillCopybox);
   const openBackend = c => openCopybox(c.name + '｜卿卿我我後台版', c.backend, res => res.json(), fillCopybox);
   const openStory = (c, story) => openCopybox(`${c.name}｜${story.title}`, story.file, res => res.text(),
     text => (story.spoiler ? fillSpoiler(c.name, text) : fillStory(text)));
@@ -1611,7 +1611,7 @@
     box.classList.toggle('empty', !stories.length);
   }
 
-  // 下載角色卡：JSON 卡一鍵下載；鴨達版、卿卿我我後台版開燈箱；雲端硬碟、卿卿我我 App 版開新分頁
+  // 下載角色卡：JSON 卡一鍵下載；鴨答版、卿卿我我後台版開燈箱；雲端硬碟、卿卿我我 App 版開新分頁
   function setDownloads(c) {
     const box = document.getElementById('detail-downloads');
     box.replaceChildren();
@@ -1620,7 +1620,7 @@
       a.download = c.name + '.json';
       box.append(a);
     }
-    if (c.caveduck) box.append(dialogButton('i-copy', '鴨達版', () => openCaveduck(c)));
+    if (c.caveduck) box.append(dialogButton('i-copy', '鴨答版', () => openCaveduck(c)));
     if (c.backend) box.append(dialogButton('i-copy', '卿卿我我後台版', () => openBackend(c)));
     for (const [href, icon, label] of [[c.drive, 'i-link', '雲端硬碟'], [c.app, 'i-phone', '卿卿我我 App 版']]) {
       if (!href) continue;
