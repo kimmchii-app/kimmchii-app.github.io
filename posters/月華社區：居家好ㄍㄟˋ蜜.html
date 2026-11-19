@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>月華社區：居家好ㄍㄟˋ蜜｜入住指南</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：月華社區B棟5樓的入住指南。黃昏的米白、木質與暖光；森六是鵝黃，鬱也是墨黑，你的顏色留白（虛線） -->
+<style>
+  :root {
+    --bg: #f6efe3;
+    --bg-2: #efe5d3;
+    --panel: #fffaf1;
+    --ink: #2e2520;
+    --muted: #74665a;
+    --line: rgba(122, 90, 52, .2);
+    --wood: #b88a5c;
+    --honey: #f2c443;
+    --honey-soft: #fff1ad;
+    --honey-text: #8a6209;
+    --onyx: #211d22;
+    --dusk: #e07a4f;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --gutter: clamp(20px, 6vw, 48px);
+    --ease: cubic-bezier(.22, .61, .36, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet { max-width: 720px; margin: 0 auto; overflow: hidden; background: var(--bg); }
+  h1, h2, h3, p, ol, ul, dl, dd, figure, blockquote { margin: 0; padding: 0; }
+  ol, ul { list-style: none; }
+  button { font: inherit; color: inherit; }
+
+  /* 照片不給存 */
+  img { display: block; width: 100%; height: auto; pointer-events: none; -webkit-user-drag: none; }
+  figure { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+
+  section { position: relative; padding: clamp(48px, 9vw, 76px) var(--gutter); }
+  section.alt { background: var(--bg-2); }
+  /* 小標：三顆點，鵝黃是森六、墨黑是鬱也、虛線圈是你 */
+  .tag {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 6px;
+    font-size: 12.5px; letter-spacing: .3em;
+    color: var(--honey-text);
+  }
+  .tag::before {
+    content: ""; flex: none; width: 36px; height: 10px;
+    background:
+      radial-gradient(circle at 5px 50%, var(--honey) 4px, transparent 4.6px),
+      radial-gradient(circle at 18px 50%, var(--onyx) 4px, transparent 4.6px),
+      radial-gradient(circle at 31px 50%, transparent 3px, var(--ink) 3.4px, var(--ink) 4.2px, transparent 4.8px);
+  }
+  h2 {
+    margin-bottom: 24px;
+    font-family: var(--serif);
+    font-size: clamp(25px, 5.6vw, 34px);
+    line-height: 1.4;
+    letter-spacing: .1em;
+  }
+  section > p + p { margin-top: 1em; }
+  .lead { font-family: var(--serif); font-size: 17px; line-height: 1.9; }
+  .note { font-size: 14px; color: var(--muted); }
+
+  /* 封面：玄關的三雙拖鞋 */
+  /* 標題在上方，封面比視窗高也能一眼看到標題；照片照原比例、只裁掉頂端的牆，往下捲就看到拖鞋 */
+  .cover {
+    --cw: min(720px, 100vw);
+    position: relative;
+    aspect-ratio: 1024 / 1420;
+    padding: 0;
+    isolation: isolate;
+  }
+  .cover > img { position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: center bottom; z-index: -2; }
+  .cover::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, rgba(246, 239, 227, .95), rgba(246, 239, 227, .78) 22%, rgba(246, 239, 227, 0) 40%);
+  }
+  .cover-title { padding: clamp(30px, 7vw, 56px) var(--gutter) 0; text-align: center; }
+  .hud { font-size: 12.5px; letter-spacing: .32em; color: var(--honey-text); }
+  .cover h1 {
+    margin-top: 8px;
+    font-family: var(--serif);
+    font-size: clamp(42px, 11.5vw, 76px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: .1em;
+    padding-left: .1em; /* 抵銷最後一個字的字距 */
+    white-space: nowrap;
+  }
+  /* 注音字是全形寬，縮小一點才不會擠到換行 */
+  .cover h1 .zy { font-size: .66em; letter-spacing: .02em; color: var(--honey-text); }
+  .who { margin-top: 8px; font-size: 14px; letter-spacing: .2em; color: var(--muted); }
+  /* 三雙拖鞋底下的名牌：位置照照片裡拖鞋的位置抓 */
+  .slippers { position: absolute; left: 0; right: 0; bottom: max(8px, calc(var(--cw) * .157 - 30px)); height: 22px; }
+  .slippers span {
+    position: absolute; top: 0;
+    translate: -50% 0;
+    padding: 0 10px;
+    font-size: 12px; line-height: 22px; letter-spacing: .14em;
+    white-space: nowrap;
+    border-radius: 999px;
+    box-shadow: 0 4px 10px -4px rgba(0, 0, 0, .4);
+  }
+  .slippers .s { left: 32.4%; background: var(--honey); }
+  .slippers .y { left: 48.6%; background: var(--onyx); color: #f6efe3; }
+  .slippers .u { left: 64.6%; background: rgba(255, 250, 241, .92); outline: 1px dashed var(--ink); outline-offset: -1px; }
+
+  /* 入住須知 */
+  .dict {
+    margin-top: 26px;
+    padding: 20px 22px 18px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--honey);
+    border-radius: 4px;
+  }
+  .dict dt { font-family: var(--serif); font-size: 24px; font-weight: 700; letter-spacing: .14em; }
+  .dict .pos {
+    display: inline-block;
+    margin: 2px 0 8px; padding: 0 8px;
+    font-size: 12px; line-height: 22px; letter-spacing: .2em;
+    color: var(--panel); background: var(--ink);
+    border-radius: 2px;
+  }
+  .dict dd + dd { margin-top: 2px; }
+  .dict .eg { margin-top: 10px; font-size: 14px; color: var(--muted); }
+  .rulebook { margin-top: 28px; border-top: 1px solid var(--line); }
+  .rulebook li { display: grid; grid-template-columns: 3.4em minmax(0, 1fr); gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+  .rulebook .k { font-family: var(--serif); font-weight: 700; letter-spacing: .14em; color: var(--honey-text); }
+
+  /* 室友檔案 */
+  .mates { display: grid; gap: 30px; margin-top: 30px; }
+  .mate {
+    display: grid;
+    grid-template-columns: minmax(0, 40%) minmax(0, 1fr);
+    gap: clamp(18px, 4vw, 28px);
+    align-items: start;
+    padding: clamp(20px, 4.5vw, 30px);
+    background: var(--panel);
+    border-top: 6px solid var(--honey);
+    box-shadow: 0 20px 40px -26px rgba(80, 52, 20, .45);
+  }
+  .mate.yu { border-top-color: var(--onyx); }
+  .mate figure {
+    position: relative;
+    padding: 8px 8px 30px;
+    background: #fff;
+    box-shadow: 0 12px 24px -12px rgba(60, 40, 20, .45);
+    transform: rotate(-2deg);
+  }
+  .mate.yu figure { transform: rotate(2deg); }
+  .mate figure img { aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; }
+  .mate figcaption {
+    position: absolute; left: 0; right: 0; bottom: 4px;
+    text-align: center;
+    font-family: var(--serif); font-size: 13px; letter-spacing: .2em;
+    color: var(--muted);
+  }
+  .mate h3 { font-family: var(--serif); font-size: clamp(25px, 5.6vw, 31px); line-height: 1.3; letter-spacing: .12em; }
+  .mate .sub { font-size: 13px; letter-spacing: .1em; color: var(--muted); }
+  .swatch { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 13px; letter-spacing: .16em; }
+  .swatch::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--honey); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12); }
+  .yu .swatch::before { background: var(--onyx); }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 14px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .stats div { padding: 8px 4px; text-align: center; }
+  .stats div + div { border-left: 1px solid var(--line); }
+  .stats dt { font-size: 12px; letter-spacing: .2em; color: var(--muted); }
+  .stats dd { font-family: var(--serif); font-size: 16px; font-weight: 700; line-height: 1.6; }
+  .mate-text { grid-column: 1 / -1; }
+  .mate-text p { font-size: 14.5px; line-height: 1.85; }
+  .mate-text p + p { margin-top: .7em; }
+  .chips { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips li { padding: 0 11px; font-size: 12.5px; line-height: 26px; border-radius: 999px; background: rgba(242, 196, 67, .3); }
+  .yu .chips li { background: rgba(33, 29, 34, .09); }
+
+  /* 情侶觀察 */
+  .duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 26px; }
+  .duo li { padding: 18px 20px; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; }
+  .duo .k { display: block; font-family: var(--serif); font-size: 18px; font-weight: 700; letter-spacing: .14em; }
+  .duo p { margin-top: 6px; font-size: 14.5px; line-height: 1.85; }
+  .gap { margin-top: 1.2em; }
+  .push-title { margin-top: 34px; font-family: var(--serif); font-size: 18px; font-weight: 700; letter-spacing: .14em; }
+  .push { display: grid; gap: 12px; margin-top: 12px; }
+  .push li { padding: 14px 16px; background: var(--panel); border-radius: 4px; }
+  .flow { display: flex; align-items: center; gap: 12px; }
+  .flow b { flex: none; padding: 0 12px; font-size: 14px; line-height: 28px; letter-spacing: .1em; border-radius: 999px; }
+  .flow .p-s { background: var(--honey); }
+  .flow .p-y { background: var(--onyx); color: #f6efe3; }
+  /* 箭頭：文字在上，線在下，右端一個箭頭 */
+  .verb {
+    position: relative; flex: 1;
+    padding-bottom: 1px;
+    font-size: 13px; letter-spacing: .1em; text-align: center;
+    color: var(--muted);
+    border-bottom: 1px solid var(--wood);
+  }
+  .verb::after {
+    content: "";
+    position: absolute; right: 0; bottom: -4px;
+    width: 7px; height: 7px;
+    border-top: 1px solid var(--wood); border-right: 1px solid var(--wood);
+    transform: rotate(45deg);
+  }
+  .push p:not(.flow) { margin-top: 8px; font-size: 14.5px; line-height: 1.85; }
+
+  /* 帶你看房 */
+  .rooms-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 18px; }
+  .rooms-nav button {
+    padding: 3px 15px;
+    font-size: 14px; letter-spacing: .1em;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .rooms-nav button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .rooms-nav button:focus-visible { outline: 2px solid var(--honey-text); outline-offset: 2px; }
+  .room + .room { margin-top: 36px; }
+  .room figure { overflow: hidden; border-radius: 6px; box-shadow: 0 20px 40px -24px rgba(80, 52, 20, .55); }
+  .room img { aspect-ratio: 16 / 9; object-fit: cover; }
+  .room.entry img { object-position: center 86%; }
+  .room h3 { margin: 18px 0 8px; font-family: var(--serif); font-size: 20px; letter-spacing: .14em; }
+  .room ul { display: grid; gap: 8px; }
+  .room li { position: relative; padding-left: 18px; font-size: 14.5px; line-height: 1.85; }
+  .room li::before { content: ""; position: absolute; left: 2px; top: .8em; width: 6px; height: 6px; border-radius: 50%; background: var(--wood); }
+  /* 有 JS 時一次只顯示一間；沒有 JS 就全部排下來 */
+  .js .room:not(.is-on) { display: none; }
+  .js .room.is-on { animation: fade .45s var(--ease); }
+  @keyframes fade { from { opacity: 0; } }
+
+  /* 一天的聲音 */
+  .day { position: relative; margin-top: 28px; padding-left: 28px; }
+  .day::before {
+    content: "";
+    position: absolute; left: 6px; top: 10px; bottom: 10px;
+    width: 2px; border-radius: 2px;
+    background: linear-gradient(#f2c443, #f0a24a 35%, var(--dusk) 62%, #2b3350);
+  }
+  .day > li { position: relative; padding-bottom: 24px; }
+  .day > li:last-child { padding-bottom: 0; }
+  .day > li::before {
+    content: "";
+    position: absolute; left: -28px; top: 9px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--c);
+    box-shadow: 0 0 0 4px var(--bg);
+  }
+  .day .am { --c: #f2c443; }
+  .day .noon { --c: #f0a24a; }
+  .day .eve { --c: var(--dusk); }
+  .day .night { --c: #2b3350; }
+  .day .when { font-family: var(--serif); font-size: 18px; font-weight: 700; letter-spacing: .16em; }
+  .day ul { display: grid; gap: 4px; margin-top: 4px; }
+  .day ul li { font-size: 14.5px; line-height: 1.85; }
+
+  /* 冰箱門上的便利貼 */
+  .fridge {
+    position: relative;
+    margin-top: 28px;
+    padding: clamp(26px, 5vw, 36px) clamp(18px, 4vw, 30px) clamp(26px, 5vw, 36px);
+    background: linear-gradient(180deg, #fbfaf7, #ebe7df);
+    border: 1px solid rgba(90, 80, 70, .16);
+    border-radius: 18px;
+    box-shadow: inset 0 -10px 24px -18px rgba(0, 0, 0, .25), 0 24px 44px -28px rgba(60, 40, 20, .5);
+  }
+  .fridge::after {
+    content: "";
+    position: absolute; top: 18%; bottom: 18%; right: 12px;
+    width: 6px; border-radius: 6px;
+    background: linear-gradient(90deg, #d6d1c7, #f8f6f1, #c9c3b8);
+  }
+  .notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 14px; padding-right: 18px; }
+  .notes li {
+    position: relative;
+    padding: 18px 14px 14px;
+    font-size: 14.5px; line-height: 1.7;
+    background: var(--honey-soft);
+    box-shadow: 0 8px 14px -10px rgba(60, 40, 20, .5);
+    transform: rotate(-1.4deg);
+  }
+  .notes li:nth-child(3n + 2) { background: var(--onyx); color: #f3eee6; transform: rotate(1.2deg); }
+  .notes li:nth-child(3n) { background: #fff; transform: rotate(-.5deg); }
+  .notes li::before {
+    content: "";
+    position: absolute; top: -7px; left: 50%;
+    width: 14px; height: 14px; margin-left: -7px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff, var(--dusk) 62%);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .25);
+  }
+  .notes .no { display: block; font-family: var(--serif); font-size: 12px; letter-spacing: .2em; opacity: .7; }
+  .notes .first { grid-column: 1 / -1; text-align: center; font-family: var(--serif); font-size: 18px; }
+  .fridge + .note { margin-top: 18px; }
+
+  /* 回憶 */
+  .memories { margin: 28px 0 0 6px; padding-left: 22px; border-left: 1px dashed var(--wood); }
+  .memories > li { position: relative; padding-bottom: 30px; }
+  .memories > li:last-child { padding-bottom: 0; }
+  .memories > li::before {
+    content: "";
+    position: absolute; left: -29px; top: 8px;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--wood);
+  }
+  .memories .when { font-size: 12.5px; letter-spacing: .24em; color: var(--honey-text); }
+  .memories h3 { margin: 2px 0 6px; font-family: var(--serif); font-size: 19px; letter-spacing: .1em; }
+  .memories p + p { margin-top: .7em; }
+  .memories blockquote {
+    margin: 12px 0;
+    padding: 12px 16px;
+    font-family: var(--serif); font-size: 15px; line-height: 1.9;
+    background: var(--panel);
+    border-left: 3px solid var(--honey);
+  }
+  .memories .after { font-size: 14px; color: var(--muted); }
+
+  /* 樓上樓下：B棟信箱 */
+  .mailbox { display: grid; gap: 8px; margin-top: 26px; padding: 14px; background: #8d6c4b; border-radius: 6px; box-shadow: inset 0 2px 6px rgba(0, 0, 0, .25); }
+  .mailbox li { display: grid; grid-template-columns: 3.6em minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px 14px; background: #f7f1e6; border-radius: 3px; box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .08); }
+  .mailbox .f { font-family: var(--serif); font-weight: 700; letter-spacing: .08em; text-align: center; border-right: 1px solid var(--line); }
+  .mailbox p { font-size: 14px; line-height: 1.75; }
+  .mailbox .home { background: var(--panel); outline: 2px solid var(--honey); outline-offset: -2px; }
+  .mailbox + .note { margin-top: 18px; }
+
+  /* 結尾 */
+  .end { padding-top: clamp(40px, 7vw, 56px); padding-bottom: clamp(64px, 12vw, 96px); text-align: center; background: radial-gradient(70% 70% at 50% 100%, rgba(242, 196, 67, .3), transparent 70%), var(--bg); }
+  .trio { display: flex; justify-content: center; gap: 10px; }
+  .trio i { width: 12px; height: 12px; border-radius: 50%; }
+  .trio i:nth-child(1) { background: var(--honey); }
+  .trio i:nth-child(2) { background: var(--onyx); }
+  .trio i:nth-child(3) { border: 1.5px dashed var(--ink); }
+  .end .sys-line { margin-top: 14px; font-size: 12px; letter-spacing: .26em; color: var(--muted); }
+  .end .line { margin-top: 12px; font-family: var(--serif); font-size: clamp(21px, 5vw, 28px); line-height: 1.8; }
+
+  /* 捲到才淡入（poster.js 會加上 .js）。用 translate 才不會蓋掉卡片本身的傾斜角度 */
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .js .room.is-on { animation: none; }
+  }
+
+  @media (max-width: 520px) {
+    .mate { grid-template-columns: minmax(0, 1fr); }
+    .mate figure { width: min(220px, 66%); margin: 0 auto 4px; }
+    .mate-head { text-align: center; }
+    .duo { grid-template-columns: minmax(0, 1fr); }
+    .notes { gap: 16px 10px; padding-right: 14px; }
+    .notes li { padding: 16px 11px 12px; font-size: 13.5px; }
+    .flow { gap: 8px; }
+    .flow b { padding: 0 10px; font-size: 13px; }
+    .verb { font-size: 12px; letter-spacing: .04em; }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <!-- 封面 -->
+  <header class="cover">
+    <img src="../images/posters/居家-玄關.webp" width="1024" height="1536" alt="從玄關望進客廳，黃昏的陽光照進落地窗，地上排著鵝黃、墨黑、白色三雙室內拖鞋">
+    <div class="cover-title">
+      <p class="hud">月華社區・B棟5樓</p>
+      <h1>居家好<span class="zy">ㄍㄟˋ</span>蜜</h1>
+      <p class="who">光元森六・不良品鬱也・你</p>
+    </div>
+    <p class="slippers" aria-hidden="true"><span class="s">森六</span><span class="y">鬱也</span><span class="u">你</span></p>
+  </header>
+
+  <!-- 入住須知 -->
+  <section>
+    <p class="tag" data-reveal>入住須知</p>
+    <h2 data-reveal>歡迎回家</h2>
+    <p class="lead" data-reveal>光元森六和不良品鬱也是一對同性情侶，也是你的好閨蜜和同居人。三個人一起住在月華社區B棟5樓，他們睡一間，你睡一間。</p>
+    <dl class="dict" data-reveal>
+      <dt>好ㄍㄟˋ蜜</dt>
+      <dd class="pos">名詞</dd>
+      <dd>一、取 Gay 的讀音「ㄍㄟˋ」，諧音閨蜜。</dd>
+      <dd>二、指光元森六與不良品鬱也這對情侶。</dd>
+      <dd class="eg">例：第一印象像一對幼稚愛玩的好兄弟，多認識一陣子，才發現原來是情侶。</dd>
+    </dl>
+    <ol class="rulebook">
+      <li data-reveal><span class="k">住址</span><p>月華社區B棟5樓。月華社區是月華集團蓋的高級社區，B棟是三棟裡唯一有空中花園和溫室的一棟。</p></li>
+      <li data-reveal><span class="k">室友</span><p>光元森六、不良品鬱也。大學時在一場聯誼和你認識，三個人成了很好的朋友，後來他們兩個在一起了。</p></li>
+      <li data-reveal><span class="k">分房</span><p>客廳兩側各一扇房門，一邊是他們的房間，一邊是你的。浴室三人共用。</p></li>
+      <li data-reveal><span class="k">距離</span><p>彼此之間沒有距離感，房間可以隨意進出。</p></li>
+      <li data-reveal><span class="k">對你</span><p>疼愛你、尊重你，把你當兄弟，也是能一起做很多事的朋友。就算你在他們之間是個電燈泡，他們也完全接受。</p></li>
+      <li data-reveal><span class="k">以後</span><p>三個人要一直當閨蜜，或是一起成為戀人，都可以。</p></li>
+    </ol>
+  </section>
+
+  <!-- 室友檔案 -->
+  <section class="alt">
+    <p class="tag" data-reveal>室友檔案</p>
+    <h2 data-reveal>金毛大狗與黑豹</h2>
+    <p data-reveal>兩人同樣 24 歲、身高 183 公分，留著及肩長髮。工作都跟保養身體有關，所以看起來都是美男子。</p>
+
+    <div class="mates">
+      <article class="mate sen" data-reveal>
+        <figure>
+          <img src="../images/characters/月華社區：居家好ㄍㄟˋ蜜-3.jpg" width="600" height="750" alt="金髮藍眼的光元森六，手撐著頭" loading="lazy">
+          <figcaption>黃鸝</figcaption>
+        </figure>
+        <div class="mate-head">
+          <h3>光元森六</h3>
+          <p class="sub">姓光元，名森六</p>
+          <p class="swatch">鵝黃</p>
+          <dl class="stats">
+            <div><dt>職業</dt><dd>瑜伽老師</dd></div>
+            <div><dt>年齡</dt><dd>24</dd></div>
+            <div><dt>身高</dt><dd>183</dd></div>
+          </dl>
+        </div>
+        <div class="mate-text">
+          <p>網路上很紅的有氧運動與瑜伽老師，在 YouTube、Threads 和其他社群平台都有自己的頻道。閃亮亮的金色及肩長髮、藍色眼睛，四肢線條流暢，有好看的薄肌；臉蛋細緻，是被鬱也督促出來的。</p>
+          <p>開朗活潑的金毛大狗，見人就笑。話很多，很喜歡交朋友，會在對方沒察覺時摸清他的情緒。身段和臉都漂亮，帶點溫柔大姊姊的感覺，發現他是男生的人常會驚呼一聲。</p>
+          <p>溫柔底下藏著強勢，會慢慢引導人做得更多；你做到了，他會給你不同形式的獎勵。會撒嬌，口氣可愛，貼到愛人身上的動作卻很慢，而且有目的。</p>
+        </div>
+        <ul class="chips" aria-label="森六的代表物">
+          <li>黃色羽毛</li><li>蜂蜜罐杯子</li><li>Q版黃鸝抱枕</li><li>一整排護髮品</li>
+        </ul>
+      </article>
+
+      <article class="mate yu" data-reveal>
+        <figure>
+          <img src="../images/characters/月華社區：居家好ㄍㄟˋ蜜-6.jpg" width="600" height="750" alt="黑髮紅眼的不良品鬱也，在夕陽下把下巴靠在手臂上" loading="lazy">
+          <figcaption>大卷尾鳥</figcaption>
+        </figure>
+        <div class="mate-head">
+          <h3>不良品鬱也</h3>
+          <p class="sub">姓不良品，名鬱也</p>
+          <p class="swatch">墨黑</p>
+          <dl class="stats">
+            <div><dt>職業</dt><dd>化妝師</dd></div>
+            <div><dt>年齡</dt><dd>24</dd></div>
+            <div><dt>身高</dt><dd>183</dd></div>
+          </dl>
+        </div>
+        <div class="mate-text">
+          <p>從百貨專櫃的化妝推銷員起家，後來開了自己的一對一化妝教室，擅長皮膚管理。烏溜溜的黑色及肩長髮、紅色眼睛，不愛笑，臉很冷淡；身上的薄肌，是被森六拉去運動練出來的。</p>
+          <p>眼神銳利的冷漠黑豹，熟了以後是乖巧的大貓。嚇到人不會慚愧，反而當成個人特色，很有自信。個性懶散，但很配合；被森六拉去運動時會嘆氣，嘆完還是去。</p>
+          <p>話不多、表情不多，一開口就很直白，常點出別人沒想到的地方。對色彩十分敏銳，看陌生人先看身上的配色和臉。化妝對他來說是藝術，素顏是充滿無限可能的空白畫布。</p>
+        </div>
+        <ul class="chips" aria-label="鬱也的代表物">
+          <li>黑色羽毛</li><li>三角錐馬克杯</li><li>Q版大卷尾鳥抱枕</li><li>化妝台</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- 情侶觀察 -->
+  <section>
+    <p class="tag" data-reveal>情侶觀察</p>
+    <h2 data-reveal>表面上，只是好兄弟</h2>
+    <p data-reveal>兩人對彼此的愛一樣大，大到沒有上限，表面上卻像兄弟。平時工作很努力，讓人覺得安全、可以依靠；私底下滑稽又傻氣，最喜歡一起耍笨。</p>
+    <ul class="duo">
+      <li data-reveal><span class="k">在外</span><p>習慣隱密地牽手，不大肆宣揚。</p></li>
+      <li data-reveal><span class="k">在家</span><p>摟腰、抱抱、親親，一天好幾次。路過就互打屁股、互撞屁股，喜歡聽對方哀哀叫。</p></li>
+    </ul>
+    <p class="gap" data-reveal>一個眼神就知道對方要做什麼，也很配合。偶爾會故意裝作不知道，反著來。</p>
+
+    <p class="push-title" data-reveal>互相督促紀錄</p>
+    <ol class="push">
+      <li data-reveal>
+        <p class="flow"><b class="p-s">森六</b><span class="verb">拉去運動</span><b class="p-y">鬱也</b></p>
+        <p>鬱也的薄肌，是這樣練出來的。</p>
+      </li>
+      <li data-reveal>
+        <p class="flow"><b class="p-y">鬱也</b><span class="verb">督促保養</span><b class="p-s">森六</b></p>
+        <p>森六細緻的臉蛋，是這樣顧出來的。</p>
+      </li>
+      <li data-reveal>
+        <p class="flow"><b class="p-y">鬱也</b><span class="verb">誘哄嘗鮮</span><b class="p-s">森六</b></p>
+        <p>森六貪吃，也知道自己不可以吃太多，最後還是對各種食物躍躍欲試。最成功的案例是雞屁股。</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 帶你看房 -->
+  <section class="alt">
+    <p class="tag" data-reveal>帶你看房</p>
+    <h2 data-reveal>從玄關走到陽台</h2>
+    <p data-reveal>電梯到五樓，出來是寬敞明亮的樓梯間和一扇做工簡約的鐵門。進門之後，客廳和開放式廚房連成一片，正對著大片落地窗，窗外是陽台。</p>
+    <p class="note" data-reveal>家裡的配色是對色彩敏銳的鬱也決定的：溫暖的米白與木質色調，點綴著森六的鵝黃、鬱也的墨黑，還有你的顏色。空氣裡常有鬱也挑的淡淡香氛和蠟燭。</p>
+
+    <div data-reveal>
+      <div class="rooms-nav" role="group" aria-label="選擇要看的空間">
+        <button type="button" data-room="entry" aria-pressed="true">玄關</button>
+        <button type="button" data-room="living" aria-pressed="false">客廳</button>
+        <button type="button" data-room="kitchen" aria-pressed="false">廚房</button>
+        <button type="button" data-room="bath" aria-pressed="false">浴室</button>
+        <button type="button" data-room="bed" aria-pressed="false">他們的房間</button>
+        <button type="button" data-room="balcony" aria-pressed="false">陽台</button>
+      </div>
+
+      <article class="room entry is-on" data-panel="entry">
+        <figure><img src="../images/posters/居家-玄關.webp" width="1024" height="1536" alt="玄關的鞋櫃與三雙室內拖鞋" loading="lazy"></figure>
+        <h3>玄關</h3>
+        <ul>
+          <li>鞋櫃大半被森六各色的運動鞋佔據；鬱也只有幾雙黑鞋，擺得整整齊齊。</li>
+          <li>地上三雙室內拖鞋：一雙鵝黃、一雙墨黑，還有一雙是你的。</li>
+          <li>三個人回家，都把鑰匙丟進同一個托盤。</li>
+        </ul>
+      </article>
+
+      <article class="room" data-panel="living">
+        <figure><img src="../images/posters/居家-客廳.webp" width="1200" height="673" alt="陽光灑進客廳，L型大沙發上放著黃色小鳥與黑色小鳥抱枕，窗邊有補光燈與腳架" loading="lazy"></figure>
+        <h3>客廳</h3>
+        <ul>
+          <li>L型大沙發，三個人可以並排躺下。長邊中間是森六的位置，轉角是鬱也窩成一團的地方；兩人再怎麼黏在一起，沙發上永遠留著你的位置。</li>
+          <li>三人最常待在沙發前的大地毯上，一起看電視、打電動、吃宵夜、耍笨，玩累了就地躺平。</li>
+          <li>靠落地窗的一角是森六的拍攝角落，放著瑜伽墊、環形補光燈和腳架。鬱也常被抓去入鏡，一起做雙人瑜伽，或當背景裡懶洋洋躺著的路人。</li>
+          <li>電視櫃抽屜裡有三支手把，其中一支被森六輸到惱羞時捏得特別鬆。</li>
+          <li>落地窗邊陽光最好的那塊地板，是鬱也曬太陽的地方。陽光移動，他就跟著換位置。</li>
+        </ul>
+      </article>
+
+      <article class="room" data-panel="kitchen">
+        <figure><img src="../images/posters/居家-廚房.webp" width="1200" height="676" alt="開放式廚房與三人座餐桌，桌巾上印著羽毛圖案，桌上擺著一個花瓶" loading="lazy"></figure>
+        <h3>廚房</h3>
+        <ul>
+          <li>三人座的餐桌鋪著羽毛桌巾，黃色羽毛代表森六，黑色羽毛代表鬱也。桌上的花瓶，代表你。</li>
+          <li>雙開門冰箱左右分治：一邊是森六標好日期與熱量的健康餐盒，一邊塞滿鬱也買回來誘惑森六的宵夜和零食。</li>
+          <li>森六負責煮健康餐，鬱也負責「買」宵夜。</li>
+          <li>森六的杯子長得像蜂蜜罐，鬱也的馬克杯印著三角錐。客人來，只能用沒有主人的那一排。</li>
+        </ul>
+      </article>
+
+      <article class="room" data-panel="bath">
+        <figure><img src="../images/posters/居家-浴室.webp" width="1200" height="673" alt="乾濕分離的浴室，鏡子周圍裝著化妝燈，旁邊是大浴缸" loading="lazy"></figure>
+        <h3>浴室</h3>
+        <ul>
+          <li>三人共用，乾濕分離。浴缸大到塞得進兩個 183 公分的男人，為了它，特地花錢跟房東改了裝潢。</li>
+          <li>鏡子周圍裝著鬱也要求的化妝燈，照得毫無陰影，臉上任何瑕疵都逃不過他的眼睛。</li>
+          <li>保養品分成三區，不可以拿錯。你那一區，由鬱也親自挑選補貨。</li>
+          <li>兩支吹風機，兩人常互相幫對方吹頭髮。排水孔卡頭髮時會互相推託，但金色還是黑色，一看就知道。</li>
+        </ul>
+      </article>
+
+      <article class="room" data-panel="bed">
+        <figure><img src="../images/posters/居家-房間.webp" width="1200" height="675" alt="加大雙人床上的棉被捲成一團，衣櫃一邊是亮色衣服、一邊是深色衣服，窗外是夕陽" loading="lazy"></figure>
+        <h3>他們的房間</h3>
+        <ul>
+          <li>加大的雙人床，森六睡靠門那側，鬱也睡靠窗那側。棉被常被怕冷又懶散的鬱也捲走。</li>
+          <li>靠窗是鬱也的化妝台，刷具像畫筆一樣插在筆筒裡，彩妝照色票排列。森六是唯一被允許坐在他面前當模特兒的人。</li>
+          <li>衣櫃左邊是鵝黃與亮色，右邊是墨黑與深色，一眼看得出分界。</li>
+          <li>早上常見森六拉著賴床的鬱也起來運動。房門開著時，這裡是全家最常傳出笑鬧聲的房間。</li>
+        </ul>
+      </article>
+
+      <article class="room" data-panel="balcony">
+        <figure><img src="../images/posters/居家-陽台.webp" width="1200" height="673" alt="黃昏的陽台，晾衣架上掛滿黃色的運動服，地上鋪著瑜伽墊" loading="lazy"></figure>
+        <h3>陽台</h3>
+        <ul>
+          <li>客廳落地窗外的陽台，往下可以看到月華社區的中庭。</li>
+          <li>晾衣架被森六大量的運動服與瑜伽服佔滿，鬱也的黑衣服被擠到角落。</li>
+          <li>天氣好的早晨，森六在陽台做拜日式；鬱也縮在落地窗邊的地板上，拿著三角錐馬克杯看他。一個在屋裡，一個在屋外，隔著一道紗門。</li>
+          <li>梅雨季衣服晾不乾，森六的運動服全部搬進室內吹除濕機。</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- 一天的聲音 -->
+  <section>
+    <p class="tag" data-reveal>一天的聲音</p>
+    <h2 data-reveal>閉上眼睛，也知道幾點了</h2>
+    <ol class="day">
+      <li class="am" data-reveal>
+        <p class="when">早晨</p>
+        <ul>
+          <li>森六的鬧鐘響，窗簾「唰」一聲拉開，接著是鬱也把棉被捲得更緊的悶哼。</li>
+          <li>廚房裡，果汁機打奶昔、平底鍋煎蛋、咖啡機滴漏。</li>
+          <li>陽台上，森六伸展時的深呼吸。</li>
+        </ul>
+      </li>
+      <li class="noon" data-reveal>
+        <p class="when">白天</p>
+        <ul>
+          <li>森六拍片時放節拍音樂，對著鏡頭說話，語氣比平常更甜。拍攝角落一開拍，全家自動降低音量。</li>
+          <li>鬱也在畫面外嘆氣，偶爾被拉進畫面。</li>
+          <li>陽台的衣架被風吹得互相碰撞。</li>
+        </ul>
+      </li>
+      <li class="eve" data-reveal>
+        <p class="when">晚上</p>
+        <ul>
+          <li>電視綜藝、遊戲音效、互相吐槽。輸的人要去廚房拿飲料。</li>
+          <li>洗完澡，兩支吹風機同時開，說話要用喊的。</li>
+        </ul>
+      </li>
+      <li class="night" data-reveal>
+        <p class="when">深夜</p>
+        <ul>
+          <li>冰箱門被輕輕打開，「啵」一聲。接著是鬱也從黑暗中出聲：「森六，你在吃什麼」</li>
+          <li>電視關了，剩下蠟燭燒芯的細響，和有人窩在沙發上睡著的呼吸聲。</li>
+          <li>房門關上之後的聲音，好ㄍㄟˋ蜜從不解釋，你也不需要問。</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 同居守則 -->
+  <section class="alt">
+    <p class="tag" data-reveal>同居守則</p>
+    <h2 data-reveal>冰箱門上的便利貼</h2>
+    <div class="fridge" data-reveal>
+      <ol class="notes">
+        <li class="first"><span class="no">第一條</span>森六跟鬱也不可以分手。</li>
+        <li><span class="no">第二條</span>房間可以隨意進出。</li>
+        <li><span class="no">第三條</span>沙發上永遠留一個位置給你。</li>
+        <li><span class="no">第四條</span>補光燈亮了，全家降低音量。</li>
+        <li><span class="no">第五條</span>打電動輸的人，去廚房拿飲料。</li>
+        <li><span class="no">第六條</span>保養品分三區，不可以拿錯。</li>
+        <li><span class="no">第七條</span>冰箱左右分治。</li>
+        <li><span class="no">第八條</span>去海邊記得帶毯子。</li>
+      </ol>
+    </div>
+    <p class="note" data-reveal>第八條背後的細節，他們到現在都不肯說。</p>
+  </section>
+
+  <!-- 回憶 -->
+  <section>
+    <p class="tag" data-reveal>三人行</p>
+    <h2 data-reveal>從一鍋春川炒雞開始</h2>
+    <ol class="memories">
+      <li data-reveal>
+        <p class="when">大二・學生會聯誼</p>
+        <h3>點心桌旁的三個人</h3>
+        <p>學生會辦了全校性的聯誼舞會，所有系所的人都可以參加。三個沒有人約、彼此也還不認識的人，躲在擺滿食物的大長桌旁，一口接一口，把一整鍋春川炒雞吃完。</p>
+        <blockquote>「我是妝品化學系的不良品」<br>「我是體育系的光元，請多指教！你呢？」</blockquote>
+        <p>「欸！是誰一次把春川炒雞吃完啊？」三人成了共犯，悄悄溜進舞池，一起跳了一曲。從那天起，三個人交換了聯絡方式，開始一起玩，定期約吃飯。</p>
+      </li>
+      <li data-reveal>
+        <p class="when">三個月後</p>
+        <h3>他們在一起了</h3>
+        <p>森六和鬱也成了情侶。你還是他們最好的朋友。</p>
+      </li>
+      <li data-reveal>
+        <p class="when">交往一週年・峇里島</p>
+        <h3>沙灘上的那一夜</h3>
+        <p>兩人的週年約會，也想要你一起參與。他們把你留在度假村休息，偷偷跑去沙灘，結果忘了鋪毯子隔絕沙子。</p>
+        <p>那一夜是怎麼過的、事後怎麼清理的，兩人都不願意提，連最好的朋友也不能說。</p>
+        <p class="after">從此去海邊，一定記得帶毯子。玩得還是很開心，只是晴空萬里裡，總有一絲烏雲。</p>
+      </li>
+      <li data-reveal>
+        <p class="when">搬進月華社區</p>
+        <h3>餐桌上的花瓶</h3>
+        <p>搬家前，他們要你買一個花瓶。搬進來那天，森六拿著一束和他髮色相襯的橙黃色鬱金香，鬱也拿著一束紫色鳶尾花。</p>
+        <blockquote>花插進花瓶，擺上了餐桌。這間屋子，從今天起就是我們的家了。</blockquote>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 樓上樓下 -->
+  <section class="alt">
+    <p class="tag" data-reveal>月華社區</p>
+    <h2 data-reveal>樓上樓下</h2>
+    <ol class="mailbox" data-reveal aria-label="B棟住戶">
+      <li><span class="f">頂樓</span><p>空中花園與溫室。溫室屬於藥劑師鬼川陽子一個人，沒有允許不可以進去。</p></li>
+      <li><span class="f">6F</span><p>春風百見，聽得懂動物說話的獸醫。</p></li>
+      <li class="home"><span class="f">5F</span><p>光元森六、不良品鬱也，還有你。</p></li>
+      <li><span class="f">2F</span><p>體操與武器大師橋沁、健身教練橋炘。</p></li>
+      <li><span class="f">1F</span><p>住戶大廳與警衛室，24 小時有人值班，代收包裹。</p></li>
+    </ol>
+    <p class="note" data-reveal>A棟一樓有咖啡廳 Lumi Café，C棟一樓有健身房和游泳池。</p>
+  </section>
+
+  <!-- 結尾 -->
+  <section class="end">
+    <p class="trio" data-reveal aria-hidden="true"><i></i><i></i><i></i></p>
+    <p class="sys-line" data-reveal>月華社區・B棟5樓</p>
+    <p class="line" data-reveal>他們再怎麼黏在一起，<br>沙發上永遠留著你的位置。</p>
+  </section>
+
+</main>
+<script>
+  // 帶你看房：點按鈕切換空間，一次只顯示一間
+  const roomButtons = [...document.querySelectorAll('[data-room]')];
+  const rooms = [...document.querySelectorAll('.room')];
+  function showRoom(id) {
+    rooms.forEach(r => r.classList.toggle('is-on', r.dataset.panel === id));
+    roomButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.room === id)));
+  }
+  roomButtons.forEach(b => b.addEventListener('click', () => showRoom(b.dataset.room)));
+</script>
+</body>
+</html>
