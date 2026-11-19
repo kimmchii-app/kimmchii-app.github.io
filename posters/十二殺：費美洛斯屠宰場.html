@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>十二殺：費美洛斯屠宰場｜遊戲說明書</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：「逃離絕境·十二殺」的遊戲說明書。日光燈的冷綠、工作服的橘、血的紅；最後逃出遊戲，轉成暖色 -->
+<style>
+  :root {
+    --bg: #0a0d0c;
+    --bg-2: #111816;
+    --panel: #141c1a;
+    --line: rgba(200, 234, 219, .16);
+    --ink: #e2e8e4;
+    --muted: #97a8a1;
+    --fluo: #c8eadb;
+    --rust: #e46a2c;
+    --rust-text: #f08a4b;
+    --blood: #c2362b;
+    --blood-text: #ef6457;
+    --amber: #e2a33b;
+    --exit: #43c08d;
+    --catwalk: #9d93ec;
+    --cold: #79a8d2;
+    --warm: #f3c58e;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --mono: "Cascadia Code", Consolas, "Courier New", var(--sans);
+    --gutter: clamp(20px, 6vw, 48px);
+    --ease: cubic-bezier(.22, .61, .36, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet { max-width: 720px; margin: 0 auto; overflow: hidden; background: var(--bg); }
+  h1, h2, h3, p, ol, ul, dl, dd, figure { margin: 0; padding: 0; }
+  ol, ul { list-style: none; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  /* 照片不給存 */
+  img, video { display: block; width: 100%; height: auto; pointer-events: none; -webkit-user-drag: none; }
+  figure { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+
+  section { position: relative; padding: clamp(48px, 9vw, 76px) var(--gutter); }
+  /* 系統字樣的小標 */
+  .tag {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 6px;
+    font-family: var(--mono);
+    font-size: 12px; letter-spacing: .28em;
+    color: var(--fluo);
+  }
+  .tag::before { content: ""; width: 7px; height: 7px; background: var(--fluo); box-shadow: 0 0 8px var(--fluo); }
+  h2 {
+    margin-bottom: 24px;
+    font-family: var(--serif);
+    font-size: clamp(25px, 5.6vw, 34px);
+    line-height: 1.4;
+    letter-spacing: .1em;
+    /* 訊號不穩的錯位 */
+    text-shadow: 1.5px 0 rgba(239, 100, 87, .55), -1.5px 0 rgba(121, 168, 210, .45);
+  }
+  section > p + p { margin-top: 1em; }
+
+  /* 封面：屠宰線的吊鉤影片 */
+  /* 封面不超過視窗高度，放在角色頁的框裡也能一眼看到標題 */
+  .cover { position: relative; height: clamp(480px, min(125vw, 100vh), 900px); height: clamp(480px, min(125vw, 100svh), 900px); padding: 0; isolation: isolate; }
+  .cover video, .cover .still { position: absolute; inset: 0; height: 100%; object-fit: cover; filter: saturate(.85) brightness(.82); z-index: -2; }
+  .cover::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      repeating-linear-gradient(0deg, rgba(0, 0, 0, .2) 0 1px, transparent 1px 3px),
+      linear-gradient(180deg, rgba(10, 13, 12, .6), transparent 22%, transparent 42%, rgba(10, 13, 12, .9) 74%, var(--bg));
+  }
+  .hud {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 16px var(--gutter);
+    font-family: var(--mono);
+    font-size: 11.5px; letter-spacing: .2em;
+    color: var(--fluo);
+    animation: flicker 7s steps(1) infinite;
+  }
+  .cover-title { position: absolute; left: 0; right: 0; bottom: clamp(56px, 12vw, 92px); }
+  .cover-title img { width: min(94%, 620px); margin: 0 auto; mix-blend-mode: screen; }
+  .start {
+    position: absolute; left: 0; right: 0; bottom: 20px;
+    font-size: 12px; letter-spacing: .3em; text-align: center;
+    color: var(--muted);
+  }
+  .start::after { content: " ▼"; animation: blink 1.6s steps(1) infinite; }
+
+  /* 遊戲規則 */
+  .lead { font-family: var(--serif); font-size: 17px; line-height: 1.9; color: #fff; }
+  .rulebook { margin-top: 28px; border-top: 1px solid var(--line); }
+  .rulebook li { display: grid; grid-template-columns: 3.6em minmax(0, 1fr); gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .rulebook .k { font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: .2em; line-height: 1.9; color: var(--amber); }
+  .sys { font-family: var(--mono); color: var(--fluo); white-space: nowrap; }
+
+  /* 殺手檔案 */
+  .killer { background: linear-gradient(180deg, var(--bg), #120c0b 60%, var(--bg)); }
+  .dossier {
+    display: grid; grid-template-columns: minmax(120px, 38%) minmax(0, 1fr); gap: clamp(16px, 4vw, 28px); align-items: start;
+    margin-bottom: 26px; padding: clamp(14px, 3.5vw, 22px);
+    background: var(--panel);
+    border: 1px solid rgba(228, 106, 44, .4);
+  }
+  .mug { position: relative; }
+  .mug img { aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; }
+  .mug::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, .16) 0 1px, transparent 1px 3px); }
+  .mug figcaption {
+    position: absolute; left: 8px; top: 8px; z-index: 1;
+    padding: 0 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: .2em;
+    color: #fff; background: var(--blood);
+  }
+  .stats > div { display: grid; grid-template-columns: 4.6em minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px dashed rgba(200, 234, 219, .14); }
+  .stats > div:last-child { border-bottom: 0; }
+  .stats dt { font-size: 12.5px; letter-spacing: .12em; line-height: 2; color: var(--muted); }
+  .stats dd { font-size: 14.5px; line-height: 1.8; }
+  .stats .big { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--rust-text); }
+
+  /* 他怎麼找到你 */
+  .hunt-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1fr); gap: clamp(18px, 5vw, 34px); align-items: center; }
+  .hunt-grid figure { position: relative; }
+  .hunt-grid img { aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+  .hunt h3 { margin-bottom: 8px; font-family: var(--serif); font-size: 17px; letter-spacing: .08em; color: var(--rust-text); }
+  .sense { display: grid; gap: 6px; margin-bottom: 22px; }
+  .sense:last-child { margin-bottom: 0; }
+  .sense li { position: relative; padding-left: 18px; font-size: 14.5px; line-height: 1.7; }
+  .sense li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 7px; height: 7px; border: 1.5px solid var(--rust-text); border-radius: 50%; }
+  .approach {
+    margin-top: 30px; padding: 16px 18px;
+    font-family: var(--serif); font-size: 16px; line-height: 1.9;
+    background: var(--panel);
+    border-left: 3px solid var(--rust);
+  }
+  .hunt .warn { margin-top: 14px; font-size: 14px; color: var(--muted); }
+
+  /* 平面圖 */
+  .floor { background: var(--bg-2); }
+  .plan { padding: clamp(12px, 3vw, 20px); background: var(--bg); border: 1px solid var(--line); }
+  .plan-scroll { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; }
+  .plan svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .swipe { display: none; }
+  .plan .room { fill: #131b19; stroke: #405049; stroke-width: 2; }
+  .plan .t { font-family: var(--serif); font-size: 24px; font-weight: 700; fill: #e2e8e4; text-anchor: middle; }
+  .plan .s { font-family: var(--sans); font-size: 16px; fill: #97a8a1; text-anchor: middle; }
+  .plan .nest { fill: rgba(194, 54, 43, .17); stroke: var(--blood); }
+  .plan .nest-t { fill: var(--blood-text); }
+  .plan .cold { fill: rgba(121, 168, 210, .13); stroke: var(--cold); }
+  .plan .cold-t { fill: #a9cbe8; }
+  .plan .exit { fill: var(--exit); }
+  .plan .exit-t { fill: var(--exit); font-size: 18px; font-weight: 700; }
+  .plan .walk { fill: none; stroke: var(--catwalk); stroke-width: 3; stroke-dasharray: 9 7; }
+  .plan .hall { fill: none; stroke: #6c7d76; stroke-width: 2; stroke-dasharray: 6 5; }
+  .plan .secret { fill: none; stroke: var(--exit); stroke-width: 4; stroke-dasharray: 3 7; stroke-linecap: round; }
+  .chest { cursor: pointer; outline: none; }
+  .chest circle { fill: #2a1e0b; stroke: var(--amber); stroke-width: 2.5; transition: fill .2s; }
+  .chest text { font-family: var(--sans); font-size: 17px; font-weight: 700; fill: #f6dcaa; text-anchor: middle; pointer-events: none; }
+  .chest:hover circle, .chest:focus-visible circle { stroke-width: 4; }
+  .chest.is-on circle { fill: var(--amber); }
+  .chest.is-on text { fill: #1b1206; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .legend i { display: inline-block; flex: none; }
+  .lg-chest { width: 14px; height: 14px; border: 2px solid var(--amber); border-radius: 50%; }
+  .lg-exit { width: 18px; height: 5px; background: var(--exit); }
+  .lg-walk { width: 20px; border-top: 3px dashed var(--catwalk); }
+  .lg-nest { width: 14px; height: 14px; background: rgba(194, 54, 43, .3); border: 1.5px solid var(--blood); }
+  .lg-cold { width: 14px; height: 14px; background: rgba(121, 168, 210, .25); border: 1.5px solid var(--cold); }
+  .pick {
+    min-height: 3.6em; margin-top: 18px; padding: 12px 16px;
+    font-size: 14.5px; line-height: 1.75;
+    color: var(--muted);
+    background: var(--panel);
+    border-left: 3px solid var(--amber);
+  }
+  .pick b { color: var(--amber); }
+  .chests { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 22px; margin-top: 22px; counter-reset: chest; }
+  .chests li {
+    display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px;
+    padding: 8px 6px;
+    font-size: 13.5px; line-height: 1.7; color: var(--muted);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color .2s;
+  }
+  .chests li::before {
+    content: counter(chest); counter-increment: chest;
+    width: 26px; height: 26px; margin-top: 1px;
+    font-size: 13px; font-weight: 700; line-height: 23px; text-align: center;
+    color: #f6dcaa;
+    border: 1.5px solid var(--amber); border-radius: 50%;
+  }
+  .chests li b { display: block; font-size: 14.5px; color: var(--ink); }
+  .chests li.is-on { background: rgba(226, 163, 59, .14); }
+  .chests li.is-on::before { color: #1b1206; background: var(--amber); }
+
+  /* 倒數 */
+  .timeline li { display: grid; grid-template-columns: 5.2em minmax(0, 1fr); gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); }
+  .timeline li:last-child { border-bottom: 1px solid var(--line); }
+  .t-chip {
+    align-self: start;
+    padding: 2px 0;
+    font-family: var(--mono); font-size: 15px; font-weight: 700; letter-spacing: .08em; text-align: center;
+    color: var(--fluo);
+    border: 1px solid var(--line);
+  }
+  .timeline .is-alert .t-chip { color: var(--amber); border-color: rgba(226, 163, 59, .6); }
+  .timeline .is-final .t-chip { color: #fff; background: var(--blood); border-color: var(--blood); }
+  .timeline p { font-size: 15px; }
+
+  /* 事故報告 */
+  .reports { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-bottom: 26px; }
+  .report {
+    position: relative;
+    padding: 18px 18px 22px;
+    color: #2b2620;
+    background: #ece4d3;
+    box-shadow: 0 18px 34px -18px rgba(0, 0, 0, .8);
+  }
+  .report:first-child { transform: rotate(-1.2deg); }
+  .report:last-child { transform: rotate(1deg); background: #e4dcc8; }
+  .report .where { font-size: 12px; letter-spacing: .16em; color: #6f6556; }
+  .report h3 { margin: 2px 0 12px; font-family: var(--serif); font-size: 18px; letter-spacing: .08em; }
+  .report .typed { font-family: var(--serif); font-size: 15.5px; line-height: 1.8; }
+  .redacted { display: grid; gap: 9px; padding-top: 4px; }
+  .redacted span { display: block; height: 13px; background: #2b2620; }
+  .redacted span:nth-child(2) { width: 82%; }
+  .redacted span:nth-child(3) { width: 64%; }
+  .report .hint { margin-top: 14px; font-size: 13px; color: #6f6556; }
+  .pile { display: flex; flex-wrap: wrap; gap: 10px 8px; margin-bottom: 14px; }
+  .pile span {
+    padding: 0 5px;
+    font-family: var(--serif); font-size: 14px; font-weight: 700; letter-spacing: .1em;
+    color: var(--blood-text);
+    border: 1.5px solid currentColor; border-radius: 3px;
+    transform: rotate(-8deg);
+    opacity: .8;
+  }
+  .pile span:nth-child(3n + 2) { transform: rotate(4deg); opacity: .65; }
+  .pile span:nth-child(3n) { transform: rotate(-14deg); opacity: .9; }
+
+  /* 第十二格：罐頭影片 */
+  .shelf { padding: 0 0 clamp(48px, 9vw, 76px); }
+  .shelf figure { position: relative; aspect-ratio: 16 / 9; -webkit-mask-image: linear-gradient(#000 62%, transparent); mask-image: linear-gradient(#000 62%, transparent); }
+  .shelf video, .shelf .still { position: absolute; inset: 0; height: 100%; object-fit: cover; }
+  .shelf-in { position: relative; margin-top: -40px; padding: 0 var(--gutter); }
+  .shelf-in > p + p { margin-top: 1em; }
+  .climax { margin-top: 1.6em !important; padding-left: 16px; font-family: var(--serif); font-size: 18px; line-height: 1.9; color: #fff; border-left: 2px solid var(--blood); }
+  .fr { margin-top: 2em !important; font-family: var(--serif); font-size: clamp(26px, 6vw, 36px); font-style: italic; letter-spacing: .04em; color: var(--blood-text); }
+  .fr small { display: block; font-size: 14px; font-style: normal; letter-spacing: .1em; color: var(--muted); }
+
+  /* 遊戲結束以後：轉成暖色 */
+  .after { background: linear-gradient(180deg, var(--bg), #17120d 40%, #1d150e); }
+  .after .tag { color: var(--warm); }
+  .after .tag::before { background: var(--warm); box-shadow: 0 0 8px var(--warm); }
+  .after h2 { text-shadow: none; }
+  .table {
+    margin-bottom: 30px; padding: 18px 20px;
+    font-family: var(--serif); font-size: 16px; line-height: 1.95;
+    color: #f1e6d6;
+    background: rgba(243, 197, 142, .07);
+    border: 1px solid rgba(243, 197, 142, .25);
+  }
+  .quentin { display: grid; grid-template-columns: minmax(116px, 34%) minmax(0, 1fr); gap: clamp(16px, 4vw, 26px); align-items: center; margin-bottom: 26px; }
+  .quentin img { aspect-ratio: 3 / 4; object-fit: cover; object-position: center top; border: 6px solid #f1e6d6; box-shadow: 0 18px 34px -16px rgba(0, 0, 0, .8); }
+  .org { font-size: 12.5px; letter-spacing: .2em; color: var(--warm); }
+  .q-name { font-family: var(--serif); font-size: clamp(26px, 6vw, 34px); font-weight: 700; line-height: 1.3; letter-spacing: .08em; }
+  .q-intro { margin-top: 8px; font-size: 14.5px; line-height: 1.8; color: #d9cfc2; }
+  .facts { display: grid; gap: 14px; margin-bottom: 34px; }
+  .facts li { position: relative; padding-left: 22px; font-size: 14.5px; line-height: 1.85; color: #e6ddd1; }
+  .facts li::before { content: ""; position: absolute; left: 3px; top: .72em; width: 8px; height: 8px; background: var(--warm); border-radius: 50%; }
+  .after h3 { margin-bottom: 12px; font-family: var(--serif); font-size: 19px; letter-spacing: .1em; color: var(--warm); }
+
+  /* 結尾 */
+  .end { padding-top: clamp(30px, 6vw, 48px); padding-bottom: clamp(64px, 12vw, 96px); text-align: center; background: radial-gradient(70% 70% at 50% 100%, rgba(243, 197, 142, .2), transparent 70%), #1d150e; }
+  .end .sys-line { font-family: var(--mono); font-size: 12px; letter-spacing: .2em; color: var(--muted); }
+  .end .line { margin-top: 14px; font-family: var(--serif); font-size: clamp(21px, 5vw, 28px); line-height: 1.8; color: #fbf1e3; }
+
+  @keyframes blink { 50% { opacity: 0; } }
+  @keyframes flicker { 0%, 100% { opacity: .85; } 41% { opacity: .35; } 42% { opacity: .85; } 77% { opacity: .5; } 78% { opacity: .85; } }
+
+  /* 捲到才淡入（poster.js 會加上 .js）。用 translate 才不會蓋掉卡片本身的傾斜角度 */
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .hud, .start::after { animation: none; }
+  }
+
+  @media (max-width: 520px) {
+    .dossier, .hunt-grid, .quentin { grid-template-columns: minmax(0, 1fr); }
+    .mug, .quentin figure { width: min(240px, 72%); }
+    .hunt-grid figure { width: min(260px, 80%); margin: 0 auto; }
+    .reports, .chests { grid-template-columns: minmax(0, 1fr); }
+    /* 手機上平面圖維持可讀的字級，改成左右滑動 */
+    .plan svg { width: 560px; max-width: none; }
+    .swipe { display: block; margin-top: 8px; font-size: 12.5px; text-align: center; color: var(--muted); }
+    .hud { font-size: 10.5px; letter-spacing: .14em; }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <!-- 封面 -->
+  <header class="cover">
+    <img class="still" src="../images/posters/十二殺-吊鉤.webp" alt="">
+    <video data-play muted loop playsinline preload="auto" poster="../images/posters/十二殺-吊鉤.webp" aria-hidden="true">
+      <source src="../images/posters/十二殺-吊鉤.mp4" type="video/mp4">
+    </video>
+    <p class="hud"><span>虛擬實境恐怖遊戲</span><span>殺手 1｜寶箱 12</span></p>
+    <div class="cover-title">
+      <h1 class="sr-only">逃離絕境 十二殺：費美洛斯屠宰場</h1>
+      <img src="../images/posters/十二殺-標題.webp" width="1271" height="391" alt="逃離絕境　十二殺：費美洛斯屠宰場　只差最後一個">
+    </div>
+    <p class="start">往下捲動，進入絕境</p>
+  </header>
+
+  <!-- 遊戲規則 -->
+  <section>
+    <p class="tag" data-reveal>系統提示</p>
+    <h2 data-reveal>歡迎進入絕境</h2>
+    <p class="lead" data-reveal>這是一場虛擬實境恐怖遊戲。鐵鏽刮破皮膚的痛、冷藏庫的冷，都真實得讓人分不清虛實。只有視野邊緣偶爾閃過一行半透明的系統字，眨一下眼就沒了。</p>
+    <ol class="rulebook">
+      <li data-reveal><span class="k">殺手</span><p>只有一個：絞肉機。</p></li>
+      <li data-reveal><span class="k">寶箱</span><p>全廠十二個，只有一個裝著信物「午餐盒子」。</p></li>
+      <li data-reveal><span class="k">出口</span><p>正門、側門，還有一條剩三十分鐘才會開啟的隱藏密道。沒有信物時推開任何出口，門外都只有怨氣，走進去會回到廠區裡的隨機位置。</p></li>
+      <li data-reveal><span class="k">意外</span><p>有 30% 的機率跌倒或發生意外。屠宰線的地面是濕的，在那裡跑，跌倒的機率再提高 5%。</p></li>
+      <li data-reveal><span class="k">死亡</span><p>系統會跳出 <span class="sys">【您已死亡，請重新進行遊戲】</span>，把你送回起點重新計時。身上的道具都會保留。</p></li>
+      <li data-reveal><span class="k">輪迴</span><p>只要有人逃離成功，整個絕境就會重啟，進入下一次輪迴。</p></li>
+    </ol>
+  </section>
+
+  <!-- 殺手檔案 -->
+  <section class="killer">
+    <p class="tag" data-reveal>殺手檔案</p>
+    <h2 data-reveal>絞肉機</h2>
+    <article class="dossier" data-reveal>
+      <figure class="mug">
+        <img src="../images/characters/十二殺：費美洛斯屠宰場-1.jpg" width="600" height="750" alt="穿著橘色工作服的絞肉機">
+        <figcaption>殺手</figcaption>
+      </figure>
+      <dl class="stats">
+        <div><dt>死亡年齡</dt><dd class="big">30</dd></div>
+        <div><dt>身高</dt><dd class="big">186</dd></div>
+        <div><dt>信物</dt><dd>午餐盒子</dd></div>
+        <div><dt>外表</dt><dd>乾燥稻草色的金髮，深綠色眼睛，一張被殺意埋沒的俊臉</dd></div>
+        <div><dt>衣著</dt><dd>橘色連身工作服，沾著血跡</dd></div>
+        <div><dt>語言</dt><dd>法文</dd></div>
+      </dl>
+    </article>
+    <p data-reveal>屠宰場工傷死亡意外的主謀。他殺了太多員工，被永生困在屠宰場裡，永世不得超生。</p>
+    <p data-reveal>他已經收集了十一個活人肉醬罐頭。只要再找到一個，就能離開屠宰場。</p>
+  </section>
+
+  <!-- 他怎麼找到你 -->
+  <section class="hunt">
+    <p class="tag" data-reveal>殺手的感知</p>
+    <h2 data-reveal>他怎麼找到你</h2>
+    <div class="hunt-grid">
+      <figure data-reveal><img src="../images/characters/十二殺：費美洛斯屠宰場-3.jpg" width="600" height="750" alt="回過頭的絞肉機"></figure>
+      <div data-reveal>
+        <h3>他會立刻知道</h3>
+        <ul class="sense">
+          <li>午餐盒子被拿起來</li>
+          <li>架上的罐頭被拿走</li>
+          <li>昆汀的置物櫃被打開</li>
+          <li>辦公區的電話被接起來</li>
+        </ul>
+        <h3>他聽得見</h3>
+        <ul class="sense">
+          <li>打開寶箱</li>
+          <li>打破東西</li>
+          <li>觸發陷阱</li>
+          <li>拉動吊鉤的鍊條</li>
+        </ul>
+      </div>
+    </div>
+    <p class="approach" data-reveal>他靠近之前，你會先聽見靴子踩過積水和格柵板、金屬拖過地面，還有低低的法語哼唱。</p>
+    <p class="warn" data-reveal>鋼骨會傳聲，方向常常判斷錯。以為在背後的聲音，其實在頭頂的步道上。</p>
+  </section>
+
+  <!-- 平面圖：照菜菜子提供的平面圖重畫 -->
+  <section class="floor">
+    <p class="tag" data-reveal>廠區平面圖</p>
+    <h2 data-reveal>十二個寶箱在哪裡</h2>
+    <figure class="plan" data-reveal>
+      <div class="plan-scroll">
+      <svg viewBox="0 0 640 780" role="img" aria-labelledby="plan-title">
+        <title id="plan-title">費美洛斯屠宰場平面圖：主動線由南往北是卸貨平台、繫留欄、屠宰線、冷藏庫、加工廠、絞肉機室；西側是員工食堂與更衣室，東側是辦公區，地下有鍋爐房與排水渠道</title>
+        <text class="s" x="604" y="30">↑ 北</text>
+
+        <!-- 主廠房 -->
+        <rect class="room nest" x="260" y="40" width="120" height="64" rx="3"/>
+        <text class="t nest-t" x="320" y="81" style="font-size:22px">絞肉機室</text>
+        <text class="s nest-t" x="390" y="78" style="font-size:14px;text-anchor:start">門永遠關不上</text>
+
+        <rect class="room" x="200" y="104" width="240" height="112"/>
+        <text class="t" x="320" y="140">加工廠</text>
+        <rect class="room" x="212" y="150" width="96" height="58" style="fill:#18211f"/>
+        <text class="s" x="260" y="172" style="font-size:17px">香料室</text>
+        <text class="s" x="386" y="192" style="font-size:17px;text-anchor:end">出貨區</text>
+
+        <rect class="room cold" x="200" y="216" width="240" height="64"/>
+        <text class="t cold-t" x="300" y="246">冷藏庫</text>
+        <text class="s cold-t" x="300" y="268" style="font-size:14px">保溫門會自己關上</text>
+
+        <rect class="room" x="200" y="280" width="240" height="150"/>
+        <text class="t" x="320" y="318">屠宰線</text>
+        <text class="s" x="320" y="346">電昏→放血→燙毛→剖腹</text>
+        <text class="s" x="256" y="391" style="text-anchor:start">燙毛槽</text>
+        <text class="s" x="376" y="391" style="text-anchor:start">吊鉤</text>
+        <text class="s" x="320" y="420" style="font-size:15px">鐵梯 ↓ 地下</text>
+
+        <rect class="room" x="200" y="430" width="240" height="64"/>
+        <text class="t" x="320" y="470">繫留欄</text>
+
+        <rect class="room" x="200" y="494" width="240" height="70"/>
+        <text class="t" x="320" y="537">卸貨平台</text>
+        <rect class="exit" x="270" y="559" width="100" height="9"/>
+        <text class="t exit-t" x="320" y="594">正門出口・鐵捲門</text>
+
+        <!-- 維修步道（高處） -->
+        <path class="walk" d="M432 112V424"/>
+
+        <!-- 西側 -->
+        <rect class="room" x="16" y="280" width="160" height="150"/>
+        <text class="t" x="96" y="318">員工食堂</text>
+        <text class="s" x="112" y="370" style="text-anchor:end">廚房</text>
+        <rect class="exit" x="11" y="390" width="9" height="32"/>
+        <text class="t exit-t" x="102" y="412" style="font-size:16px">側門・員工通道</text>
+        <path d="M176 330H200" stroke="#6c7d76" stroke-width="5"/>
+
+        <rect class="room" x="16" y="430" width="160" height="104"/>
+        <text class="t" x="96" y="466" style="font-size:22px">更衣室</text>
+        <text class="s" x="96" y="490" style="font-size:15px">淋浴間・置物櫃</text>
+
+        <!-- 東側 -->
+        <path class="hall" d="M440 330H476M440 352H476"/>
+        <text class="s" x="458" y="318" style="font-size:15px">走廊</text>
+        <text class="s" x="458" y="374" style="font-size:14px">塌陷↓</text>
+        <rect class="room" x="476" y="280" width="148" height="170"/>
+        <text class="t" x="550" y="318">辦公區</text>
+        <text class="s" x="550" y="346" style="font-size:15px">1F 櫃台・辦公室</text>
+        <text class="s" x="550" y="368" style="font-size:15px">2F 主管室・檔案室</text>
+
+        <!-- 地下層 -->
+        <path d="M16 612H624" stroke="#405049" stroke-width="2" stroke-dasharray="4 6"/>
+        <text class="t" x="16" y="648" style="font-size:20px;text-anchor:start">地下層</text>
+        <text class="s" x="320" y="672" style="font-size:15px">↑ 屠宰線鐵梯</text>
+        <text class="s" x="520" y="672" style="font-size:15px">↑ 走廊塌陷處</text>
+        <rect class="room" x="16" y="664" width="150" height="80"/>
+        <text class="t" x="91" y="700" style="font-size:22px">鍋爐房</text>
+        <rect class="room" x="166" y="680" width="458" height="48"/>
+        <text class="t" x="260" y="713" style="font-size:22px">排水渠道</text>
+        <text class="s" x="420" y="711">積水・鐵柵欄</text>
+        <path class="secret" d="M566 728V762H624"/>
+        <text class="t exit-t" x="552" y="768" style="font-size:16px;text-anchor:end">隱藏密道・剩 30 分鐘開啟</text>
+
+        <!-- 寶箱 -->
+        <g class="chest" data-chest="1" tabindex="0" role="button" aria-label="寶箱 1" transform="translate(410 528)"><circle r="14"/><text y="6">1</text></g>
+        <g class="chest" data-chest="2" tabindex="0" role="button" aria-label="寶箱 2" transform="translate(232 462)"><circle r="14"/><text y="6">2</text></g>
+        <g class="chest" data-chest="3" tabindex="0" role="button" aria-label="寶箱 3" transform="translate(234 385)"><circle r="14"/><text y="6">3</text></g>
+        <g class="chest" data-chest="4" tabindex="0" role="button" aria-label="寶箱 4" transform="translate(354 385)"><circle r="14"/><text y="6">4</text></g>
+        <g class="chest" data-chest="5" tabindex="0" role="button" aria-label="寶箱 5" transform="translate(406 250)"><circle r="14"/><text y="6">5</text></g>
+        <g class="chest" data-chest="6" tabindex="0" role="button" aria-label="寶箱 6" transform="translate(260 191)"><circle r="14"/><text y="6">6</text></g>
+        <g class="chest" data-chest="7" tabindex="0" role="button" aria-label="寶箱 7" transform="translate(406 186)"><circle r="14"/><text y="6">7</text></g>
+        <g class="chest" data-chest="8" tabindex="0" role="button" aria-label="寶箱 8" transform="translate(522 410)"><circle r="14"/><text y="6">8</text></g>
+        <g class="chest" data-chest="9" tabindex="0" role="button" aria-label="寶箱 9" transform="translate(580 410)"><circle r="14"/><text y="6">9</text></g>
+        <g class="chest" data-chest="10" tabindex="0" role="button" aria-label="寶箱 10" transform="translate(134 364)"><circle r="14"/><text y="6">10</text></g>
+        <g class="chest" data-chest="11" tabindex="0" role="button" aria-label="寶箱 11" transform="translate(96 514)"><circle r="14"/><text y="6">11</text></g>
+        <g class="chest" data-chest="12" tabindex="0" role="button" aria-label="寶箱 12" transform="translate(91 724)"><circle r="14"/><text y="6">12</text></g>
+      </svg>
+      </div>
+      <p class="swipe" aria-hidden="true">← 左右滑動，看完整平面圖 →</p>
+      <figcaption class="legend">
+        <span><i class="lg-chest"></i>寶箱</span>
+        <span><i class="lg-exit"></i>出口</span>
+        <span><i class="lg-walk"></i>維修步道（高處）</span>
+        <span><i class="lg-nest"></i>絞肉機巢穴</span>
+        <span><i class="lg-cold"></i>冷區</span>
+      </figcaption>
+    </figure>
+    <p class="pick" id="pick" aria-live="polite">點地圖上的編號，看寶箱藏在哪裡。</p>
+    <ol class="chests">
+      <li data-chest="1"><span><b>卸貨平台</b>運豬貨車駕駛座下的鐵製工具箱</span></li>
+      <li data-chest="2"><span><b>繫留欄</b>最裡側欄位的飼料桶，要把手伸進去撈</span></li>
+      <li data-chest="3"><span><b>屠宰線</b>燙毛槽旁的鐵皮工具櫃</span></li>
+      <li data-chest="4"><span><b>屠宰線</b>吊鉤軌道上的帆布袋，拉鍊條會發出很大的聲音</span></li>
+      <li data-chest="5"><span><b>冷藏庫</b>最深處、豬屍後方的保麗龍箱，凍在地上，要用力扳開</span></li>
+      <li data-chest="6"><span><b>加工廠</b>香料室鐵架最上層，要踩著東西才拿得到</span></li>
+      <li data-chest="7"><span><b>加工廠</b>出貨區的成品紙箱，要把箱子搬開</span></li>
+      <li data-chest="8"><span><b>辦公區</b>主管室辦公桌上鎖的抽屜，要找鑰匙或撬開</span></li>
+      <li data-chest="9"><span><b>辦公區</b>檔案室的保險櫃，密碼寫在某個地方</span></li>
+      <li data-chest="10"><span><b>員工食堂</b>廚房最底層的食材櫃</span></li>
+      <li data-chest="11"><span><b>更衣室</b>其中一格置物櫃，位置每次輪迴都不同</span></li>
+      <li data-chest="12"><span><b>地下</b>鍋爐後方的鐵製工具箱</span></li>
+    </ol>
+  </section>
+
+  <!-- 倒數 -->
+  <section>
+    <p class="tag" data-reveal>倒數</p>
+    <h2 data-reveal>聽聲音，知道還剩多久</h2>
+    <ol class="timeline">
+      <li data-reveal><span class="t-chip">開局</span><p>鐵皮熱脹冷縮，一下一下地響。遠處有水滴進鐵桶。</p></li>
+      <li data-reveal><span class="t-chip">中段</span><p>輸送帶的鐵鍊偶爾轉幾格。吊鉤在軌道上互相碰撞，像有人用手撥過去。</p></li>
+      <li class="is-alert" data-reveal><span class="t-chip">30:00</span><p>全廠的吊鉤同時晃一次，系統跳出 <span class="sys">【隱藏密道已開啟】</span>。之後，排水渠道開始傳出風聲。</p></li>
+      <li class="is-final" data-reveal><span class="t-chip">10:00</span><p>絞肉機室的機器自己啟動，轟鳴沿著鋼骨傳到每個角落。</p></li>
+    </ol>
+  </section>
+
+  <!-- 事故報告 -->
+  <section>
+    <p class="tag" data-reveal>劇情線索</p>
+    <h2 data-reveal>兩份事故報告</h2>
+    <div class="reports">
+      <article class="report" data-reveal>
+        <p class="where">主管室・抽屜</p>
+        <h3>事故報告</h3>
+        <p class="typed">員工凡米洛操作不當，自行跌入。</p>
+      </article>
+      <article class="report" data-reveal>
+        <p class="where">檔案室・保險櫃</p>
+        <h3>手寫的原始報告</h3>
+        <p class="redacted" role="img" aria-label="內容被遮住了"><span></span><span></span><span></span></p>
+        <p class="hint">保險櫃的密碼，寫在某個地方。</p>
+      </article>
+    </div>
+    <p class="pile" data-reveal aria-hidden="true"><span>結案</span><span>結案</span><span>結案</span><span>結案</span><span>結案</span><span>結案</span><span>結案</span><span>結案</span><span>結案</span><span>結案</span><span>結案</span></p>
+    <p data-reveal>另外還有十一份事故報告，每一份都蓋著「結案」印章。</p>
+    <p data-reveal>絞肉機室的護欄有一段是斷的。斷口不是鏽蝕。</p>
+  </section>
+
+  <!-- 第十二格 -->
+  <section class="shelf">
+    <figure>
+      <img class="still" src="../images/posters/十二殺-罐頭.webp" alt="">
+      <video data-play muted loop playsinline preload="metadata" poster="../images/posters/十二殺-罐頭.webp" aria-hidden="true">
+        <source src="../images/posters/十二殺-罐頭.mp4" type="video/mp4">
+      </video>
+    </figure>
+    <div class="shelf-in">
+      <p class="tag" data-reveal>絞肉機室</p>
+      <h2 data-reveal>第十二格</h2>
+      <p data-reveal>絞肉機室在加工廠最深處，是昆汀死去的地方，也是絞肉機的巢穴。這裡的門永遠關不上。</p>
+      <p data-reveal>牆邊的鐵架上放著十一個大型罐頭，標籤是手寫的，寫著名字和日期。</p>
+      <p class="climax" data-reveal>第十二格空著。標籤已經貼好，名字那欄是空白的。</p>
+      <p class="fr" data-reveal lang="fr">Ah… le douzième.<small lang="zh-Hant-TW">（啊……第十二個。）</small></p>
+    </div>
+  </section>
+
+  <!-- 遊戲結束以後 -->
+  <section class="after">
+    <p class="tag" data-reveal>遊戲結束以後</p>
+    <h2 data-reveal>如果你帶著午餐盒子逃出去</h2>
+    <p class="table" data-reveal>員工食堂是全廠怨氣最淡的地方。最角落靠窗的位置，有一張擺得很整齊的桌子，椅子靠好，桌面擦得很乾淨。桌上有一圈長方形的印子，大小剛好是一個午餐盒。</p>
+    <article class="quentin" data-reveal>
+      <figure><img src="../images/characters/十二殺：費美洛斯屠宰場-4.jpg" width="600" height="800" alt="昆汀·凡米洛"></figure>
+      <div>
+        <p class="org">屠宰場加工員</p>
+        <p class="q-name">昆汀·凡米洛</p>
+        <p class="q-intro">獨自生活，沉默寡言，性格孤僻。他每天中午在員工食堂打開自己的午餐盒子，那是他唯一會笑的時候。</p>
+      </div>
+    </article>
+    <ul class="facts">
+      <li data-reveal>嘴巴太挑剔，常嫌別人飯做得沒有自己好，因此被孤立。之後他默默藏起自己的好，等一個能表現給人看、值得被稱讚的時候。</li>
+      <li data-reveal>其實很會做飯，對餐具、廚房和餐食都很堅持，遇到不滿意的菜會想重做。他自嘲是法國人血統的關係。</li>
+      <li data-reveal>父親是被餐廳開除的廚師，做飯十分好吃。昆汀的廚藝和對用餐的態度都學自父親，一樣嚴苛。</li>
+    </ul>
+    <h3 data-reveal>回到現實以後</h3>
+    <ul class="facts">
+      <li data-reveal>他從遊戲出來時，會穿過一道連接虛擬與現實的傳送門。那道門最後會變成他的信物：午餐盒子。</li>
+      <li data-reveal>戾氣和怨氣散去，他成為一個普通的男鬼。只有你看得見他，也只有你碰得到他。</li>
+      <li data-reveal>他會做飯、洗衣、做家務。像被綁上命定的契約，他會跟著你一起生活。</li>
+      <li data-reveal>他不再那麼兇殘，卻更在乎你的想法，也更想獨佔你。</li>
+    </ul>
+  </section>
+
+  <!-- 結尾 -->
+  <section class="end">
+    <p class="sys-line" data-reveal>【逃離絕境·十二殺｜費美洛斯屠宰場】</p>
+    <p class="line" data-reveal>帶著午餐盒子逃出去，<br>他會跟你一起回到現實。</p>
+  </section>
+
+</main>
+<script>
+  // 影片：捲到畫面裡才播放；使用者偏好減少動態時只顯示靜態圖
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll('video[data-play]').forEach(video => {
+    if (still.matches || !('IntersectionObserver' in window)) { video.remove(); return; }
+    video.addEventListener('playing', () => video.previousElementSibling?.classList.contains('still') && video.previousElementSibling.remove(), { once: true });
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) video.play().catch(() => {});
+      else video.pause();
+    }).observe(video);
+  });
+
+  // 平面圖：手機上可以左右滑動，一開始先對準中間的主動線
+  const scroller = document.querySelector('.plan-scroll');
+  scroller.scrollLeft = (scroller.scrollWidth - scroller.clientWidth) / 2;
+
+  // 點地圖或清單上的寶箱，兩邊一起標亮，並在下方顯示位置
+  const pick = document.getElementById('pick');
+  const items = [...document.querySelectorAll('.chests li')];
+  function choose(n) {
+    document.querySelectorAll('[data-chest]').forEach(el => el.classList.toggle('is-on', el.dataset.chest === n));
+    const item = items.find(li => li.dataset.chest === n);
+    const place = item.querySelector('b').textContent;
+    pick.innerHTML = '';
+    const head = document.createElement('b');
+    head.textContent = `寶箱 ${n}｜${place}`;
+    pick.append(head, document.createElement('br'), item.textContent.slice(place.length));
+  }
+  document.addEventListener('click', e => {
+    const target = e.target.closest('[data-chest]');
+    if (target) choose(target.dataset.chest);
+  });
+  document.addEventListener('keydown', e => {
+    const target = e.target.closest?.('.chest');
+    if (target && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); choose(target.dataset.chest); }
+  });
+</script>
+</body>
+</html>
