@@ -491,6 +491,26 @@
   .contact-send { justify-self: end; padding: 8px 22px; font-size: 14px; color: #fff; background: var(--primary-deep); border-color: var(--primary-deep); }
   .contact-send:disabled { opacity: .6; cursor: default; }
   .contact-link { padding: 0; font: inherit; color: var(--primary-deep); text-decoration: underline; background: none; border: 0; cursor: pointer; }
+
+  /* 設定提醒 */
+  .remind-intro { margin: 0 0 18px; font-size: 15px; }
+  .remind-steps { display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; counter-reset: remind; }
+  .remind-steps li { position: relative; min-width: 0; padding-left: 40px; counter-increment: remind; }
+  .remind-steps li::before {
+    content: counter(remind);
+    position: absolute; left: 0; top: 0;
+    display: grid; place-items: center;
+    width: 28px; height: 28px;
+    font-size: 14px; font-weight: 700;
+    color: #fff;
+    background: var(--primary-deep);
+    border-radius: 50%;
+  }
+  .remind-steps h3 { margin: 0 0 4px; font-size: 15px; line-height: 28px; color: var(--secondary-deep); }
+  .remind-steps p { margin: 0; font-size: 14px; line-height: 1.7; text-wrap: pretty; }
+  .remind-steps code, .remind-note code { padding: 1px 6px; font-size: 14px; color: var(--primary-deep); background: rgba(76, 138, 94, .12); border-radius: 6px; }
+  .remind-join { display: inline-block; margin-top: 10px; padding: 7px 18px; font-size: 14px; color: #fff; text-decoration: none; background: var(--primary-deep); border-color: var(--primary-deep); }
+  .remind-note { margin: 20px 0 0; }
   @media (max-width: 640px) {
     .copybox {
       width: 100%;
@@ -631,6 +651,7 @@
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></symbol>
   <symbol id="i-message" viewBox="0 0 24 24"><path d="M20 5H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4v4l5-4h7a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/></symbol>
   <symbol id="i-licence" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M9 14l2 2 4-4"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 1 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7c-2-1.7-4.700-2.300-8-2v13c3.300-.3 6 .3 8 2 2-1.700 4.700-2.300 8-2V5c-3.300-.3-6 .3-8 2z"/><path d="M12 7v13"/></symbol>
 </svg>
 
@@ -725,6 +746,7 @@
         <div class="links">
           <button type="button" id="contact-open" aria-haspopup="dialog" hidden><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg></span><span class="link-text">匿名信箱<small>傳送匿名訊息給菜菜子</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
           <button type="button" id="licence-open" aria-haspopup="dialog" hidden><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-licence"/></svg></span><span class="link-text">角色卡授權申請<small>申請正式授權書</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button type="button" id="remind-open" aria-haspopup="dialog"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg></span><span class="link-text">設定提醒<small>公告與更新私訊通知</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
           <a href="https://discord.gg/2vAfyc8fkt" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">菜園宇宙DC<small>Discord</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a href="https://www.threads.com/@kimmchii.obg" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">Threads<small>@kimmchii.obg</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a href="https://loveydovey.onelink.me/vs4G/arul4vty" target="_blank" rel="noopener"><span class="link-badge"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></span><span class="link-text">卿卿我我帳號<small>卿卿我我 App</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -1325,6 +1347,42 @@
     copyboxBody.scrollTop = 0;
     if (!copybox.open) copybox.showModal();
   }
+
+  function makeRemindStep(title, ...content) {
+    const text = makeEl('p');
+    text.append(...content);
+    const step = makeEl('li');
+    step.append(makeEl('h3', '', title), text);
+    return step;
+  }
+
+  // 設定提醒：機器人只能私訊同一個伺服器的成員，所以引導訪客進群組後自己訂閱
+  function openRemindGuide() {
+    copyboxRequest++;
+    removeContactWidget();
+    document.getElementById('copybox-title').textContent = '設定提醒';
+    copyboxTabs.replaceChildren();
+
+    const join = makeEl('a', 'btn remind-join', '加入菜園宇宙DC');
+    Object.assign(join, { href: 'https://discord.gg/2vAfyc8fkt', target: '_blank', rel: 'noopener' });
+
+    const steps = makeEl('ol', 'remind-steps');
+    steps.append(
+      makeRemindStep('加入菜園宇宙DC', '機器人只能私訊同一個伺服器的成員，所以要先加入群組。', makeEl('br'), join),
+      makeRemindStep('確認可以接收私訊', '在菜園宇宙DC點伺服器名稱，打開「隱私設定」，確認「私人訊息」是開啟的。'),
+      makeRemindStep('私訊機器人', '在成員名單找到「菜園廣播電臺」，點頭像後傳送一則訊息，開啟私訊視窗。'),
+      makeRemindStep('輸入訂閱指令', '在私訊視窗輸入 ', makeEl('code', '', '/訂閱'), '，從跳出的選單選擇指令後送出。看到「訂閱成功 ✅」就完成了。'),
+    );
+
+    const note = makeEl('p', 'copybox-hint remind-note');
+    note.append('不想收了，在同一個視窗輸入 ', makeEl('code', '', '/取消訂閱'), ' 就好。');
+
+    copyboxBody.replaceChildren(makeEl('p', 'remind-intro', '完成下面四個步驟，菜菜子發布公告或更新時，機器人會私訊通知你。'), steps, note);
+    copyboxBody.scrollTop = 0;
+    if (!copybox.open) copybox.showModal();
+  }
+
+  document.getElementById('remind-open').addEventListener('click', openRemindGuide);
 
   const contactOpen = document.getElementById('contact-open');
   const licenceOpen = document.getElementById('licence-open');
