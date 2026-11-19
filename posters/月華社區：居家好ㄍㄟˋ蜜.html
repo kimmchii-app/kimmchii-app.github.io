@@ -327,14 +327,6 @@
   }
   .memories .after { font-size: 14px; color: var(--muted); }
 
-  /* 樓上樓下：B棟信箱 */
-  .mailbox { display: grid; gap: 8px; margin-top: 26px; padding: 14px; background: #8d6c4b; border-radius: 6px; box-shadow: inset 0 2px 6px rgba(0, 0, 0, .25); }
-  .mailbox li { display: grid; grid-template-columns: 3.6em minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px 14px; background: #f7f1e6; border-radius: 3px; box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .08); }
-  .mailbox .f { font-family: var(--serif); font-weight: 700; letter-spacing: .08em; text-align: center; border-right: 1px solid var(--line); }
-  .mailbox p { font-size: 14px; line-height: 1.75; }
-  .mailbox .home { background: var(--panel); outline: 2px solid var(--honey); outline-offset: -2px; }
-  .mailbox + .note { margin-top: 18px; }
-
   /* 結尾 */
   .end { padding-top: clamp(40px, 7vw, 56px); padding-bottom: clamp(64px, 12vw, 96px); text-align: center; background: radial-gradient(70% 70% at 50% 100%, rgba(242, 196, 67, .3), transparent 70%), var(--bg); }
   .trio { display: flex; justify-content: center; gap: 10px; }
@@ -663,20 +655,6 @@
         <blockquote>花插進花瓶，擺上了餐桌。這間屋子，從今天起就是我們的家了。</blockquote>
       </li>
     </ol>
-  </section>
-
-  <!-- 樓上樓下 -->
-  <section class="alt">
-    <p class="tag" data-reveal>月華社區</p>
-    <h2 data-reveal>樓上樓下</h2>
-    <ol class="mailbox" data-reveal aria-label="B棟住戶">
-      <li><span class="f">頂樓</span><p>空中花園與溫室。溫室屬於藥劑師鬼川陽子一個人，沒有允許不可以進去。</p></li>
-      <li><span class="f">6F</span><p>春風百見，聽得懂動物說話的獸醫。</p></li>
-      <li class="home"><span class="f">5F</span><p>光元森六、不良品鬱也，還有你。</p></li>
-      <li><span class="f">2F</span><p>體操與武器大師橋沁、健身教練橋炘。</p></li>
-      <li><span class="f">1F</span><p>住戶大廳與警衛室，24 小時有人值班，代收包裹。</p></li>
-    </ol>
-    <p class="note" data-reveal>A棟一樓有咖啡廳 Lumi Café，C棟一樓有健身房和游泳池。</p>
   </section>
 
   <!-- 結尾 -->
