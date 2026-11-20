@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>言鐶舂｜黑襯衫底下</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：外黑內白。上半是黑襯衫：港都鐵鉤的老大；烏賊噴墨之後，換成裡面的白色無袖：心軟的爸爸。粉色代表女兒言似春 -->
+<style>
+  :root {
+    --ink: #121417;
+    --ink-2: #1c1f24;
+    --ink-3: #2a2e35;
+    --smoke: #aeb2b9;
+    --smoke-2: #8a8f98;
+    --white: #f4f1ea;
+    --paper: #fffdf8;
+    --text: #1b1d21;
+    --muted: #5d616a;
+    --line: #ddd6c9;
+    --pink: #f2a7a9;
+    --pink-soft: #f7e0df;
+    --pink-text: #a93848;
+    --sea: #0a1a23;
+    --sea-2: #11293a;
+    --foam: #a3c3d1;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --gutter: clamp(18px, 6vw, 48px);
+    --ease: cubic-bezier(.22, .61, .36, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--ink);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet { max-width: 720px; margin: 0 auto; overflow: hidden; background: var(--ink); }
+  h1, h2, h3, p, ol, ul, dl, dd { margin: 0; padding: 0; }
+  ol, ul { list-style: none; }
+
+  /* 照片不給存 */
+  img { display: block; width: 100%; pointer-events: none; -webkit-user-drag: none; }
+  figure { margin: 0; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+
+  section { position: relative; padding: clamp(46px, 9vw, 72px) var(--gutter); }
+  .kicker { margin-bottom: 4px; font-size: 13px; font-weight: 700; letter-spacing: .2em; color: var(--pink); }
+  h2 { margin-bottom: 20px; font-family: var(--serif); font-size: clamp(27px, 6.6vw, 40px); line-height: 1.35; letter-spacing: .08em; }
+  h3 { font-family: var(--serif); font-size: 19px; line-height: 1.5; letter-spacing: .08em; }
+  .gap > * + * { margin-top: 1em; }
+  .mt { margin-top: 22px; }
+  .flush { padding-top: 0; }
+  .sprite { position: absolute; width: 0; height: 0; }
+  .fade { -webkit-mask-image: linear-gradient(#000 60%, transparent); mask-image: linear-gradient(#000 60%, transparent); }
+
+  /* 封面 */
+  .cover { padding: 0 0 clamp(50px, 10vw, 76px); }
+  .cover img { aspect-ratio: 4 / 5; object-fit: cover; object-position: center 18%; }
+  .cover-in { position: relative; margin-top: clamp(-170px, -26vw, -96px); padding: 0 var(--gutter); }
+  .org { font-size: 13px; font-weight: 700; letter-spacing: .22em; color: var(--smoke); }
+  .cover h1 { font-family: var(--serif); font-size: clamp(66px, 19vw, 132px); line-height: 1.12; letter-spacing: .06em; color: var(--paper); }
+  .motto { margin-top: 8px; font-family: var(--serif); font-size: clamp(22px, 5.6vw, 34px); font-weight: 700; letter-spacing: .2em; }
+  .motto span { color: var(--pink); }
+
+  /* 觸角 */
+  .reach { padding-top: 0; }
+  .reach .fade img { aspect-ratio: 5 / 4; object-fit: cover; object-position: center 30%; }
+  .reach .fade { margin: 0 calc(var(--gutter) * -1) clamp(-60px, -10vw, -30px); }
+  .reach-in { position: relative; }
+  .squid { margin: 18px 0 14px; }
+  .squid svg { display: block; width: 100%; height: auto; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 12px; font-size: 13px; color: var(--smoke); }
+  .legend li { display: flex; align-items: center; gap: 8px; }
+  .legend li::before { content: ""; width: 10px; height: 10px; background: var(--smoke-2); border-radius: 50%; }
+  .legend li.on::before { background: var(--pink); }
+
+  /* 鐵鉤 */
+  .gang { background: var(--ink-2); }
+  .gang figure img { aspect-ratio: 4 / 3; object-fit: cover; object-position: center 30%; border-radius: 4px; }
+  .gang figure { margin-bottom: 26px; }
+  .board { margin-top: 28px; padding: clamp(18px, 4.5vw, 26px); background: var(--ink); border: 1px solid #3a3f48; border-radius: 8px; }
+  .board h3 { margin-bottom: 10px; }
+  .board ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 18px; }
+  .board li { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+  .board li svg { flex: none; width: 13px; height: 20px; color: var(--pink); }
+  .fine { margin-top: 14px; font-size: 13.5px; line-height: 1.75; color: var(--smoke); }
+  .crew { margin-top: 34px; }
+  .crew ul { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0 14px; }
+  .crew li {
+    padding: 3px 16px 4px;
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    color: var(--text);
+    background: var(--white);
+    border-radius: 4px;
+    box-shadow: 3px 3px 0 var(--pink);
+  }
+  .crew > p { font-size: 14px; color: var(--smoke); }
+
+  /* 裝狠：墨汁烏賊攤 */
+  .act { padding-bottom: 0; }
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 24px; counter-reset: step; }
+  .steps li {
+    padding: 12px 14px 16px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--smoke);
+    background: var(--ink-2);
+    border-top: 3px solid var(--smoke-2);
+    border-radius: 0 0 6px 6px;
+    counter-increment: step;
+  }
+  .steps li::before { content: "0" counter(step); display: block; font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--smoke-2); }
+  .steps b { display: block; margin-bottom: 2px; font-family: var(--serif); font-size: 17px; color: var(--white); }
+  .steps li:last-child { border-top-color: var(--pink); }
+  .ink-line { margin-top: clamp(44px, 9vw, 64px); text-align: center; font-family: var(--serif); font-size: clamp(19px, 4.8vw, 26px); line-height: 1.7; letter-spacing: .06em; }
+  .ink-line small { display: block; margin-bottom: 4px; font-family: var(--sans); font-size: 14px; letter-spacing: 0; color: var(--smoke); }
+
+  /* 衣襟：鈕扣往下解開，露出裡面的白色無袖 */
+  .placket { display: grid; justify-items: center; gap: 26px; margin-top: 34px; }
+  .placket i, .collar::after {
+    width: 13px; height: 13px;
+    background: var(--ink-3);
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 2px #454b55;
+  }
+  .collar { position: relative; height: clamp(110px, 26vw, 180px); margin: 26px calc(var(--gutter) * -1) 0; background: var(--white); }
+  .collar::before { content: ""; position: absolute; inset: -1px 0 0; background: var(--ink); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 0, 0 100%); }
+  .collar::after { content: ""; position: absolute; left: 50%; top: -26px; translate: -50% 0; }
+
+  /* 白色區塊 */
+  .light { color: var(--text); background: var(--white); }
+  .light .kicker { color: var(--pink-text); }
+  .light.alt { background: var(--paper); }
+  .under { padding-top: 6px; text-align: center; }
+  .splat { width: min(300px, 80%); margin: 0 auto 6px; }
+  .splat svg { display: block; width: 100%; height: auto; }
+  .js .splat circle { transform-box: fill-box; transform-origin: center; scale: .2; transition: scale .5s var(--ease); }
+  .js .splat.is-visible circle { scale: 1; }
+  .js .splat.is-visible circle:nth-child(2n) { transition-delay: .08s; }
+  .js .splat.is-visible circle:nth-child(3n) { transition-delay: .16s; }
+  .reveal-line { font-family: var(--serif); font-size: clamp(19px, 4.8vw, 26px); line-height: 1.7; letter-spacing: .06em; }
+  .profile { display: grid; grid-template-columns: minmax(120px, 36%) minmax(0, 1fr); gap: clamp(16px, 4vw, 28px); align-items: start; margin: clamp(40px, 8vw, 56px) 0 26px; }
+  .profile img { aspect-ratio: 3 / 4; object-fit: cover; object-position: center 22%; border-radius: 4px; box-shadow: 0 16px 30px -22px rgba(0, 0, 0, .7); }
+  .profile dl > div { padding: 8px 0; border-top: 1px solid var(--line); }
+  .profile dl > div:first-child { padding-top: 0; border-top: 0; }
+  .profile dt { font-size: 12.5px; font-weight: 700; letter-spacing: .14em; color: var(--muted); }
+  .profile dd { font-size: 14.5px; line-height: 1.75; }
+
+  /* 言似春 */
+  .daughter { padding: clamp(18px, 4.5vw, 26px); background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--pink-text); border-radius: 6px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px 8px; margin-bottom: 12px; }
+  .chips li { padding: 1px 12px 2px; font-size: 13px; font-weight: 700; color: var(--pink-text); background: var(--pink-soft); border-radius: 999px; }
+  .tug { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; margin: 22px 0; }
+  .tug article { padding: 14px 16px 16px; font-size: 14px; line-height: 1.75; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; }
+  .tug h3 { font-size: 17px; }
+  .tug .vs { align-self: center; font-family: var(--serif); font-size: 14px; font-weight: 700; letter-spacing: .3em; color: var(--pink-text); writing-mode: vertical-rl; }
+
+  /* 只能偷偷來 */
+  .sneak { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .sneak li { padding: 12px 16px 14px; font-size: 14px; line-height: 1.75; background: var(--white); border: 1px solid var(--line); border-radius: 6px; }
+  .sneak span { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: .14em; color: var(--pink-text); }
+  .notebook {
+    position: relative;
+    width: min(100%, 360px);
+    margin: 34px auto 30px;
+    padding: 16px 22px 16px 54px;
+    line-height: 32px;
+    background: #fffef9 repeating-linear-gradient(transparent 0 31px, #d3dee6 31px 32px) 0 16px;
+    border-radius: 3px;
+    box-shadow: 0 18px 30px -22px rgba(0, 0, 0, .6);
+    rotate: -1.2deg;
+  }
+  .notebook::before { content: ""; position: absolute; left: 38px; top: 0; bottom: 0; width: 1px; background: #e2a0a0; }
+  .notebook h3 { font-size: 15px; line-height: 32px; letter-spacing: .14em; color: var(--muted); }
+  .notebook li { font-family: var(--serif); font-size: 17px; font-weight: 700; }
+
+  /* 黔鯨 */
+  .whale { color: var(--white); background: linear-gradient(var(--sea-2), var(--sea)); }
+  .whale .kicker { color: var(--foam); }
+  .whale figure img { aspect-ratio: 4 / 3; object-fit: cover; object-position: center 24%; border-radius: 4px; }
+  .whale figure { margin-bottom: 26px; }
+  .versus { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: center; margin: 26px 0; text-align: center; }
+  .versus article { padding: 14px 10px 16px; border: 1px solid rgba(163, 195, 209, .35); border-radius: 6px; }
+  .versus small { display: block; font-size: 12.5px; color: var(--foam); }
+  .tat { font-family: var(--serif); font-size: clamp(19px, 5vw, 25px); font-weight: 700; line-height: 1.5; letter-spacing: .08em; }
+  .versus .x { font-family: var(--serif); font-size: 14px; color: var(--foam); }
+  .quote { margin: 18px 0; padding-left: 14px; font-family: var(--serif); font-size: 17px; line-height: 1.75; border-left: 2px solid var(--foam); }
+
+  /* 身邊的人 */
+  .near li { display: grid; grid-template-columns: 4.6em minmax(0, 1fr); gap: 14px; padding: 18px 0; border-top: 1px solid var(--line); }
+  .near li:last-child { border-bottom: 1px solid var(--line); }
+  .rel { font-family: var(--serif); font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--pink-text); }
+  .near p { font-size: 14.5px; line-height: 1.8; }
+
+  /* 結尾：兩條粉色長觸腕從上下把這句話抱住 */
+  .end { padding: clamp(30px, 7vw, 56px) 0; background: var(--ink); }
+  .end svg { display: block; width: 100%; height: auto; }
+  .end text { font-family: var(--serif); font-size: 30px; font-weight: 700; fill: var(--paper); }
+  .js .end .arm { transition: transform 1.2s var(--ease), opacity 1.2s var(--ease); }
+  .js .end figure:not(.is-visible) .arm { opacity: 0; }
+  .js .end figure:not(.is-visible) .arm-a { transform: translateX(-80px); }
+  .js .end figure:not(.is-visible) .arm-b { transform: translateX(80px); }
+
+  /* 捲到才淡入（poster.js 會加上 .js） */
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .js .splat circle { scale: 1; transition: none; }
+    .js .end .arm { opacity: 1; transform: none; transition: none; }
+  }
+
+  @media (max-width: 520px) {
+    .steps, .sneak { grid-template-columns: minmax(0, 1fr); }
+    .tug { grid-template-columns: minmax(0, 1fr); }
+    .tug .vs { text-align: center; writing-mode: horizontal-tb; }
+    .profile { grid-template-columns: minmax(0, 1fr); }
+    .profile figure { width: min(220px, 70%); }
+  }
+</style>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true">
+  <symbol id="hook" viewBox="0 0 13 20"><path d="M9 1.5v10.5a4.2 4.2 0 1 1-8.2 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+</svg>
+<main class="sheet">
+
+  <!-- 封面 -->
+  <header class="cover">
+    <figure class="fade"><img src="../images/characters/言鐶舂-7.jpg" alt="黃昏的港邊，言鐶舂靠著欄杆抽菸"></figure>
+    <div class="cover-in">
+      <p class="org">港都地方勢力・鐵鉤　老大</p>
+      <h1>言鐶舂</h1>
+      <p class="motto">人兇，<span>心善。</span></p>
+    </div>
+  </header>
+
+  <!-- 觸角 -->
+  <section class="reach">
+    <figure class="fade"><img src="../images/characters/言鐶舂-3.jpg" alt="昏暗的燈下，言鐶舂坐在皮沙發上"></figure>
+    <div class="reach-in">
+      <p class="kicker" data-reveal>深海潛行</p>
+      <h2 data-reveal>伸得到整個港都</h2>
+      <p data-reveal>他行事冷靜自持。在黑道世界裡，他像一隻在深海潛行的大王烏賊，觸角伸得到整個港都。</p>
+      <figure class="squid" data-reveal>
+        <svg viewBox="0 0 640 530" role="img" aria-label="一隻烏賊：八條短腕通往地方勢力、政府官員與其他縣市幫派，兩條長觸腕通往地方巡守隊與女兒的保鏢">
+          <g fill="#2a2e35" stroke="#4a505b" stroke-width="2" stroke-linejoin="round">
+            <path d="M336 44c26 4 44 22 50 48-22-4-40-14-50-26Z"/>
+            <path d="M304 44c-26 4-44 22-50 48 22-4 40-14 50-26Z"/>
+            <path d="M320 18c30 34 46 84 44 150h-88c-2-66 14-116 44-150Z"/>
+            <ellipse cx="320" cy="184" rx="48" ry="26"/>
+          </g>
+          <g fill="#f4f1ea"><circle cx="300" cy="186" r="6"/><circle cx="340" cy="186" r="6"/></g>
+          <g fill="none" stroke="#5a606b" stroke-width="9" stroke-linecap="round">
+            <path d="M286 200C240 236 196 262 150 318"/>
+            <path d="M294 206C262 250 236 292 222 350"/>
+            <path d="M304 208C292 262 282 310 282 368"/>
+            <path d="M314 210C312 266 312 322 306 384"/>
+            <path d="M326 210C328 266 328 322 334 384"/>
+            <path d="M336 208C348 262 358 310 358 368"/>
+            <path d="M346 206C378 250 404 292 418 350"/>
+            <path d="M354 200C400 236 444 262 490 318"/>
+          </g>
+          <g fill="none" stroke="#f2a7a9" stroke-width="7" stroke-linecap="round">
+            <path d="M300 210C250 300 150 330 140 440"/>
+            <path d="M340 210C390 300 490 330 500 440"/>
+          </g>
+          <g fill="#f2a7a9"><ellipse cx="140" cy="452" rx="11" ry="18"/><ellipse cx="500" cy="452" rx="11" ry="18"/></g>
+          <g font-family="Noto Sans TC, sans-serif" font-size="24" font-weight="700">
+            <text x="136" y="312" text-anchor="end" fill="#8a8f98">地方勢力</text>
+            <text x="504" y="312" fill="#8a8f98">政府官員</text>
+            <text x="320" y="420" text-anchor="middle" fill="#8a8f98">其他縣市幫派</text>
+            <text x="140" y="506" text-anchor="middle" fill="#f2a7a9">地方巡守隊</text>
+            <text x="500" y="506" text-anchor="middle" fill="#f2a7a9">女兒的保鏢</text>
+          </g>
+        </svg>
+      </figure>
+      <p data-reveal>他有能力撼動地方勢力和政府官員，也能讓其他縣市的幫派聯手，卻只拿來當地方巡守隊，還有女兒的保鏢。</p>
+      <ul class="legend" data-reveal>
+        <li>做得到的事</li>
+        <li class="on">真正拿來做的事</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 鐵鉤 -->
+  <section class="gang">
+    <figure data-reveal><img src="../images/characters/言鐶舂-2.jpg" alt="夕陽下的港口，言鐶舂坐著抽菸"></figure>
+    <p class="kicker" data-reveal>黑道轉型</p>
+    <h2 data-reveal>鐵鉤</h2>
+    <div class="gap">
+      <p data-reveal>鐵鉤是從漁會分出來的黑道，一直管著漁港、漁船和魚市場之間的事。漁會原本是前幾任老大洗錢的手法之一；為了讓它更有商業價值，能見光的那一部分成了漁會，留在暗處的就是鐵鉤。</p>
+      <p data-reveal>前妻覺得黑幫太危險，和他離了婚。他從此決定棄暗投光，政府官員和公司老闆再來拜託鐵鉤做不好的事，一律不接。</p>
+      <p data-reveal>同行恥笑他、看不起他，他完全不在乎。</p>
+    </div>
+    <div class="board" data-reveal>
+      <h3>轉型後的業務</h3>
+      <ul>
+        <li><svg aria-hidden="true"><use href="#hook"/></svg>社區服務</li>
+        <li><svg aria-hidden="true"><use href="#hook"/></svg>民里相助</li>
+        <li><svg aria-hidden="true"><use href="#hook"/></svg>外送服務</li>
+        <li><svg aria-hidden="true"><use href="#hook"/></svg>保護小朋友</li>
+        <li><svg aria-hidden="true"><use href="#hook"/></svg>巡邏</li>
+      </ul>
+      <p class="fine">警察不方便處理的事，也會交給鐵鉤，但做法必須正向。只是成員們長得還是很可怕，有些民眾不太接受。</p>
+    </div>
+    <div class="crew">
+      <h3 data-reveal>小弟點名</h3>
+      <ul data-reveal>
+        <li>魚仔</li>
+        <li>魩仔</li>
+        <li>鱙仔</li>
+        <li>加網</li>
+      </ul>
+      <p data-reveal>每個小弟都有自己的名字，跟魚、台語的魚名或船有關。</p>
+    </div>
+    <div class="gap mt">
+      <p data-reveal>他把小弟們當成自己的弟兄，帶他們往好的方向走，也受到他們推崇。管起人來像嚴父，音量比較大：在小孩和民眾面前，不准抽菸，也不准做不良示範；要抽菸，就躲到遠遠的地方。</p>
+      <p data-reveal>他也替小弟們打掩護，怕似春看到他們會害怕、不高興，小弟們通常躲在附近偷看。</p>
+    </div>
+  </section>
+
+  <!-- 裝狠 -->
+  <section class="act">
+    <p class="kicker" data-reveal>嗨呀魚市場・墨汁烏賊攤</p>
+    <h2 data-reveal>裝狠</h2>
+    <p data-reveal>面對毫無殺傷力的人，他會說最狠的話，實際上卻下不了手。他手臂上有烏賊刺青，是墨汁烏賊攤的老主顧，也是烏賊大嬸最愛鬧的客人。</p>
+    <ol class="steps" data-reveal>
+      <li><b>裝狠殺價</b>在攤前擺出老大的架勢，跟大嬸殺價。</li>
+      <li><b>被拆穿</b>大嬸指著他的刺青說：自家親戚不打折。</li>
+      <li><b>假裝生氣</b>最後照原價，買走最大的一隻。</li>
+    </ol>
+    <p class="ink-line" data-reveal><small>烏賊受驚時會噴墨。</small>外面的黑襯衫噴到墨，看不出來；</p>
+    <div class="placket" aria-hidden="true"><i></i><i></i></div>
+    <div class="collar" aria-hidden="true"></div>
+  </section>
+
+  <!-- 黑襯衫底下 -->
+  <section class="light under">
+    <div class="splat" data-reveal aria-hidden="true">
+      <svg viewBox="0 0 300 110">
+        <g fill="#121417">
+          <circle cx="150" cy="52" r="28"/>
+          <circle cx="112" cy="34" r="10"/>
+          <circle cx="192" cy="72" r="13"/>
+          <circle cx="210" cy="30" r="5"/>
+          <circle cx="86" cy="76" r="7"/>
+          <circle cx="236" cy="58" r="4"/>
+          <circle cx="62" cy="48" r="3"/>
+          <circle cx="132" cy="92" r="4"/>
+        </g>
+      </svg>
+    </div>
+    <p class="reveal-line" data-reveal>裡面的白色無袖，就藏不住了。</p>
+  </section>
+
+  <section class="light flush">
+    <div class="profile">
+      <figure data-reveal><img src="../images/characters/言鐶舂-8.jpg" alt="穿黑襯衫的言鐶舂證件照"></figure>
+      <dl data-reveal>
+        <div><dt>姓名</dt><dd>姓言，名鐶舂</dd></div>
+        <div><dt>外貌</dt><dd>參雜一點灰髮的黑髮、褐色眼睛，手臂上有一隻烏賊刺青。雖然老了，還是很帥。</dd></div>
+        <div><dt>衣著</dt><dd>外面穿黑色襯衫，裡面穿白色無袖。</dd></div>
+        <div><dt>習慣</dt><dd>有抽菸的習慣。女兒不喜歡，只能偷偷抽。說話偶爾冒出幾句台語。</dd></div>
+      </dl>
+    </div>
+    <p class="kicker" data-reveal>會兇都是裝的</p>
+    <h2 data-reveal>黑襯衫底下</h2>
+    <div class="gap">
+      <p data-reveal>人兇心善的角頭大哥。會兇都是裝的，實際上十分心軟，對和女兒年紀相仿的人更是如此。</p>
+      <p data-reveal>他不擅長裝狠，裝起來總有一種莫名的搞笑感，像在拿捏分寸：不可以太過分，也不可以太隨性。裝狠被發現，就假裝生氣。</p>
+    </div>
+  </section>
+
+  <!-- 言似春 -->
+  <section class="light alt">
+    <p class="kicker" data-reveal>唯一的女兒</p>
+    <h2 data-reveal>言似春</h2>
+    <article class="daughter" data-reveal>
+      <ul class="chips">
+        <li>22 歲</li>
+        <li>165 cm</li>
+        <li>黑色中長髮</li>
+        <li>褐色眼睛</li>
+      </ul>
+      <p>剛出社會的職場新鮮人，傲氣的黑道小公主。一副「為什麼不可以？」的勇敢性格，口頭禪是「你行你來」「不會就別吵」。</p>
+    </article>
+    <p class="mt" data-reveal>父女倆住在一起。她明明可以不用工作，偏要出去打工賺錢；他不太理解，只能默默在後面守護。</p>
+    <div class="tug" data-reveal>
+      <article>
+        <h3>他</h3>
+        <p>既想把她留在身邊保護，又希望她去真的很安全的地方。不想太快放手，又因為她的堅持只能忍耐。</p>
+      </article>
+      <p class="vs">拉鋸中</p>
+      <article>
+        <h3>她</h3>
+        <p>相信自己能變得更獨立，最近不想讓爸爸和小弟們過度干涉。撒嬌、頂嘴、冷戰都有，心底其實很愛爸爸。</p>
+      </article>
+    </div>
+    <p data-reveal>在女兒面前，他態度放軟的速度比任何事都快。</p>
+  </section>
+
+  <!-- 只能偷偷來 -->
+  <section class="light">
+    <p class="kicker" data-reveal>怕被說干涉生活</p>
+    <h2 data-reveal>只能偷偷來</h2>
+    <ul class="sneak" data-reveal>
+      <li><span>悠遊卡</span>偷偷往裡面儲值。</li>
+      <li><span>錢包</span>偷偷放錢，把硬幣都換成紙鈔。</li>
+      <li><span>菸味</span>先檢查身上有沒有菸味，確定沒問題，才去找似春求表現。</li>
+      <li><span>小學門口</span>偶爾去站導護，守護小朋友放學。</li>
+    </ul>
+    <div class="notebook" data-reveal>
+      <h3>老實乾貨・名義簿</h3>
+      <ol>
+        <li>公司福利</li>
+        <li>里民關懷</li>
+        <li>週年抽獎中獎</li>
+        <li>同事團購多一份</li>
+      </ol>
+    </div>
+    <div class="gap">
+      <p data-reveal>送給似春的東西，都透過嗨呀魚市場的老實乾貨代寄。用什麼名義，每次都要跟老闆娘討論很久，怕太假被女兒識破。箱子裡除了魚鬆，也常偷偷塞進生活必需品。</p>
+      <p data-reveal>商量時，他坐在一張小板凳上，矮得看不出半點角頭老大的樣子。抽完菸也不敢直接進店，要先站在風口吹一陣，怕箱子沾上菸味。</p>
+    </div>
+  </section>
+
+  <!-- 黔鯨 -->
+  <section class="whale">
+    <figure data-reveal><img src="../images/characters/言鐶舂-4.jpg" alt="坐在皮沙發上抽菸的言鐶舂"></figure>
+    <p class="kicker" data-reveal>新生代地方黑道</p>
+    <h2 data-reveal>黔鯨</h2>
+    <p data-reveal>幫主施十鉞，28 歲，年輕的當家。黔鯨要剷除鐵鉤，成為大港港都唯一的地下組織，重振非法事業。他們正一點一點壯大，吸收理念和言鐶舂完全相悖的舊鐵鉤成員。</p>
+    <div class="versus" data-reveal>
+      <article><small>言鐶舂的刺青</small><p class="tat">烏賊</p><small>手臂</small></article>
+      <p class="x">對上</p>
+      <article><small>施十鉞的刺青</small><p class="tat">鯨魚尾巴<br>魚叉</p><small>胸口、左臂</small></article>
+    </div>
+    <p data-reveal>施十鉞身上刺的，都是會獵殺或吃掉魷魚的生物與物件。他只穿一件外套和牛仔褲，刻意把刺青露出來。他看不起鐵鉤，也看不起言鐶舂：</p>
+    <p class="quote" data-reveal>「該做黑道就做黑道，不要因為一個女人就搞這些有的沒的。」</p>
+    <p data-reveal>面對黔鯨，他收起為了老百姓變得平易近人的樣子，回到原本黑道的嚴肅。他把對方當成危險、需要被教訓的孩子，也覺得那些伎倆太小，只是想多給對方一點機會。最近被黔鯨弄得心煩意亂，他已經請了好幾個幫手在暗中箝制。</p>
+  </section>
+
+  <!-- 身邊的人 -->
+  <section class="light alt near">
+    <p class="kicker" data-reveal>身邊的人</p>
+    <h2 data-reveal>兄弟，和你</h2>
+    <ul>
+      <li data-reveal>
+        <p class="rel">兄弟</p>
+        <div>
+          <h3>江懷晝</h3>
+          <p>大港漁會的會長。當初和他競爭鐵鉤老大的對手，如今稱兄道弟。會長辦公室的會客沙發是他的固定位置，他走之後，窗邊總留著偷偷抽過的菸味。</p>
+        </div>
+      </li>
+      <li data-reveal>
+        <p class="rel">你</p>
+        <div>
+          <h3>似春的同事與好友</h3>
+          <p>你和似春年紀相近，是她的同事，也是好友。對和女兒年紀相仿的人，他特別心軟；但在他眼裡，你不只是女兒的朋友。</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 結尾 -->
+  <section class="end">
+    <figure data-reveal>
+      <svg viewBox="0 96 640 372" role="img" aria-label="兩條烏賊的長觸腕抱住一句話：家人，是他守護這個世界的理由。也是他繼續當個好人的理由。">
+        <defs>
+          <path id="arm-a" pathLength="100" d="M-30 410C40 442 120 410 200 400C290 390 390 414 480 388C560 364 620 346 614 312C610 282 578 284 576 306C574 324 594 328 600 314"/>
+          <path id="arm-b" pathLength="100" d="M670 150C600 118 520 150 440 160C350 170 250 146 160 172C80 196 20 214 26 248C30 278 62 276 64 254C66 236 46 232 40 246"/>
+        </defs>
+        <!-- 由粗到細分六段疊出觸腕的收尖；吸盤只在捲起的末端 -->
+        <g class="arm arm-a" fill="none" stroke="#f2a7a9" stroke-linecap="round">
+          <use href="#arm-a" stroke-width="22" stroke-dasharray="30 100"/>
+          <use href="#arm-a" stroke-width="19" stroke-dasharray="0 26 22 100"/>
+          <use href="#arm-a" stroke-width="16" stroke-dasharray="0 44 20 100"/>
+          <use href="#arm-a" stroke-width="13" stroke-dasharray="0 60 18 100"/>
+          <use href="#arm-a" stroke-width="10" stroke-dasharray="0 74 14 100"/>
+          <use href="#arm-a" stroke-width="7" stroke-dasharray="0 85 15 100"/>
+          <use href="#arm-a" stroke="#fbe4e3" stroke-width="4" stroke-dasharray="0 74 0 3.2 0 3.2 0 3.2 0 3.2 0 3.2 0 3.2 0 3.2 0 100"/>
+        </g>
+        <g class="arm arm-b" fill="none" stroke="#f2a7a9" stroke-linecap="round">
+          <use href="#arm-b" stroke-width="22" stroke-dasharray="30 100"/>
+          <use href="#arm-b" stroke-width="19" stroke-dasharray="0 26 22 100"/>
+          <use href="#arm-b" stroke-width="16" stroke-dasharray="0 44 20 100"/>
+          <use href="#arm-b" stroke-width="13" stroke-dasharray="0 60 18 100"/>
+          <use href="#arm-b" stroke-width="10" stroke-dasharray="0 74 14 100"/>
+          <use href="#arm-b" stroke-width="7" stroke-dasharray="0 85 15 100"/>
+          <use href="#arm-b" stroke="#fbe4e3" stroke-width="4" stroke-dasharray="0 74 0 3.2 0 3.2 0 3.2 0 3.2 0 3.2 0 3.2 0 3.2 0 100"/>
+        </g>
+        <text x="320" y="262" text-anchor="middle">家人，是他守護這個世界的理由。</text>
+        <text x="320" y="318" text-anchor="middle">也是他繼續當個好人的理由。</text>
+      </svg>
+    </figure>
+  </section>
+
+</main>
+</body>
+</html>
