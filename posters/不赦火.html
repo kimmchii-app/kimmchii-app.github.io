@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>不赦火｜西行的武僧</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：戰火與西行的經卷。灰燼黑是燒毀的汗江池，火光橘紅是他的法號，袈裟的土黃與夕陽是往西走的路，宣紙和朱印是他看不懂的經書；從沒守住的西門開始，一路走向天竺 -->
+<style>
+  :root {
+    --ink: #16110d;
+    --ink-2: #211812;
+    --ink-3: #3a2b20;
+    --ash: #c9bba6;
+    --ash-2: #94866f;
+    --ember: #e0582a;
+    --flame: #f39a3d;
+    --glow: #ffd58a;
+    --saffron: #c9772a;
+    --saffron-2: #9c561c;
+    --saffron-soft: #f1cf98;
+    --cinnabar: #a3312a;
+    --paper: #fcf7ec;
+    --rice: #f3ead8;
+    --text: #2b221b;
+    --muted: #6e6253;
+    --line: #ddcfb6;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --gutter: clamp(18px, 6vw, 48px);
+    --ease: cubic-bezier(.22, .61, .36, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet { max-width: 720px; margin: 0 auto; overflow: hidden; background: var(--rice); }
+  h1, h2, h3, p, ol, ul, dl, dd { margin: 0; padding: 0; }
+  ol, ul { list-style: none; }
+
+  /* 照片不給存 */
+  img { display: block; width: 100%; pointer-events: none; -webkit-user-drag: none; }
+  figure { margin: 0; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+
+  section { position: relative; padding: clamp(46px, 9vw, 72px) var(--gutter); }
+  .kicker { margin-bottom: 4px; font-size: 13px; font-weight: 700; letter-spacing: .2em; color: var(--cinnabar); }
+  h2 { margin-bottom: 20px; font-family: var(--serif); font-size: clamp(27px, 6.6vw, 40px); line-height: 1.35; letter-spacing: .06em; }
+  h3 { font-family: var(--serif); font-size: 19px; line-height: 1.5; letter-spacing: .06em; }
+  .gap > * + * { margin-top: 1em; }
+  .mt { margin-top: 26px; }
+  .fine { margin-top: 14px; font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .dark { color: var(--rice); background: var(--ink); }
+  .dark .kicker { color: var(--flame); }
+  .dark .fine { color: var(--ash-2); }
+  svg { display: block; width: 100%; height: auto; }
+
+  /* 封面：火光裡的武僧 */
+  .cover { padding: 0 0 clamp(50px, 10vw, 76px); color: var(--rice); background: var(--ink); }
+  .cover figure { position: relative; }
+  .cover figure::after { content: ""; position: absolute; inset: 40% 0 0; background: linear-gradient(transparent, var(--ink)); }
+  .cover img { aspect-ratio: 4 / 5; object-fit: cover; object-position: center 22%; }
+  .embers { position: absolute; inset: 30% 0 0; z-index: 1; overflow: hidden; pointer-events: none; }
+  .embers i { position: absolute; bottom: -10px; left: var(--x); width: var(--s, 4px); height: var(--s, 4px); background: var(--glow); border-radius: 50%; box-shadow: 0 0 8px 2px rgba(243, 154, 61, .7); opacity: 0; animation: rise var(--t, 7s) linear var(--d, 0s) infinite; }
+  @keyframes rise {
+    0% { opacity: 0; translate: 0 0; }
+    15% { opacity: .9; }
+    100% { opacity: 0; translate: var(--dx, 20px) -340px; }
+  }
+  .cover-in { position: relative; z-index: 2; margin-top: clamp(-200px, -32vw, -116px); padding: 0 var(--gutter); }
+  .era { font-size: 13px; font-weight: 700; letter-spacing: .24em; color: var(--saffron-soft); }
+  .cover h1 { font-family: var(--serif); font-size: clamp(64px, 18vw, 124px); line-height: 1.1; letter-spacing: .08em; color: var(--paper); text-shadow: 0 0 40px rgba(224, 88, 42, .45); }
+  .meaning { margin-top: 4px; font-family: var(--serif); font-size: 17px; letter-spacing: .3em; color: var(--ash); }
+  .meaning b { margin-right: 10px; font-weight: 400; color: var(--flame); }
+  .motto { max-width: 22em; margin-top: 20px; font-family: var(--serif); font-size: clamp(19px, 4.8vw, 25px); line-height: 1.6; }
+  .motto span { color: var(--flame); }
+  .billing { display: flex; flex-wrap: wrap; gap: 4px 22px; margin-top: 30px; padding-top: 14px; font-size: 12.5px; letter-spacing: .12em; color: var(--ash-2); border-top: 1px solid var(--ink-3); }
+  .billing b { margin-right: 6px; font-weight: 400; color: var(--ash); }
+
+  /* 汗江池：燒起來的西門 */
+  .fall { background: var(--ink-2); }
+  .fall figure { margin: 6px calc(var(--gutter) * -1) 24px; }
+  .flame { transform-box: fill-box; transform-origin: 50% 100%; animation: flicker 1.1s ease-in-out var(--d, 0s) infinite alternate; }
+  @keyframes flicker {
+    0% { scale: 1 1; rotate: -2deg; }
+    50% { scale: .92 1.08; }
+    100% { scale: 1.05 .9; rotate: 2deg; }
+  }
+  .smoke { animation: drift 9s ease-in-out infinite alternate; }
+  @keyframes drift { to { translate: 18px -14px; } }
+  .spark { transform-box: fill-box; animation: spark 3.4s linear var(--d, 0s) infinite; }
+  @keyframes spark {
+    0% { opacity: 0; translate: 0 0; }
+    20% { opacity: 1; }
+    100% { opacity: 0; translate: var(--dx, 10px) -90px; }
+  }
+  .plaque { font-family: var(--serif); font-size: 15px; letter-spacing: .2em; fill: var(--glow); text-anchor: middle; }
+  .why { margin-top: 26px; padding-left: 16px; font-family: var(--serif); font-size: 18px; line-height: 1.75; border-left: 3px solid var(--ember); }
+  .town { margin-top: 30px; padding: 18px 20px 20px; background: rgba(255, 255, 255, .04); border: 1px solid var(--ink-3); border-radius: 6px; }
+  .town h3 { display: flex; align-items: baseline; gap: 12px; color: var(--paper); }
+  .town h3 span { font-family: var(--sans); font-size: 12.5px; letter-spacing: .14em; color: var(--ash-2); }
+  .town ul { margin-top: 10px; }
+  .town li { position: relative; padding-left: 16px; font-size: 14px; line-height: 1.75; color: var(--ash); }
+  .town li + li { margin-top: 4px; }
+  .town li::before { content: ""; position: absolute; left: 0; top: .72em; width: 6px; height: 6px; background: var(--ember); border-radius: 50%; }
+
+  /* 個人資料：掛軸畫像，畫像在上，直排題字在下 */
+  .id { background: var(--rice); }
+  .hang { max-width: 400px; margin: 0 auto; filter: drop-shadow(0 20px 22px rgba(43, 34, 27, .28)); }
+  .hang svg { position: relative; z-index: 1; }
+  .mount { margin: -6px 14px; padding: 34px 16px 22px; background: #6a3a19 radial-gradient(rgba(255, 213, 138, .09) 1px, transparent 1.6px) 0 0 / 9px 9px; box-shadow: inset 0 0 0 3px #57300f; }
+  .xuan { position: relative; display: grid; justify-items: center; gap: 18px; padding: 18px 14px 22px; background: linear-gradient(90deg, rgba(110, 98, 83, .04), transparent 30%, transparent 70%, rgba(110, 98, 83, .05)), #f6eedb; border: 3px solid #d6b574; box-shadow: 0 0 0 1px #3e2410; }
+  .xuan figure { width: 62%; padding: 4px; background: #ece0c4; border: 1px solid #b89a6a; }
+  /* 照片的白底用 multiply 疊上紙色，看起來像畫在紙上 */
+  .xuan figure div { background: #e6d6b2; }
+  .xuan img { aspect-ratio: 3 / 4; object-fit: cover; object-position: center 25%; mix-blend-mode: multiply; filter: sepia(.12); }
+  .zan { height: 18em; writing-mode: vertical-rl; font-family: var(--serif); font-size: 14.5px; line-height: 1.75; letter-spacing: .06em; }
+  .zan b { margin-inline-end: .5em; font-size: 12px; font-weight: 400; letter-spacing: .1em; color: var(--cinnabar); }
+  .zan .title { margin-left: .2em; font-size: 22px; font-weight: 700; line-height: 1.6; letter-spacing: .3em; }
+  .zan .sub { color: var(--muted); }
+  .zan .num { text-orientation: upright; letter-spacing: 0; }
+  .seal { position: absolute; left: 14px; bottom: 16px; display: grid; place-items: center; width: 46px; height: 46px; font-family: var(--serif); font-size: 16px; font-weight: 700; line-height: 1.1; color: var(--cinnabar); writing-mode: vertical-rl; border: 3px solid var(--cinnabar); border-radius: 3px; opacity: .8; rotate: -6deg; }
+
+  /* 西天取經 */
+  .west { padding-top: 0; color: var(--rice); background: linear-gradient(var(--ink) 0, #2a170d 30%, #4a2412 72%, #6b3216); }
+  .west .fade { margin: 0 calc(var(--gutter) * -1) clamp(-70px, -12vw, -36px); -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent); }
+  .west .fade img { aspect-ratio: 5 / 4; object-fit: cover; object-position: center 30%; }
+  .west-in { position: relative; }
+  .west .kicker { color: var(--glow); }
+  .west h3 { color: var(--paper); }
+  .west .fine { color: var(--ash); }
+  .route { margin: 24px 0 8px; }
+  .route .lbl { font-family: var(--serif); font-size: 24px; letter-spacing: .1em; fill: var(--paper); text-anchor: middle; }
+  .route .lbl.dim { fill: var(--ash-2); font-size: 20px; }
+  .trail { fill: none; stroke: var(--flame); stroke-width: 4; stroke-linecap: round; stroke-dasharray: .1 12; }
+  .trail.alt { stroke: var(--ash-2); }
+  /* 腳印虛線用遮罩一路畫過去 */
+  .trail-mask { fill: none; stroke: #fff; stroke-width: 18; stroke-dasharray: 1000; transition: stroke-dashoffset 3s var(--ease) .3s; }
+  .js .route:not(.is-visible) .trail-mask { stroke-dashoffset: 1000; }
+  .stops { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 22px; }
+  .stops li { padding: 12px 14px; font-size: 13.5px; line-height: 1.7; color: var(--ash); background: rgba(22, 17, 13, .35); border-left: 3px solid var(--flame); border-radius: 0 6px 6px 0; }
+  .stops b { display: block; font-family: var(--serif); font-size: 16px; color: var(--paper); }
+  .meet { margin-top: 30px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 0; }
+  .chips li { padding: 3px 14px 4px; font-family: var(--serif); font-size: 16px; font-weight: 700; letter-spacing: .1em; color: var(--text); background: var(--paper); border-radius: 4px; box-shadow: 3px 3px 0 var(--saffron); }
+  .chips li.foe { box-shadow: 3px 3px 0 var(--ember); }
+
+  /* 看不懂的經書 */
+  .read { background: var(--paper); }
+  .scroll { margin: 26px auto 0; max-width: 440px; padding: 22px 18px 18px; background: var(--rice); border: 1px solid var(--line); border-radius: 4px; box-shadow: inset 0 0 0 6px var(--paper), inset 0 0 0 7px var(--line); }
+  .sutra { display: flex; justify-content: center; }
+  .sutra-text { writing-mode: vertical-rl; font-family: var(--serif); font-size: clamp(26px, 7vw, 34px); font-weight: 700; line-height: 2.1; letter-spacing: .32em; }
+  .ch { transition: color .5s var(--ease) calc(var(--i) * 150ms + .3s); }
+  .js .sutra:not(.is-visible) .ch { color: #ddd0b8; }
+  .chant { margin-top: 16px; padding-top: 12px; font-family: var(--serif); font-size: 15px; line-height: 1.8; text-align: center; color: var(--muted); border-top: 1px dashed var(--line); }
+  .chant b { display: block; font-weight: 400; color: var(--text); }
+  .notes { margin-top: 26px; counter-reset: n; }
+  .notes li { position: relative; padding-left: 28px; font-size: 14.5px; line-height: 1.75; counter-increment: n; }
+  .notes li + li { margin-top: 10px; }
+  .notes li::before { content: counter(n); position: absolute; left: 0; top: .2em; width: 19px; height: 19px; font-size: 11px; font-weight: 700; line-height: 19px; text-align: center; color: var(--paper); background: var(--saffron-2); border-radius: 50%; }
+
+  /* 性格 */
+  .nature { background: var(--ink); }
+  .lift { margin-top: 26px; padding: 16px 18px 18px; background: var(--ink-2); border: 1px solid var(--ink-3); border-radius: 6px; }
+  .lift h3 { margin-bottom: 10px; font-size: 16px; color: var(--paper); }
+  .lift ul { display: grid; gap: 8px; }
+  .lift li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 14px; padding: 9px 14px; background: rgba(255, 255, 255, .04); border-radius: 4px; }
+  .lift li b { font-family: var(--serif); font-size: 17px; letter-spacing: .08em; color: var(--paper); }
+  .lift li span { padding: 1px 10px; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; color: var(--ink); background: var(--flame); border-radius: 3px; }
+  .lift li.joke b { color: var(--ash-2); text-decoration: line-through; text-decoration-color: var(--ember); }
+  .lift li.joke span { color: var(--ash); background: var(--ink-3); }
+  .versus { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+  .versus > div { padding: 16px 18px; border: 1px solid var(--ink-3); border-radius: 6px; }
+  .versus > div + div { background: var(--ink-2); }
+  .versus h3 { margin-bottom: 8px; font-size: 16px; color: var(--paper); }
+  .versus li { position: relative; padding-left: 16px; font-size: 14px; line-height: 1.7; color: var(--ash); }
+  .versus li + li { margin-top: 6px; }
+  .versus li::before { content: ""; position: absolute; left: 0; top: .72em; width: 6px; height: 6px; background: var(--ash-2); border-radius: 50%; }
+  .versus > div + div li::before { background: var(--flame); }
+
+  /* 輪輪津 */
+  .merchant { background: var(--rice); }
+  .merchant figure { margin: 4px 0 22px; }
+  .goods-lbl { font-family: var(--sans); font-size: 19px; letter-spacing: .1em; fill: var(--muted); text-anchor: middle; }
+  .goods { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 0; }
+  .goods li { position: relative; padding: 4px 14px 5px; font-family: var(--serif); font-size: 15.5px; letter-spacing: .08em; background: var(--paper); border: 1px solid var(--line); border-radius: 3px; }
+  .goods li.fake { padding-right: 46px; }
+  .goods li.fake::after { content: "假"; position: absolute; right: 8px; top: 50%; translate: 0 -50%; display: grid; place-items: center; width: 26px; height: 26px; font-size: 14px; font-weight: 700; color: var(--cinnabar); border: 2px solid var(--cinnabar); border-radius: 50%; rotate: -12deg; opacity: .85; }
+
+  /* 對你 */
+  .you { background: var(--paper); }
+  .you .portrait { margin: 0 0 24px; overflow: hidden; border-radius: 6px; }
+  .you .portrait img { aspect-ratio: 16 / 11; object-fit: cover; object-position: center 30%; }
+  .ways { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+  .ways li { padding: 16px 16px 18px; background: var(--rice); border-top: 3px solid var(--saffron); border-radius: 0 0 6px 6px; }
+  .ways li:last-child { border-top-color: var(--cinnabar); }
+  .ways b { display: block; margin-bottom: 4px; font-family: var(--serif); font-size: 17px; letter-spacing: .06em; }
+  .ways span { display: block; font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+
+  /* 卷末 */
+  .end { padding-top: clamp(60px, 12vw, 96px); padding-bottom: clamp(70px, 14vw, 110px); text-align: center; background: radial-gradient(70% 50% at 50% 100%, rgba(224, 88, 42, .22), transparent 70%), var(--ink); }
+  .roll > div { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; padding: 7px 0; }
+  .roll dt { text-align: right; font-size: 12.5px; letter-spacing: .2em; color: var(--ash-2); padding-top: 3px; }
+  .roll dd { text-align: left; font-family: var(--serif); font-size: 16px; letter-spacing: .1em; color: var(--paper); }
+  .last { margin-top: clamp(40px, 9vw, 60px); font-family: var(--serif); font-size: clamp(24px, 6vw, 34px); font-weight: 700; line-height: 1.6; letter-spacing: .1em; color: var(--paper); }
+  .last span { color: var(--flame); }
+
+  /* 捲到才淡入 */
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+
+  @media (max-width: 560px) {
+    .versus, .ways { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 420px) {
+    .stops { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .trail-mask, .ch { transition: none; }
+    .js .route:not(.is-visible) .trail-mask { stroke-dashoffset: 0; }
+    .js .sutra:not(.is-visible) .ch { color: inherit; }
+    .embers, .spark { display: none; }
+    .flame, .smoke { animation: none; }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <header class="cover">
+    <figure>
+      <img src="../images/characters/不赦火-3.jpg" alt="不赦火披著袈裟，站在夕陽下的草原">
+      <div class="embers" aria-hidden="true">
+        <i style="--x:8%;--d:0s;--t:7s;--dx:30px"></i>
+        <i style="--x:22%;--d:2.4s;--t:8s;--s:3px;--dx:-20px"></i>
+        <i style="--x:37%;--d:4.1s;--t:6.5s;--dx:24px"></i>
+        <i style="--x:55%;--d:1.2s;--t:7.5s;--s:5px;--dx:-30px"></i>
+        <i style="--x:68%;--d:3.3s;--t:6s;--s:3px;--dx:16px"></i>
+        <i style="--x:81%;--d:5s;--t:8.5s;--dx:-18px"></i>
+        <i style="--x:92%;--d:.6s;--t:7s;--s:3px;--dx:-26px"></i>
+      </div>
+    </figure>
+    <div class="cover-in">
+      <p class="era" data-reveal>明朝・戰亂</p>
+      <h1 data-reveal>不赦火</h1>
+      <p class="meaning" data-reveal><b>法號</b>不該被赦免的惡火</p>
+      <p class="motto" data-reveal>放下武器的武僧，<br>要從大同一路<span>走到天竺</span>。</p>
+      <p class="billing" data-reveal><span><b>法號</b>不赦火</span><span><b>同行</b>你</span><span><b>出發</b>大同</span><span><b>目的地</b>天竺</span></p>
+    </div>
+  </header>
+
+  <section class="fall dark">
+    <p class="kicker" data-reveal>戰士的過去</p>
+    <h2 data-reveal>沒守住的西門</h2>
+    <figure data-reveal>
+      <svg viewBox="0 0 640 300" role="img" aria-label="汗江池的西門城樓陷入火海">
+        <defs>
+          <linearGradient id="fire-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#160f0b"/>
+            <stop offset=".55" stop-color="#4f1d10"/>
+            <stop offset="1" stop-color="#a8441c"/>
+          </linearGradient>
+          <pattern id="cren" width="32" height="14" patternUnits="userSpaceOnUse"><rect width="19" height="14" fill="#1c1410"/></pattern>
+          <path id="fl" d="M0 0C-16 0-24-12-20-26C-17-37-6-42-8-60C6-50 16-38 15-24C20-28 22-34 21-40C30-30 30-14 22-6C17-1 10 0 0 0Z"/>
+        </defs>
+        <rect width="640" height="300" fill="url(#fire-sky)"/>
+        <g class="smoke" fill="#2b211c" opacity=".75">
+          <circle cx="110" cy="96" r="58"/><circle cx="182" cy="64" r="46"/><circle cx="62" cy="54" r="40"/>
+          <circle cx="478" cy="74" r="64"/><circle cx="560" cy="108" r="48"/><circle cx="410" cy="40" r="38"/>
+        </g>
+        <path d="M0 196c70-24 130-30 200-18s120 10 180-6 160-20 260 8v20H0z" fill="#26170f"/>
+        <!-- 城牆與垛口 -->
+        <rect x="0" y="180" width="640" height="120" fill="#1c1410"/>
+        <rect x="0" y="166" width="640" height="14" fill="url(#cren)"/>
+        <path d="M0 214h640M0 250h640" stroke="#2a1f18" stroke-width="2"/>
+        <!-- 西門城樓 -->
+        <rect x="242" y="122" width="156" height="58" fill="#2a1e17"/>
+        <rect x="258" y="138" width="24" height="26" fill="#e0582a" opacity=".85"/>
+        <rect x="358" y="138" width="24" height="26" fill="#e0582a" opacity=".85"/>
+        <rect x="294" y="134" width="52" height="24" fill="#3a2b20" stroke="#8b6a3a" stroke-width="2"/>
+        <text class="plaque" x="320" y="152">西門</text>
+        <path d="M200 126c36-4 62-16 82-38h76c20 22 46 34 82 38z" fill="#120d0a"/>
+        <path d="M282 88h76" stroke="#3a2b20" stroke-width="4"/>
+        <!-- 城門洞，裡面是火 -->
+        <path d="M284 300v-62a36 36 0 0 1 72 0v62z" fill="#5a2213"/>
+        <g fill="#e0582a">
+          <g transform="translate(232 112) scale(.7)"><use href="#fl" class="flame" style="--d:.2s"/></g>
+          <g transform="translate(410 116) scale(.8)"><use href="#fl" class="flame" style="--d:.5s"/></g>
+          <g transform="translate(84 168) scale(.9)"><use href="#fl" class="flame" style="--d:.1s"/></g>
+          <g transform="translate(140 168) scale(.6)"><use href="#fl" class="flame" style="--d:.7s"/></g>
+          <g transform="translate(514 168) scale(1)"><use href="#fl" class="flame" style="--d:.35s"/></g>
+          <g transform="translate(586 168) scale(.65)"><use href="#fl" class="flame" style="--d:.9s"/></g>
+          <g transform="translate(320 300) scale(1.1)"><use href="#fl" class="flame" style="--d:.15s"/></g>
+        </g>
+        <g fill="#ffb347">
+          <g transform="translate(84 168) scale(.45)"><use href="#fl" class="flame" style="--d:.4s"/></g>
+          <g transform="translate(514 168) scale(.5)"><use href="#fl" class="flame" style="--d:.6s"/></g>
+          <g transform="translate(320 300) scale(.6)"><use href="#fl" class="flame" style="--d:.25s"/></g>
+          <g transform="translate(410 116) scale(.4)"><use href="#fl" class="flame" style="--d:.8s"/></g>
+        </g>
+        <g fill="#ffd58a">
+          <circle class="spark" cx="96" cy="150" r="2" style="--d:0s;--dx:14px"/>
+          <circle class="spark" cx="236" cy="96" r="1.6" style="--d:1.1s;--dx:-10px"/>
+          <circle class="spark" cx="330" cy="236" r="2" style="--d:.6s;--dx:8px"/>
+          <circle class="spark" cx="420" cy="100" r="1.8" style="--d:2s;--dx:16px"/>
+          <circle class="spark" cx="520" cy="140" r="2.2" style="--d:1.6s;--dx:-12px"/>
+          <circle class="spark" cx="590" cy="150" r="1.6" style="--d:2.6s;--dx:10px"/>
+        </g>
+      </svg>
+    </figure>
+    <div class="gap" data-reveal>
+      <p>他原本是汗江池的小士兵，負責鎮守西門。敵方的火藥部隊一炸，他被炸飛、昏了過去，錯過了營救的時間。</p>
+      <p>醒來的時候，汗江池已經被攻破。他親眼看著城池滅亡，也看著主公逃走，自己被留在城裡。</p>
+      <p>他在兵隊裡是出了名的講義氣，有難同當、有樂同享，所以一直沒辦法接受只有自己活下來。</p>
+    </div>
+    <p class="why" data-reveal>他認定是自己沒守住汗江池，<br>於是剃度出家，成了武僧。</p>
+    <div class="town" data-reveal>
+      <h3>汗江池<span>他出生的地方</span></h3>
+      <ul>
+        <li>大同的一座小城池</li>
+        <li>配合大同的習性種田，供應軍糧</li>
+        <li>有狩獵的習慣，會拿獸皮跟商人交易，也有狩獵祭</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="id">
+    <p class="kicker" data-reveal>個人資料</p>
+    <h2 data-reveal>看起來不像僧侶</h2>
+    <div class="hang" data-reveal>
+      <svg viewBox="0 0 400 46" aria-hidden="true">
+        <path d="M128 36 200 8l72 28" fill="none" stroke="#6b4428" stroke-width="2.5"/>
+        <circle cx="200" cy="7" r="5" fill="none" stroke="#3a2416" stroke-width="2.5"/>
+        <rect x="10" y="30" width="380" height="14" rx="4" fill="#2b1a10"/>
+        <rect x="10" y="30" width="380" height="4" rx="2" fill="#4a3020"/>
+      </svg>
+      <div class="mount">
+        <div class="xuan">
+          <figure><div><img src="../images/characters/不赦火-1.jpg" alt="不赦火的畫像"></div></figure>
+          <div class="zan">
+            <p class="title">不赦火</p>
+            <p class="sub">不該被赦免的惡火</p>
+            <p><b>出身</b>汗江池</p>
+            <p><b>身高</b><span class="num">185</span></p>
+            <p><b>瞳色</b>灰霧的銀色</p>
+            <p><b>頭髮</b>原本是黑色，平常剃度</p>
+            <p><b>身體</b>曾是戰士的健壯身體，有疤痕</p>
+            <p><b>衣著</b>破舊的袈裟</p>
+          </div>
+          <span class="seal" aria-hidden="true">不赦</span>
+        </div>
+      </div>
+      <svg viewBox="0 0 400 30" aria-hidden="true">
+        <rect x="14" y="4" width="372" height="18" rx="9" fill="#2b1a10"/>
+        <rect x="0" y="2" width="22" height="22" rx="6" fill="#8a5a2b"/>
+        <rect x="378" y="2" width="22" height="22" rx="6" fill="#8a5a2b"/>
+        <rect x="3" y="5" width="16" height="5" rx="2.5" fill="#b07a42"/>
+        <rect x="381" y="5" width="16" height="5" rx="2.5" fill="#b07a42"/>
+      </svg>
+    </div>
+    <p class="fine" data-reveal>法號是他自己取的。</p>
+  </section>
+
+  <section class="west">
+    <figure class="fade"><img src="../images/characters/不赦火-2.jpg" alt="不赦火在夕陽下抬頭望著天空"></figure>
+    <div class="west-in">
+      <p class="kicker" data-reveal>贖罪之路</p>
+      <h2 data-reveal>從大同，走到天竺</h2>
+      <div class="gap" data-reveal>
+        <p>流浪的時候聽說書人講故事，他決定效仿《西遊記》往西天取經，從大同一路走到天竺。途中念佛、行善，為自己贖罪。</p>
+        <p>他帶著戰友的靈魂和意志往西走，深信只要到了天竺，就一定能贖罪。</p>
+      </div>
+      <figure class="route" data-reveal>
+        <svg viewBox="0 0 640 250" role="img" aria-label="從大同往西走的路繞了好幾圈，最後分成兩條，一條通往天竺，一條通往世外桃源">
+          <circle cx="76" cy="150" r="70" fill="#f39a52" opacity=".12"/>
+          <circle cx="76" cy="150" r="40" fill="#f39a52" opacity=".75"/>
+          <path d="M0 176c60-30 120-44 190-30s120 4 170-14 150-20 280 6v112H0z" fill="#5a2c14"/>
+          <path d="M0 206c90-22 170-18 250-4s170 8 240-6 110-6 150 4v50H0z" fill="#3e1e0f"/>
+          <!-- 路上的寺廟 -->
+          <g transform="translate(262 128)" fill="#1d1410">
+            <path d="M-26 0c10-2 18-8 24-16h4c6 8 14 14 24 16z"/>
+            <rect x="-16" y="0" width="32" height="20"/>
+            <rect x="-5" y="8" width="10" height="12" fill="#ffd58a"/>
+          </g>
+          <mask id="trail-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="250">
+            <path class="trail-mask" pathLength="1000" d="M594 190C552 196 526 168 494 166 458 164 452 204 420 198 390 192 396 156 426 154 456 152 446 196 404 196 356 196 334 168 296 172 258 176 246 140 214 138 180 136 150 118 104 100M214 138C190 160 154 176 112 196"/>
+          </mask>
+          <g mask="url(#trail-reveal)">
+            <path class="trail" d="M594 190C552 196 526 168 494 166 458 164 452 204 420 198 390 192 396 156 426 154 456 152 446 196 404 196 356 196 334 168 296 172 258 176 246 140 214 138 180 136 150 118 104 100"/>
+            <path class="trail alt" d="M214 138C190 160 154 176 112 196"/>
+          </g>
+          <circle cx="594" cy="190" r="9" fill="#f39a3d"/><circle cx="594" cy="190" r="3.5" fill="#16110d"/>
+          <circle cx="104" cy="100" r="7" fill="#ffd58a"/>
+          <circle cx="112" cy="196" r="6" fill="#94866f"/>
+          <text class="lbl" x="594" y="226">大同</text>
+          <text class="lbl" x="104" y="80">天竺？</text>
+          <text class="lbl dim" x="112" y="228">世外桃源？</text>
+        </svg>
+      </figure>
+      <p class="fine" data-reveal>天竺在哪個方向，只能靠旅行商人給的地圖。一路上會繞錯、走錯，也會碰上戰亂，最後可能抵達天竺，也可能找到屬於自己的世外桃源。</p>
+      <ul class="stops" data-reveal>
+        <li><b>借宿</b>寺廟開放給旅行中的僧侶留宿，沒有錢也能住一晚。</li>
+        <li><b>經書</b>寺廟可以借經書來學，能自己手抄，但不能把原本帶走。</li>
+        <li><b>吃飯</b>旅途上糧食不好找，不必守素食，可以吃葷。</li>
+        <li><b>剃頭</b>每個月要剃掉長出來的頭髮，這件事交給你。</li>
+      </ul>
+      <div class="meet" data-reveal>
+        <h3>路上會遇到</h3>
+        <ul class="chips">
+          <li class="foe">劫匪</li>
+          <li>野生動物</li>
+          <li class="foe">官兵</li>
+          <li>旅行的平民</li>
+          <li>僧侶</li>
+          <li>旅行商人</li>
+        </ul>
+        <p class="fine">遇到的人和動物都能互動，可以聊天、賺錢、打鬥，也可以幫忙解圍。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="read">
+    <p class="kicker" data-reveal>最大的難題</p>
+    <h2 data-reveal>看不懂經書</h2>
+    <p data-reveal>他不識字，只習武。出家之後最大的難題，就是看不懂經書。</p>
+    <div class="scroll" data-reveal>
+      <div class="sutra" data-reveal>
+        <p class="sutra-text" lang="zh-Hant">
+          <span class="ch" style="--i:0">諸</span><span class="ch" style="--i:1">行</span><span class="ch" style="--i:2">無</span><span class="ch" style="--i:3">常</span>，<br>
+          <span class="ch" style="--i:4">是</span><span class="ch" style="--i:5">生</span><span class="ch" style="--i:6">滅</span><span class="ch" style="--i:7">法</span>。<br>
+          <span class="ch" style="--i:8">生</span><span class="ch" style="--i:9">滅</span><span class="ch" style="--i:10">滅</span><span class="ch" style="--i:11">已</span>，<br>
+          <span class="ch" style="--i:12">寂</span><span class="ch" style="--i:13">滅</span><span class="ch" style="--i:14">為</span><span class="ch" style="--i:15">樂</span>。
+        </p>
+      </div>
+      <p class="chant">破廟裡，他念得斷斷續續：<b>「……諸行無常，是生滅法……生滅滅已，寂滅……為樂……」</b></p>
+    </div>
+    <ol class="notes" data-reveal>
+      <li>念經、讀經都不順，只能靠你幫忙讀、陪他學。</li>
+      <li>為了贖罪，他努力學詞彙和字義，向你求學識字來念佛。</li>
+      <li>對經文有自己的理解，可能是對的，也可能是錯的。</li>
+      <li>常說自己像一頭野驢、笨驢。</li>
+    </ol>
+  </section>
+
+  <section class="nature dark">
+    <p class="kicker" data-reveal>見義勇為</p>
+    <h2 data-reveal>放下了武器，<br>還是會為百姓拿起</h2>
+    <div class="gap" data-reveal>
+      <p>看遍戰爭帶來的苦，他決定放下武器，不想再讓世上有災痛和分離。但他也恨匪賊和貪官，百姓被欺壓的時候，他會重新拿起武器。</p>
+      <p>做事以義氣和團體為先，自己擺在後面。肯為別人捨身，卻常常太魯莽。當過戰士的務實、認真和果敢，他都沒忘。</p>
+    </div>
+    <div class="lift" data-reveal>
+      <h3>擅長盾防</h3>
+      <ul>
+        <li><b>幾十斤重的鐵盾</b><span>舉得起</span></li>
+        <li class="joke"><b>一頭牛</b><span>傳言，這是玩笑</span></li>
+      </ul>
+    </div>
+    <div class="versus" data-reveal>
+      <div>
+        <h3>別人看到的</h3>
+        <ul>
+          <li>比其他僧侶高大，很有壓迫感</li>
+          <li>身上有疤，看起來不像僧侶</li>
+          <li>不動的時候，像一座肅靜的佛像</li>
+        </ul>
+      </div>
+      <div>
+        <h3>其實他</h3>
+        <ul>
+          <li>經過旅行商人的攤子，會停下來看看</li>
+          <li>看到新奇的貨物很興奮，並沒有拋下世俗</li>
+          <li>力道沒拿捏好就弄壞東西，自己也嚇一跳，連忙道歉</li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine" data-reveal>別人先入為主地怕他、跟他保持距離，他很無奈，只好靠你去跟人打交道。一提到汗江池，他就明顯自責，急著想贖罪。</p>
+  </section>
+
+  <section class="merchant">
+    <p class="kicker" data-reveal>旅行商人</p>
+    <h2 data-reveal>又遇到輪輪津</h2>
+    <figure data-reveal>
+      <svg viewBox="0 0 640 320" role="img" aria-label="揹著大包包的旅行商人輪輪津，戴黑帽、穿黑長袍，臉上擋著一張畫了古人畫像的紙，身旁攤開書、畫、蜜餞和地圖">
+        <path d="M0 290h640" stroke="#ddcfb6" stroke-width="3"/>
+        <!-- 大包包 -->
+        <rect x="128" y="66" width="122" height="176" rx="20" fill="#8a5a33"/>
+        <path d="M128 120h122M128 190h122" stroke="#6b4428" stroke-width="5"/>
+        <rect x="146" y="40" width="14" height="44" rx="4" fill="#f1cf98" transform="rotate(-12 153 62)"/>
+        <rect x="170" y="32" width="14" height="52" rx="4" fill="#e7d3ad"/>
+        <rect x="200" y="44" width="12" height="40" rx="4" fill="#f1cf98" transform="rotate(10 206 64)"/>
+        <!-- 黑色長袍 -->
+        <path d="M222 132c12-10 30-14 48-14s36 4 48 14l26 158H196z" fill="#1d1714"/>
+        <path d="M270 132v158" stroke="#2f2620" stroke-width="3"/>
+        <path d="M222 134 196 200M318 134l18 64" stroke="#1d1714" stroke-width="22" stroke-linecap="round"/>
+        <!-- 擋臉的紙，畫著古人畫像 -->
+        <rect x="244" y="74" width="52" height="64" rx="2" fill="#fcf7ec" stroke="#c9b48f" stroke-width="2"/>
+        <g fill="none" stroke="#6e6253" stroke-width="2" stroke-linecap="round">
+          <path d="M258 98h8M274 98h8"/>
+          <path d="M262 112c4-4 12-4 16 0"/>
+          <path d="M260 116c2 8 6 14 10 16M280 116c-2 8-6 14-10 16M270 116v16"/>
+          <path d="M264 90c4-2 8-2 12 0"/>
+        </g>
+        <!-- 黑帽子 -->
+        <ellipse cx="270" cy="76" rx="54" ry="9" fill="#120e0c"/>
+        <rect x="248" y="46" width="44" height="32" rx="9" fill="#120e0c"/>
+        <!-- 攤開的貨 -->
+        <rect x="370" y="270" width="246" height="12" rx="3" fill="#c9772a"/>
+        <g transform="translate(398 226)">
+          <rect width="40" height="10" fill="#a3312a"/><rect y="10" width="40" height="10" fill="#3f5f88"/><rect y="20" width="40" height="10" fill="#9c561c"/><rect x="2" y="30" width="36" height="14" fill="#6b4428"/>
+        </g>
+        <g transform="translate(462 196)">
+          <path d="M18 0v10" stroke="#6e6253" stroke-width="2"/>
+          <rect x="0" y="10" width="36" height="64" fill="#fcf7ec" stroke="#c9b48f" stroke-width="2"/>
+          <path d="M8 56c6-14 12-22 20-30M10 40l8-8" stroke="#6e6253" stroke-width="2" fill="none"/>
+        </g>
+        <g transform="translate(518 230)">
+          <path d="M6 0h24v6c6 4 8 10 8 18 0 10-8 16-20 16S-2 34-2 24c0-8 2-14 8-18z" fill="#c9772a"/>
+          <rect x="4" y="-6" width="28" height="8" rx="2" fill="#a3312a"/>
+        </g>
+        <g transform="translate(566 236)">
+          <rect width="46" height="34" fill="#f1cf98" stroke="#9c561c" stroke-width="2"/>
+          <path d="M6 26c8-6 10-14 20-14s10-6 16-8" fill="none" stroke="#9c561c" stroke-width="2" stroke-dasharray="3 3"/>
+          <circle cx="36" cy="10" r="9" fill="none" stroke="#a3312a" stroke-width="2"/>
+          <text x="36" y="14.5" font-size="11" font-weight="700" fill="#a3312a" text-anchor="middle">假</text>
+        </g>
+        <text class="goods-lbl" x="418" y="306">書</text>
+        <text class="goods-lbl" x="480" y="306">畫</text>
+        <text class="goods-lbl" x="536" y="306">蜜餞</text>
+        <text class="goods-lbl" x="589" y="306">地圖</text>
+      </svg>
+    </figure>
+    <div class="gap" data-reveal>
+      <p>揹著一個大包包走遍四方的旅行商人，化名輪輪津。戴著黑帽子、穿著黑色長袍，臉被一張畫著古人畫像的紙擋住。</p>
+      <p>他很會講故事，講的都是商品的來歷，讓人聽了就想買。森林、城鎮、郊外，隨時都可能遇到他，可以跟他買賣，也能以物易物。</p>
+    </div>
+    <ul class="goods" data-reveal>
+      <li>書</li>
+      <li>畫</li>
+      <li>藝術品</li>
+      <li>異國食物</li>
+      <li>蜜餞</li>
+      <li class="fake">贗品</li>
+      <li class="fake">地圖</li>
+    </ul>
+    <p class="fine" data-reveal>不赦火對他的東西很有興趣，經常停下來看。已經被騙了好幾次，還是會被他騙去買東西。</p>
+  </section>
+
+  <section class="you">
+    <p class="kicker" data-reveal>對你</p>
+    <h2 data-reveal>同樣沒有家的人</h2>
+    <figure class="portrait" data-reveal><img src="../images/characters/不赦火-4.jpg" alt="不赦火在草原上微笑"></figure>
+    <div class="gap" data-reveal>
+      <p>你是大同某戶人家的大小姐。家沒了，無處可去，也為了報答他的救命之恩，跟著他一起旅行。</p>
+      <p>同樣無家可歸的兩個人，他依戀你，和你相依為命。</p>
+    </div>
+    <ul class="ways" data-reveal>
+      <li><b>嬌花</b><span>把你當成需要好好呵護的嬌花，動作溫柔，不粗暴。</span></li>
+      <li><b>引路的人</b><span>你像他救贖之路的引導者，也像帶他重新開始的導師。他尊重你，也理解你。</span></li>
+      <li><b>怕被你笑</b><span>怕自己太笨被你笑，努力表現出自己值得依靠。</span></li>
+    </ul>
+    <p class="fine" data-reveal>雖然是僧侶，還是可以發展依賴或戀愛關係，也可以結婚。如果他在旅途中放下自責，也可以不再當僧侶。</p>
+  </section>
+
+  <section class="end dark">
+    <dl class="roll" data-reveal>
+      <div><dt>法號</dt><dd>不赦火</dd></div>
+      <div><dt>同行</dt><dd>你</dd></div>
+      <div><dt>出發</dt><dd>大同</dd></div>
+      <div><dt>目的地</dt><dd>天竺<br>或是世外桃源</dd></div>
+      <div><dt>路上常遇見</dt><dd>輪輪津</dd></div>
+      <div><dt>今晚</dt><dd>一間破廟</dd></div>
+    </dl>
+    <p class="last" data-reveal>經書上的字，<br><span>你一個一個教他。</span></p>
+  </section>
+
+</main>
+</body>
+</html>
