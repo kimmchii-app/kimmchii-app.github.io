@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>畫作之鬼｜館藏導覽</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：古典歌德風的洋館館藏導覽。黑底、四葉飾花紋、尖拱窗框住照片；金色是老畫框，酒紅是蠟封和劃掉規則的墨水，羊皮紙是說明牌；淡青白的光點是畫作之鬼本身 -->
+<style>
+  :root {
+    --void: #0c0809;
+    --stone: #161011;
+    --ink: #ece0c8;
+    --muted: #ab9a83;
+    --line: rgba(201, 164, 92, .3);
+    --gold: #c9a45c;
+    --gold-hi: #f0d79a;
+    --gold-dark: #6f5326;
+    --wine: #6b1a26;
+    --wine-hi: #a3303f;
+    --ghost: #d6ebe4;
+    --parch: #ead9b8;
+    --parch-2: #d9c296;
+    --parch-ink: #2b1a13;
+    --parch-muted: #6e5643;
+    --parch-line: rgba(110, 86, 67, .35);
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    --gutter: clamp(16px, 5vw, 40px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background:
+      radial-gradient(110% 50% at 50% 0%, rgba(240, 180, 90, .12), transparent 62%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%23c9a45c' stroke-opacity='.07'%3E%3Ccircle cx='36' cy='27' r='9'/%3E%3Ccircle cx='45' cy='36' r='9'/%3E%3Ccircle cx='36' cy='45' r='9'/%3E%3Ccircle cx='27' cy='36' r='9'/%3E%3Cpath d='M0 36L36 0L72 36L36 72Z'/%3E%3C/g%3E%3C/svg%3E"),
+      var(--void);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  .guide {
+    max-width: 720px; margin: 0 auto; overflow: hidden; padding-bottom: 8px;
+    background: radial-gradient(140% 70% at 50% 40%, transparent 55%, rgba(0, 0, 0, .55));
+    border-left: 1px solid rgba(201, 164, 92, .12); border-right: 1px solid rgba(201, 164, 92, .12);
+  }
+  img { display: block; width: 100%; pointer-events: none; -webkit-user-drag: none; }
+  figure { margin: 0; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  p { margin: 0; }
+  ul, ol, dl { margin: 0; padding: 0; list-style: none; }
+  dd { margin: 0; }
+  .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+  /* 花飾分隔線 */
+  .orn { display: block; width: min(220px, 64%); height: 22px; margin: 10px auto 0; color: var(--gold); overflow: visible; }
+
+  /* 封面 */
+  .topline {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 12px var(--gutter);
+    font: 700 12px/1.4 var(--serif); letter-spacing: .26em; color: var(--gold);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 3px 0 -2px rgba(201, 164, 92, .18);
+  }
+  .portal { position: relative; width: min(80%, 520px); margin: clamp(44px, 10vw, 64px) auto 0; }
+  .finial { position: absolute; left: 50%; top: -34px; width: 30px; height: 30px; margin-left: -15px; color: var(--gold); }
+  .arch {
+    position: relative; aspect-ratio: 600 / 797; overflow: hidden;
+    -webkit-clip-path: url(#arch); clip-path: url(#arch);
+    background: var(--stone);
+  }
+  .arch img { height: 100%; object-fit: cover; filter: saturate(.85) contrast(1.05); }
+  .arch .shade {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 70% at 50% 42%, transparent 48%, rgba(12, 8, 9, .6) 100%),
+      linear-gradient(to bottom, transparent 72%, rgba(12, 8, 9, .7));
+  }
+  .arch .flame {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 48% 30%, rgba(255, 196, 110, .18), transparent 70%);
+    mix-blend-mode: screen;
+    animation: flicker 5s ease-in-out infinite;
+  }
+  @keyframes flicker {
+    0%, 100% { opacity: .75; } 18% { opacity: 1; } 22% { opacity: .82; } 46% { opacity: .95; } 52% { opacity: .7; } 78% { opacity: 1; }
+  }
+  .portal .tracery { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .portal .tracery path { fill: none; stroke: var(--gold); vector-effect: non-scaling-stroke; }
+  .portal::after {
+    content: ""; position: absolute; left: -6%; right: -6%; bottom: -12px; height: 12px;
+    background: linear-gradient(180deg, var(--gold-hi), var(--gold) 40%, var(--gold-dark));
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .55);
+  }
+  .cover-title { margin-top: clamp(36px, 8vw, 48px); padding: 0 var(--gutter); text-align: center; }
+  .kicker { display: flex; align-items: center; justify-content: center; gap: 14px; font: 700 12px/1.4 var(--serif); letter-spacing: .34em; color: var(--gold); }
+  .kicker::before, .kicker::after { content: ""; width: 42px; height: 1px; background: var(--gold); opacity: .6; }
+  h1 {
+    margin: 10px 0 0; padding-left: .2em;
+    font: 700 clamp(44px, 12.5vw, 80px)/1.15 var(--serif); letter-spacing: .2em;
+    background: linear-gradient(180deg, var(--gold-hi) 10%, var(--gold) 55%, var(--gold-dark) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 3px 14px rgba(0, 0, 0, .7));
+  }
+  .sub { margin-top: 8px; color: var(--muted); font-size: 14px; letter-spacing: .08em; text-wrap: balance; }
+  .tagline {
+    margin: clamp(28px, 6vw, 38px) var(--gutter) 0; padding: 20px 0 18px;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    box-shadow: inset 0 4px 0 -3px rgba(201, 164, 92, .25), inset 0 -4px 0 -3px rgba(201, 164, 92, .25);
+    font: 700 clamp(17px, 4.6vw, 20px)/1.9 var(--serif); text-align: center; letter-spacing: .04em;
+  }
+  .tagline span { color: var(--gold-hi); }
+
+  /* 每一區的標題 */
+  .room { padding: clamp(52px, 11vw, 72px) var(--gutter) 0; }
+  .head { text-align: center; margin-bottom: 24px; }
+  .numeral {
+    display: inline-grid; place-items: center; width: 40px; height: 40px;
+    border: 1px solid var(--gold); outline: 1px solid rgba(201, 164, 92, .35); outline-offset: 3px;
+    rotate: 45deg; color: var(--gold-hi);
+  }
+  .numeral i { rotate: -45deg; font: 700 16px/1 var(--serif); font-style: normal; }
+  h2 { margin: 16px 0 0; padding-left: .3em; font: 700 clamp(21px, 5.4vw, 26px)/1.4 var(--serif); letter-spacing: .3em; color: var(--ink); }
+  .lead { color: var(--muted); text-align: center; }
+
+  /* 羊皮紙 */
+  .parch {
+    position: relative; color: var(--parch-ink);
+    background: radial-gradient(120% 100% at 50% 0%, #f3e6c9, var(--parch) 45%, var(--parch-2));
+    border: 1px solid var(--gold-dark); outline: 1px solid rgba(111, 83, 38, .55); outline-offset: -9px;
+    padding: clamp(24px, 6vw, 34px) clamp(20px, 5.5vw, 32px);
+    box-shadow: 0 22px 46px rgba(0, 0, 0, .55), inset 0 0 50px rgba(120, 76, 30, .28);
+  }
+  .seal {
+    position: absolute; top: -20px; right: 16px; width: 62px; height: 62px; border-radius: 50%;
+    display: grid; place-items: center; text-align: center; rotate: -12deg;
+    background: radial-gradient(circle at 35% 30%, #b8404e, var(--wine) 58%, #440d16);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, .5), inset 0 0 0 4px rgba(0, 0, 0, .2), inset 0 0 0 6px rgba(255, 220, 200, .12);
+    color: #f6dcc6; font: 700 12px/1.25 var(--serif); letter-spacing: .12em;
+  }
+
+  /* Ⅰ 展品說明 */
+  .label-card dl div { display: grid; grid-template-columns: 5em 1fr; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--parch-line); }
+  .label-card dt { color: var(--parch-muted); font-size: 13px; letter-spacing: .12em; }
+  .label-card dd { font-size: 15px; }
+  .label-card dl div:first-child dd { font: 700 18px/1.6 var(--serif); letter-spacing: .14em; color: var(--wine); }
+  .desc { margin-top: 16px; font: 700 15px/2 var(--serif); }
+  .desc::first-letter { float: left; margin: 4px 8px 0 0; font: 700 40px/1 var(--serif); color: var(--wine); }
+
+  /* Ⅱ 館內動線 */
+  .track { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); margin: 26px 0 8px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .track i {
+    justify-self: center; width: clamp(28px, 7.4vw, 42px); aspect-ratio: 3 / 4;
+    border: 3px double var(--gold); background: linear-gradient(160deg, #2b2124, #110c0d);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .5);
+  }
+  .track i:nth-child(odd) { aspect-ratio: 4 / 3; align-self: center; }
+  .track b {
+    position: absolute; top: 50%; left: 8.33%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%;
+    background: radial-gradient(circle, #fff 0 22%, var(--ghost) 42%, transparent 70%);
+    box-shadow: 0 0 20px 7px rgba(214, 235, 228, .38);
+    animation: hop 7.2s var(--ease) infinite;
+  }
+  @keyframes hop {
+    0%, 10% { left: 8.33%; }
+    16%, 26% { left: 25%; }
+    32%, 42% { left: 41.67%; }
+    48%, 58% { left: 58.33%; }
+    64%, 74% { left: 75%; }
+    80%, 92% { left: 91.67%; }
+    100% { left: 8.33%; }
+  }
+  .floors { margin-top: 18px; }
+  .floors li { display: grid; grid-template-columns: 3.6em 1fr auto; gap: 4px 12px; align-items: baseline; padding: 12px 0; border-bottom: 1px dotted rgba(201, 164, 92, .35); }
+  .floors b { font: 700 14px/1.6 var(--serif); letter-spacing: .1em; color: var(--gold); }
+  .floors span { font-family: var(--serif); font-weight: 700; }
+  .floors em { font-style: normal; font-size: 13px; color: var(--muted); text-align: right; }
+  .floors em.art { color: var(--gold-hi); }
+  .floors em.art::before { content: "◆ "; }
+  .floors em.x { color: #d7887a; }
+  .floors em.x::before { content: "✕ "; }
+  .floors-note { margin-top: 14px; font-size: 13px; color: var(--muted); text-align: center; }
+
+  /* Ⅲ 能變成什麼 */
+  .media { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .media li {
+    position: relative; padding: 14px 16px 14px 56px;
+    border: 1px solid var(--line); outline: 1px solid rgba(201, 164, 92, .1); outline-offset: 3px;
+    background: linear-gradient(180deg, rgba(255, 240, 210, .035), transparent);
+  }
+  .media li::before {
+    content: "可"; position: absolute; left: 14px; top: 16px; width: 28px; height: 28px;
+    display: grid; place-items: center; border: 1px solid var(--gold); color: var(--gold-hi);
+    font: 700 14px/1 var(--serif);
+  }
+  .media .ban { border-color: rgba(163, 48, 63, .45); background: linear-gradient(180deg, rgba(107, 26, 38, .2), rgba(107, 26, 38, .05)); }
+  .media .ban::before { content: "否"; border-color: var(--wine-hi); background: var(--wine); color: #f6dcc6; }
+  .media b { display: block; font: 700 16px/1.6 var(--serif); letter-spacing: .06em; }
+  .media p { margin-top: 4px; font-size: 14px; line-height: 1.75; color: var(--muted); }
+  .touch { margin-top: 26px; text-align: center; font: 700 15px/2 var(--serif); }
+  .touch span { color: var(--gold-hi); }
+
+  /* Ⅳ 觀展須知 */
+  .notice-title { text-align: center; padding-left: .5em; font: 700 18px/1.6 var(--serif); letter-spacing: .5em; color: var(--wine); }
+  .notice .orn { color: var(--wine); margin-bottom: 8px; }
+  .rules { counter-reset: rule; }
+  .rules li { counter-increment: rule; display: grid; grid-template-columns: 2em 1fr; gap: 2px 8px; padding: 14px 0; border-bottom: 1px solid var(--parch-line); }
+  .rules li:last-child { border-bottom: 0; }
+  .rules li::before { content: counter(rule, upper-roman) "."; grid-row: span 2; font: 700 14px/1.9 var(--serif); color: var(--parch-muted); }
+  .rules s { font-family: var(--serif); font-weight: 700; color: var(--parch-muted); text-decoration-color: var(--wine-hi); text-decoration-thickness: 2px; letter-spacing: .06em; }
+  .rules p { font-size: 14.5px; line-height: 1.85; }
+  .rules .keep { margin-top: 6px; padding: 14px 12px; border: 1px solid var(--wine); background: rgba(107, 26, 38, .09); }
+  .rules .keep strong { font-family: var(--serif); letter-spacing: .06em; color: var(--wine); }
+  .rules .keep strong::after { content: "這一條是真的"; display: inline-block; margin-left: .9em; white-space: nowrap; font: 700 11px/1 var(--sans); letter-spacing: .12em; color: var(--wine-hi); }
+
+  /* Ⅴ 館內的其他住戶 */
+  .neighbors { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .neighbors li {
+    text-align: center; padding: 34px 16px 20px;
+    border: 1px solid var(--line); border-radius: 999px 999px 4px 4px / 80px 80px 4px 4px;
+    background: linear-gradient(180deg, rgba(107, 26, 38, .32), rgba(22, 16, 17, .35) 62%);
+    box-shadow: inset 0 0 0 4px rgba(12, 8, 9, .6), inset 0 0 0 5px rgba(201, 164, 92, .18);
+  }
+  .neighbors b { display: block; font: 700 17px/1.6 var(--serif); letter-spacing: .1em; color: var(--gold-hi); }
+  .neighbors b::after { content: ""; display: block; width: 28px; height: 1px; margin: 8px auto 6px; background: var(--gold); opacity: .6; }
+  .neighbors p { font-size: 14.5px; color: var(--muted); }
+
+  /* 結尾 */
+  .ending {
+    padding: clamp(60px, 12vw, 84px) var(--gutter) 0; text-align: center;
+    background: radial-gradient(60% 40% at 50% 34%, rgba(240, 180, 90, .1), transparent 70%);
+  }
+  .frame {
+    position: relative; width: min(80%, 420px); margin: 0 auto; padding: clamp(16px, 3.8vw, 24px);
+    background: linear-gradient(135deg, var(--gold-hi), #7a5a2a 28%, #dcb86e 48%, #5e4320 72%, var(--gold));
+    box-shadow: 0 28px 60px rgba(0, 0, 0, .65), inset 0 0 0 3px rgba(0, 0, 0, .35), inset 0 0 0 6px rgba(240, 215, 154, .35);
+  }
+  .frame::before { content: ""; position: absolute; inset: 7px; border: 1px solid rgba(43, 26, 19, .55); pointer-events: none; }
+  .frame > i {
+    position: absolute; width: 22px; height: 22px; border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #fff3c8, var(--gold) 42%, #4f3819);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
+  }
+  .frame > i:nth-of-type(1) { top: -6px; left: -6px; }
+  .frame > i:nth-of-type(2) { top: -6px; right: -6px; }
+  .frame > i:nth-of-type(3) { bottom: -6px; left: -6px; }
+  .frame > i:nth-of-type(4) { bottom: -6px; right: -6px; }
+  .crop { aspect-ratio: 4 / 5; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .5); }
+  .crop img { height: 100%; object-fit: cover; transform: scale(1.6); transform-origin: 46% 45%; filter: saturate(.85) contrast(1.05); }
+  .placard {
+    display: inline-block; margin-top: 22px; padding: 10px 22px;
+    background: radial-gradient(120% 100% at 50% 0%, #f3e6c9, var(--parch) 50%, var(--parch-2));
+    border: 1px solid var(--gold-dark); outline: 1px solid rgba(111, 83, 38, .5); outline-offset: -5px;
+    color: var(--parch-ink); font: 700 12px/1.8 var(--serif); letter-spacing: .16em;
+  }
+  .placard b { font-size: 15px; letter-spacing: .14em; color: var(--wine); }
+  .last { margin-top: clamp(30px, 7vw, 44px); font: 700 clamp(17px, 4.6vw, 21px)/1.95 var(--serif); }
+  .last span { color: var(--gold-hi); }
+  .sign {
+    margin: clamp(26px, 6vw, 36px) var(--gutter) 0; padding: 0 0 4px; text-align: center;
+    font: 700 12px/1.6 var(--serif); letter-spacing: .24em; color: var(--muted);
+  }
+  .sign .orn { margin: 0 auto 10px; }
+
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .8s var(--ease), translate .8s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+
+  @media (max-width: 560px) {
+    .media, .neighbors { grid-template-columns: 1fr; }
+    .floors li { grid-template-columns: 3.6em 1fr; }
+    .floors em { grid-column: 2; text-align: left; }
+  }
+  @media (max-width: 420px) {
+    h1 { letter-spacing: .12em; padding-left: .12em; }
+    .topline { letter-spacing: .16em; }
+    .label-card dl div { grid-template-columns: 4.2em 1fr; gap: 10px; }
+    .frame { width: 86%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .track b, .arch .flame { animation: none; }
+  }
+</style>
+</head>
+<body>
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <clipPath id="arch" clipPathUnits="objectBoundingBox">
+      <path d="M0,1 L0,0.458 A0.62,0.4668 0 0 1 0.5,0 A0.62,0.4668 0 0 1 1,0.458 L1,1 Z"/>
+    </clipPath>
+  </defs>
+  <symbol id="flourish" viewBox="0 0 120 20">
+    <path d="M60 3L67 10L60 17L53 10Z" fill="currentColor"/>
+    <path d="M50 10C44 10 42 4 37 5C32 6 33 12 37 12M70 10C76 10 78 4 83 5C88 6 87 12 83 12" fill="none" stroke="currentColor" stroke-width="1.2"/>
+    <path d="M0 10H29M91 10H120" stroke="currentColor" stroke-width=".8"/>
+    <circle cx="31" cy="10" r="1.6" fill="currentColor"/>
+    <circle cx="89" cy="10" r="1.6" fill="currentColor"/>
+  </symbol>
+  <symbol id="finial" viewBox="0 0 30 30">
+    <circle cx="15" cy="5" r="3" fill="currentColor"/>
+    <path d="M15 9L21 18L15 27L9 18Z" fill="currentColor"/>
+    <path d="M3 18H9M21 18H27" stroke="currentColor" stroke-width="1"/>
+  </symbol>
+</svg>
+<main class="guide">
+  <header>
+    <div class="topline"><span>怪物之館・館藏導覽</span><span>No. Ⅰ</span></div>
+    <figure class="portal">
+      <svg class="finial" aria-hidden="true"><use href="#finial"/></svg>
+      <div class="arch">
+        <img src="../images/characters/畫作之鬼-1.jpg" alt="洋館牆上掛著一幅半身油畫，斜射的陽光落在畫框和畫裡的白色小花上">
+        <div class="shade"></div>
+        <div class="flame"></div>
+      </div>
+      <svg class="tracery" viewBox="0 0 600 797" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,797 L0,365 A372,372 0 0 1 300,0 A372,372 0 0 1 600,365 L600,797" stroke-width="2.5"/>
+        <path d="M12,797 L12,365 A360,360 0 0 1 300,12.3 A360,360 0 0 1 588,365 L588,797" stroke-width="1" opacity=".55"/>
+      </svg>
+    </figure>
+    <div class="cover-title">
+      <p class="kicker" data-reveal>館藏 No. Ⅰ</p>
+      <h1 data-reveal>畫作之鬼</h1>
+      <p class="sub" data-reveal>看不見也摸不著，可以住進洋館裡任何一幅畫</p>
+      <svg class="orn" aria-hidden="true"><use href="#flourish"/></svg>
+    </div>
+    <p class="tagline" data-reveal>挑一幅你喜歡的畫吧。<br><span>畫作之鬼會搬進去，從框裡伸手碰你。</span></p>
+  </header>
+
+  <section class="room" data-reveal>
+    <div class="head"><span class="numeral"><i>Ⅰ</i></span><h2>展品說明</h2><svg class="orn" aria-hidden="true"><use href="#flourish"/></svg></div>
+    <div class="parch label-card">
+      <span class="seal" aria-hidden="true">館藏<br>Ⅰ</span>
+      <dl>
+        <div><dt>作品名稱</dt><dd>畫作之鬼</dd></div>
+        <div><dt>媒材</dt><dd>看不見也摸不著的形體</dd></div>
+        <div><dt>尺寸</dt><dd>依所在的畫而定</dd></div>
+        <div><dt>性別</dt><dd>依當下變成的畫而定</dd></div>
+        <div><dt>收藏</dt><dd>爺爺留下的洋館，現由繼承人保管</dd></div>
+      </dl>
+      <p class="desc">說起話來像一個輕浮的藝術家，卻很尊重主人的想法，介於調皮與聽話之間。很愛說話，也很愛找人說話，喜歡熱鬧，不喜歡孤單一人。</p>
+    </div>
+  </section>
+
+  <section class="room" data-reveal>
+    <div class="head"><span class="numeral"><i>Ⅱ</i></span><h2>館內動線</h2><svg class="orn" aria-hidden="true"><use href="#flourish"/></svg></div>
+    <p class="lead">只能在畫裡移動。沿著牆壁，從一幅畫到下一幅畫，是畫與畫之間的橋樑；畫以外的地方都去不了。</p>
+    <div class="track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><b></b></div>
+    <ol class="floors">
+      <li><b>三樓</b><span>主臥・四間客房・露天花園</span><em class="x">臥室和客房裡沒有掛畫</em></li>
+      <li><b>二樓</b><span>圖書室・娛樂室・餐廳</span><em>主人們用</em></li>
+      <li><b>一樓</b><span>廚房・餐廳・交誼廳</span><em>僕人用</em></li>
+      <li><b>地下</b><span>酒窖</span><em class="art">酒神壁畫</em></li>
+      <li><b>戶外</b><span>庭院</span><em class="x">花神壁畫是磚頭壁畫，進不去</em></li>
+    </ol>
+    <p class="floors-note">除了戶外，洋館裡到處都有不同畫家的畫作。</p>
+  </section>
+
+  <section class="room" data-reveal>
+    <div class="head"><span class="numeral"><i>Ⅲ</i></span><h2>能變成什麼</h2><svg class="orn" aria-hidden="true"><use href="#flourish"/></svg></div>
+    <ul class="media">
+      <li><b>肖像畫</b><p>變成畫裡的人物，在框裡活動；頭和手可以伸出畫框，最多 50 公分左右</p></li>
+      <li><b>靜物畫</b><p>只能變成畫裡有的東西。畫裡只有水果，就只能是水果</p></li>
+      <li><b>有藤蔓、有花的畫</b><p>把形體變成藤蔓或花伸出去，碰觸現實裡的人和東西</p></li>
+      <li><b>多人的畫</b><p>同時扮演畫裡的好幾個人，一起同歡</p></li>
+      <li><b>壁畫、平面海報</b><p>也可以</p></li>
+      <li class="ban"><b>雕像</b><p>變不了</p></li>
+      <li class="ban"><b>磚頭壁畫</b><p>進不去，例如庭院的花神壁畫</p></li>
+      <li class="ban"><b>把你拖進畫裡</b><p>不行，最多只能從框裡伸手出來</p></li>
+    </ul>
+    <p class="touch">摸起來像什麼，要看他正待在哪一幅畫。<br><span>花的畫摸起來像花，人的畫摸起來像人的皮膚。</span></p>
+  </section>
+
+  <section class="room" data-reveal>
+    <div class="head"><span class="numeral"><i>Ⅳ</i></span><h2>觀展須知</h2><svg class="orn" aria-hidden="true"><use href="#flourish"/></svg></div>
+    <div class="parch notice">
+      <p class="notice-title">館方告示</p>
+      <svg class="orn" aria-hidden="true"><use href="#flourish"/></svg>
+      <ol class="rules">
+        <li><s>請勿觸摸展品</s><p>展品會先碰你。他會挑一幅有人物的畫，從框裡伸手、親吻。</p></li>
+        <li><s>館內請保持安靜</s><p>很吵很吵，非常喜歡找人說話。</p></li>
+        <li><s>請小心維護畫框</s><p>每移動一次，就抖落一些畫框上的灰塵，幽靈執事的工作又多了一點。</p></li>
+        <li class="keep"><strong>請勿將畫作取下</strong><p>他所在的畫一被拿下來，就去不了別的畫。那時他會害怕被遺忘，大吼大叫找人來幫忙。</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="room" data-reveal>
+    <div class="head"><span class="numeral"><i>Ⅴ</i></span><h2>館內的其他住戶</h2><svg class="orn" aria-hidden="true"><use href="#flourish"/></svg></div>
+    <ul class="neighbors">
+      <li><b>幽靈執事</b><p>單方面想拉近關係，會跟著他的腳步變成他身邊的畫，找他聊天；到現在還沒成功。</p></li>
+      <li><b>地下室的小怪物</b><p>一對酒友。畫作之鬼會變成酒窖壁畫裡的酒神，跟它敬酒。</p></li>
+      <li><b>影之花</b><p>沒有接觸過。看到會動的藤蔓，就跑進有花的畫，伸出幾朵花打招呼。</p></li>
+      <li><b>衣櫃和床底下的小怪物</b><p>看不到，只感覺得到他們在。覺得他們哪裡都去不了，很可憐。</p></li>
+    </ul>
+  </section>
+
+  <section class="ending">
+    <figure data-reveal>
+      <div class="frame"><i></i><i></i><i></i><i></i><div class="crop"><img src="../images/characters/畫作之鬼-1.jpg" alt="同一幅半身油畫的特寫"></div></div>
+      <figcaption class="placard"><b>畫作之鬼</b>　No. Ⅰ<br>此刻在這幅畫裡</figcaption>
+    </figure>
+    <p class="last" data-reveal>如果哪天，這幅畫被取下來了，<br><span>請把它掛回去。他怕被忘記。</span></p>
+    <div class="sign"><svg class="orn" aria-hidden="true"><use href="#flourish"/></svg>畫作之鬼　館藏 No. Ⅰ　怪物之館</div>
+  </section>
+</main>
+</body>
+</html>
