@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>祁楝深｜離職交接圖說</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：離職前的交接圖說。藍晒圖的深藍是他畫了十五年的圖面，施工黃是工地，綠色是他的眼睛和員工證，紅筆是預告離職；交接清單裡，只有你不交接 -->
+<style>
+  :root {
+    --bp: #0c2135;
+    --bp-2: #112b45;
+    --bp-3: #183b5c;
+    --grid: rgba(150, 200, 240, .07);
+    --grid-2: rgba(150, 200, 240, .035);
+    --ink: #e6eff7;
+    --muted: #9cb3c7;
+    --line: rgba(156, 199, 232, .36);
+    --cyan: #8cc6ef;
+    --hazard: #f0b429;
+    --hazard-text: #f5c75a;
+    --green: #6cc39a;
+    --green-deep: #2b6a4e;
+    --paper: #f3f1e8;
+    --paper-ink: #1d2833;
+    --paper-muted: #5b6672;
+    --red: #c8372d;
+    --red-ink: #b02a21;
+    --red-light: #ff8d80;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, "Noto Sans TC", monospace;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    --gutter: clamp(20px, 6vw, 48px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background-color: var(--bp);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+      linear-gradient(var(--grid-2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-2) 1px, transparent 1px);
+    background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  .set { max-width: 720px; margin: 0 auto; overflow: hidden; }
+  img { display: block; width: 100%; pointer-events: none; -webkit-user-drag: none; }
+  figure { margin: 0; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  p { margin: 0; }
+
+  /* 每一張圖紙 */
+  .sheet { padding: clamp(46px, 9vw, 72px) var(--gutter); border-top: 1px dashed var(--line); }
+  .sheet-head {
+    display: flex; width: fit-content; margin: 0 0 18px;
+    font: 12px/1 var(--mono); letter-spacing: .12em; color: var(--cyan);
+    border: 1px solid var(--line);
+  }
+  .sheet-head b { padding: 7px 10px; font-weight: 600; background: rgba(140, 198, 239, .12); border-right: 1px solid var(--line); }
+  .sheet-head span { padding: 7px 12px; }
+  h2 {
+    margin: 0 0 24px;
+    font-family: var(--serif); font-size: clamp(24px, 5.4vw, 32px); font-weight: 700;
+    line-height: 1.45; letter-spacing: .06em; color: #fff;
+  }
+  .fine { margin-top: 18px; font-size: 13px; line-height: 1.8; color: var(--muted); }
+
+  /* 照片：描圖紙＋膠帶 */
+  .taped { position: relative; padding: 8px 8px 30px; background: var(--paper); box-shadow: 0 22px 40px -18px rgba(0, 0, 0, .75); }
+  .taped::before {
+    content: ""; position: absolute; top: -11px; left: 50%;
+    width: 78px; height: 22px; margin-left: -39px;
+    background: rgba(240, 180, 41, .55); transform: rotate(-3deg);
+  }
+  .taped figcaption {
+    position: absolute; left: 0; right: 0; bottom: 6px;
+    text-align: center; font: 11px/1.4 var(--mono); letter-spacing: .14em; color: var(--paper-muted);
+  }
+
+  /* 封面 */
+  .cover {
+    padding: 0 var(--gutter) clamp(48px, 9vw, 72px);
+    text-align: center;
+    background: radial-gradient(80% 45% at 50% 32%, rgba(140, 198, 239, .14), transparent 72%);
+  }
+  .strip {
+    display: flex; justify-content: space-between; gap: 12px;
+    margin: 0 calc(var(--gutter) * -1); padding: 10px var(--gutter);
+    font: 11px/1.4 var(--mono); letter-spacing: .14em; color: var(--muted);
+    border-bottom: 1px solid var(--line);
+  }
+  .kicker { margin-top: clamp(30px, 7vw, 46px); font: 13px/1.5 var(--mono); letter-spacing: .3em; color: var(--hazard-text); }
+  h1 {
+    margin: 12px 0 0;
+    font-family: var(--serif); font-size: clamp(54px, 15vw, 88px); font-weight: 700;
+    line-height: 1.1; letter-spacing: .28em; padding-left: .28em; color: #fff;
+  }
+  .role { margin-top: 10px; font-size: 14px; letter-spacing: .24em; color: var(--muted); }
+  .plate { display: grid; grid-template-columns: 30px 1fr; gap: 10px; width: min(420px, 100%); margin: 34px auto 0; }
+  .dim { position: relative; }
+  .dim::before { content: ""; position: absolute; left: 50%; top: 9px; bottom: 9px; width: 1px; background: var(--cyan); }
+  .dim i { position: absolute; left: 4px; right: 4px; height: 1px; background: var(--cyan); }
+  .dim i:first-child { top: 8px; }
+  .dim i:nth-child(2) { bottom: 8px; }
+  .dim i::after {
+    content: ""; position: absolute; left: 50%; margin-left: -4px;
+    border: 4px solid transparent;
+  }
+  .dim i:first-child::after { top: 1px; border-bottom: 9px solid var(--cyan); border-top: 0; }
+  .dim i:nth-child(2)::after { bottom: 1px; border-top: 9px solid var(--cyan); border-bottom: 0; }
+  .dim span {
+    position: absolute; top: 50%; left: 50%;
+    padding: 4px 6px; transform: translate(-50%, -50%) rotate(-90deg);
+    font: 12px/1 var(--mono); letter-spacing: .1em; color: var(--cyan); white-space: nowrap;
+    background: var(--bp);
+  }
+  .photo { position: relative; padding: 8px; border: 1px solid var(--line); background: rgba(12, 33, 53, .6); }
+  .pins { position: relative; }
+  .photo img { aspect-ratio: 4 / 5; object-fit: cover; }
+  .bubble {
+    position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px;
+    font: 600 13px/23px var(--mono); text-align: center; color: #fff;
+    background: rgba(12, 33, 53, .75); border: 1.5px solid #fff; border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(12, 33, 53, .3);
+  }
+  .stamp {
+    position: absolute; right: -12px; bottom: 30px;
+    padding: 4px 12px;
+    font-family: var(--serif); font-size: 18px; font-weight: 700; letter-spacing: .2em; color: #fff;
+    background: rgba(200, 55, 45, .9); border: 2px solid #fff; border-radius: 3px;
+    box-shadow: 0 10px 20px -8px rgba(0, 0, 0, .6);
+    transform: rotate(-9deg);
+  }
+  .legend {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px;
+    width: min(420px, 100%); margin: 18px auto 0; padding: 0; list-style: none;
+    text-align: left; font-size: 13px; line-height: 1.6; color: var(--muted);
+  }
+  .legend li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; }
+  .legend b {
+    width: 20px; height: 20px; margin-top: 1px;
+    font: 600 11px/18px var(--mono); text-align: center; color: var(--cyan);
+    border: 1px solid var(--cyan); border-radius: 50%;
+  }
+  .tagline { max-width: 24em; margin: 28px auto 0; font-family: var(--serif); font-size: 16px; line-height: 1.95; }
+
+  /* QL-00 說明 */
+  .story p { margin-bottom: 1.2em; }
+  .story .lead { font-family: var(--serif); font-size: 20px; line-height: 1.7; color: #fff; }
+  .story .climax {
+    position: relative; margin: 2em 0 0; padding: 22px 20px 18px;
+    font-family: var(--serif); font-size: 17px; line-height: 1.9; color: #fff;
+    border: 1px dashed var(--hazard);
+  }
+  .story .climax::before {
+    content: "附註"; position: absolute; top: -10px; left: 14px; padding: 0 8px;
+    font: 12px/20px var(--mono); letter-spacing: .2em; color: var(--hazard-text); background: var(--bp);
+  }
+
+  /* QL-01 人員資料：員工證 */
+  .id { display: grid; grid-template-columns: minmax(190px, 230px) 1fr; gap: clamp(24px, 5vw, 38px); align-items: start; }
+  .badge-wrap { position: relative; padding-top: 52px; }
+  .badge-wrap::before {
+    content: ""; position: absolute; top: 0; left: 50%; width: 22px; height: 46px; margin-left: -11px;
+    background: repeating-linear-gradient(90deg, var(--green-deep) 0 4px, #24583f 4px 8px);
+  }
+  .badge-wrap::after {
+    content: ""; position: absolute; top: 40px; left: 50%; width: 30px; height: 16px; margin-left: -15px;
+    background: linear-gradient(#d9dee3, #9aa4ad); border-radius: 3px;
+  }
+  .badge {
+    position: relative; overflow: hidden;
+    color: var(--paper-ink); background: #fff; border-radius: 12px;
+    box-shadow: 0 26px 44px -18px rgba(0, 0, 0, .75);
+    transform: rotate(-2deg);
+  }
+  .b-top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 18px 14px 10px; color: #fff; background: var(--green-deep);
+    font-weight: 700; letter-spacing: .2em;
+  }
+  .b-top small { font: 10px var(--mono); letter-spacing: .12em; opacity: .8; }
+  .badge figure { width: 62%; margin: 14px auto 0; border: 1px solid #d5dade; }
+  .badge img { aspect-ratio: 3 / 4; object-fit: cover; object-position: center 22%; }
+  .b-name { margin-top: 12px; padding-left: .3em; text-align: center; font-family: var(--serif); font-size: 24px; font-weight: 700; letter-spacing: .3em; }
+  .b-title { text-align: center; font-size: 13px; letter-spacing: .3em; color: var(--paper-muted); }
+  .b-perm { margin: 10px 14px 0; padding: 3px 0; text-align: center; font-size: 12px; letter-spacing: .1em; color: #6d4f00; background: #fbe6ab; border-radius: 3px; }
+  .b-bar {
+    height: 30px; margin: 12px 18px 0;
+    background: repeating-linear-gradient(90deg, #1d2833 0 2px, transparent 2px 4px, #1d2833 4px 5px, transparent 5px 8px, #1d2833 8px 11px, transparent 11px 13px);
+  }
+  .b-year { margin: 6px 0 14px; text-align: center; font: 11px var(--mono); letter-spacing: .14em; color: var(--paper-muted); }
+  .spec { margin: 0; }
+  .spec > div { display: grid; grid-template-columns: 3.6em 1fr; gap: 14px; padding: 11px 0; border-bottom: 1px dashed var(--line); }
+  .spec > div:first-child { padding-top: 0; }
+  .spec > div:last-child { border-bottom: 0; }
+  .spec dt { font: 12px/2.3 var(--mono); letter-spacing: .14em; color: var(--cyan); }
+  .spec dd { margin: 0; }
+
+  /* QL-02 作息表 */
+  .day { display: grid; grid-template-columns: 1fr minmax(170px, 38%); gap: clamp(24px, 5vw, 38px); align-items: start; }
+  .day .taped { transform: rotate(2deg); margin-top: 8px; }
+  .day .taped img { aspect-ratio: 600 / 797; }
+  .schedule { margin: 0; padding: 0; list-style: none; border-left: 1px solid var(--line); }
+  .schedule li { position: relative; padding: 0 0 18px 20px; }
+  .schedule li:last-child { padding-bottom: 0; }
+  .schedule li::before {
+    content: ""; position: absolute; left: -5px; top: .62em;
+    width: 9px; height: 9px; background: var(--bp); border: 1.5px solid var(--hazard); border-radius: 50%;
+  }
+  .schedule b { display: block; font: 600 15px/1.6 var(--mono); letter-spacing: .06em; color: var(--hazard-text); }
+  .schedule span { display: block; }
+  .day .fine { margin-top: 22px; }
+
+  /* QL-03 性格 */
+  .traits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .trait { padding: 16px 18px; background: rgba(17, 43, 69, .7); border: 1px solid var(--line); }
+  .trait .no { font: 12px/1.6 var(--mono); letter-spacing: .14em; color: var(--hazard-text); }
+  .trait h3 { margin: 2px 0 6px; font-family: var(--serif); font-size: 18px; letter-spacing: .1em; color: #fff; }
+  .trait p { font-size: 14px; line-height: 1.8; color: var(--muted); }
+  .trait.soft { grid-column: 1 / -1; background: rgba(108, 195, 154, .08); border-color: var(--green); }
+  .trait.soft .no { color: var(--green); }
+
+  /* QL-04 工廠立面 */
+  .elev { padding: 10px 8px 6px; border: 1px solid var(--line); background: rgba(12, 33, 53, .55); }
+  .elev svg { display: block; width: 100%; height: auto; }
+  .elev .ln { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
+  .elev .thin { stroke-width: 1.2; opacity: .55; }
+  .elev .dimln { fill: none; stroke: var(--cyan); stroke-width: 1.4; }
+  .elev .dimtx { fill: var(--cyan); font: 20px var(--mono); }
+  .elev .cloud { fill: none; stroke: var(--red-light); stroke-width: 2.4; stroke-dasharray: 7 5; stroke-linecap: round; }
+  .elev .crack { fill: none; stroke: var(--red-light); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .elev .leader { fill: none; stroke: var(--red-light); stroke-width: 1.4; stroke-dasharray: 3 4; }
+  .elev .redtx { fill: var(--red-light); font: 600 24px var(--sans); }
+  .elev .cap { fill: var(--muted); font: 18px var(--mono); letter-spacing: .1em; }
+  /* 最長的一條（牆面外框）約 1280，虛線長度取 1400 才能一次畫完 */
+  .elev .draw { stroke-dasharray: 1400; stroke-dashoffset: 0; transition: stroke-dashoffset 1.8s var(--ease); }
+  .js .elev:not(.is-visible) .draw { stroke-dashoffset: 1400; }
+  .elev .late { transition: opacity .6s var(--ease) 1.4s; }
+  .js .elev:not(.is-visible) .late { opacity: 0; }
+  .versus { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+  .versus > div { padding: 16px 18px; border: 1px solid var(--line); background: rgba(17, 43, 69, .7); }
+  .versus .in { border-color: rgba(255, 141, 128, .55); }
+  .versus b { display: block; margin-bottom: 4px; font: 600 12px/1.6 var(--mono); letter-spacing: .2em; color: var(--cyan); }
+  .versus .in b { color: var(--red-light); }
+  .versus p { font-size: 14px; line-height: 1.8; }
+
+  /* QL-05 他對公司的人＋人物關係 */
+  .split { display: grid; grid-template-columns: minmax(170px, 40%) 1fr; gap: clamp(24px, 5vw, 38px); align-items: start; }
+  .split .taped { transform: rotate(-2deg); margin-top: 8px; }
+  .split .taped img { aspect-ratio: 4 / 5; object-fit: cover; }
+  .ways { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .ways li { position: relative; padding-left: 22px; }
+  .ways li::before {
+    content: ""; position: absolute; left: 2px; top: .72em;
+    width: 8px; height: 8px; border: 1.5px solid var(--cyan); transform: rotate(45deg);
+  }
+  .org { display: grid; justify-items: center; margin-top: 44px; }
+  .org-top { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+  .org-top > div { display: grid; grid-template-rows: 1fr auto; justify-items: center; }
+  .node { display: grid; align-content: center; width: 100%; padding: 12px 14px; text-align: center; background: var(--bp-2); border: 1px solid var(--line); }
+  .node b { display: block; font-family: var(--serif); font-size: 18px; letter-spacing: .12em; color: #fff; }
+  .node span { display: block; font-size: 13px; line-height: 1.7; color: var(--muted); }
+  .edge { padding-top: 8px; font-size: 13px; line-height: 1.6; text-align: center; color: var(--hazard-text); }
+  .edge::after { content: ""; display: block; width: 1px; height: 22px; margin: 6px auto 0; border-left: 1px dashed var(--line); }
+  .join { position: relative; width: calc(50% + 6px); height: 18px; border: 1px dashed var(--line); border-top: 0; }
+  .join::after { content: ""; position: absolute; left: 50%; top: 100%; height: 18px; border-left: 1px dashed var(--line); }
+  .org .is-him { width: min(100%, 300px); margin-top: 18px; border-color: var(--hazard); box-shadow: 0 0 34px -12px rgba(240, 180, 41, .55); }
+  .down { max-width: 22em; padding-top: 8px; font-size: 13px; line-height: 1.7; text-align: center; color: var(--green); }
+  .down::before, .down::after { content: ""; display: block; width: 1px; height: 18px; margin: 0 auto 6px; border-left: 1px dashed var(--green); }
+  .down::after { margin: 6px auto 0; }
+  .org .is-you { width: min(100%, 300px); border: 1px dashed var(--green); background: rgba(108, 195, 154, .07); }
+
+  /* QL-06 附註：對你 */
+  .intro { margin-bottom: 22px; font-family: var(--serif); font-size: 17px; line-height: 1.9; }
+  .notes { counter-reset: n; display: grid; gap: 12px; margin: 0; padding: 18px 0 0; list-style: none; border-top: 1px solid var(--line); }
+  .notes li { counter-increment: n; display: grid; grid-template-columns: 2.2em 1fr; gap: 6px; }
+  .notes li::before { content: counter(n) "."; font: 600 14px/1.9 var(--mono); color: var(--green); }
+  .notes-title { font: 12px/1.4 var(--mono); letter-spacing: .3em; color: var(--green); margin-bottom: 10px; }
+
+  /* QL-07 交接清單 */
+  .handover {
+    position: relative; margin-top: 26px; padding: clamp(22px, 5vw, 34px);
+    color: var(--paper-ink);
+    background: linear-gradient(rgba(29, 40, 51, .05) 1px, transparent 1px) 0 0 / 100% 30px, var(--paper);
+    box-shadow: 0 26px 44px -20px rgba(0, 0, 0, .75);
+    transform: rotate(-.8deg);
+  }
+  .handover h3 {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin: 0 0 6px; padding-bottom: 8px;
+    font-family: var(--serif); font-size: 20px; letter-spacing: .2em;
+    border-bottom: 2px solid var(--paper-ink);
+  }
+  .handover h3 small { font: 11px var(--mono); letter-spacing: .12em; color: var(--paper-muted); }
+  .check { margin: 0; padding: 0; list-style: none; }
+  .check li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 9px 0; border-bottom: 1px dashed rgba(29, 40, 51, .22); }
+  .check li::before { content: ""; width: 15px; height: 15px; margin-top: .5em; border: 1.5px solid var(--paper-ink); border-radius: 2px; }
+  .pen {
+    width: fit-content; margin: 16px 0 0 6px;
+    font-family: var(--serif); font-size: 21px; font-weight: 700; letter-spacing: .08em; color: var(--red-ink);
+    transform: rotate(-3deg);
+    border-bottom: 2px solid var(--red-ink); border-radius: 0 0 40% 10%;
+  }
+  .due {
+    display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: baseline;
+    margin-top: 22px; padding-top: 12px; border-top: 2px solid var(--paper-ink);
+    font-size: 14px;
+  }
+  .due b { font-family: var(--serif); letter-spacing: .2em; }
+  .due span { padding: 0 6px; font-family: var(--serif); font-weight: 700; color: var(--red-ink); border-bottom: 1px solid var(--paper-ink); }
+
+  /* QL-08 新建工程：工程告示牌 */
+  .board-wrap { position: relative; padding-bottom: 46px; }
+  .board-wrap::before, .board-wrap::after {
+    content: ""; position: absolute; bottom: 0; width: 12px; height: 56px;
+    background: linear-gradient(90deg, #8d969e, #c9cfd4, #8d969e);
+  }
+  .board-wrap::before { left: 18%; }
+  .board-wrap::after { right: 18%; }
+  .board {
+    position: relative; z-index: 1;
+    color: var(--paper-ink); background: #fff; border: 5px solid #dfe3e6;
+    box-shadow: 0 22px 40px -18px rgba(0, 0, 0, .7);
+  }
+  .board h3 {
+    margin: 0; padding: 10px 0;
+    text-align: center; font-family: var(--serif); font-size: 22px; letter-spacing: .5em; padding-left: .5em;
+    color: #fff; background: #1f5ea8;
+  }
+  .board dl { margin: 0; }
+  .board dl > div { display: grid; grid-template-columns: 6.2em 1fr; border-top: 1px solid #1d2833; }
+  .board dl > div:first-child { border-top: 0; }
+  .board dt { padding: 9px 10px; font-size: 13px; letter-spacing: .14em; text-align: center; background: #eef2f6; border-right: 1px solid #1d2833; }
+  .board dd { margin: 0; padding: 9px 12px; font-weight: 500; }
+  .board dd.you { font-family: var(--serif); font-weight: 700; color: var(--red-ink); }
+  .after-board { margin-top: 26px; }
+  .after-board p + p { margin-top: 1em; }
+  .after-board .plan { padding: 16px 18px; font-family: var(--serif); font-size: 17px; border-left: 2px solid var(--green); background: rgba(108, 195, 154, .07); }
+
+  /* 結尾 */
+  .end { padding-bottom: clamp(40px, 8vw, 60px); text-align: center; }
+  .end .photo { width: min(440px, 100%); margin: 0 auto; }
+  .end .photo img { aspect-ratio: 4 / 5; object-position: center 40%; }
+  .last { margin-top: 30px; font-family: var(--serif); font-size: clamp(24px, 6.2vw, 34px); font-weight: 700; line-height: 1.6; color: #fff; }
+  .last span { color: var(--hazard-text); }
+  .titleblock {
+    display: grid; grid-template-columns: 1fr 1fr; margin: 40px 0 0;
+    text-align: left; border: 1px solid var(--line);
+  }
+  .titleblock > div { padding: 8px 12px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .titleblock > div:nth-child(2n+1) { border-right: 1px solid var(--line); }
+  .titleblock > div:nth-child(2n) { border-right: 0; }
+  .titleblock > .wide { grid-column: 1 / -1; border-right: 0; }
+  .titleblock > div:nth-last-child(-n+2) { border-bottom: 0; }
+  .titleblock dt { font: 10px/1.6 var(--mono); letter-spacing: .16em; color: var(--muted); }
+  .titleblock dd { margin: 0; font: 14px/1.6 var(--sans); color: var(--ink); }
+  .titleblock .blank { color: var(--muted); }
+
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+
+  @media (max-width: 560px) {
+    .id, .day, .split { grid-template-columns: 1fr; }
+    .badge-wrap { width: min(240px, 72%); margin: 0 auto; }
+    .day .taped, .split .taped { width: min(260px, 78%); margin: 4px auto 0; }
+    .day .taped { order: -1; }
+    .versus { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 400px) {
+    .legend, .traits { grid-template-columns: 1fr; }
+    .org-top { gap: 8px; }
+    .node { padding: 10px 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .elev .draw, .elev .late { transition: none; }
+    .js .elev:not(.is-visible) .draw { stroke-dashoffset: 0; }
+    .js .elev:not(.is-visible) .late { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+<main class="set">
+
+  <!-- 封面 -->
+  <header class="cover">
+    <p class="strip"><span>某間傳產　工程部</span><span>圖號 QL-00</span></p>
+    <p class="kicker" data-reveal>離職交接圖說</p>
+    <h1 data-reveal>祁楝深</h1>
+    <p class="role" data-reveal>工程部課長・入職第十五年</p>
+    <div class="plate" data-reveal>
+      <div class="dim" aria-hidden="true"><i></i><i></i><span>身高 1850 mm</span></div>
+      <figure class="photo">
+        <div class="pins">
+          <img src="../images/characters/祁楝深-4.jpg" alt="祁楝深靠在辦公室的椅背上抽菸，白襯衫敞開領口">
+          <span class="bubble" style="left: 27%; top: 12%" aria-hidden="true">1</span>
+          <span class="bubble" style="left: 41%; top: 23%" aria-hidden="true">2</span>
+          <span class="bubble" style="left: 72%; top: 24%" aria-hidden="true">3</span>
+          <span class="bubble" style="left: 35%; top: 86%" aria-hidden="true">4</span>
+        </div>
+        <span class="stamp">預告離職</span>
+      </figure>
+    </div>
+    <ol class="legend" data-reveal>
+      <li><b>1</b><span>黑髮參雜歲月留下的白髮</span></li>
+      <li><b>2</b><span>深綠色的眼睛</span></li>
+      <li><b>3</b><span>抽了好幾年的菸</span></li>
+      <li><b>4</b><span>手臂上有工作時留下的疤</span></li>
+    </ol>
+    <p class="tagline" data-reveal>新工廠和海外工廠的圖面都出自他手，現在運轉中的這一座也是他優化的。十五年後，他開始準備交接。</p>
+  </header>
+
+  <!-- QL-00 說明 -->
+  <section class="sheet story">
+    <p class="sheet-head" data-reveal><b>QL-00</b><span>說明</span></p>
+    <h2 data-reveal>從基層做到課長</h2>
+    <p class="lead" data-reveal>十五年前，他從最基層的工程師做起。</p>
+    <p data-reveal>後來他當上工程部課長，親自規劃新工廠，海外的工廠也是他設計的。他有水電證照，公司的工務一個人就能包下。</p>
+    <p data-reveal>資歷夠升部長，卻因為性格不受上層喜歡，一直停在課長。全公司只有他這個二級主管，能用一級主管的權限。</p>
+    <p data-reveal>董事長不重視他，未來接班的那位，他也不願意效勞。他決定離職。</p>
+    <p class="climax" data-reveal>交接排得進行程，他只是還沒想好怎麼跟你開口。<br>他怕你難過，也相信你會選他。</p>
+  </section>
+
+  <!-- QL-01 人員資料 -->
+  <section class="sheet">
+    <p class="sheet-head" data-reveal><b>QL-01</b><span>人員資料</span></p>
+    <div class="id">
+      <div class="badge-wrap" data-reveal>
+        <div class="badge">
+          <p class="b-top"><span>工程部</span><small>STAFF</small></p>
+          <figure><img src="../images/characters/祁楝深-3.jpg" alt="祁楝深的證件照，穿黑色襯衫"></figure>
+          <p class="b-name">祁楝深</p>
+          <p class="b-title">課長</p>
+          <p class="b-perm">可用一級主管權限</p>
+          <div class="b-bar" aria-hidden="true"></div>
+          <p class="b-year">到職第 15 年</p>
+        </div>
+      </div>
+      <dl class="spec" data-reveal>
+        <div><dt>身高</dt><dd>185 cm</dd></div>
+        <div><dt>外貌</dt><dd>俊美成熟的臉，黑色短髮參雜白髮，深綠色眼睛。身材精實，手臂上有幾處工作時留下的疤。</dd></div>
+        <div><dt>上班</dt><dd>襯衫、西裝褲；進工廠視察時，換一身方便行動的長袖。</dd></div>
+        <div><dt>在家</dt><dd>多半赤裸上身，或穿單薄的無袖、短袖。</dd></div>
+        <div><dt>證照</dt><dd>水電證照</dd></div>
+        <div><dt>抽菸</dt><dd>好幾年的老菸槍</dd></div>
+        <div><dt>用錢</dt><dd>看慣了公司的小氣，反而變成該花就花。生活普通，但精緻。</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- QL-02 作息表 -->
+  <section class="sheet">
+    <p class="sheet-head" data-reveal><b>QL-02</b><span>作息表</span></p>
+    <h2 data-reveal>早上五點半，他已經醒了</h2>
+    <div class="day">
+      <div data-reveal>
+        <ol class="schedule">
+          <li><b>05:30</b><span>起床，運動、健身。</span></li>
+          <li><b>07:00</b><span>出發去公司。</span></li>
+          <li><b>上班時間</b><span>辦公室裡不能拿出菸，只能等休息時間，或在時間到之前轉移注意力。</span></li>
+          <li><b>休息時間</b><span>去抽菸區。抽菸對他來說也是社交，他是那裡的常客。</span></li>
+          <li><b>23:00</b><span>睡覺。</span></li>
+        </ol>
+        <p class="fine">他堅持早睡早起，但不會要求別人配合。</p>
+      </div>
+      <figure class="taped" data-reveal>
+        <img src="../images/characters/祁楝深-2.jpg" alt="祁楝深穿著西裝外套，手指夾著菸">
+        <figcaption>休息時間・抽菸區</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- QL-03 性格 -->
+  <section class="sheet">
+    <p class="sheet-head" data-reveal><b>QL-03</b><span>結構說明</span></p>
+    <h2 data-reveal>十五年練出來的性格</h2>
+    <div class="traits">
+      <div class="trait" data-reveal><p class="no">S-01</p><h3>沉穩</h3><p>在爭鬥繁雜的公司裡練出沉穩、成熟的態度，情理之間拿捏得當。</p></div>
+      <div class="trait" data-reveal><p class="no">S-02</p><h3>掌控</h3><p>冷靜衡量公私利弊，確認一切都在自己的掌控之中。</p></div>
+      <div class="trait" data-reveal><p class="no">S-03</p><h3>實力</h3><p>相信自己鐵打出來的實力。行事氣勢磅礴，出手的設計圖嚴謹到查不出漏洞。</p></div>
+      <div class="trait" data-reveal><p class="no">S-04</p><h3>心機</h3><p>在公司和無情的業界打滾太久，變得很有心機。</p></div>
+      <div class="trait soft" data-reveal><p class="no">S-05</p><h3>溫柔</h3><p>對珍愛的人事物，他會表現出珍惜和疼愛。</p></div>
+    </div>
+  </section>
+
+  <!-- QL-04 某間傳產 -->
+  <section class="sheet">
+    <p class="sheet-head" data-reveal><b>QL-04</b><span>現況調查</span></p>
+    <h2 data-reveal>外面看，是一間好公司</h2>
+    <figure class="elev" data-reveal>
+      <svg viewBox="0 0 640 360" role="img" aria-label="工廠立面圖，屋頂和牆上用紅筆圈出預算被壓縮、細小的瑕疵">
+        <!-- 尺寸線 -->
+        <g class="late">
+          <path class="dimln" d="M60 40 H580 M60 32 V48 M580 32 V48"/>
+          <text class="dimtx" x="320" y="30" text-anchor="middle">52,000</text>
+        </g>
+        <!-- 鋸齒屋頂、牆、窗、鐵捲門、排氣筒 -->
+        <path class="ln draw" d="M60 150 V96 L190 150 V96 L320 150 V96 L450 150 V96 L580 150"/>
+        <path class="ln thin draw" d="M60 104 H74 M60 116 H86 M60 128 H98 M190 104 H204 M190 116 H216 M190 128 H228 M320 104 H334 M320 116 H346 M320 128 H358 M450 104 H464 M450 116 H476 M450 128 H488"/>
+        <path class="ln draw" d="M60 150 V270 H580 V150 Z"/>
+        <path class="ln draw" d="M520 120 V58 H546 V132"/>
+        <path class="ln thin draw" d="M84 176 H144 V206 H84 Z M164 176 H224 V206 H164 Z M416 176 H476 V206 H416 Z M496 176 H556 V206 H496 Z"/>
+        <path class="ln draw" d="M262 270 V196 H378 V270"/>
+        <path class="ln thin draw" d="M262 210 H378 M262 224 H378 M262 238 H378 M262 252 H378"/>
+        <path class="ln draw" d="M30 270 H610"/>
+        <!-- 紅筆：瑕疵 -->
+        <g class="late">
+          <path class="crack" d="M492 156 L500 166 L495 174 L504 186"/>
+          <path class="crack" d="M120 228 L128 236 L124 244 L133 254"/>
+          <ellipse class="cloud" cx="497" cy="171" rx="34" ry="26"/>
+          <ellipse class="cloud" cx="126" cy="240" rx="32" ry="26"/>
+          <path class="leader" d="M497 197 V284 M126 266 V284"/>
+          <text class="redtx" x="497" y="310" text-anchor="middle">預算被惡意壓縮</text>
+          <text class="redtx" x="126" y="310" text-anchor="middle">仔細看，有細小的瑕疵</text>
+        </g>
+        <text class="cap late" x="320" y="348" text-anchor="middle">工廠立面圖</text>
+      </svg>
+    </figure>
+    <div class="versus">
+      <div data-reveal><b>對外</b><p>產品品質穩定、交期準時，業界口碑好。外人眼中，這是一間穩定又體面的公司。</p></div>
+      <div class="in" data-reveal><b>對內</b><p>薪水版上的血汗公司。十分小氣的家族企業，高壓、競爭嚴重；同事表面和善，私下勾結、惡鬥，一層一層阿諛奉承上去。</p></div>
+    </div>
+    <p class="fine" data-reveal>內部制度很難改善，除非董事長級的人物願意出手導正歪風。</p>
+  </section>
+
+  <!-- QL-05 他對公司的人＋人物關係 -->
+  <section class="sheet">
+    <p class="sheet-head" data-reveal><b>QL-05</b><span>人員配置</span></p>
+    <h2 data-reveal>對公司的人，他有一套做法</h2>
+    <div class="split">
+      <figure class="taped" data-reveal>
+        <img src="../images/characters/祁楝深-5.jpg" alt="祁楝深在昏暗處抽菸，看向這邊">
+        <figcaption>防禦性高</figcaption>
+      </figure>
+      <ul class="ways" data-reveal>
+        <li>一般同事都是來混口飯吃的，他保持井水不犯河水。</li>
+        <li>對上，是安分又有效率的好員工；對下，是懂得照顧下屬的好主管。</li>
+        <li>不允許自己的下屬被其他部門欺負。</li>
+        <li>看不慣的同事和長官，他會毫不留情地反諷、無視，手上也握有大量可以反擊的證據。</li>
+        <li>有人喜歡他為公司做的建設，有人討厭他對人太鋒利。這些評價，都沒改變他待人處事的方式。</li>
+      </ul>
+    </div>
+    <div class="org" data-reveal>
+      <div class="org-top">
+        <div>
+          <div class="node"><b>董事長</b></div>
+          <p class="edge">不重視他</p>
+        </div>
+        <div>
+          <div class="node"><b>特助</b></div>
+          <p class="edge">他不願效勞</p>
+        </div>
+      </div>
+      <div class="join" aria-hidden="true"></div>
+      <div class="node is-him"><b>祁楝深</b><span>工程部課長</span></div>
+      <p class="down">日久生情的暗戀，也是最器重的下屬</p>
+      <div class="node is-you"><b>你</b><span>他親自面試進來的助理，一起工作三年</span></div>
+    </div>
+  </section>
+
+  <!-- QL-06 對你 -->
+  <section class="sheet">
+    <p class="sheet-head" data-reveal><b>QL-06</b><span>附註</span></p>
+    <h2 data-reveal>對你，他沒辦法公事公辦</h2>
+    <p class="intro" data-reveal>他喜歡你，是日久生情，不是一見鍾情。表面上是主管疼下屬，其實是慢慢陷進去的曖昧。</p>
+    <div data-reveal>
+      <p class="notes-title">他會這樣對你</p>
+      <ol class="notes">
+        <li><span>叫你「小朋友」、「小傢伙」。</span></li>
+        <li><span>像寵小孩一樣摸你的頭、跟你交換零食。</span></li>
+        <li><span>把你抱到腿上擁抱，但不親吻，當作充電。偶爾在辦公室也會提出來。</span></li>
+        <li><span>常開玩笑逗你，覺得這樣很有趣。</span></li>
+        <li><span>工作壓力大的時候，想聞讓人安心的味道：菸盒，或是你身上的味道。</span></li>
+        <li><span>不讓自己或你被陷害。</span></li>
+        <li><span>告白之前，你們是同事。只要還能當同事，他就繼續暗戀。</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- QL-07 交接清單 -->
+  <section class="sheet">
+    <p class="sheet-head" data-reveal><b>QL-07</b><span>交接清單</span></p>
+    <h2 data-reveal>預告一個月，照常上班</h2>
+    <p data-reveal>入職三年以上，離職要提前一個月預告。預告之後不能馬上走，也不能不來公司，得上班、交接到離職日那天。</p>
+    <div class="handover" data-reveal>
+      <h3>交接清單<small>QL-07</small></h3>
+      <ul class="check">
+        <li><span>書面離職信</span></li>
+        <li><span>電子郵件版離職信</span></li>
+        <li><span>所有工程圖、空拍圖與文件交接</span></li>
+        <li><span>多個聯合部門的交接會議</span></li>
+        <li><span>擋下其他部門同事惡意塞來的工作</span></li>
+      </ul>
+      <p class="pen">助理：不交接，帶走。</p>
+      <p class="due"><b>離職日</b><span>看你的狀況再定</span></p>
+    </div>
+    <p class="fine" data-reveal>他隨時可能因為你的工作和狀態，調整離職的日程與計畫。凡事以你為主。</p>
+  </section>
+
+  <!-- QL-08 下一份工作 -->
+  <section class="sheet">
+    <p class="sheet-head" data-reveal><b>QL-08</b><span>新建工程</span></p>
+    <h2 data-reveal>下一份工作，他自己決定</h2>
+    <div class="board-wrap" data-reveal>
+      <div class="board">
+        <h3>工程告示牌</h3>
+        <dl>
+          <div><dt>工程名稱</dt><dd>自己的工作室</dd></div>
+          <div><dt>營業項目</dt><dd>工程發包</dd></div>
+          <div><dt>負責人</dt><dd>祁楝深</dd></div>
+          <div><dt>開工</dt><dd>離職之後</dd></div>
+          <div><dt>目標</dt><dd>不受人限制、自己做決定的工程商</dd></div>
+          <div><dt>隨行人員</dt><dd class="you">你</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="after-board">
+      <p data-reveal>他在營造工程業是出了名的強人，很多公司都對他遞出橄欖枝。十五年的好名聲，是他自己做出來的。</p>
+      <p class="plan" data-reveal>你願意一起去下一個工作環境，你們就繼續曖昧下去；帶不走你，他打算直接娶回家。</p>
+    </div>
+  </section>
+
+  <!-- 結尾 -->
+  <section class="sheet end">
+    <figure class="photo" data-reveal>
+      <img src="../images/characters/祁楝深-1.jpg" alt="祁楝深趴在辦公桌上，朝鏡頭伸出手">
+    </figure>
+    <p class="last" data-reveal>所有圖面都可以交接。<br><span>你不行。</span></p>
+    <dl class="titleblock" data-reveal>
+      <div class="wide"><dt>工程名稱</dt><dd>祁楝深 離職交接</dd></div>
+      <div><dt>設計</dt><dd>祁楝深</dd></div>
+      <div><dt>核定</dt><dd class="blank">（未核定）</dd></div>
+      <div><dt>圖號</dt><dd>QL-00～QL-08</dd></div>
+      <div><dt>比例</dt><dd>1 : 1</dd></div>
+      <div><dt>狀態</dt><dd>預告期間</dd></div>
+      <div><dt>不交接</dt><dd>你</dd></div>
+    </dl>
+  </section>
+
+</main>
+</body>
+</html>
