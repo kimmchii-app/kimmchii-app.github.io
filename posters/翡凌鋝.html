@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>翡凌鋝｜出差護照</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：駐外工程師的護照與登機證。深棕夜色和琥珀燈光取自照片，米色是護照內頁，入境章蓋著每個國家的她；紫色是他的眼睛，留給只叫他中文名字的那個人 -->
+<style>
+  :root {
+    --night: #140d0b;
+    --night-2: #1f1512;
+    --ink: #f3e9df;
+    --muted: #c4ad99;
+    --line: rgba(232, 180, 120, .26);
+    --amber: #e8954a;
+    --gold: #d8b06a;
+    --violet: #b6a0ee;
+    --paper: #f2e7d5;
+    --paper-2: #e9dcc5;
+    --paper-ink: #2b1d17;
+    --paper-muted: #7a6455;
+    --paper-line: rgba(122, 100, 85, .3);
+    --red: #b13d2c;
+    --blue: #345a96;
+    --green: #47734d;
+    --plum: #7d3f78;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, "Noto Sans TC", monospace;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    --gutter: clamp(16px, 5vw, 40px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background:
+      radial-gradient(90% 40% at 50% 0%, rgba(232, 149, 74, .12), transparent 70%),
+      var(--night);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  .trip { max-width: 720px; margin: 0 auto; overflow: hidden; padding-bottom: 8px; }
+  img { display: block; width: 100%; pointer-events: none; -webkit-user-drag: none; }
+  figure { margin: 0; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  p { margin: 0; }
+  ul, ol, dl { margin: 0; padding: 0; list-style: none; }
+  dd { margin: 0; }
+
+  /* 封面 */
+  .topline {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 12px var(--gutter);
+    font: 12px/1.4 var(--mono); letter-spacing: .16em; color: var(--muted);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero { position: relative; }
+  .hero img { aspect-ratio: 4 / 4.6; object-fit: cover; object-position: 50% 20%; }
+  .hero::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(20, 13, 11, 0) 45%, rgba(20, 13, 11, .75) 78%, var(--night) 100%);
+  }
+  .hero-text { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(18px, 5vw, 34px); z-index: 1; }
+  .kicker {
+    display: inline-block; padding: 2px 10px; border: 1px solid var(--gold); border-radius: 2px;
+    font: 12px/1.7 var(--mono); letter-spacing: .2em; color: var(--gold);
+  }
+  h1 { margin: 10px 0 0; font: 700 clamp(48px, 14vw, 84px)/1.1 var(--serif); letter-spacing: .1em; text-shadow: 0 4px 24px rgba(0, 0, 0, .6); }
+  .en { margin-top: 4px; font: italic 500 clamp(18px, 5vw, 24px)/1.4 var(--serif); letter-spacing: .3em; color: var(--amber); }
+
+  /* 登機證 */
+  .pass {
+    display: grid; grid-template-columns: 1fr 34%;
+    margin: clamp(22px, 5vw, 34px) var(--gutter) 0;
+    background: var(--paper); color: var(--paper-ink);
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 18px 46px rgba(0, 0, 0, .55);
+  }
+  .pass-main { padding: 16px 18px 18px; }
+  .pass-h { display: flex; justify-content: space-between; gap: 10px; font: 600 12px/1.6 var(--mono); letter-spacing: .14em; color: var(--red); }
+  .route { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; margin: 10px 0 12px; }
+  .route b { display: block; font: 700 clamp(26px, 7.4vw, 36px)/1.1 var(--mono); letter-spacing: .04em; }
+  .route span { display: block; font-size: 12px; line-height: 1.5; color: var(--paper-muted); }
+  .route .to { text-align: right; }
+  .flight { position: relative; height: 1px; border-top: 1.5px dashed var(--paper-muted); }
+  .flight::after { content: "✈\FE0E"; position: absolute; left: 50%; top: -14px; translate: -50% 0; font-size: 18px; color: var(--red); background: var(--paper); padding: 0 6px; }
+  .pass-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; }
+  .pass-grid dt, .stub dt { font: 10px/1.6 var(--mono); letter-spacing: .14em; color: var(--paper-muted); }
+  .pass-grid dd { font: 600 14px/1.6 var(--sans); }
+  .stub {
+    position: relative; padding: 16px 14px 14px;
+    background: var(--paper-2); border-left: 2px dashed rgba(122, 100, 85, .5);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .stub::before, .stub::after {
+    content: ""; position: absolute; left: -11px; width: 20px; height: 20px; border-radius: 50%; background: var(--night);
+  }
+  .stub::before { top: -10px; }
+  .stub::after { bottom: -10px; }
+  .stub dd { font: 700 22px/1.3 var(--serif); color: var(--red); }
+  .stub p { font-size: 12px; line-height: 1.7; color: var(--paper-muted); }
+  .barcode {
+    margin-top: auto; height: 34px;
+    background: repeating-linear-gradient(90deg,
+      var(--paper-ink) 0 2px, transparent 2px 4px, var(--paper-ink) 4px 5px, transparent 5px 8px,
+      var(--paper-ink) 8px 11px, transparent 11px 12px, var(--paper-ink) 12px 13px, transparent 13px 16px);
+    opacity: .85;
+  }
+  .tagline {
+    margin-top: clamp(28px, 6vw, 40px); padding: 0 var(--gutter); text-align: center;
+    font: 500 clamp(17px, 4.6vw, 21px)/1.9 var(--serif); letter-spacing: .06em;
+  }
+  .tagline span { color: var(--amber); }
+
+  /* 護照內頁 */
+  .page {
+    position: relative;
+    margin: clamp(40px, 8vw, 60px) var(--gutter) 0;
+    padding: clamp(22px, 5vw, 32px) clamp(18px, 4.5vw, 30px) clamp(24px, 5vw, 32px);
+    color: var(--paper-ink);
+    background:
+      repeating-radial-gradient(circle at 100% 0%, transparent 0 14px, rgba(122, 100, 85, .07) 14px 15px),
+      repeating-radial-gradient(circle at 0% 100%, transparent 0 18px, rgba(52, 90, 150, .05) 18px 19px),
+      var(--paper);
+    border-radius: 6px;
+    box-shadow: 0 18px 46px rgba(0, 0, 0, .5), inset 0 0 0 1px rgba(255, 255, 255, .4);
+  }
+  .page::before { content: ""; position: absolute; inset: 8px; border: 1px solid var(--paper-line); border-radius: 3px; pointer-events: none; }
+  .page-no {
+    display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px;
+    font: 11px/1.6 var(--mono); letter-spacing: .16em; color: var(--paper-muted);
+  }
+  .page h2 { margin: 0 0 16px; font: 700 clamp(22px, 5.6vw, 28px)/1.45 var(--serif); letter-spacing: .06em; }
+  .page h2 small { display: block; font: 12px/1.6 var(--mono); letter-spacing: .18em; color: var(--red); font-weight: 400; }
+  .pnote { margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--paper-line); font-size: 14px; color: var(--paper-muted); }
+
+  /* 01 旅客資料 */
+  .bio { display: grid; grid-template-columns: 36% 1fr; gap: clamp(16px, 4vw, 26px); align-items: start; }
+  .bio-photo { border: 1px solid var(--paper-line); padding: 5px; background: #fff8ec; }
+  .bio-photo img { filter: sepia(.15) saturate(.9); }
+  .bio-dl > div { display: grid; grid-template-columns: 4.4em 1fr; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--paper-line); }
+  .bio-dl > div:last-child { border-bottom: 0; }
+  .bio-dl dt { font: 11px/2.1 var(--mono); letter-spacing: .1em; color: var(--paper-muted); }
+  .bio-dl dd { font-size: 14px; line-height: 1.8; font-weight: 600; }
+  .bio-dl .v { color: var(--plum); }
+  .hands { margin-top: 16px; font-size: 14px; }
+  .hands b { font: 600 12px/1 var(--mono); letter-spacing: .12em; color: var(--red); margin-right: 8px; }
+  .mrz {
+    margin-top: 16px; padding: 10px 12px; border-radius: 3px; background: rgba(255, 255, 255, .45);
+    font: clamp(10px, 2.9vw, 12px)/1.7 var(--mono); letter-spacing: .08em; color: var(--paper-ink); white-space: nowrap; overflow: hidden;
+  }
+
+  /* 02 出差行程 */
+  .cycle { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; margin: 4px 0 8px; }
+  .cycle i { height: 30px; border-radius: 3px; background: var(--blue); opacity: .85; transform-origin: bottom; transition: transform .5s var(--ease); transition-delay: calc(var(--n) * 60ms); }
+  .cycle i.tw { background: var(--green); }
+  .js .cycle i { transform: scaleY(0); }
+  .js .page.is-visible .cycle i { transform: none; }
+  .months { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; font: 10px/1 var(--mono); color: var(--paper-muted); text-align: center; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 12px; font-size: 13px; color: var(--paper-muted); }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; background: var(--blue); vertical-align: -1px; }
+  .legend .tw::before { background: var(--green); }
+  .duty { margin-top: 18px; display: grid; gap: 8px; }
+  .duty li { position: relative; padding-left: 22px; font-size: 14px; }
+  .duty li::before { content: "▸"; position: absolute; left: 4px; color: var(--red); }
+
+  /* 03 入境章 */
+  .stamps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 14px; padding: 6px 2px; }
+  .stamp {
+    --c: var(--red);
+    justify-self: center; width: min(100%, 210px);
+    padding: 10px 12px; text-align: center; color: var(--c);
+    border: 2.5px solid var(--c); border-radius: 10px;
+    box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 4.5px var(--c);
+    rotate: var(--r);
+    mix-blend-mode: multiply;
+    transition: opacity .35s var(--ease), transform .35s var(--ease);
+    transition-delay: calc(var(--n) * .18s);
+  }
+  .stamp.round { border-radius: 50%; aspect-ratio: 1; width: min(100%, 168px); display: grid; place-content: center; }
+  .js .stamps .stamp { opacity: 0; transform: scale(1.35); }
+  .js .page.is-visible .stamps .stamp { opacity: .92; transform: none; }
+  .stamp .cty { font: 700 12px/1.4 var(--mono); letter-spacing: .2em; }
+  .stamp .place { font: 600 13px/1.6 var(--sans); }
+  .stamp .her { margin-top: 2px; font: 700 22px/1.3 var(--serif); letter-spacing: .08em; }
+  .stamp .tag { font: 11px/1.5 var(--mono); letter-spacing: .1em; }
+  .stamp.tw { --c: var(--green); }
+  .stamp.us { --c: var(--blue); }
+  .stamp.nara { --c: var(--red); }
+  .stamp.iwate { --c: var(--plum); }
+  .stamp.unknown { --c: var(--paper-muted); border-style: dashed; grid-column: 1 / -1; }
+  .js .page.is-visible .stamps .stamp.unknown { opacity: .55; }
+  .stamp.unknown .her { filter: blur(2.5px); }
+
+  /* 04 申報單 */
+  .declare { display: grid; grid-template-columns: 1fr 34%; gap: 18px; align-items: start; }
+  .declare figure { position: relative; border: 1px solid var(--paper-line); padding: 5px; background: #fff8ec; }
+  .false-stamp {
+    position: absolute; left: 50%; bottom: 14%; translate: -50% 0; rotate: -12deg;
+    padding: 4px 12px; border: 2.5px solid var(--red); border-radius: 4px;
+    font: 700 18px/1.4 var(--serif); letter-spacing: .2em; color: var(--red); background: rgba(242, 231, 213, .82); white-space: nowrap;
+  }
+  .form { border: 1px solid var(--paper-line); border-radius: 4px; overflow: hidden; background: rgba(255, 255, 255, .35); }
+  .form li { display: grid; grid-template-columns: 3.4em 1fr; gap: 4px 12px; padding: 10px 12px; border-bottom: 1px solid var(--paper-line); font-size: 14px; }
+  .form li:last-child { border-bottom: 0; }
+  .form .item { grid-row: span 2; font: 600 13px/1.8 var(--serif); }
+  .form .said { color: var(--paper-muted); text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 1.5px; }
+  .form .real { font-weight: 600; }
+  .form .real::before { content: "實際："; color: var(--red); font-weight: 400; }
+
+  /* 05 隨身行李 */
+  .bag { display: grid; gap: 8px; }
+  .bag li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: baseline; padding: 9px 12px; border-radius: 4px; background: rgba(255, 255, 255, .4); font-size: 14px; }
+  .bag li::before { content: "☑"; color: var(--green); font-size: 16px; }
+  .bag li.no::before { content: "☐"; color: var(--red); }
+  .bag li.no { color: var(--paper-muted); }
+  .bag b { color: var(--paper-ink); }
+  .money { margin-top: 16px; display: grid; grid-template-columns: 4.6em 1fr; gap: 6px 12px; align-items: center; font-size: 13px; }
+  .money span { color: var(--paper-muted); font-family: var(--mono); }
+  .money i { display: block; height: 12px; border-radius: 6px; background: var(--amber); width: var(--w); transform-origin: left; transition: transform .9s var(--ease); }
+  .money i.food { background: var(--paper-muted); }
+  .js .money i { transform: scaleX(0); }
+  .js .page.is-visible .money i { transform: none; }
+
+  /* 06 宿舍 */
+  .dorms { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .dorm { padding: 14px 14px 12px; border-radius: 4px; background: rgba(255, 255, 255, .4); border-top: 4px solid var(--c); }
+  .dorm.us { --c: var(--blue); }
+  .dorm.jp { --c: var(--red); }
+  .dorm h3 { margin: 0 0 8px; font: 700 17px/1.5 var(--serif); }
+  .dorm h3 small { display: block; font: 11px/1.6 var(--mono); letter-spacing: .14em; color: var(--c); font-weight: 400; }
+  .dorm li { position: relative; padding-left: 14px; font-size: 14px; line-height: 1.8; margin-bottom: 4px; }
+  .dorm li::before { content: ""; position: absolute; left: 0; top: .78em; width: 5px; height: 5px; border-radius: 50%; background: var(--c); }
+  .dorm li.ev { font-weight: 600; }
+
+  /* 07 稱呼 */
+  .names-photo { margin: 0 0 18px; border: 1px solid var(--paper-line); padding: 5px; background: #fff8ec; }
+  .names-photo img { aspect-ratio: 4 / 3.2; object-fit: cover; object-position: 50% 30%; }
+  .names { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .name-card { padding: 16px 14px; border-radius: 6px; border: 1px solid var(--paper-line); background: rgba(255, 255, 255, .35); }
+  .name-card .call { font: 700 clamp(26px, 7vw, 34px)/1.2 var(--serif); letter-spacing: .06em; }
+  .name-card .who { margin: 4px 0 10px; font: 12px/1.6 var(--mono); letter-spacing: .1em; color: var(--paper-muted); }
+  .name-card li { font-size: 14px; line-height: 1.8; padding: 4px 0; border-top: 1px dashed var(--paper-line); }
+  .name-card.lui .call { color: var(--amber); }
+  .name-card.real { background: #2a1d2e; color: var(--ink); border-color: rgba(182, 160, 238, .5); }
+  .name-card.real .call { color: var(--violet); }
+  .name-card.real .who { color: #c9b9ef; }
+  .name-card.real li { border-top-color: rgba(182, 160, 238, .3); }
+
+  /* 結尾 */
+  .ending { margin-top: clamp(44px, 9vw, 64px); }
+  .end-photo { position: relative; margin: 0 var(--gutter); border-radius: 8px; overflow: hidden; }
+  .end-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(20, 13, 11, .7)); }
+  .mini-pass {
+    position: absolute; left: 5%; right: 5%; bottom: 5%; z-index: 1;
+    display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 10px;
+    padding: 12px 16px; border-radius: 10px;
+    background: rgba(242, 231, 213, .94); color: var(--paper-ink);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .5);
+  }
+  .mini-pass dt { font: 10px/1.6 var(--mono); letter-spacing: .14em; color: var(--paper-muted); }
+  .mini-pass dd { font: 700 15px/1.5 var(--serif); }
+  .mini-pass .wait { color: var(--red); }
+  .js .ending .mini-pass { opacity: 0; translate: 0 12px; transition: opacity .6s var(--ease) .5s, translate .6s var(--ease) .5s; }
+  .js .ending .end-photo.is-visible .mini-pass { opacity: 1; translate: none; }
+  .last {
+    margin-top: clamp(30px, 7vw, 44px); padding: 0 var(--gutter); text-align: center;
+    font: 600 clamp(21px, 5.6vw, 28px)/1.9 var(--serif); letter-spacing: .08em;
+  }
+  .last span { color: var(--violet); }
+  .sign {
+    margin: clamp(24px, 6vw, 34px) var(--gutter) 0; padding: 12px 0 4px; border-top: 1px solid var(--line); text-align: center;
+    font: 12px/1.6 var(--mono); letter-spacing: .2em; color: var(--muted);
+  }
+
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+
+  @media (max-width: 560px) {
+    .bio { grid-template-columns: 1fr; }
+    .bio-photo { width: min(220px, 64%); margin: 0 auto; }
+    .declare { grid-template-columns: 1fr; }
+    .declare figure { width: min(240px, 70%); margin: 0 auto; order: -1; }
+    .dorms, .names { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 420px) {
+    .pass { grid-template-columns: 1fr; }
+    .stub { border-left: 0; border-top: 2px dashed rgba(122, 100, 85, .5); flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+    .stub::before { left: -10px; top: -11px; }
+    .stub::after { left: auto; right: -10px; top: -11px; bottom: auto; }
+    .stub dl { flex: 1 1 auto; }
+    .stub p { flex: 1 1 100%; }
+    .barcode { flex: 1 1 100%; height: 26px; }
+    .stamps { gap: 14px 10px; }
+    .stamp .her { font-size: 19px; }
+    .mini-pass { grid-template-columns: 1fr 1fr; }
+    .mini-pass > div:last-child { grid-column: 1 / -1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .js .cycle i, .js .money i { transform: none; transition: none; }
+    .js .stamps .stamp { opacity: .92; transform: none; transition: none; }
+    .js .ending .mini-pass { opacity: 1; translate: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+<main class="trip">
+
+  <!-- 封面 -->
+  <header class="cover">
+    <p class="topline"><span>某間傳產　資訊部</span><span>駐外人員</span></p>
+    <figure class="hero">
+      <img src="../images/characters/翡凌鋝-5.jpg" alt="燭光下，翡凌鋝扯鬆藍色領帶，紫色的眼睛看過來">
+      <div class="hero-text">
+        <p class="kicker" data-reveal>出差中</p>
+        <h1 data-reveal>翡凌鋝</h1>
+        <p class="en" data-reveal>Lui</p>
+      </div>
+    </figure>
+
+    <div class="pass" data-reveal>
+      <div class="pass-main">
+        <p class="pass-h"><span>登機證</span><span>BOARDING PASS</span></p>
+        <div class="route">
+          <div><b>TPE</b><span>台灣</span></div>
+          <i class="flight" aria-hidden="true"></i>
+          <div class="to"><b>???</b><span>下一間分公司</span></div>
+        </div>
+        <dl class="pass-grid">
+          <div><dt>旅客</dt><dd>翡凌鋝／Lui</dd></div>
+          <div><dt>職稱</dt><dd>駐外 IT 工程師</dd></div>
+          <div><dt>停留</dt><dd>三個月</dd></div>
+          <div><dt>同行</dt><dd>助理</dd></div>
+        </dl>
+      </div>
+      <div class="stub">
+        <dl><dt>同行旅客</dt><dd>你</dd></dl>
+        <p>一起出差、一起回台灣、一起住</p>
+        <i class="barcode" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <p class="tagline" data-reveal>三個月換一個國家，每個駐廠的國家都有一個女朋友。<br><span>只有你，每一趟都跟著他飛。</span></p>
+  </header>
+
+  <!-- 01 旅客資料 -->
+  <section class="page" data-reveal>
+    <p class="page-no"><span>第 01 頁</span><span>PERSONAL DATA</span></p>
+    <h2><small>旅客資料</small>解決方案工程師</h2>
+    <div class="bio">
+      <figure class="bio-photo"><img src="../images/characters/翡凌鋝-2.jpg" alt="翡凌鋝雙手交疊在嘴邊，指間夾著菸"></figure>
+      <dl class="bio-dl">
+        <div><dt>姓名</dt><dd>翡凌鋝</dd></div>
+        <div><dt>英文名</dt><dd>Lui（Louis）</dd></div>
+        <div><dt>國籍</dt><dd>台灣</dd></div>
+        <div><dt>身高</dt><dd>183 cm</dd></div>
+        <div><dt>職業</dt><dd>駐外 IT 工程師</dd></div>
+        <div><dt>外貌</dt><dd>蓬鬆的黑色短髮，<span class="v">紫色深邃的眼睛</span>，總是帶著慵懶的微笑</dd></div>
+      </dl>
+    </div>
+    <p class="hands"><b>手</b>指腹保養得細緻無繭，掌心有用工具留下的薄繭。</p>
+    <p class="mrz" aria-hidden="true">P&lt;TWN&lt;&lt;LUI&lt;&lt;SOLUTION&lt;ENGINEER&lt;&lt;&lt;<br>183CM&lt;&lt;TPE&lt;PHX&lt;KIX&lt;HNA&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+  </section>
+
+  <!-- 02 出差行程 -->
+  <section class="page" data-reveal>
+    <p class="page-no"><span>第 02 頁</span><span>ITINERARY</span></p>
+    <h2><small>出差行程</small>三個月一個國家</h2>
+    <div class="cycle" aria-hidden="true">
+      <i style="--n:1"></i><i style="--n:2"></i><i style="--n:3"></i><i class="tw" style="--n:4"></i>
+      <i style="--n:5"></i><i style="--n:6"></i><i style="--n:7"></i><i class="tw" style="--n:8"></i>
+      <i style="--n:9"></i><i style="--n:10"></i><i style="--n:11"></i><i class="tw" style="--n:12"></i>
+    </div>
+    <div class="months" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+    <p class="legend"><span>海外分公司駐廠</span><span class="tw">回台灣調整休息</span></p>
+    <p class="pnote">在海外工廠駐廠三個月，回台灣休息一個月，再飛到下一間分公司。</p>
+    <ul class="duty">
+      <li>機房硬體維運</li>
+      <li>當地使用者的電腦、印表機問題排除</li>
+      <li>協助台灣本部在分公司的專案</li>
+    </ul>
+    <p class="pnote">工作能力很好，又很耐操，公司裡都叫他「解決方案工程師」。</p>
+  </section>
+
+  <!-- 03 入境章 -->
+  <section class="page" data-reveal>
+    <p class="page-no"><span>第 03 頁</span><span>VISAS</span></p>
+    <h2><small>入境章</small>每一站，都有一個她</h2>
+    <div class="stamps">
+      <div class="stamp tw" style="--r:-4deg;--n:1"><p class="cty">TAIWAN</p><p class="place">台灣</p><p class="her">單身</p><p class="tag">維持單身形象</p></div>
+      <div class="stamp us round" style="--r:6deg;--n:2"><p class="cty">U.S.A.</p><p class="place">亞利桑那州</p><p class="her">潔西卡</p></div>
+      <div class="stamp nara round" style="--r:-8deg;--n:3"><p class="cty">JAPAN</p><p class="place">奈良</p><p class="her">純子</p></div>
+      <div class="stamp iwate" style="--r:5deg;--n:4"><p class="cty">JAPAN</p><p class="place">岩手縣</p><p class="her">春奈</p></div>
+      <div class="stamp unknown" style="--r:-3deg;--n:5"><p class="cty">？？？</p><p class="place">其他國家</p><p class="her" aria-hidden="true">某某某</p><p class="tag">名字不一定記得</p></div>
+    </div>
+    <p class="pnote">她們都叫他 Lui。他對她們沒有感情，只是為了維持深情的形象，表現得很投入。</p>
+  </section>
+
+  <!-- 04 申報單 -->
+  <section class="page" data-reveal>
+    <p class="page-no"><span>第 04 頁</span><span>DECLARATION</span></p>
+    <h2><small>申報單</small>他裝出來的樣子</h2>
+    <div class="declare">
+      <ul class="form">
+        <li><span class="item">英文</span><span class="said">很差，需要人幫忙</span><span class="real">非常好，在夜店把妹時才故意裝不流利；在你面前反而講得很流利</span></li>
+        <li><span class="item">酒量</span><span class="said">很差</span><span class="real">故意裝的</span></li>
+        <li><span class="item">廚藝</span><span class="said">不會做飯</span><span class="real">省錢練出一手好廚藝，還是讓你煮，自己吃幾口</span></li>
+        <li><span class="item">時差</span><span class="said">嗜睡、頭痛，需要人照顧</span><span class="real">裝的</span></li>
+        <li><span class="item">吃飯</span><span class="said">絕不讓女生請客</span><span class="real">會暗示你幫他處理三餐</span></li>
+      </ul>
+      <figure>
+        <img src="../images/characters/翡凌鋝-4.jpg" alt="桌燈旁，翡凌鋝叼著菸，拉開襯衫領口">
+        <p class="false-stamp" aria-hidden="true">申報不實</p>
+      </figure>
+    </div>
+    <p class="pnote">在助理面前可以肆無忌憚地耍賴、裝可愛，在當地女友面前就是專業的工程師。</p>
+  </section>
+
+  <!-- 05 隨身行李 -->
+  <section class="page" data-reveal>
+    <p class="page-no"><span>第 05 頁</span><span>BAGGAGE</span></p>
+    <h2><small>隨身行李</small>飯錢省下來，拿去治裝</h2>
+    <ul class="bag">
+      <li><span><b>西裝與襯衫</b>：平價，但不失莊重</span></li>
+      <li><span><b>T 恤與牛仔褲</b>：工程階段穿的，耐髒</span></li>
+      <li><span><b>護手霜</b>：隨身帶著，不管時機合不合適，都會問你要不要擦</span></li>
+      <li><span><b>菸</b>：抽菸、喝酒、愛女人</span></li>
+      <li class="no"><span><b>飯錢</b>：省下來買衣服了</span></li>
+    </ul>
+    <div class="money" aria-hidden="true">
+      <span>治裝</span><i style="--w:88%"></i>
+      <span>飯錢</span><i class="food" style="--w:18%"></i>
+    </div>
+    <p class="pnote">本薪大約五萬元，不算高。為了維持好形象，他寧願少吃一點。</p>
+  </section>
+
+  <!-- 06 宿舍 -->
+  <section class="page" data-reveal>
+    <p class="page-no"><span>第 06 頁</span><span>ACCOMMODATION</span></p>
+    <h2><small>住宿</small>當地人住的普通房子</h2>
+    <div class="dorms">
+      <div class="dorm us">
+        <h3><small>U.S.A.</small>美國宿舍</h3>
+        <ul>
+          <li>上下兩層的美式住宅，隔音很差，男女混宿</li>
+          <li>院子裡有一棵大橡樹，每天都會掉橡實</li>
+          <li class="ev">週六下午是他的除草時間，前後院整理乾淨，還會種花、種點作物</li>
+          <li class="ev">每天半夜，他會起床自己煮宵夜</li>
+        </ul>
+      </div>
+      <div class="dorm jp">
+        <h3><small>JAPAN</small>日本宿舍</h3>
+        <ul>
+          <li>兩層樓的租屋處，從外面的樓梯走上二樓，一排五間房</li>
+          <li>隔壁就是鬧區，有很多酒店、夜店和聲色場所</li>
+          <li class="ev">多數同事會偷帶伴侶回來，聽得到其他房間曖昧的聲音</li>
+        </ul>
+      </div>
+    </div>
+    <p class="pnote">你是他的助理，跟著他飛、跟著他住。</p>
+  </section>
+
+  <!-- 07 稱呼 -->
+  <section class="page" data-reveal>
+    <p class="page-no"><span>第 07 頁</span><span>NAME</span></p>
+    <h2><small>稱呼</small>叫他 Lui，還是叫他翡凌鋝</h2>
+    <figure class="names-photo"><img src="../images/characters/翡凌鋝-3.jpg" alt="戴著戒指的手撐在臉旁，翡凌鋝半張著嘴，煙霧飄過"></figure>
+    <div class="names">
+      <div class="name-card lui">
+        <p class="call">Lui</p>
+        <p class="who">助理・當地女友</p>
+        <ul>
+          <li>還沒確定關係就叫他中文名字，他會直接要你改口叫 Lui</li>
+          <li>性和愛分得很開，只是為了填補出差時居無定所的寂寞</li>
+          <li>一開始你和她們一樣，只是比她們更親近一點</li>
+        </ul>
+      </div>
+      <div class="name-card real">
+        <p class="call">翡凌鋝</p>
+        <p class="who">專一的戀人</p>
+        <ul>
+          <li>不再對任何當地女友有感情</li>
+          <li>深深的溫柔與專一</li>
+          <li>去哪裡都想帶著你、跟你在一起</li>
+          <li>替你付帳，不再耍賴要人請客</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 結尾 -->
+  <section class="ending">
+    <figure class="end-photo" data-reveal>
+      <img src="../images/characters/翡凌鋝-1.jpg" alt="橘紅的光裡，翡凌鋝襯衫敞開、領帶鬆垮，仰著頭">
+      <dl class="mini-pass">
+        <div><dt>下一站</dt><dd>夏威夷</dd></div>
+        <div><dt>狀態</dt><dd class="wait">還沒排</dd></div>
+        <div><dt>同行</dt><dd>等你改口</dd></div>
+      </dl>
+    </figure>
+    <p class="last" data-reveal>他不輕易確認關係。<br><span>確定了，就把一切都給你。</span></p>
+    <p class="sign">翡凌鋝　LUI　駐外 IT 工程師</p>
+  </section>
+
+</main>
+</body>
+</html>
