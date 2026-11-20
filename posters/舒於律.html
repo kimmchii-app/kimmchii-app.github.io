@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>舒於律｜異常專注中</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：加班夜裡的辦公室螢幕。深紫是他的眼睛，藍光是螢幕，琥珀色是桌燈；每一段都是螢幕上開著的一個視窗，看起來異常專注，其實在摸魚 -->
+<style>
+  :root {
+    --desk: #0e0c18;
+    --win: #1a172e;
+    --win-2: #221e3b;
+    --bar: #2a2550;
+    --ink: #ece9f7;
+    --muted: #aaa4c8;
+    --dim: #7f799e;
+    --line: rgba(190, 178, 255, .2);
+    --violet: #b9a3ff;
+    --violet-2: #8d6ef2;
+    --screen: #82c4ff;
+    --lamp: #f3a85c;
+    --alert: #ff7f9b;
+    --ok: #82d9ae;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, "Noto Sans TC", monospace;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    --gutter: clamp(16px, 5vw, 40px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background-color: var(--desk);
+    background-image: radial-gradient(rgba(190, 178, 255, .07) 1px, transparent 1px);
+    background-size: 18px 18px;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  .desk { max-width: 720px; margin: 0 auto; overflow: hidden; padding-bottom: 8px; }
+  img { display: block; width: 100%; pointer-events: none; -webkit-user-drag: none; }
+  figure { margin: 0; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  p { margin: 0; }
+  ul, ol { margin: 0; padding: 0; list-style: none; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  /* 上方狀態列 */
+  .topbar {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 10px var(--gutter);
+    font: 12px/1.4 var(--mono); letter-spacing: .08em; color: var(--muted);
+    background: rgba(0, 0, 0, .35); border-bottom: 1px solid var(--line);
+  }
+  .topbar b { color: var(--ink); font-weight: 600; }
+
+  /* 封面 */
+  .cover {
+    position: relative;
+    padding: clamp(36px, 8vw, 64px) 0 clamp(40px, 8vw, 64px);
+    background:
+      radial-gradient(70% 45% at 100% 0%, rgba(243, 168, 92, .18), transparent 70%),
+      radial-gradient(70% 50% at 0% 70%, rgba(130, 196, 255, .12), transparent 70%);
+  }
+  .lock { padding: 0 var(--gutter); text-align: center; }
+  .clock { font: 300 clamp(56px, 17vw, 104px)/1 var(--mono); letter-spacing: .04em; color: var(--ink); }
+  .date { margin-top: 10px; font: 13px/1.6 var(--mono); letter-spacing: .14em; color: var(--muted); }
+  .who { margin-top: clamp(26px, 6vw, 40px); padding: 0 var(--gutter); text-align: center; }
+  .status {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 4px 12px; border: 1px solid rgba(130, 217, 174, .45); border-radius: 999px;
+    font: 12px/1.6 var(--mono); letter-spacing: .12em; color: var(--ok); background: rgba(130, 217, 174, .08);
+  }
+  .status i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 8px var(--ok); animation: blink 1.6s steps(2, start) infinite; }
+  @keyframes blink { to { opacity: .25; } }
+  h1 { margin: 14px 0 0; font: 700 clamp(48px, 14vw, 84px)/1.15 var(--serif); letter-spacing: .12em; text-indent: .12em; }
+  .role { margin-top: 6px; font: 13px/1.6 var(--mono); letter-spacing: .14em; color: var(--violet); }
+
+  /* 視窗 */
+  .window {
+    margin: 0 var(--gutter) clamp(34px, 7vw, 52px);
+    background: var(--win);
+    border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .5), 0 0 40px rgba(141, 110, 242, .06);
+  }
+  .bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 9px 14px; background: var(--bar); border-bottom: 1px solid var(--line);
+    font: 12px/1.4 var(--mono); letter-spacing: .06em; color: var(--muted);
+  }
+  .bar b { margin-right: 8px; color: var(--violet); font-weight: 600; }
+  .ctl { display: flex; gap: 6px; flex: none; }
+  .ctl i { width: 10px; height: 10px; border: 1px solid var(--dim); border-radius: 2px; }
+  .ctl i:last-child { border-color: var(--alert); background: rgba(255, 127, 155, .25); }
+  .body { padding: clamp(20px, 5vw, 30px); }
+  .win-h { margin: 0 0 14px; font: 700 clamp(20px, 5vw, 24px)/1.5 var(--sans); letter-spacing: .06em; }
+  .win-h small { display: block; font: 12px/1.6 var(--mono); letter-spacing: .14em; color: var(--dim); font-weight: 400; }
+  .note { margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 14px; }
+
+  /* 封面照片與通知 */
+  .cover .window { margin-top: clamp(26px, 6vw, 40px); margin-bottom: 0; }
+  .shot { position: relative; }
+  .toast {
+    position: absolute; left: 4%; right: 4%; bottom: 4%;
+    display: flex; gap: 12px; align-items: center;
+    padding: 12px 14px; border-radius: 10px;
+    background: rgba(26, 23, 46, .86); border: 1px solid var(--line);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+  }
+  .toast .icon {
+    flex: none; width: 34px; height: 34px; border-radius: 8px;
+    display: grid; place-items: center; font: 700 15px/1 var(--sans);
+    background: var(--violet-2); color: #fff;
+  }
+  .toast b { display: block; font: 12px/1.5 var(--mono); letter-spacing: .1em; color: var(--muted); font-weight: 400; }
+  .toast span { font-size: 14px; line-height: 1.6; }
+  .js .cover .toast { opacity: 0; translate: 0 14px; transition: opacity .6s var(--ease) .9s, translate .6s var(--ease) .9s; }
+  .js .cover .window.is-visible .toast { opacity: 1; translate: none; }
+  .tagline {
+    margin-top: clamp(26px, 6vw, 38px); padding: 0 var(--gutter); text-align: center;
+    font: 500 clamp(17px, 4.6vw, 21px)/1.9 var(--serif); letter-spacing: .06em;
+  }
+  .tagline span { color: var(--lamp); }
+
+  /* 01 員工資料 */
+  .id { display: grid; grid-template-columns: 38% 1fr; gap: clamp(18px, 4vw, 28px); align-items: start; }
+  .idphoto { border-radius: 6px; overflow: hidden; border: 1px solid var(--line); }
+  .spec { margin: 0; display: grid; }
+  .spec > div { display: grid; grid-template-columns: 4.6em 1fr; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+  .spec > div:last-child { border-bottom: 0; }
+  .spec dt { font: 12px/2 var(--mono); letter-spacing: .1em; color: var(--dim); }
+  .spec dd { margin: 0; font-size: 14px; line-height: 1.8; }
+
+  /* 02 今日排程 */
+  .tl { position: relative; margin: 6px 0 4px; padding-top: 22px; }
+  .tl-hours { position: absolute; inset: 0 0 auto 0; height: 18px; }
+  .tl-hours span { position: absolute; top: 0; font: 11px/1 var(--mono); color: var(--dim); translate: -50% 0; }
+  .tl-hours span:first-child { translate: 0 0; }
+  .tl-hours span:last-child { translate: -100% 0; }
+  .track { position: relative; height: 44px; border-radius: 6px; background: rgba(255, 255, 255, .04); border: 1px solid var(--line); overflow: hidden; }
+  .seg {
+    position: absolute; top: 0; bottom: 0; left: var(--l); width: var(--w);
+    display: flex; align-items: center; padding: 0 10px; white-space: nowrap; overflow: hidden;
+    font: 600 13px/1 var(--sans); letter-spacing: .04em;
+    transform-origin: left; transition: transform 1s var(--ease);
+  }
+  .seg.slack { background: repeating-linear-gradient(135deg, rgba(185, 163, 255, .32) 0 8px, rgba(185, 163, 255, .2) 8px 16px); color: #f4f0ff; }
+  .seg.work { background: rgba(243, 168, 92, .32); color: #ffe7cc; border-left: 1px solid rgba(243, 168, 92, .7); transition-delay: .5s; }
+  .js .tl .seg { transform: scaleX(0); }
+  .js .window.is-visible .tl .seg { transform: none; }
+  .now { position: absolute; top: 16px; bottom: -6px; left: var(--l); width: 2px; background: var(--alert); box-shadow: 0 0 8px var(--alert); }
+  .now::after { content: "現在"; position: absolute; bottom: -20px; right: 0; font: 11px/1 var(--mono); color: var(--alert); white-space: nowrap; }
+  .tasks { margin-top: 34px; display: grid; gap: 8px; }
+  .tasks li { display: grid; grid-template-columns: 9.5em 1fr; gap: 12px; font-size: 14px; }
+  .tasks b { font: 600 13px/1.9 var(--mono); color: var(--violet); }
+  .scope { margin-top: 20px; padding: 14px 16px; border-radius: 8px; background: rgba(243, 168, 92, .07); border: 1px solid rgba(243, 168, 92, .3); font-size: 14px; }
+  .scope-h { font: 600 12px/1.8 var(--mono); letter-spacing: .12em; color: var(--lamp); }
+  .scope .no { margin-top: 6px; color: var(--muted); }
+
+  /* 03 瀏覽紀錄 */
+  .snap { position: relative; margin: calc(clamp(20px, 5vw, 30px) * -1) calc(clamp(20px, 5vw, 30px) * -1) 22px; }
+  .snap img { aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 25%; }
+  .snap .status { position: absolute; left: 14px; top: 14px; background: rgba(14, 12, 24, .72); }
+  .history { margin-top: 16px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .history li {
+    display: grid; grid-template-columns: 3.6em 1fr auto; gap: 12px; align-items: center;
+    padding: 9px 14px; font-size: 14px; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, .02);
+  }
+  .history li:last-child { border-bottom: 0; }
+  .history time { font: 12px/1 var(--mono); color: var(--dim); }
+  .history em { font: normal 11px/1 var(--mono); color: var(--alert); letter-spacing: .06em; }
+  .blur { filter: blur(4px); -webkit-user-select: none; user-select: none; }
+  .fw { margin-top: 16px; display: flex; gap: 12px; align-items: baseline; font-size: 14px; color: var(--muted); }
+  .fw b {
+    flex: none; padding: 1px 8px; border-radius: 4px;
+    font: 600 11px/1.8 var(--mono); letter-spacing: .1em; color: var(--ok); border: 1px solid rgba(130, 217, 174, .45);
+  }
+
+  /* 04 留言區 */
+  .post { padding: 16px; border-radius: 8px; background: var(--win-2); border: 1px solid var(--line); }
+  .post header { display: flex; gap: 12px; align-items: center; }
+  .avatar {
+    flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+    font: 700 16px/1 var(--serif); color: #fff; background: linear-gradient(135deg, var(--alert), var(--violet-2));
+  }
+  .post header b { display: block; font-size: 15px; line-height: 1.5; }
+  .post header small { display: block; font-size: 12px; line-height: 1.5; color: var(--dim); }
+  .post-body { margin-top: 12px; display: grid; gap: 6px; }
+  .post-body span { display: block; height: 10px; border-radius: 5px; background: rgba(236, 233, 247, .22); filter: blur(2px); }
+  .post-body span:nth-child(2) { width: 86%; }
+  .post-body span:nth-child(3) { width: 64%; }
+  .comments { margin-top: 12px; display: grid; gap: 8px; }
+  .comments li { padding: 10px 14px; border-radius: 8px; background: rgba(255, 255, 255, .03); font-size: 14px; }
+  .comments li b { display: block; font: 12px/1.6 var(--mono); color: var(--dim); font-weight: 400; }
+  .comments li.him { border: 1px solid rgba(185, 163, 255, .55); background: rgba(185, 163, 255, .08); position: relative; }
+  .comments .tag {
+    position: absolute; right: 12px; top: 10px;
+    padding: 0 8px; border-radius: 4px; font: 600 11px/1.9 var(--mono); color: var(--desk); background: var(--violet);
+  }
+  .you {
+    margin-top: 20px; display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center;
+    padding: 14px 16px; border-radius: 8px; border: 1px dashed rgba(243, 168, 92, .55); background: rgba(243, 168, 92, .06);
+  }
+  .you b { font: 700 22px/1 var(--serif); color: var(--lamp); }
+  .you p { font-size: 15px; line-height: 1.8; }
+
+  /* 05 系統監視器 */
+  .meter { display: grid; grid-template-columns: 5.2em 1fr 4em; gap: 12px; align-items: center; margin-bottom: 10px; }
+  .meter span { font: 12px/1.6 var(--mono); color: var(--muted); }
+  .meter strong { font: 600 13px/1 var(--mono); text-align: right; color: var(--alert); }
+  .meter.ok strong { color: var(--ok); }
+  .gauge { height: 12px; border-radius: 6px; background: rgba(255, 255, 255, .06); overflow: hidden; }
+  .gauge i { display: block; height: 100%; width: calc(var(--v) * 100%); border-radius: 6px; background: linear-gradient(90deg, var(--lamp), var(--alert)); transform-origin: left; transition: transform 1.2s var(--ease); }
+  .meter.ok .gauge i { background: var(--ok); transition-delay: .9s; }
+  .js .gauge i { transform: scaleX(0); }
+  .js .window.is-visible .gauge i { transform: none; }
+  .lead { margin: 16px 0 4px; font-size: 15px; }
+  .procs { margin-top: 18px; border-top: 1px solid var(--line); }
+  .procs li { display: grid; grid-template-columns: 6.4em 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .procs b { font: 600 13px/1.9 var(--mono); color: var(--violet); }
+
+  /* 06 資訊部的視窗 */
+  .popups { position: relative; height: 350px; margin: 8px 0 4px; }
+  .popup {
+    position: absolute; width: min(270px, 80%);
+    left: var(--x); top: var(--y);
+    border-radius: 8px; overflow: hidden; background: #f1eefb; color: #24203a;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, .5);
+    transition: opacity .35s var(--ease), transform .35s var(--ease);
+    transition-delay: calc(var(--i) * .45s);
+  }
+  .js .popups .popup { opacity: 0; transform: scale(.9); }
+  .js .popups.is-visible .popup { opacity: 1; transform: none; }
+  .popup .pbar { display: flex; justify-content: space-between; padding: 7px 12px; background: var(--alert); color: #fff; font: 600 12px/1.4 var(--mono); letter-spacing: .08em; }
+  .popup .msg { padding: 16px 14px 6px; font: 700 16px/1.6 var(--sans); }
+  .btns { display: flex; justify-content: flex-end; gap: 8px; padding: 8px 12px 12px; }
+  .btns span { padding: 2px 14px; border-radius: 4px; border: 1px solid #b7b0d6; font-size: 13px; line-height: 1.8; }
+  .btns .primary { background: var(--violet-2); border-color: var(--violet-2); color: #fff; }
+
+  /* 07 公司裡的人 */
+  .acl { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .acl li { display: grid; grid-template-columns: 6.2em 1fr 1.25fr; gap: 12px; padding: 11px 14px; border-bottom: 1px solid var(--line); font-size: 14px; align-items: baseline; }
+  .acl li:last-child { border-bottom: 0; }
+  .acl .head { background: rgba(255, 255, 255, .04); font: 11px/1.6 var(--mono); letter-spacing: .12em; color: var(--dim); }
+  .acl b { font-weight: 700; }
+  .acl .rel { color: var(--muted); }
+  .acl .you-row { background: rgba(243, 168, 92, .07); }
+  .acl .you-row b, .acl .you-row .wait { color: var(--lamp); }
+  .wait { font-family: var(--mono); font-size: 13px; }
+
+  /* 08 私人模式 */
+  .private { border-color: rgba(185, 163, 255, .45); }
+  .private .bar { background: linear-gradient(90deg, #3b2f72, #2a2550); }
+  .private .body { background: radial-gradient(80% 60% at 100% 0%, rgba(185, 163, 255, .14), transparent 70%); }
+  .likes { display: grid; gap: 10px; margin-top: 16px; }
+  .likes li { position: relative; padding: 10px 14px 10px 36px; border-radius: 8px; background: rgba(255, 255, 255, .03); font-size: 15px; }
+  .likes li::before { content: "♡"; position: absolute; left: 13px; top: 10px; color: var(--violet); }
+  .likes li.secret { background: rgba(255, 127, 155, .08); border: 1px solid rgba(255, 127, 155, .35); }
+  .likes li.secret::before { content: "♥"; color: var(--alert); }
+
+  /* 結尾 */
+  .ending { padding: clamp(12px, 3vw, 20px) 0 clamp(40px, 8vw, 60px); }
+  .ending .window { margin-bottom: 0; }
+  .dialog {
+    position: absolute; right: 5%; bottom: 5%; width: min(290px, 78%);
+    border-radius: 10px; overflow: hidden;
+    background: rgba(26, 23, 46, .9); border: 1px solid var(--line);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .55);
+  }
+  .dialog .d-title { padding: 12px 14px 0; font: 700 15px/1.6 var(--sans); }
+  .dialog .d-text { padding: 4px 14px 2px; font-size: 14px; line-height: 1.7; color: var(--muted); }
+  .dialog .btns span { border-color: var(--line); color: var(--ink); }
+  .js .ending .dialog { opacity: 0; translate: 0 12px; transition: opacity .6s var(--ease) .7s, translate .6s var(--ease) .7s; }
+  .js .ending .window.is-visible .dialog { opacity: 1; translate: none; }
+  .last {
+    margin-top: clamp(30px, 7vw, 44px); padding: 0 var(--gutter); text-align: center;
+    font: 600 clamp(22px, 6vw, 30px)/1.8 var(--serif); letter-spacing: .08em;
+  }
+  .last span { color: var(--violet); }
+  .statusbar {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 18px; margin: clamp(26px, 6vw, 36px) var(--gutter) 0;
+    padding: 10px 14px; border-top: 1px solid var(--line);
+    font: 12px/1.6 var(--mono); letter-spacing: .1em; color: var(--dim);
+  }
+  .statusbar .status { padding: 0 10px; }
+
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+
+  @media (max-width: 560px) {
+    .id { grid-template-columns: 1fr; }
+    .idphoto { width: min(230px, 66%); margin: 0 auto; }
+    .tasks li { grid-template-columns: 1fr; gap: 0; }
+    .acl li { grid-template-columns: 5.6em 1fr; }
+    .acl li > :nth-child(3) { grid-column: 2; }
+    .acl .head > :nth-child(3) { display: none; }
+    .acl .head > :nth-child(2)::after { content: "／他的態度"; }
+  }
+  @media (max-width: 400px) {
+    .procs li { grid-template-columns: 1fr; gap: 0; }
+    .meter { grid-template-columns: 4.6em 1fr 3.6em; gap: 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .status i { animation: none; }
+    .js .tl .seg, .js .gauge i { transform: none; transition: none; }
+    .js .popups .popup { opacity: 1; transform: none; transition: none; }
+    .js .cover .toast, .js .ending .dialog { opacity: 1; translate: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+<main class="desk">
+
+  <p class="topbar"><span><b>某間傳產</b>　研發部・專屬辦公室</span><span>舒PM 的電腦</span></p>
+
+  <!-- 封面 -->
+  <header class="cover">
+    <div class="lock">
+      <p class="clock" data-reveal>23:47</p>
+      <p class="date" data-reveal>加班中・下班快六個小時</p>
+    </div>
+    <div class="who">
+      <p class="status" data-reveal><i></i>異常專注中</p>
+      <h1 data-reveal>舒於律</h1>
+      <p class="role" data-reveal>研發 PM・入職第一年</p>
+    </div>
+    <div class="window" data-reveal>
+      <div class="bar"><span><b>▣</b>加班中.jpg</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <figure class="shot">
+        <img src="../images/characters/舒於律-2.jpg" alt="深夜的辦公室，舒於律戴著眼鏡，托著下巴看螢幕">
+        <div class="toast" role="note">
+          <span class="icon" aria-hidden="true">✉</span>
+          <div><b>通知</b><span>你在追的連載更新了。</span></div>
+        </div>
+      </figure>
+    </div>
+    <p class="tagline" data-reveal>上班時間拿來摸魚，排解壓力。<br><span>下班以後，才開始加班工作。</span></p>
+  </header>
+
+  <!-- 01 員工資料 -->
+  <section class="window" data-reveal>
+    <div class="bar"><span><b>01</b>員工資料.pdf</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+    <div class="body">
+      <h2 class="win-h"><small>EMPLOYEE</small>第一次當 PM 的專業菁英</h2>
+      <div class="id">
+        <figure class="idphoto"><img src="../images/characters/舒於律-4.jpg" alt="舒於律的證件照，黑色西裝與領帶，戴圓框眼鏡"></figure>
+        <dl class="spec">
+          <div><dt>姓名</dt><dd>舒於律</dd></div>
+          <div><dt>部門</dt><dd>研發部</dd></div>
+          <div><dt>職稱</dt><dd>研發 PM，第一次當專案經理</dd></div>
+          <div><dt>身高</dt><dd>178 cm</dd></div>
+          <div><dt>年資</dt><dd>一年</dd></div>
+          <div><dt>前職</dt><dd>高級工程師，做產品模型繪圖，待了三年</dd></div>
+          <div><dt>辦公室</dt><dd>專屬一間</dd></div>
+          <div><dt>特徵</dt><dd>眼鏡，沒睡飽的黑眼圈</dd></div>
+        </dl>
+      </div>
+      <p class="note">董事長和特助一起把他請進公司，研發的希望幾乎都託付在他身上。</p>
+    </div>
+  </section>
+
+  <!-- 02 今日排程 -->
+  <section class="window" data-reveal>
+    <div class="bar"><span><b>02</b>今日排程</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+    <div class="body">
+      <h2 class="win-h"><small>SCHEDULE</small>上班摸魚，下班加班</h2>
+      <div class="tl" aria-hidden="true">
+        <div class="tl-hours"><span style="left:0">09</span><span style="left:20%">12</span><span style="left:40%">15</span><span style="left:60%">18</span><span style="left:80%">21</span><span style="left:100%">24</span></div>
+        <div class="track">
+          <span class="seg slack" style="--l:0%;--w:60%">摸魚・排解壓力</span>
+          <span class="seg work" style="--l:60%;--w:38.6%">加班</span>
+        </div>
+        <i class="now" style="--l:98.6%"></i>
+      </div>
+      <ul class="tasks">
+        <li><b>09:00～18:00</b><span>上班時間不專心，用來排解壓力</span></li>
+        <li><b>18:00 以後</b><span>加班，把工作做完</span></li>
+        <li><b>太累的時候</b><span>偶爾也會選擇休息</span></li>
+      </ul>
+      <div class="scope">
+        <p class="scope-h">研發部負責的事</p>
+        <p>管理製程與模具，監督製程物料，做生產管理。</p>
+        <p class="no">修 Bug、寫軟體是資訊部的工作，不歸他管。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 瀏覽紀錄 -->
+  <section class="window" data-reveal>
+    <div class="bar"><span><b>03</b>瀏覽紀錄</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+    <div class="body">
+      <figure class="snap">
+        <img src="../images/characters/舒於律-1.jpg" alt="上班時間，舒於律盯著螢幕，嘴角帶著笑">
+        <p class="status"><i></i>異常專注中</p>
+      </figure>
+      <h2 class="win-h"><small>HISTORY</small>異常專注，就是在摸魚</h2>
+      <p>他有一間專屬辦公室。只要進門看到他異常專注，就知道他在摸魚。他泡在網路社群上的時間，快要比現實生活還多。</p>
+      <ol class="history">
+        <li><time>09:42</time><span>貓咪影片</span><em></em></li>
+        <li><time>10:15</time><span>今日新聞</span><em></em></li>
+        <li><time>11:30</time><span>農場小遊戲：收成</span><em></em></li>
+        <li><time>13:05</time><span>水族箱小遊戲：餵魚</span><em></em></li>
+        <li><time>14:26</time><span><span class="blur" aria-hidden="true">情色文章連載第十二章</span><span class="sr">一篇情色文章</span></span><em>已模糊</em></li>
+        <li><time>16:58</time><span><span class="blur" aria-hidden="true">留言區：作者更新了嗎</span><span class="sr">一則網路貼文</span></span><em>已模糊</em></li>
+      </ol>
+      <p class="fw"><b>防火牆</b><span>這些網站本來都該被擋下來。權限是資訊部的同期好友幫他開的。</span></p>
+    </div>
+  </section>
+
+  <!-- 04 留言區 -->
+  <section class="window" data-reveal>
+    <div class="bar"><span><b>04</b>留言區</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+    <div class="body">
+      <h2 class="win-h"><small>COMMENTS</small>餓餓…飯飯…</h2>
+      <article class="post">
+        <header><span class="avatar" aria-hidden="true">媽</span><div><b>某位色文作者</b><small>讀者都叫作者「媽咪」</small></div></header>
+        <div class="post-body" aria-hidden="true"><span></span><span></span><span></span></div>
+      </article>
+      <ul class="comments">
+        <li><b>讀者</b>媽咪今天會更新嗎</li>
+        <li><b>讀者</b>餓餓…飯飯…</li>
+        <li class="him"><b>某個帳號</b>餓餓…飯飯…媽咪…<span class="tag">他</span></li>
+      </ul>
+      <p class="note">看到好看的色情文章或繪圖，他會跟著留言區一起留言「餓餓…飯飯…」催更新，也跟著大家叫作者「媽咪」。</p>
+      <div class="you"><b>你</b><p>他的下屬。<br>也是網路上的色文創作者。</p></div>
+    </div>
+  </section>
+
+  <!-- 05 系統監視器 -->
+  <section class="window" data-reveal>
+    <div class="bar"><span><b>05</b>系統監視器</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+    <div class="body">
+      <h2 class="win-h"><small>MONITOR</small>壓力很大的研發 PM</h2>
+      <div class="meter"><span>壓力</span><div class="gauge"><i style="--v:.96"></i></div><strong>96%</strong></div>
+      <div class="meter ok"><span>釋放之後</span><div class="gauge"><i style="--v:.3"></i></div><strong>正常</strong></div>
+      <p class="lead">每天都有處理不完的事。找到釋放壓力的方法時會非常激動，發現自己太激動又會收斂；壓力一釋放，整個人明顯輕鬆下來。</p>
+      <ul class="procs">
+        <li><b>謙虛</b><span>對外人和同事都很謙虛，不會刻意表現自己的才能</span></li>
+        <li><b>判斷銳利</b><span>工作上的判斷很準，提出專業見解之後，氣勢卻常常突然消失</span></li>
+        <li><b>吹毛求疵</b><span>對工作的要求很細，藏著不明顯的掌控欲</span></li>
+        <li><b>沒有自信</b><span>能力很強，卻對自己沒有信心</span></li>
+        <li><b>壓下委屈</b><span>工作上受的委屈和自卑都壓著，變成需要排解的壓力</span></li>
+        <li><b>說太多之後</b><span>發現自己說的話太違背常理，會愧疚、自責</span></li>
+      </ul>
+      <p class="note">上一間公司的環境不好，他送出離職單之後還被上級刁難，是受了委屈才離開的。</p>
+    </div>
+  </section>
+
+  <!-- 06 資訊部的視窗 -->
+  <section class="window" data-reveal>
+    <div class="bar"><span><b>06</b>資訊部的關心</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+    <div class="body">
+      <h2 class="win-h"><small>POP-UP</small>摸魚，抓到了</h2>
+      <div class="popups" data-reveal>
+        <div class="popup" style="--x:0%;--y:0px;--i:1"><p class="pbar"><span>資訊部</span><span aria-hidden="true">×</span></p><p class="msg">抓到偷看小黃文</p><p class="btns"><span>我沒有</span><span class="primary">確定</span></p></div>
+        <div class="popup" style="--x:10%;--y:110px;--i:2"><p class="pbar"><span>資訊部</span><span aria-hidden="true">×</span></p><p class="msg">請舒PM專心工作</p><p class="btns"><span class="primary">好</span></p></div>
+        <div class="popup" style="--x:20%;--y:220px;--i:3"><p class="pbar"><span>資訊部</span><span aria-hidden="true">×</span></p><p class="msg">偷拔舒於律高麗菜</p><p class="btns"><span class="primary">還來</span></p></div>
+      </div>
+      <p class="note">同期進公司的資訊部好友。幫他開了不該開的權限，也最愛跳出視窗抓他摸魚。只有開會的時候，視窗不會跳出來。</p>
+    </div>
+  </section>
+
+  <!-- 07 公司裡的人 -->
+  <section class="window" data-reveal>
+    <div class="bar"><span><b>07</b>存取權限</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+    <div class="body">
+      <h2 class="win-h"><small>PEOPLE</small>公司裡的人</h2>
+      <ul class="acl">
+        <li class="head"><span>對象</span><span>關係</span><span>他的態度</span></li>
+        <li><b>董事長</b><span class="rel">和特助一起把他請進公司</span><span>很尊敬，但更像在還債</span></li>
+        <li><b>特助</b><span class="rel">董事長的兒子</span><span>不至於點頭哈腰，但有一定的尊重</span></li>
+        <li><b>老員工</b><span class="rel">忌妒他受重用</span><span>常常欺負他</span></li>
+        <li><b>資訊部好友</b><span class="rel">同期進公司</span><span>開權限、跳視窗</span></li>
+        <li class="you-row"><b>你</b><span class="rel">他的下屬</span><span class="wait">私人模式：等待授權</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 08 私人模式 -->
+  <section class="window private" data-reveal>
+    <div class="bar"><span><b>08</b>私人模式</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+    <div class="body">
+      <h2 class="win-h"><small>PRIVATE</small>一個人，或和愛人在一起的時候</h2>
+      <p>只有在這樣的空間裡，他才會放心做自己。</p>
+      <ul class="likes">
+        <li>像個需要撒嬌、需要被疼愛的大寶寶</li>
+        <li>被鼓勵、被舒壓，就會元氣百倍</li>
+        <li>把遇到的不滿和委屈，都變成撒嬌</li>
+        <li>很會用戀人的特權爭取福利</li>
+        <li>放得下面子，優點和缺點都讓你看</li>
+        <li class="secret">那些讓人害羞的台詞，他私下反覆講過，其實很想親自演演看</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 結尾 -->
+  <section class="ending">
+    <div class="window" data-reveal>
+      <div class="bar"><span><b>▣</b>關機</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <figure class="shot">
+        <img src="../images/characters/舒於律-3.jpg" alt="桌燈下，舒於律側著臉靠近螢幕，領帶鬆開">
+        <div class="dialog" role="note">
+          <p class="d-title">要關機嗎？</p>
+          <p class="d-text">還有 1 則未讀通知：作者更新了。</p>
+          <p class="btns"><span>關機</span><span class="primary">再看一章</span></p>
+        </div>
+      </figure>
+    </div>
+    <p class="last" data-reveal>工作可以加班做完。<br><span>更新不能等。</span></p>
+    <p class="statusbar"><span>舒於律</span><span>研發 PM</span><span class="status"><i></i>異常專注中</span></p>
+  </section>
+
+</main>
+</body>
+</html>
