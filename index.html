@@ -349,37 +349,93 @@
   .btn:active { transform: scale(.97); }
   .btn.done { color: #fff; background: var(--primary); border-color: var(--primary); }
 
-  /* 修正咒語 */
-  .spells { display: grid; gap: 14px; }
-  .spell {
+  /* 修正咒語：上面一排用途篩選，下面卡片，點卡片開燈箱複製 */
+  :where(.spell-filter button, .spell-card, .spell-tag) { --accent: var(--primary-deep); --accent-soft: var(--primary-tint); }
+  /* 每個用途一個菜園顏色：葉菜、紅蘿蔔、番茄、花、茄子 */
+  [data-tag="工具"] { --accent: #2f6542; --accent-soft: #e3efdd; }
+  [data-tag="劇情"] { --accent: #8a4f12; --accent-soft: #fbeedc; }
+  [data-tag="好笑"] { --accent: #a63a28; --accent-soft: #fbe7e1; }
+  [data-tag="可愛"] { --accent: #9c4672; --accent-soft: #fae6ef; }
+  [data-tag="第三視角"] { --accent: #5e4a91; --accent-soft: #ece6f6; }
+  /* 夢境：夢核粉藍，淡底和卡片色條是天空藍暈到一點淡紫的漸層 */
+  [data-tag="夢境"] { --accent: #3d63a8; --accent-soft: linear-gradient(135deg, #e2eeff, #ece6fb); --accent-bar: linear-gradient(180deg, #8fbaf3, #c4b5f2); }
+  /* 蜂蜜、薄荷、甜菜；參考來源只是註記，用低調的土壤色 */
+  [data-tag="甜蜜"] { --accent: #76570b; --accent-soft: #faefc9; }
+  [data-tag="慌亂"] { --accent: #1d6a68; --accent-soft: #dcf1ee; }
+  [data-tag="生理期"] { --accent: #9b2c4a; --accent-soft: #f9e1e8; }
+  [data-tag="參考來源"] { --accent: #655c50; --accent-soft: #eeeae3; }
+
+  .spell-filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .spell-filter button {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 14px;
+    font: inherit; font-size: 13.5px; font-weight: 700;
+    color: var(--secondary);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), transform .15s var(--ease);
+  }
+  .spell-filter button[data-tag]::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transition: background-color .2s var(--ease); }
+  .spell-filter .count { font-weight: 400; font-size: 12.5px; font-variant-numeric: tabular-nums; opacity: .7; }
+  @media (hover: hover) {
+    .spell-filter button:not([aria-pressed="true"]):hover { border-color: var(--accent); background: var(--accent-soft); }
+  }
+  .spell-filter button:active { transform: scale(.97); }
+  .spell-filter button[aria-pressed="true"] { color: #fff; background: var(--accent); border-color: var(--accent); }
+  .spell-filter button[aria-pressed="true"]::before { background: #fff; }
+
+  .spell-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+  .spell-card {
     position: relative;
-    padding: 16px 18px 16px 22px;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+    min-width: 0;
+    padding: 16px 18px 14px 22px;
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     box-shadow: var(--shadow-sm);
     overflow: hidden;
+    cursor: pointer;
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
   }
-  .spell::before {
+  .spell-card[hidden] { display: none; }
+  /* 標題本身是按鈕，用 ::after 撐滿整張卡，點卡片任何地方都會打開 */
+  .spell-card h3 button { padding: 0; font: inherit; color: inherit; text-align: left; background: none; border: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .spell-card h3 button::after { content: ""; position: absolute; inset: 0; }
+  .spell-card h3 button:focus-visible { outline: none; }
+  .spell-card:has(h3 button:focus-visible) { outline: 2px solid var(--primary); outline-offset: 2px; }
+  .spell-card::before {
     content: "";
     position: absolute; left: 0; top: 0; bottom: 0;
     width: 4px;
-    background: linear-gradient(180deg, var(--primary), #a7caae);
+    background: var(--accent-bar, var(--accent));
+    opacity: .75;
   }
-  .spell-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
-  .spell h3 { margin: 0; font-size: 16px; color: var(--secondary-deep); }
-  .spell .btn { flex: none; }
-  .spell pre {
+  .spell-card h3 { margin: 0; font-family: var(--serif); font-size: 17px; line-height: 1.45; color: var(--secondary-deep); }
+  .spell-card p {
     margin: 0;
-    padding: 12px 14px;
-    font-family: "Cascadia Code", Consolas, "Courier New", monospace;
-    font-size: 13.5px; line-height: 1.7;
-    color: var(--secondary);
-    white-space: pre-wrap; word-break: break-word;
-    background: #fbfcf8;
-    border: 1px dashed rgba(201, 162, 74, .5);
-    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    color: var(--secondary-muted);
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
   }
+  .spell-open { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 4px; font-size: 13px; font-weight: 500; color: var(--primary-deep); }
+  .spell-open .icon { width: 15px; height: 15px; }
+  @media (hover: hover) {
+    .spell-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+  }
+  .spell-card:active { transform: scale(.99); }
+  .spell-empty { grid-column: 1 / -1; margin: 0; padding: 36px 0; font-size: 14px; text-align: center; color: var(--secondary-muted); }
+  .spell-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .spell-tag { padding: 1px 10px; font-size: 12px; font-weight: 700; line-height: 1.8; color: var(--accent); background: var(--accent-soft); border-radius: 99px; }
+
+  /* 咒語燈箱：本文整段顯示，底部固定一排標籤和複製鈕，長咒語捲到哪都按得到 */
+  .spell-desc { margin: 0 0 12px; font-size: 14px; color: var(--secondary-muted); }
+  .copy-text.spell-text { max-height: none; font-size: 14.5px; }
 
   /* 鴨答版燈箱：每段內容的下方放標題和複製鈕 */
   .copybox {
@@ -428,6 +484,10 @@
   }
   .copybox-tabs button[aria-pressed="true"] { color: #fff; background: var(--primary-deep); }
   .copybox-body { flex: 1 1 auto; min-height: 0; padding: 2px 22px 22px; overflow-y: auto; overscroll-behavior: contain; }
+  .copybox-foot { flex: none; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 14px; padding: 12px 22px 16px; border-top: 1px solid var(--line); }
+  .copybox-foot:empty { display: none; }
+  .copybox-foot .btn { margin-left: auto; align-self: center; padding: 8px 20px; font-size: 14px; color: #fff; background: var(--primary-deep); border-color: var(--primary-deep); }
+  .copybox-foot .btn.done { background: var(--primary); border-color: var(--primary); }
   .copybox-msg { margin: 0; padding: 28px 0; font-size: 14px; text-align: center; color: var(--secondary-muted); }
   .copybox-hint { margin: 0; font-size: 13px; color: var(--secondary-muted); }
   .copy-group { display: grid; gap: 14px; }
@@ -525,6 +585,7 @@
     .copybox-head { padding-left: 16px; }
     .copybox-tabs { margin-left: 16px; margin-right: 16px; }
     .copybox-body { padding-left: 16px; padding-right: 16px; }
+    .copybox-foot { padding-left: 16px; padding-right: 16px; }
   }
 
   /* 成人向提醒燈箱 */
@@ -834,21 +895,10 @@
 
       <section role="tabpanel" id="spells" aria-labelledby="tab-spells" hidden>
         <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg><h2>修正咒語</h2></div>
-        <p class="hint">常用的修正提示詞，按「複製」直接帶走。</p>
-        <div class="spells">
-          <div class="spell">
-            <div class="spell-head"><h3>咒語 A：問題描述</h3><button type="button" class="btn" data-copy><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>複製</span></button></div>
-            <pre>這裡放提示詞內容</pre>
-          </div>
-          <div class="spell">
-            <div class="spell-head"><h3>咒語 B：問題描述</h3><button type="button" class="btn" data-copy><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>複製</span></button></div>
-            <pre>這裡放提示詞內容</pre>
-          </div>
-          <div class="spell">
-            <div class="spell-head"><h3>咒語 C：問題描述</h3><button type="button" class="btn" data-copy><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>複製</span></button></div>
-            <pre>這裡放提示詞內容</pre>
-          </div>
-        </div>
+        <p class="hint" id="spell-count" aria-live="polite">常用的提示詞，點卡片打開就能複製。</p>
+        <!-- 篩選鈕和卡片都由 spells.js 的清單產生 -->
+        <div class="spell-filter" id="spell-filter" role="group" aria-label="依用途篩選"></div>
+        <div class="spell-grid" id="spell-grid"></div>
       </section>
 
       <section role="tabpanel" id="links" aria-labelledby="tab-links" hidden>
@@ -955,6 +1005,7 @@
   </div>
   <div class="copybox-tabs" id="copybox-tabs"></div>
   <div class="copybox-body" id="copybox-body"></div>
+  <div class="copybox-foot" id="copybox-foot"></div>
 </dialog>
 
 <!-- 成人向提醒：characters.js 的 adult 為 1 的角色，進角色頁前先確認 -->
@@ -968,6 +1019,7 @@
 </dialog>
 
 <script src="characters.js"></script>
+<script src="spells.js"></script>
 <script>
   const characters = window.CHARACTERS || [];
   const tablist = document.querySelector('[role="tablist"]');
@@ -1102,6 +1154,7 @@
   const copybox = document.getElementById('copybox');
   const copyboxTabs = document.getElementById('copybox-tabs');
   const copyboxBody = document.getElementById('copybox-body');
+  const copyboxFoot = document.getElementById('copybox-foot');
   const copyboxFiles = new Map();
   let copyboxRequest = 0;
 
@@ -1581,6 +1634,8 @@
   contactOpen.addEventListener('click', openContactForm);
   licenceOpen.addEventListener('click', openLicenceNotice);
   copybox.addEventListener('close', removeContactWidget);
+  // 底部那排只有咒語燈箱用；關閉事件比較晚到，燈箱如果已經重新打開就不清
+  copybox.addEventListener('close', () => { if (!copybox.open) copyboxFoot.replaceChildren(); });
 
   // 關閉：右上角按鈕、Esc（瀏覽器內建）、點燈箱外面
   copybox.querySelector('.copybox-close').addEventListener('click', () => copybox.close());
@@ -1737,10 +1792,76 @@
   window.addEventListener('hashchange', () => render());
   render();
 
-  // 修正咒語的複製按鈕
-  document.querySelectorAll('[data-copy]').forEach(btn => btn.addEventListener('click', () => {
-    copyWithFeedback(btn, btn.closest('.spell').querySelector('pre').textContent);
-  }));
+  // 修正咒語：篩選鈕和卡片照 spells.js 的清單產生，點卡片開燈箱複製
+  const spells = window.SPELLS || [];
+  const SPELL_TAGS = ['工具', '劇情', '好笑', '可愛', '甜蜜', '慌亂', '第三視角', '夢境', '生理期', '參考來源']; // 篩選鈕的順序；清單裡多出來的標籤會自動排在後面
+  const spellGrid = document.getElementById('spell-grid');
+  const spellCount = document.getElementById('spell-count');
+  const spellEmpty = makeEl('p', 'spell-empty', '這個分類還沒有咒語，換個標籤看看。');
+
+  function tagChips(tags) {
+    const row = makeEl('div', 'spell-tags');
+    row.append(...tags.map(tag => {
+      const chip = makeEl('span', 'spell-tag', tag);
+      chip.dataset.tag = tag;
+      return chip;
+    }));
+    return row;
+  }
+
+  // 咒語燈箱：上面說明＋整段本文，底部固定標籤和複製鈕
+  function openSpell(spell) {
+    copyboxRequest++;
+    document.getElementById('copybox-title').textContent = spell.title;
+    copyboxTabs.replaceChildren();
+    const text = makeEl('pre', 'copy-text spell-text', spell.text);
+    text.tabIndex = 0;
+    copyboxBody.replaceChildren(...(spell.desc ? [makeEl('p', 'spell-desc', spell.desc)] : []), text);
+    copyboxBody.scrollTop = 0;
+    copyboxFoot.replaceChildren(tagChips(spell.tags || []), copyButton('複製咒語', spell.text, true));
+    if (!copybox.open) copybox.showModal();
+  }
+
+  const spellCards = spells.map(spell => {
+    const tags = spell.tags || [];
+    const card = makeEl('article', 'spell-card');
+    if (tags[0]) card.dataset.tag = tags[0]; // 左邊色條跟著第一個標籤
+    const open = makeEl('button', '', spell.title);
+    open.type = 'button';
+    open.setAttribute('aria-haspopup', 'dialog');
+    open.addEventListener('click', () => openSpell(spell));
+    const title = makeEl('h3');
+    title.append(open);
+    const more = makeEl('span', 'spell-open', '打開複製');
+    more.setAttribute('aria-hidden', 'true');
+    more.insertAdjacentHTML('beforeend', '<svg class="icon icon-arrow"><use href="#i-arrow"/></svg>');
+    card.append(tagChips(tags), title, makeEl('p', '', spell.desc || spell.text), more);
+    spellGrid.append(card);
+    return { card, tags };
+  });
+
+  const filterButtons = ['', ...new Set([...SPELL_TAGS, ...spells.flatMap(s => s.tags || [])])].map(tag => {
+    const btn = makeEl('button', '', tag || '全部');
+    btn.type = 'button';
+    if (tag) btn.dataset.tag = tag;
+    btn.append(makeEl('span', 'count', String(spellCards.filter(s => !tag || s.tags.includes(tag)).length)));
+    btn.addEventListener('click', () => filterSpells(tag));
+    return btn;
+  });
+  document.getElementById('spell-filter').append(...filterButtons);
+
+  function filterSpells(tag) {
+    filterButtons.forEach(btn => btn.setAttribute('aria-pressed', (btn.dataset.tag || '') === tag));
+    let shown = 0;
+    for (const { card, tags } of spellCards) {
+      card.hidden = !!tag && !tags.includes(tag);
+      if (!card.hidden) shown++;
+    }
+    if (shown) spellEmpty.remove();
+    else spellGrid.append(spellEmpty);
+    spellCount.textContent = `${tag ? `「${tag}」` : ''}共 ${shown} 則咒語${shown ? '，點卡片打開就能複製。' : '。'}`;
+  }
+  filterSpells('');
 </script>
 </body>
 </html>
