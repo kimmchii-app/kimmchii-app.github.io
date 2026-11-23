@@ -349,7 +349,7 @@
   .btn:active { transform: scale(.97); }
   .btn.done { color: #fff; background: var(--primary); border-color: var(--primary); }
 
-  /* 修正咒語：上面一排用途篩選，下面卡片，點卡片開燈箱複製 */
+  /* 隨機掉落咒語：上面一排用途篩選，下面卡片，點卡片開燈箱複製 */
   :where(.spell-filter button, .spell-card, .spell-tag) { --accent: var(--primary-deep); --accent-soft: var(--primary-tint); }
   /* 每個用途一個菜園顏色：葉菜、紅蘿蔔、番茄、花、茄子 */
   [data-tag="工具"] { --accent: #2f6542; --accent-soft: #e3efdd; }
@@ -838,7 +838,7 @@
   <nav role="tablist" aria-label="主選單">
     <button role="tab" id="tab-characters" aria-controls="characters" aria-selected="true"><svg class="icon" aria-hidden="true"><use href="#i-person"/></svg>角色選單</button>
     <button role="tab" id="tab-vibe" aria-controls="vibe" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>VIBE程式</button>
-    <button role="tab" id="tab-spells" aria-controls="spells" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-wand"/></svg>修正咒語</button>
+    <button role="tab" id="tab-spells" aria-controls="spells" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-wand"/></svg>隨機掉落咒語</button>
     <button role="tab" id="tab-links" aria-controls="links" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg>向外連結</button>
   </nav>
 </div>
@@ -894,7 +894,7 @@
       </section>
 
       <section role="tabpanel" id="spells" aria-labelledby="tab-spells" hidden>
-        <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg><h2>修正咒語</h2></div>
+        <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg><h2>隨機掉落咒語</h2></div>
         <p class="hint" id="spell-count" aria-live="polite">常用的提示詞，點卡片打開就能複製。</p>
         <!-- 篩選鈕和卡片都由 spells.js 的清單產生 -->
         <div class="spell-filter" id="spell-filter" role="group" aria-label="依用途篩選"></div>
@@ -1792,7 +1792,7 @@
   window.addEventListener('hashchange', () => render());
   render();
 
-  // 修正咒語：篩選鈕和卡片照 spells.js 的清單產生，點卡片開燈箱複製
+  // 隨機掉落咒語：篩選鈕和卡片照 spells.js 的清單產生，點卡片開燈箱複製
   const spells = window.SPELLS || [];
   const SPELL_TAGS = ['工具', '劇情', '好笑', '可愛', '甜蜜', '慌亂', '第三視角', '夢境', '生理期', '參考來源']; // 篩選鈕的順序；清單裡多出來的標籤會自動排在後面
   const spellGrid = document.getElementById('spell-grid');
