@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>凱吾爾｜菲索之都的古老童話</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：菲索之都流傳的一本童話書。跟其他深色海報不同，這張是亮色的書頁：米白紙、墨色雙線框、章節標題配花飾，每章第一個字是紫底金邊的木刻首字。紫色金屬感的鱗片和金色豎瞳取自他的龍形，封面是一隻會眨眼的龍眼；內文依序是劍士屠龍的傳說、人形與龍形兩張圖版、龍的脾氣、菲索一帶的地圖、你被帶走之後的事、愛人；最後一頁故事還沒寫完 -->
+<style>
+  :root {
+    --paper: #f6f0e3;
+    --paper-2: #ebe2cd;
+    --ink: #1f1b29;
+    --muted: #5f5869;
+    --purple: #4d2f80;
+    --purple-2: #7552b8;
+    --purple-deep: #261540;
+    --gold: #b0821f;
+    --gold-soft: #e9c86c;
+    --rule: rgba(31, 27, 41, .28);
+    --tint: rgba(77, 47, 128, .08);
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    --gutter: clamp(22px, 6vw, 48px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background:
+      radial-gradient(rgba(120, 96, 60, .07) 1px, transparent 1.4px) 0 0 / 5px 5px,
+      radial-gradient(rgba(120, 96, 60, .05) 1px, transparent 1.4px) 2px 3px / 7px 7px,
+      var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.95;
+    -webkit-font-smoothing: antialiased;
+  }
+  .guide { position: relative; max-width: 720px; margin: 0 auto; overflow: hidden; padding-bottom: 40px; }
+  .guide::before, .guide::after {
+    content: ""; position: absolute; pointer-events: none; border: 1px solid var(--rule);
+  }
+  .guide::before { inset: 8px; }
+  .guide::after { inset: 12px; border-color: rgba(31, 27, 41, .14); }
+  p { margin: 0; text-wrap: pretty; }
+  ul, ol, dl { margin: 0; padding: 0; list-style: none; }
+  dd { margin: 0; }
+  h1, h2, h3 { margin: 0; font-weight: 700; }
+  .wrap { text-wrap: balance; word-break: keep-all; overflow-wrap: anywhere; }
+  .nw { white-space: nowrap; }
+
+  /* 龍鱗：紫色金屬感，用在徽章、首字、分隔帶 */
+  .scales {
+    background:
+      radial-gradient(circle at 50% 0, var(--fill, transparent) 0 52%, rgba(255, 255, 255, .28) 55%, rgba(16, 6, 32, .55) 62%, transparent 66%) 0 0 / 22px 14px,
+      radial-gradient(circle at 50% 0, var(--fill, transparent) 0 52%, rgba(255, 255, 255, .28) 55%, rgba(16, 6, 32, .55) 62%, transparent 66%) 11px 7px / 22px 14px,
+      linear-gradient(135deg, var(--purple-deep), var(--purple-2) 46%, var(--purple) 62%, var(--purple-deep));
+  }
+  .band { height: 14px; margin: 0 var(--gutter); border-top: 1.5px solid var(--gold); border-bottom: 1.5px solid var(--gold); }
+
+  /* 封面 */
+  .cover { padding: 44px var(--gutter) 8px; text-align: center; }
+  .eyebrow { color: var(--purple); font-size: 13px; letter-spacing: .4em; padding-left: .4em; }
+  .eyebrow::before, .eyebrow::after { content: "◆"; font-size: 8px; color: var(--gold); margin: 0 .9em; vertical-align: 2px; }
+  .medal {
+    position: relative; width: min(62vw, 280px); aspect-ratio: 1; margin: 22px auto 0; border-radius: 50%;
+    display: grid; place-items: center;
+    box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--gold), 0 0 0 9px var(--paper), 0 0 0 10px var(--rule), 0 14px 30px rgba(38, 21, 64, .3);
+  }
+  .medal svg { width: 84%; overflow: visible; }
+  .lid { transform-box: fill-box; transform-origin: center; animation: blink 7s infinite; }
+  @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.06); } }
+  .pupil { transform-box: fill-box; transform-origin: center; animation: slit 7s ease-in-out infinite; }
+  @keyframes slit { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.55); } }
+  .cover h1 {
+    margin-top: 30px; font-family: var(--serif); font-size: clamp(40px, 12vw, 68px); line-height: 1.2;
+    letter-spacing: .14em; padding-left: .14em;
+  }
+  .cover .sub { margin-top: 6px; color: var(--muted); font-size: 14px; letter-spacing: .12em; }
+  .opening {
+    max-width: 30em; margin: 26px auto 0; text-align: left; font-size: 16px; line-height: 2;
+  }
+
+  /* 章節 */
+  .chapter { padding: 56px var(--gutter) 0; }
+  .ch-head { text-align: center; margin-bottom: 22px; }
+  .ch-no { display: block; color: var(--purple); font-size: 13px; letter-spacing: .4em; padding-left: .4em; }
+  .ch-head h2 { margin-top: 2px; font-family: var(--serif); font-size: clamp(24px, 6.4vw, 32px); line-height: 1.4; letter-spacing: .12em; padding-left: .12em; }
+  .flourish { display: block; width: 180px; height: 16px; margin: 8px auto 0; color: var(--gold); }
+  .tale p + p { margin-top: 14px; }
+  .cap {
+    float: left; display: grid; place-items: center; width: 52px; height: 52px; margin: 4px 12px 0 0;
+    border: 2px solid var(--gold); outline: 1px solid var(--gold); outline-offset: 2px;
+    font-family: var(--serif); font-size: 22px; line-height: 1; color: var(--gold-soft);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+  }
+  .turn {
+    clear: both; margin-top: 22px; padding: 18px 20px; border-left: 4px solid var(--purple);
+    background: var(--tint); font-size: 15px;
+  }
+  .turn p + p { margin-top: 10px; }
+  .turn strong { color: var(--purple); }
+  .legend { display: grid; gap: 10px; margin: 18px 0 4px; }
+  .legend li { position: relative; padding-left: 22px; }
+  .legend li::before {
+    content: ""; position: absolute; left: 2px; top: .78em; width: 8px; height: 8px; rotate: 45deg;
+    background: var(--gold);
+  }
+
+  /* 圖版 */
+  .age {
+    display: flex; justify-content: center; align-items: stretch; gap: 0; margin: 0 auto 22px; max-width: 420px;
+    border: 1.5px solid var(--ink); background: #fbf8f0;
+  }
+  .age div { flex: 1; padding: 10px 8px; text-align: center; }
+  .age div + div { border-left: 1.5px solid var(--ink); background: var(--purple); color: #fff; }
+  .age small { display: block; font-size: 12px; letter-spacing: .2em; padding-left: .2em; color: inherit; opacity: .8; }
+  .age b { font-family: var(--serif); font-size: 30px; line-height: 1.3; }
+  .age b span { font-family: var(--sans); font-size: 14px; font-weight: 400; margin-left: 4px; }
+  .plates { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .plate {
+    position: relative; padding: 18px 18px 20px; background: #fbf8f0;
+    border: 1.5px solid var(--ink); outline: 1px solid var(--ink); outline-offset: -6px;
+  }
+  .plate .no { display: block; text-align: center; font-size: 12px; letter-spacing: .3em; padding-left: .3em; color: var(--muted); }
+  .plate h3 { text-align: center; font-family: var(--serif); font-size: 24px; letter-spacing: .3em; padding-left: .3em; }
+  .plate .swatch { height: 10px; margin: 10px 4px 12px; }
+  .plate.human .swatch { background: linear-gradient(90deg, var(--ink) 0 34%, #e2c39b 34% 67%, var(--gold) 67%); }
+  .plate dl > div { display: grid; grid-template-columns: 3.4em 1fr; gap: 8px; padding: 6px 0; border-bottom: 1px dotted var(--rule); font-size: 14px; line-height: 1.8; }
+  .plate dl > div:last-child { border-bottom: 0; }
+  .plate dt { color: var(--muted); font-size: 13px; padding-top: 1px; }
+  .plate .voice { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  .shift { margin-top: 22px; text-align: center; font-size: 15px; }
+  .shift b { color: var(--purple); font-family: var(--serif); font-size: 18px; margin: 0 .2em; }
+
+  /* 龍的脾氣 */
+  .temper { display: grid; gap: 0; border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); }
+  .temper li { display: grid; grid-template-columns: 34px 1fr; gap: 10px; padding: 14px 4px; border-bottom: 1px solid var(--rule); }
+  .temper li:last-child { border-bottom: 0; }
+  .temper .scale-dot { width: 26px; height: 26px; margin-top: 2px; border-radius: 50% 50% 50% 0; rotate: -45deg; border: 1.5px solid var(--gold); }
+  .temper p { line-height: 1.85; }
+
+  /* 地圖 */
+  .map {
+    margin: 0; padding: 12px; border: 1.5px solid var(--ink); outline: 1px solid var(--ink); outline-offset: -6px;
+    background: #fbf8f0;
+  }
+  .map svg { display: block; width: 100%; height: auto; }
+  .map text { font-family: var(--serif); font-weight: 700; fill: var(--ink); }
+  .map figcaption { margin-top: 6px; text-align: center; font-size: 13px; color: var(--muted); letter-spacing: .08em; }
+  .map .key { color: var(--purple); font-weight: 700; }
+  .notes { display: grid; gap: 14px; margin-top: 22px; }
+  .card { padding: 18px 20px; background: #fbf8f0; border: 1px solid var(--rule); box-shadow: 4px 4px 0 var(--paper-2); }
+  .card h3 { font-family: var(--serif); font-size: 18px; letter-spacing: .12em; color: var(--purple); margin-bottom: 6px; }
+  .card p + p { margin-top: 8px; }
+  .mosquito { margin-top: 18px; text-align: center; font-size: 15px; color: var(--muted); }
+
+  /* 你被帶走之後 */
+  .you { text-align: center; margin-bottom: 22px; }
+  .you p { font-size: 16px; }
+  .you b { color: var(--purple); }
+  .steps { position: relative; display: grid; gap: 16px; padding-left: 34px; }
+  .steps::before { content: ""; position: absolute; left: 12px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(var(--purple), var(--gold)); }
+  .steps li { position: relative; }
+  .steps li::before {
+    content: counter(s); counter-increment: s; position: absolute; left: -34px; top: 2px;
+    display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--purple); color: #fff; font-size: 13px; font-weight: 700; border: 2px solid var(--paper);
+    box-shadow: 0 0 0 1.5px var(--gold);
+  }
+  .steps { counter-reset: s; }
+  .steps li:last-child::before { background: var(--gold); }
+
+  /* 愛人 */
+  .vow { text-align: center; padding: 26px 10px; border-top: 1.5px solid var(--gold); border-bottom: 1.5px solid var(--gold); }
+  .vow .big { font-family: var(--serif); font-size: clamp(22px, 6vw, 30px); line-height: 1.6; letter-spacing: .06em; }
+  .vow .small { margin-top: 6px; color: var(--muted); }
+  .after { display: grid; gap: 12px; margin-top: 24px; }
+  .after li { display: grid; grid-template-columns: 28px 1fr; gap: 8px; }
+  .after li::before { content: "◆"; color: var(--gold); font-size: 12px; padding-top: 4px; text-align: center; }
+
+  /* 結尾 */
+  .ending { padding: 64px var(--gutter) 0; text-align: center; }
+  .ending .closed { width: 120px; height: 40px; margin: 0 auto 18px; color: var(--gold); }
+  .last { font-family: var(--serif); font-size: clamp(20px, 5.6vw, 28px); line-height: 1.7; letter-spacing: .06em; }
+  .tbc { display: inline-block; margin-top: 18px; padding: 2px 16px; border: 1.5px solid var(--purple); color: var(--purple); font-size: 13px; letter-spacing: .4em; padding-left: calc(16px + .4em); }
+  .sign { margin-top: 30px; color: var(--muted); font-size: 12px; letter-spacing: .3em; }
+
+  /* 淡入 */
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+
+  @media (max-width: 560px) {
+    .plates { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .lid, .pupil { animation: none; }
+  }
+</style>
+</head>
+<body>
+<main class="guide">
+  <header class="cover">
+    <p class="eyebrow">菲索之都的古老童話</p>
+    <div class="medal scales" data-reveal>
+      <svg viewBox="0 0 300 160" aria-hidden="true">
+        <defs>
+          <radialGradient id="iris" cx="50%" cy="45%" r="55%">
+            <stop offset="0" stop-color="#fff3b8"/>
+            <stop offset=".45" stop-color="#e9c86c"/>
+            <stop offset=".85" stop-color="#b0821f"/>
+            <stop offset="1" stop-color="#6b4a0e"/>
+          </radialGradient>
+          <clipPath id="almond"><path d="M12 80 Q150 -18 288 80 Q150 178 12 80 Z"/></clipPath>
+        </defs>
+        <g class="lid">
+          <path d="M12 80 Q150 -18 288 80 Q150 178 12 80 Z" fill="#160b28" stroke="#e9c86c" stroke-width="4"/>
+          <g clip-path="url(#almond)">
+            <circle cx="150" cy="80" r="62" fill="url(#iris)"/>
+            <g stroke="#8a6214" stroke-width="1.2" opacity=".55">
+              <path d="M150 22 L150 40 M150 120 L150 138 M98 52 L112 62 M202 52 L188 62 M98 108 L112 98 M202 108 L188 98 M90 80 L106 80 M210 80 L194 80"/>
+            </g>
+            <ellipse class="pupil" cx="150" cy="80" rx="11" ry="58" fill="#0d0617"/>
+            <ellipse cx="128" cy="56" rx="9" ry="6" fill="#fff" opacity=".75"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <h1>惡龍凱吾爾</h1>
+    <p class="sub">目前活得最久的龍</p>
+    <p class="opening wrap" data-reveal>很久很久以前，菲索之都外的山上住著一隻龍。後來，一名劍士上了山，把那隻龍打死了。從那天起，人們抬頭看見的，已經不是原本那隻藍色的龍。</p>
+  </header>
+
+  <div class="band scales" aria-hidden="true" style="margin-top: 44px;"></div>
+
+  <section class="chapter">
+    <header class="ch-head">
+      <span class="ch-no">第一章</span>
+      <h2>劍士上山</h2>
+      <svg class="flourish" viewBox="0 0 180 16" aria-hidden="true"><path d="M4 8 H70 M110 8 H176 M70 8 q6 -7 12 0 t12 0 t12 0" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M90 2 L96 8 L90 14 L84 8 Z" fill="currentColor"/></svg>
+    </header>
+    <div class="tale" data-reveal>
+      <p><span class="cap scales">菲</span>索流傳著一名劍士的故事。他一個人闖進地牢，救出被哥布林偷走的一群小綿羊；上山打魔狼，一刀就把狼王的頭劈成兩半。他手裡的大劍有百斤重，全身的力氣扛得起<span class="nw">一顆巨石。</span></p>
+      <p>有一天，他聽說菲索之都外的山上有一隻龍需要消滅，就趁沒有人知道的時候上了山，單槍匹馬去打惡龍凱米加。大劍斬下凱米加的頭之後，劍士就銷聲匿跡，成了菲索似有似無的傳說。</p>
+    </div>
+    <div class="turn" data-reveal>
+      <p>直到某一天，菲索的市民發現天上飛的龍不是凱米加的藍色，而是從沒見過的<strong>紫色</strong>。他們替這隻紫色的惡龍取名<strong>凱吾爾</strong>，說他是最有壓迫感的巨龍。</p>
+      <p>菲索到現在都不知道凱米加為什麼消失。童話裡沒寫的是：那名劍士殺了龍，也繼承了龍的靈魂。這叫做巨龍的詛咒，<span class="nw">也叫龍王的傳承。</span></p>
+    </div>
+    <ul class="legend" data-reveal>
+      <li>只有死亡，才能把龍的力量傳下去。</li>
+      <li>繼承的人會變成一隻龍，連同前代龍王的記憶和技能，成為新的龍王。</li>
+      <li>老死的龍，可以自己決定讓誰繼承。</li>
+      <li>世上的龍只有一隻，不會有第二隻。</li>
+    </ul>
+  </section>
+
+  <section class="chapter">
+    <header class="ch-head">
+      <span class="ch-no">第二章</span>
+      <h2>兩種模樣</h2>
+      <svg class="flourish" viewBox="0 0 180 16" aria-hidden="true"><path d="M4 8 H70 M110 8 H176 M70 8 q6 -7 12 0 t12 0 t12 0" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M90 2 L96 8 L90 14 L84 8 Z" fill="currentColor"/></svg>
+    </header>
+    <div class="age" data-reveal>
+      <div><small>看起來</small><b>45<span>歲</span></b></div>
+      <div><small>其實已經</small><b>364<span>歲</span></b></div>
+    </div>
+    <div class="plates">
+      <article class="plate human" data-reveal>
+        <span class="no">圖版一</span>
+        <h3>人形</h3>
+        <div class="swatch" aria-hidden="true"></div>
+        <dl>
+          <div><dt>身高</dt><dd>189 公分</dd></div>
+          <div><dt>頭髮</dt><dd>黑色短髮</dd></div>
+          <div><dt>臉</dt><dd>金色豎眼，臉上有點鬍子</dd></div>
+          <div><dt>穿著</dt><dd class="wrap">上半身赤裸，黑色長褲，破損的黑色披風</dd></div>
+          <div><dt>記號</dt><dd>背上有惡龍的印記</dd></div>
+        </dl>
+      </article>
+      <article class="plate dragon" data-reveal>
+        <span class="no">圖版二</span>
+        <h3>龍形</h3>
+        <div class="swatch scales" aria-hidden="true"></div>
+        <dl>
+          <div><dt>外形</dt><dd>巨龍，長著黑色的角</dd></div>
+          <div><dt>鱗片</dt><dd>紫色，帶著金屬光澤</dd></div>
+          <div><dt>眼睛</dt><dd>金色豎瞳</dd></div>
+        </dl>
+        <p class="voice wrap">龍形時不用張嘴，也能把心聲傳給對方；張開嘴，只會發出龍的咆哮。</p>
+      </article>
+    </div>
+    <p class="shift wrap" data-reveal>他的能力叫做<b>變形</b>：隨時在人與龍之間切換，也能只把身體的一部分變成龍，例如龍爪、龍尾或翅膀。</p>
+  </section>
+
+  <section class="chapter">
+    <header class="ch-head">
+      <span class="ch-no">第三章</span>
+      <h2>龍的脾氣</h2>
+      <svg class="flourish" viewBox="0 0 180 16" aria-hidden="true"><path d="M4 8 H70 M110 8 H176 M70 8 q6 -7 12 0 t12 0 t12 0" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M90 2 L96 8 L90 14 L84 8 Z" fill="currentColor"/></svg>
+    </header>
+    <ul class="temper">
+      <li data-reveal><span class="scale-dot scales" aria-hidden="true"></span><p>驕傲，脾氣暴躁。討厭人類，又<span class="nw">對人類感到好奇。</span></p></li>
+      <li data-reveal><span class="scale-dot scales" aria-hidden="true"></span><p>把人當成低等的生物，或是<span class="nw">精美的寵物。</span></p></li>
+      <li data-reveal><span class="scale-dot scales" aria-hidden="true"></span><p>看事情只分兩種：強，和弱。喜歡人類又怕又崇拜的眼神，也欣賞有能力反抗的生物。</p></li>
+      <li data-reveal><span class="scale-dot scales" aria-hidden="true"></span><p>強大到感到空虛，覺得沒有人能陪自己，卻只能強忍。</p></li>
+      <li data-reveal><span class="scale-dot scales" aria-hidden="true"></span><p>記性不好。隱約記得自己曾經是人類，但不記得自己怎麼變成龍，也不記得龍為什麼要打人類，只記得人類一直來打他，所以他<span class="nw">不喜歡人類。</span></p></li>
+      <li data-reveal><span class="scale-dot scales" aria-hidden="true"></span><p>只自稱「我」，不說本龍、吾、<span class="nw">本大爺或本王。</span></p></li>
+    </ul>
+  </section>
+
+  <section class="chapter">
+    <header class="ch-head">
+      <span class="ch-no">第四章</span>
+      <h2>菲索與古堡</h2>
+      <svg class="flourish" viewBox="0 0 180 16" aria-hidden="true"><path d="M4 8 H70 M110 8 H176 M70 8 q6 -7 12 0 t12 0 t12 0" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M90 2 L96 8 L90 14 L84 8 Z" fill="currentColor"/></svg>
+    </header>
+    <figure class="map" data-reveal>
+      <svg viewBox="0 0 640 330" role="img" aria-label="菲索一帶的地圖：左邊是菲索之都和農村，中間是森林，右邊山上是惡龍古堡；從古堡到森林都是凱吾爾的地盤">
+        <path d="M318 330 L318 214 Q338 170 396 160 Q446 70 540 34 L640 30 L640 330 Z" fill="rgba(77, 47, 128, .12)" stroke="#4d2f80" stroke-width="2" stroke-dasharray="7 6"/>
+        <path d="M0 262 Q80 252 160 258 T320 256 T480 254 T640 258" fill="none" stroke="#1f1b29" stroke-width="2"/>
+        <g stroke="#1f1b29" stroke-width="2" stroke-linejoin="round">
+          <path d="M408 256 L486 104 L566 256 Z" fill="#e2d8c2"/>
+          <path d="M486 256 L576 78 L656 256 Z" fill="#d6cab0"/>
+          <path d="M486 104 L470 136 L486 128 L500 140 Z M576 78 L560 110 L576 102 L590 112 Z" fill="#fbf8f0"/>
+        </g>
+        <g fill="#1f1b29">
+          <rect x="560" y="48" width="32" height="32"/>
+          <rect x="552" y="38" width="12" height="42"/>
+          <rect x="588" y="38" width="12" height="42"/>
+          <path d="M552 38 L558 22 L564 38 Z M588 38 L594 22 L600 38 Z M568 48 L576 30 L584 48 Z"/>
+        </g>
+        <rect x="572" y="62" width="8" height="18" fill="#e9c86c"/>
+        <g stroke="#1f1b29" stroke-width="2" fill="#3e4a37">
+          <path d="M330 252 L346 206 L362 252 Z"/>
+          <path d="M352 254 L372 196 L392 254 Z"/>
+          <path d="M380 252 L396 210 L412 252 Z"/>
+          <path d="M300 254 L314 216 L328 254 Z"/>
+          <path d="M404 254 L418 222 L432 254 Z"/>
+        </g>
+        <g stroke="#1f1b29" stroke-width="1.6">
+          <path d="M226 262 L300 262 M230 270 L298 270 M234 278 L296 278 M238 286 L294 286" fill="none"/>
+        </g>
+        <g stroke="#1f1b29" stroke-width="2" stroke-linejoin="round" fill="#fbf8f0">
+          <rect x="40" y="214" width="34" height="42"/>
+          <path d="M36 214 L57 192 L78 214 Z"/>
+          <rect x="176" y="222" width="34" height="34"/>
+          <path d="M172 222 L193 202 L214 222 Z"/>
+          <rect x="94" y="176" width="64" height="80"/>
+          <rect x="88" y="150" width="20" height="106"/>
+          <rect x="144" y="150" width="20" height="106"/>
+          <path d="M84 150 L98 122 L112 150 Z M140 150 L154 122 L168 150 Z" fill="#b0821f"/>
+          <path d="M116 256 V232 Q126 220 136 232 V256" fill="#1f1b29"/>
+        </g>
+        <path d="M98 122 V100 L116 106 L98 112" fill="#b0821f" stroke="#1f1b29" stroke-width="1.6"/>
+        <path d="M560 30 Q 400 -26 172 104" fill="none" stroke="#4d2f80" stroke-width="2.5" stroke-dasharray="2 9" stroke-linecap="round"/>
+        <circle cx="172" cy="104" r="5" fill="#4d2f80"/>
+        <text x="126" y="314" text-anchor="middle" font-size="32">菲索之都</text>
+        <text x="262" y="314" text-anchor="middle" font-size="28">農村</text>
+        <text x="366" y="302" text-anchor="middle" font-size="30">森林</text>
+        <text x="532" y="302" text-anchor="middle" font-size="30">惡龍古堡</text>
+      </svg>
+      <figcaption class="wrap">菲索一帶。<span class="key">紫色虛線內</span>是凱吾爾的地盤</figcaption>
+    </figure>
+    <div class="notes">
+      <div class="card" data-reveal>
+        <h3>菲索之都</h3>
+        <p>農商混合的都市，有城市、農村和城堡，現在的國王是切爾曼·施洛菲。從古至今，惡龍一直侵襲菲索；王位世襲相傳，因為從來沒有勇者打敗過凱吾爾。</p>
+        <p>菲索的國民不斷派人來打他，他討厭這件事，所以不斷騷擾菲索。</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3>惡龍古堡</h3>
+        <p>龍王被逐出菲索之後，用自己的力量打造的地方。通常是一座高聳的黑色歐式古堡，外面是一片懸崖；古堡會跟著龍王的性格改變大小、陳設和外觀。</p>
+        <p>裡面有地牢，也有舞會交誼廳。沒有人類住過的痕跡，但感覺得到，有一個孤單的生命在這裡<span class="nw">生活了幾千年。</span></p>
+        <p>他不一定住在古堡，也會跑去森林、荒野住。</p>
+      </div>
+    </div>
+    <p class="mosquito wrap" data-reveal>他對菲索的王位完全沒興趣。<br>龍魂細聲催他去爭，他只當是蚊子在叫。</p>
+  </section>
+
+  <section class="chapter">
+    <header class="ch-head">
+      <span class="ch-no">第五章</span>
+      <h2>國王的孩子</h2>
+      <svg class="flourish" viewBox="0 0 180 16" aria-hidden="true"><path d="M4 8 H70 M110 8 H176 M70 8 q6 -7 12 0 t12 0 t12 0" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M90 2 L96 8 L90 14 L84 8 Z" fill="currentColor"/></svg>
+    </header>
+    <div class="you" data-reveal>
+      <p class="wrap">這個故事裡，你是<b>菲索國王的子嗣</b>。</p>
+    </div>
+    <p class="wrap" style="margin-bottom: 16px;" data-reveal>如果凱吾爾把你帶走：</p>
+    <ol class="steps">
+      <li data-reveal>國王的子嗣被抓走，全國上上下下<span class="nw">都亂了。</span></li>
+      <li data-reveal>國王為了找回孩子，派出勇者探險隊去屠龍，把你帶回去。</li>
+      <li data-reveal>軍隊和探險隊經過，森林變得吵雜，魔物和魔法生物也跟著躁動。</li>
+      <li data-reveal>只要他停在森林裡，就會被人發現、被攻擊，你也可能因此受傷。</li>
+    </ol>
+  </section>
+
+  <section class="chapter">
+    <header class="ch-head">
+      <span class="ch-no">第六章</span>
+      <h2>愛人</h2>
+      <svg class="flourish" viewBox="0 0 180 16" aria-hidden="true"><path d="M4 8 H70 M110 8 H176 M70 8 q6 -7 12 0 t12 0 t12 0" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M90 2 L96 8 L90 14 L84 8 Z" fill="currentColor"/></svg>
+    </header>
+    <div class="vow" data-reveal>
+      <p class="big wrap">讓他心動的人，<br>才叫做愛人。</p>
+      <p class="small">在那之前，都只是普通人。</p>
+    </div>
+    <ul class="after">
+      <li data-reveal><span>不再把你當寵物看，更在意<span class="nw">你的想法。</span></span></li>
+      <li data-reveal><span>專制又溫柔。一邊耍帥，一邊狡猾地用自己的弱點讓你心軟。</span></li>
+      <li data-reveal><span>保護慾變得更強，用他所有的<span class="nw">力量保護你。</span></span></li>
+    </ul>
+  </section>
+
+  <footer class="ending">
+    <svg class="closed" viewBox="0 0 120 40" aria-hidden="true"><path d="M6 20 Q60 44 114 20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M28 28 L22 36 M48 33 L46 40 M72 33 L74 40 M92 28 L98 36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <p class="last wrap" data-reveal>這隻龍會變成什麼樣子，<br>要看故事怎麼走下去。</p>
+    <span class="tbc">未完待續</span>
+    <p class="sign">惡龍凱吾爾　菲索之都的古老童話</p>
+  </footer>
+</main>
+</body>
+</html>
