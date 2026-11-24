@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>曲汨哲｜萬事屋・408 寢</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：男宿走廊的軟木公告欄。整張海報就是一面公告欄：木框、軟木底、圖釘和紙膠帶；小標是標籤機打出來的黑色標籤。封面是萬事屋的手作傳單，中間貼一張負責人的拍立得，底下一排撕條；內文依序釘上夾著證件照的住宿生資料卡、筆記本頁的價目表、抽屜、便利貼、黃色委託單、四張床位名牌、宿舍公告和待辦卡。原子筆藍是他填的字，螢光黃是重點，紅色是紅筆和跑道；結尾的傳單撕條快被撕完了 -->
+<style>
+  :root {
+    --cork: #c29361;
+    --cork-dark: #8c5f35;
+    --wood: #7b4b26;
+    --wood-light: #a8703f;
+    --paper: #fdfcf8;
+    --ink: #23252b;
+    --muted: #5d5f67;
+    --pen: #2546a3;
+    --hl: #ffe55c;
+    --red: #c23f2d;
+    --green: #2f7a57;
+    --note-y: #fff1a1;
+    --note-p: #ffd8dd;
+    --note-g: #d5efd0;
+    --note-b: #d3e5fb;
+    --order: #fff5d1;
+    --rule: #cfdcef;
+    --shadow: 0 6px 14px rgba(58, 34, 12, .3);
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    --gutter: clamp(16px, 5vw, 40px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background:
+      radial-gradient(rgba(84, 50, 20, .32) 1px, transparent 1.7px) 0 0 / 7px 7px,
+      radial-gradient(rgba(255, 232, 196, .22) 1px, transparent 1.7px) 3px 4px / 9px 9px,
+      radial-gradient(rgba(70, 40, 15, .22) 1.4px, transparent 2.2px) 5px 2px / 13px 11px,
+      var(--cork);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  .guide { position: relative; max-width: 720px; margin: 0 auto; overflow: hidden; }
+  p { margin: 0; }
+  img { display: block; width: 100%; height: auto; pointer-events: none; -webkit-user-drag: none; }
+  figure { margin: 0; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  ul, ol, dl { margin: 0; padding: 0; list-style: none; }
+  dd { margin: 0; }
+  h1, h2, h3 { margin: 0; }
+  .nobreak { word-break: keep-all; overflow-wrap: anywhere; }
+  .nw { white-space: nowrap; }
+  .wrap { text-wrap: balance; word-break: keep-all; overflow-wrap: anywhere; }
+  p, li, dd { text-wrap: pretty; }
+
+  /* 公告欄的木框 */
+  .frame {
+    height: 16px;
+    background:
+      repeating-linear-gradient(90deg, rgba(0, 0, 0, .06) 0 2px, transparent 2px 23px),
+      linear-gradient(var(--wood-light), var(--wood));
+    box-shadow: 0 3px 6px rgba(40, 20, 5, .35);
+  }
+  .frame.bottom { margin-top: 56px; box-shadow: 0 -3px 6px rgba(40, 20, 5, .3); }
+
+  /* 共用：紙、圖釘、紙膠帶、標籤機標籤 */
+  .sheet { position: relative; background: var(--paper); box-shadow: var(--shadow); }
+  .pin {
+    position: absolute; z-index: 2; width: 16px; height: 16px; border-radius: 50%;
+    background: radial-gradient(circle at 34% 30%, rgba(255, 255, 255, .7) 0 2px, transparent 3px), var(--c, var(--red));
+    box-shadow: 0 3px 4px rgba(0, 0, 0, .35), inset -2px -2px 3px rgba(0, 0, 0, .25);
+  }
+  .tape {
+    position: absolute; z-index: 2; width: 86px; height: 24px;
+    background: rgba(242, 231, 196, .84);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .14);
+    clip-path: polygon(2% 0, 98% 0, 100% 20%, 97% 40%, 100% 60%, 97% 80%, 99% 100%, 1% 100%, 3% 80%, 0 60%, 3% 40%, 0 20%);
+  }
+  .dymo {
+    display: inline-block; position: relative;
+    padding: 4px 12px 4px 15px; border-radius: 3px;
+    background: linear-gradient(#2c2c31, #17171a);
+    color: #f3f3f1; font-size: 15px; font-weight: 700; letter-spacing: .2em; line-height: 1.7;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .7), 0 -1px 0 rgba(255, 255, 255, .22);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .32), inset 0 1px 0 rgba(255, 255, 255, .12);
+    rotate: -1.5deg;
+  }
+  .sec { padding: 44px var(--gutter) 0; }
+  .sec > .dymo { margin: 0 0 16px 4px; }
+  .pen { color: var(--pen); }
+  .mark { background: linear-gradient(transparent 58%, var(--hl) 58% 94%, transparent 94%); }
+
+  /* 封面：萬事屋傳單 */
+  .cover { padding: 26px var(--gutter) 0; text-align: center; }
+  .cover > .dymo { rotate: 1deg; font-size: 13px; letter-spacing: .24em; }
+  .flyer {
+    max-width: 540px; margin: 22px auto 0; padding: 30px 20px 0;
+    rotate: -1.2deg;
+  }
+  .flyer .pin.l { top: 10px; left: 12px; }
+  .flyer .pin.r { top: 10px; right: 12px; --c: var(--pen); }
+  .flyer .kicker {
+    display: inline-block; color: var(--pen); font-weight: 700; letter-spacing: .3em;
+    padding: 0 .3em 0 .6em;
+  }
+  .flyer h1 {
+    margin-top: 2px;
+    font-size: clamp(64px, 20vw, 124px); line-height: 1.08; font-weight: 700; letter-spacing: .08em;
+    padding-left: .08em;
+  }
+  .flyer h1 span { background: linear-gradient(transparent 64%, var(--hl) 64% 92%, transparent 92%); }
+  .scrawl { display: block; width: min(76%, 320px); height: 16px; margin: 4px auto 0; color: var(--red); }
+  .polaroid {
+    position: relative; width: min(66%, 270px); margin: 22px auto 0; padding: 10px 10px 0;
+    background: #fff; box-shadow: 0 8px 16px rgba(40, 25, 10, .28); rotate: 2.5deg;
+  }
+  .polaroid img { aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; }
+  .polaroid .tape { top: -12px; left: 50%; translate: -50% 0; rotate: -4deg; width: 76px; }
+  .polaroid figcaption { padding: 6px 0 10px; color: var(--pen); font-size: 15px; letter-spacing: .3em; padding-left: .3em; }
+  .boss { margin-top: 16px; font-size: 14px; color: var(--muted); letter-spacing: .12em; }
+  .boss b {
+    display: block; margin-top: 2px;
+    font-family: var(--serif); font-size: clamp(34px, 9vw, 46px); line-height: 1.3; color: var(--ink); letter-spacing: .16em;
+    padding-left: .16em;
+  }
+  .flyer .meta { margin-top: 6px; color: var(--muted); font-size: 14px; }
+  .pitch { margin: 18px auto 0; max-width: 22em; font-size: 16px; font-weight: 700; line-height: 1.8; }
+  .tabs {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    margin: 24px -20px 0;
+    border-top: 2px dashed #a3a3a3;
+  }
+  .tabs li {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 8px 0 12px;
+    background: var(--paper);
+    border-left: 1px dashed #bdbdbd;
+  }
+  .tabs li:first-child { border-left: 0; }
+  .tabs .t-app { font-size: 10px; font-weight: 700; letter-spacing: .06em; color: var(--green); }
+  .tabs .t-id { writing-mode: vertical-rl; font-size: 13px; letter-spacing: .14em; color: var(--pen); line-height: 1.2; }
+  .tabs .torn { background: none; border-left-color: transparent; }
+  .tabs .torn > * { visibility: hidden; }
+  .tabs .torn::before {
+    content: ""; position: absolute; inset: 0 0 auto; height: 12px; background: var(--paper);
+    clip-path: polygon(0 0, 100% 0, 100% 60%, 85% 100%, 70% 55%, 52% 95%, 35% 50%, 18% 100%, 0 60%);
+  }
+  .tabs .lift {
+    transform-origin: 50% 0; box-shadow: 2px 4px 6px rgba(0, 0, 0, .22);
+    animation: sway 3.8s ease-in-out infinite;
+  }
+  @keyframes sway { 0%, 100% { rotate: 0deg; } 50% { rotate: 5deg; } }
+
+  /* 住宿生資料卡 */
+  .form { padding: 22px 20px 20px; rotate: .6deg; }
+  .form .tape { top: -11px; left: 50%; translate: -50% 0; rotate: -3deg; }
+  .form-head {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    padding-bottom: 8px; border-bottom: 2px solid var(--ink);
+  }
+  .form-head h3 { font-size: 18px; letter-spacing: .12em; }
+  .room { flex: none; border: 1.5px solid var(--ink); padding: 0 8px; font-size: 13px; font-weight: 700; letter-spacing: .08em; }
+  .idphoto {
+    position: relative; float: right; width: clamp(88px, 26vw, 116px); margin: 16px 0 8px 14px; padding: 5px;
+    background: #fff; border: 1px solid #d6d6d6; box-shadow: 0 2px 5px rgba(0, 0, 0, .14); rotate: 1.5deg;
+  }
+  .idphoto img { aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 26%; }
+  .idphoto::before {
+    content: ""; position: absolute; z-index: 1; top: -12px; left: 16px; width: 11px; height: 36px;
+    border: 2.5px solid #8f969f; border-radius: 7px; box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+  }
+  .form dl > div {
+    display: grid; grid-template-columns: 4.6em 1fr; gap: 10px;
+    padding: 9px 0; border-bottom: 1px dotted #b9b9b9;
+  }
+  .form dt { color: var(--muted); font-size: 13px; padding-top: 2px; letter-spacing: .08em; }
+  .form dd { color: var(--pen); }
+  .form dd small { display: block; color: var(--muted); font-size: 13px; text-wrap: balance; word-break: keep-all; overflow-wrap: anywhere; }
+  .box {
+    display: inline-block; width: 15px; height: 15px; margin-right: 6px; vertical-align: -2px;
+    border: 1.5px solid var(--ink); position: relative;
+  }
+  .box.on::after {
+    content: ""; position: absolute; left: 3px; top: -3px; width: 6px; height: 12px;
+    border: solid var(--pen); border-width: 0 2.5px 2.5px 0; rotate: 40deg;
+  }
+  .form .foot { clear: both; margin-top: 14px; color: var(--muted); font-size: 14px; }
+
+  /* 價目表：筆記本頁 */
+  .notebook {
+    padding: 32px 18px 16px 56px; line-height: 32px; rotate: -.6deg;
+    background:
+      linear-gradient(90deg, transparent 0 42px, #e3a0a0 42px 43px, transparent 43px),
+      repeating-linear-gradient(180deg, #fffefb 0 31px, var(--rule) 31px 32px);
+  }
+  .notebook .pin { top: 8px; right: 16px; --c: var(--green); }
+  .notebook h3 { font-size: 18px; letter-spacing: .1em; }
+  .notebook ol { counter-reset: n; }
+  .notebook li { counter-increment: n; position: relative; color: var(--pen); }
+  .notebook li::before {
+    content: counter(n) "."; position: absolute; left: -26px; color: var(--muted); font-size: 13px;
+  }
+  .notebook li small { color: var(--muted); font-size: 13px; }
+  .notebook .note { color: var(--red); font-size: 14px; }
+
+  .drawer {
+    margin-top: 26px; padding: 14px 16px 16px; border-radius: 4px;
+    background: linear-gradient(#6b4325, #54331b);
+    box-shadow: var(--shadow), inset 0 2px 0 rgba(255, 255, 255, .12);
+    color: #f6ecdf;
+  }
+  .drawer .handle {
+    display: block; width: 72px; height: 10px; margin: 0 auto 12px; border-radius: 0 0 8px 8px;
+    background: linear-gradient(#d8c09a, #9c8258); box-shadow: 0 2px 3px rgba(0, 0, 0, .4);
+  }
+  .drawer h3 { font-size: 15px; letter-spacing: .14em; color: #ffe2a8; }
+  .drawer p { margin-top: 6px; font-size: 14px; line-height: 1.85; }
+  .drawer .bars { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .drawer .bars span {
+    padding: 0 8px; border-radius: 2px; background: #17110c; color: #f6ecdf; font-size: 13px; letter-spacing: .06em;
+  }
+
+  /* 便利貼 */
+  .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 14px; }
+  .notes li {
+    position: relative; padding: 22px 14px 16px; min-height: 120px;
+    background: var(--bg, var(--note-y));
+    box-shadow: 0 8px 12px -6px rgba(50, 30, 10, .45);
+    font-size: 15px; line-height: 1.75;
+    word-break: keep-all; overflow-wrap: anywhere;
+    rotate: var(--r, -1.5deg);
+    transition: translate .25s var(--ease), rotate .25s var(--ease);
+  }
+  .notes li:hover { translate: 0 -3px; rotate: 0deg; }
+  .notes li .pin { top: 6px; left: 50%; margin-left: -8px; }
+  .notes li:nth-child(2) { --bg: var(--note-p); --r: 1.8deg; }
+  .notes li:nth-child(3) { --bg: var(--note-g); --r: 1deg; }
+  .notes li:nth-child(4) { --bg: var(--note-b); --r: -2deg; }
+  .notes li:nth-child(5) { --bg: var(--note-p); --r: -1deg; }
+  .notes li:nth-child(6) { --r: 2deg; }
+  .notes li:nth-child(2) .pin { --c: var(--pen); }
+  .notes li:nth-child(3) .pin { --c: #e0a321; }
+  .notes li:nth-child(5) .pin { --c: var(--green); }
+
+  /* 委託單 */
+  .order {
+    padding: 26px 20px 20px; rotate: .8deg;
+    background:
+      radial-gradient(circle at 8px 0, transparent 0 4px, var(--order) 4.5px) 0 0 / 16px 100% repeat-x;
+  }
+  .order .tape { top: -10px; left: 18px; rotate: -6deg; }
+  .order-head {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    padding-bottom: 8px; border-bottom: 1.5px solid rgba(35, 37, 43, .5);
+  }
+  .order-head h3 { font-size: 18px; letter-spacing: .12em; }
+  .order-head span { flex: none; font-size: 13px; color: var(--muted); letter-spacing: .06em; }
+  .order .who { margin-top: 10px; font-size: 14px; color: var(--muted); }
+  .order .who b { color: var(--pen); font-size: 16px; margin-left: 6px; }
+  .order ul { margin-top: 8px; }
+  .order li { display: grid; grid-template-columns: 22px 1fr; padding: 5px 0; }
+  .order li .box { margin-top: 6px; }
+  .fee {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    margin-top: 14px; padding-top: 12px; border-top: 1.5px dashed rgba(35, 37, 43, .4);
+  }
+  .fee .k { color: var(--muted); font-size: 14px; letter-spacing: .1em; }
+  .fee s { color: var(--muted); text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+  .fee .free {
+    padding: 0 12px; border: 2.5px solid var(--red); border-radius: 50%;
+    color: var(--red); font-size: 22px; font-weight: 700; letter-spacing: .1em; rotate: -6deg;
+  }
+  .order .after { margin-top: 10px; font-size: 14px; color: var(--muted); }
+
+  /* 408 寢：床位名牌 */
+  .room-intro { padding: 16px 18px; rotate: -.5deg; font-size: 14px; }
+  .room-intro .pin { top: -6px; left: 18px; --c: #e0a321; }
+  .beds { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
+  .bed { padding: 0 16px 16px; border-top: 6px solid var(--c, var(--pen)); }
+  .bed:nth-child(2) { --c: var(--green); }
+  .bed:nth-child(3) { --c: #e0a321; }
+  .bed-head { display: flex; align-items: center; gap: 10px; padding: 12px 0 8px; border-bottom: 1px solid rgba(35, 37, 43, .15); }
+  .num {
+    flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+    background: var(--c, var(--pen)); color: #fff; font-weight: 700; font-size: 15px;
+  }
+  .bed h3 { font-size: 18px; line-height: 1.35; letter-spacing: .06em; }
+  .bed h3 small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); letter-spacing: .04em; }
+  .bed .nick {
+    display: inline-block; margin-top: 10px; padding: 0 8px; border-radius: 3px;
+    background: var(--hl); font-size: 13px; font-weight: 700;
+  }
+  .bed ul { margin-top: 8px; font-size: 14px; line-height: 1.75; }
+  .bed li { position: relative; padding-left: 14px; word-break: keep-all; overflow-wrap: anywhere; }
+  .bed li + li { margin-top: 4px; }
+  .bed li::before { content: ""; position: absolute; left: 2px; top: .72em; width: 5px; height: 5px; border-radius: 50%; background: var(--c, var(--pen)); }
+  .bed.vacant {
+    display: grid; place-content: center; text-align: center; min-height: 160px; padding: 20px;
+    background: rgba(253, 252, 248, .55); box-shadow: none;
+    border: 2px dashed rgba(253, 252, 248, .95); border-top-width: 2px;
+  }
+  .bed.vacant .num { margin: 0 auto 8px; background: none; border: 2px dashed var(--ink); color: var(--ink); }
+  .bed.vacant p { font-weight: 700; letter-spacing: .14em; }
+  .bros { margin-top: 18px; padding: 14px 18px; rotate: .6deg; font-size: 14px; }
+  .bros .tape { top: -10px; right: 20px; rotate: 5deg; width: 70px; }
+
+  /* 宿舍公告 */
+  .notice { padding: 22px 20px 118px; rotate: -.7deg; }
+  .notice .pin.l { top: 8px; left: 10px; }
+  .notice .pin.r { top: 8px; right: 10px; }
+  .notice h3 {
+    text-align: center; color: var(--red); font-size: 22px; letter-spacing: .5em; padding-left: .5em;
+  }
+  .notice .sub { text-align: center; font-size: 13px; color: var(--muted); letter-spacing: .1em; }
+  .notice .rule { height: 5px; margin: 10px 0 12px; border-top: 2px solid var(--red); border-bottom: 1px solid var(--red); }
+  .notice ol { counter-reset: n; }
+  .notice li { counter-increment: n; display: grid; grid-template-columns: 2em 1fr; padding: 4px 0; }
+  .notice li::before { content: counter(n, cjk-ideographic) "、"; color: var(--muted); }
+  .stamp {
+    position: absolute; right: 18px; bottom: 14px;
+    display: grid; place-items: center; width: 88px; aspect-ratio: 1; border-radius: 50%;
+    border: 3px double var(--red); color: var(--red);
+    font-weight: 700; font-size: 15px; line-height: 1.25; letter-spacing: .08em; text-align: center;
+    rotate: -14deg; opacity: .82; mix-blend-mode: multiply; pointer-events: none;
+  }
+  .notice .pad { padding-right: 0; }
+
+  /* 待辦卡 */
+  .index {
+    max-width: 440px; padding: 30px 18px 14px 18px; rotate: 1deg; line-height: 30px;
+    background:
+      linear-gradient(var(--red), var(--red)) 0 26px / 100% 1.5px no-repeat,
+      repeating-linear-gradient(180deg, #fff 0 29px, var(--note-b) 29px 30px) 0 2px;
+  }
+  .index .pin { top: 6px; left: 50%; margin-left: -8px; --c: var(--pen); }
+  .index li { display: grid; grid-template-columns: 24px 1fr; }
+  .index li .box { margin-top: 7px; }
+  .index li.done span:last-child { color: var(--muted); }
+  .index .cap { margin-top: 6px; font-size: 14px; color: var(--muted); }
+
+  /* 結尾：撕條快沒了 */
+  .ending { padding: 52px var(--gutter) 0; text-align: center; }
+  .ending .flyer { padding-top: 26px; rotate: 1deg; }
+  .ending .flyer .pin.r { --c: var(--green); }
+  .last { font-size: clamp(22px, 6vw, 30px); font-weight: 700; line-height: 1.6; letter-spacing: .06em; }
+  .last .mark { padding: 0 .1em; }
+  .ending .cap { margin-top: 8px; color: var(--muted); font-size: 14px; }
+  .sign {
+    margin-top: 34px; color: #fdf6ea; font-size: 13px; letter-spacing: .3em;
+    text-shadow: 0 1px 2px rgba(40, 20, 5, .6);
+  }
+
+  /* 淡入 */
+  .js [data-reveal] { opacity: 0; translate: 0 18px; transition: opacity .6s var(--ease), translate .6s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+
+  @media (min-width: 521px) {
+    .notes li { text-wrap: balance; }
+  }
+  @media (max-width: 520px) {
+    .beds { grid-template-columns: 1fr; }
+    .bed.vacant { min-height: 120px; }
+  }
+  @media (max-width: 360px) {
+    .notes { gap: 16px 10px; }
+    .notes li { padding: 22px 11px 14px; font-size: 14px; }
+    .tabs .t-id { font-size: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .tabs .lift { animation: none; rotate: 4deg; }
+    .notes li { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main class="guide">
+  <div class="frame" aria-hidden="true"></div>
+
+  <header class="cover">
+    <span class="dymo">男宿 408 寢・公告欄</span>
+    <div class="flyer sheet" data-reveal>
+      <span class="pin l" aria-hidden="true"></span>
+      <span class="pin r" aria-hidden="true"></span>
+      <p class="kicker mark">校內校外都接</p>
+      <h1><span>萬事屋</span></h1>
+      <svg class="scrawl" viewBox="0 0 320 16" preserveAspectRatio="none" aria-hidden="true"><path d="M4 10 C 60 3, 110 14, 170 8 S 270 4, 316 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+      <figure class="polaroid">
+        <span class="tape" aria-hidden="true"></span>
+        <img src="../images/characters/曲汨哲-3.jpg" alt="曲汨哲" width="600" height="750">
+        <figcaption>阿汨</figcaption>
+      </figure>
+      <p class="boss">負責人<b>曲汨哲</b></p>
+      <p class="meta nobreak">運動技能系大五・408 寢第一床位</p>
+      <p class="pitch wrap">搬重物、代勞雜事都接。<br>一句話講完，事情做完。</p>
+      <ul class="tabs" aria-hidden="true">
+        <li><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+        <li><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+        <li class="torn"><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+        <li><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+        <li class="lift"><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+        <li><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+        <li><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="sec">
+    <h2 class="dymo">住宿生資料</h2>
+    <div class="form sheet" data-reveal>
+      <span class="tape" aria-hidden="true"></span>
+      <div class="form-head"><h3>男宿住宿生資料卡</h3><span class="room">408-1</span></div>
+      <figure class="idphoto"><img src="../images/characters/曲汨哲-1.jpg" alt="曲汨哲的證件照" width="600" height="750" loading="lazy"></figure>
+      <dl>
+        <div><dt>姓名</dt><dd>曲汨哲</dd></div>
+        <div><dt>床位</dt><dd>第一床位</dd></div>
+        <div><dt>身高</dt><dd>183 cm</dd></div>
+        <div><dt>LINE</dt><dd>萬事屋-阿汨</dd></div>
+        <div><dt>系所</dt><dd>運動技能系大五<small>主動延畢，留在宿舍省房租、打工</small></dd></div>
+        <div><dt>外貌</dt><dd class="wrap">棕色俐落短髮、棕色眼睛、偏深的健康膚色</dd></div>
+        <div><dt>寒暑假</dt><dd><span class="box on" aria-hidden="true"></span>留宿<small>不回家，留在宿舍充當舍監，照顧留宿的學弟</small></dd></div>
+      </dl>
+      <p class="foot wrap">家裡做投資小企業，他不想當只會花錢的富二代，什麼都自己從零開始賺。不回家的另一個原因：不想跟繼母碰面。</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="dymo">萬事屋價目表</h2>
+    <div class="notebook sheet" data-reveal>
+      <span class="pin" aria-hidden="true"></span>
+      <h3>服務項目</h3>
+      <ol>
+        <li>搬重物 <small>408 寢體力擔當</small></li>
+        <li>把人扛起來跑</li>
+        <li>校內外大小事代勞</li>
+        <li>澡堂限定：體香劑、肥皂</li>
+      </ol>
+      <p class="note">＊力氣太大，弄壞過好幾次客人的東西，賠過一點錢。</p>
+    </div>
+    <div class="drawer" data-reveal>
+      <span class="handle" aria-hidden="true"></span>
+      <h3>書桌抽屜（不對外）</h3>
+      <div class="bars"><span>保險套</span><span>菸</span><span>A 書</span><span>情趣玩具</span></div>
+      <p class="wrap">收來賣給男宿住宿生，室友拿來用不收錢。<br>每本漫畫、每支片的內容他都知道，介紹起來一本正經。</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="dymo">他這個人</h2>
+    <ul class="notes">
+      <li data-reveal><span class="pin" aria-hidden="true"></span>實用主義。<br>自認是<wbr>高級工具人。</li>
+      <li data-reveal><span class="pin" aria-hidden="true"></span>看起來冷酷，<wbr>其實<wbr>很容易<wbr>被感動。</li>
+      <li data-reveal><span class="pin" aria-hidden="true"></span>話不多，<wbr>想法很多，<wbr>回應總是<wbr>淡淡的。</li>
+      <li data-reveal><span class="pin" aria-hidden="true"></span>反應<wbr>慢半拍，<wbr>碰到自己的<wbr>感情更慢。</li>
+      <li data-reveal><span class="pin" aria-hidden="true"></span>看到<wbr>可愛的東西<wbr>就沒救。<wbr>省錢，<wbr>是為了花錢。</li>
+      <li data-reveal><span class="pin" aria-hidden="true"></span>不小心弄壞東西，<wbr>會先嚇一跳，<wbr>再自責。</li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <h2 class="dymo">委託單</h2>
+    <div class="order sheet" data-reveal>
+      <span class="tape" aria-hidden="true"></span>
+      <div class="order-head"><h3>萬事屋委託單</h3><span>408 寢</span></div>
+      <p class="who">委託人<b>你</b></p>
+      <ul>
+        <li><span class="box on" aria-hidden="true"></span><span class="wrap">想到什麼都說給你聽，想讓你覺得他很可靠</span></li>
+        <li><span class="box on" aria-hidden="true"></span><span class="wrap">什麼都包容，喜歡看你依賴他</span></li>
+        <li><span class="box on" aria-hidden="true"></span><span class="wrap">偷偷把你帶回宿舍，像帶回自己家</span></li>
+        <li><span class="box on" aria-hidden="true"></span><span class="wrap">床上的事，由他親自教你</span></li>
+      </ul>
+      <div class="fee"><span class="k">收費</span><s>報價</s><span class="free">免費</span></div>
+      <p class="after wrap">一副要收你高價的樣子，最後一毛都沒收。</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="dymo">男宿 408 寢</h2>
+    <div class="room-intro sheet" data-reveal>
+      <span class="pin" aria-hidden="true"></span>
+      <p class="wrap">上下舖，上面睡覺，下面是書桌和衣櫃。房裡沒有浴室，要去外面的公共浴室。東西堆得亂到靠北靠母，空氣裡混著實驗室消毒水、體香劑和麥當勞的味道。</p>
+    </div>
+    <div class="beds">
+      <article class="bed sheet" data-reveal>
+        <div class="bed-head"><span class="num">1</span><h3>曲汨哲<small>運動技能系大五・183 cm</small></h3></div>
+        <span class="nick">綽號：曲骨折</span>
+        <ul>
+          <li>寢室裡年紀最大，負責搬重物</li>
+          <li>東西常被他弄壞，<span class="nw">名字跟「骨折」又只差一個音</span></li>
+        </ul>
+      </article>
+      <article class="bed sheet" data-reveal>
+        <div class="bed-head"><span class="num">2</span><h3>奧利佛·金<small>昆蟲系交換學生・187 cm</small></h3></div>
+        <span class="nick">綽號：澳懶覺</span>
+        <ul>
+          <li>澳洲人，金色短髮、綠色眼睛</li>
+          <li>凌晨五點出門抓蟲和蜥蜴，帶回寢室當教材</li>
+          <li><span class="nw">週三、五、六</span>在麥當勞值大夜班，常帶賣剩的回來</li>
+          <li>聽得懂中文但不會講，被罵就裝聽不懂</li>
+        </ul>
+      </article>
+      <article class="bed sheet" data-reveal>
+        <div class="bed-head"><span class="num">3</span><h3>宋禾溪<small>生命科學系大二・179 cm</small></h3></div>
+        <span class="nick">綽號都是他取的</span>
+        <ul>
+          <li>凌亂的黑色短髮、黃色眼睛，熬夜做實驗的黑眼圈</li>
+          <li>嚴重潔癖，被嚇到會發出小女孩般的尖叫</li>
+          <li>嘴很賤、很愛碎念，<span class="nw">自認是 408 寢的智囊團</span></li>
+        </ul>
+      </article>
+      <div class="bed vacant" data-reveal>
+        <span class="num">4</span>
+        <p>目前從缺</p>
+      </div>
+    </div>
+    <div class="bros sheet" data-reveal>
+      <span class="tape" aria-hidden="true"></span>
+      <p class="wrap">嫌麻煩，但他年紀最大，還是把兩個室友當弟弟照顧；惡作劇一定參一腳，出事了也是他先擋在前面。</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="dymo">宿舍公告</h2>
+    <div class="notice sheet" data-reveal>
+      <span class="pin l" aria-hidden="true"></span>
+      <span class="pin r" aria-hidden="true"></span>
+      <h3>公告</h3>
+      <p class="sub">關於男宿 408 寢</p>
+      <div class="rule" aria-hidden="true"></div>
+      <ol>
+        <li><span class="wrap">闖禍不斷，<span class="nw">教官、舍監和老師都頭痛。</span></span></li>
+        <li><span class="wrap">學校公物壞了、舊器材不見了，<span class="nw">大家都算在 408 頭上</span>（不管是不是他們做的）。</span></li>
+        <li><span class="wrap">被沒收的工具、標本、A&nbsp;書和漫畫，每年寒假都會從教官室消失。</span></li>
+      </ol>
+      <div class="stamp" aria-hidden="true">頭痛<br>人物</div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="dymo">待辦</h2>
+    <div class="index sheet" data-reveal>
+      <span class="pin" aria-hidden="true"></span>
+      <ul>
+        <li><span class="box" aria-hidden="true"></span><span>交畢業論文，交了就能畢業</span></li>
+        <li><span class="box" aria-hidden="true"></span><span>在校內躲開指導老師韓亦菖</span></li>
+        <li class="done"><span class="box on" aria-hidden="true"></span><span>混進學弟妹的球類運動課</span></li>
+      </ul>
+      <p class="cap wrap">要補的課不多，大部分時間都在外面工作。</p>
+    </div>
+  </section>
+
+  <footer class="ending">
+    <div class="flyer sheet" data-reveal>
+      <span class="pin l" aria-hidden="true"></span>
+      <span class="pin r" aria-hidden="true"></span>
+      <p class="last wrap">有事找<span class="mark">阿汨</span>，<br>一句話就好。</p>
+      <p class="cap">找他幫忙的人太多，撕條快沒了。</p>
+      <ul class="tabs" aria-hidden="true">
+        <li class="torn"><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+        <li class="torn"><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+        <li class="torn"><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+        <li class="lift"><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+        <li class="torn"><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+        <li class="torn"><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+        <li class="torn"><span class="t-app">LINE</span><span class="t-id">萬事屋-阿汨</span></li>
+      </ul>
+    </div>
+    <p class="sign">曲汨哲　萬事屋　男宿 408 寢</p>
+  </footer>
+
+  <div class="frame bottom" aria-hidden="true"></div>
+</main>
+</body>
+</html>
