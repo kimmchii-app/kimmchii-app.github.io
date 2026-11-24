@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>床底下的小怪物｜曬過太陽的被子</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：曬過太陽的被子。跟其他怪物之館海報不同，這張走明亮、柔軟的洗曬日：奶油色亞麻底、角落一顆慢慢轉的太陽、深藍和金色取自照片裡的被子，枕頭用蜜桃色。封面是一床被子夾在曬衣繩上隨風擺動；內文用圓角資料卡、圖示清單、枕頭形的睡前確認、氣味辨識表；結尾是一顆太陽，最下面掉進床底的黑暗，傳出「叩、叩」 -->
+<style>
+  :root {
+    --bg: #f4ead8;
+    --paper: #fffaf1;
+    --ink: #1f2747;
+    --muted: #686c82;
+    --navy: #24366f;
+    --navy-deep: #131b3b;
+    --gold: #b9862a;
+    --gold-soft: #f2d58e;
+    --peach: #e2a379;
+    --peach-soft: #f8e1cc;
+    --line: rgba(36, 54, 111, .16);
+    --shadow: 0 12px 28px rgba(92, 70, 40, .14);
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    --gutter: clamp(16px, 5vw, 40px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background:
+      repeating-linear-gradient(0deg, rgba(120, 90, 50, .035) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgba(120, 90, 50, .03) 0 1px, transparent 1px 3px),
+      var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  .guide { position: relative; max-width: 720px; margin: 0 auto; overflow: hidden; }
+  img { display: block; width: 100%; pointer-events: none; -webkit-user-drag: none; }
+  figure { margin: 0; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  p { margin: 0; }
+  ul, dl { margin: 0; padding: 0; list-style: none; }
+  dd { margin: 0; }
+  .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+  .nobreak { word-break: keep-all; overflow-wrap: anywhere; }
+
+  /* 封面：角落的太陽、曬衣繩上的被子 */
+  .cover { position: relative; padding: 18px var(--gutter) 0; text-align: center; }
+  .sunburst {
+    position: absolute; top: -170px; right: -150px; width: 420px; aspect-ratio: 1; border-radius: 50%; pointer-events: none;
+    background:
+      radial-gradient(circle, #fff4d2 0 18%, rgba(255, 225, 145, .65) 19% 25%, transparent 60%),
+      repeating-conic-gradient(rgba(242, 196, 100, .28) 0 5deg, transparent 5deg 15deg);
+    -webkit-mask: radial-gradient(circle, #000 30%, transparent 70%); mask: radial-gradient(circle, #000 30%, transparent 70%);
+    animation: spin 90s linear infinite;
+  }
+  @keyframes spin { to { rotate: 360deg; } }
+  .mote {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%; pointer-events: none;
+    background: rgba(255, 236, 180, .95); box-shadow: 0 0 8px 2px rgba(255, 226, 150, .7);
+    animation: drift 11s ease-in-out infinite;
+  }
+  .mote:nth-of-type(1) { top: 120px; left: 14%; }
+  .mote:nth-of-type(2) { top: 260px; right: 12%; animation-delay: -3s; }
+  .mote:nth-of-type(3) { top: 420px; left: 9%; animation-delay: -6s; width: 4px; height: 4px; }
+  .mote:nth-of-type(4) { top: 360px; right: 20%; animation-delay: -8s; width: 3px; height: 3px; }
+  @keyframes drift { 0%, 100% { translate: 0 0; opacity: .3; } 50% { translate: 10px -26px; opacity: 1; } }
+  .topline {
+    position: relative; display: inline-flex; gap: 10px; align-items: center; padding: 5px 14px 5px calc(14px + .24em);
+    font: 700 12px/1.4 var(--sans); letter-spacing: .24em; color: var(--navy);
+    border: 1px solid var(--line); border-radius: 999px; background: rgba(255, 250, 241, .7);
+  }
+  .topline i { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+  .airing { position: relative; margin: 26px calc(var(--gutter) * -1) 0; }
+  .rope { position: absolute; left: 0; top: 0; width: 100%; height: 44px; overflow: visible; }
+  .hang { position: relative; width: min(70%, 400px); margin: 18px auto 0; transform-origin: 50% 0; animation: breeze 6s ease-in-out infinite; }
+  @keyframes breeze { 0%, 100% { rotate: -1deg; } 50% { rotate: 1deg; } }
+  .quilt-photo {
+    position: relative; aspect-ratio: 600 / 797; overflow: hidden; border: 9px solid var(--navy); border-radius: 6px 6px 12px 12px;
+    box-shadow: 0 26px 40px rgba(60, 45, 25, .28), 0 4px 0 rgba(0, 0, 0, .06);
+    background: var(--navy);
+  }
+  .quilt-photo img { height: 100%; object-fit: cover; }
+  .quilt-photo::after { content: ""; position: absolute; inset: 0; border: 1.5px dashed rgba(242, 213, 142, .75); border-radius: 2px 2px 6px 6px; pointer-events: none; }
+  .pin {
+    position: absolute; z-index: 2; top: -20px; width: 13px; height: 38px; border-radius: 3px;
+    background: linear-gradient(90deg, #b8915c, #e6caa0 45%, #c9a571);
+    box-shadow: 0 3px 4px rgba(60, 45, 25, .3);
+  }
+  .pin::before { content: ""; position: absolute; left: -2px; right: -2px; top: 13px; height: 4px; border-radius: 2px; background: linear-gradient(180deg, #d9dce4, #8d93a3); }
+  .pin::after { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(90, 60, 30, .35); }
+  .pin.l { left: 16%; }
+  .pin.r { right: 16%; }
+  .cover-title { margin-top: clamp(38px, 9vw, 50px); }
+  .kicker {
+    display: inline-block; padding: 4px 14px 4px calc(14px + .3em); border-radius: 999px;
+    background: var(--navy); color: var(--gold-soft); font: 700 12px/1.6 var(--sans); letter-spacing: .3em;
+  }
+  h1 {
+    margin: 12px 0 0; padding-left: .08em;
+    font: 700 clamp(34px, 9.6vw, 58px)/1.25 var(--sans); letter-spacing: .08em; color: var(--navy);
+  }
+  .stitch { display: block; width: min(240px, 66%); height: 12px; margin: 10px auto 0; color: var(--gold); }
+  .sub { margin-top: 10px; color: var(--muted); font-size: 14px; letter-spacing: .06em; text-wrap: balance; }
+  .tagline {
+    position: relative; margin: clamp(28px, 6vw, 36px) auto 0; width: fit-content; max-width: 100%; padding: 16px 26px;
+    background: var(--peach-soft); border-radius: 28px 28px 28px 8px;
+    font: 700 clamp(17px, 4.6vw, 19px)/1.8 var(--serif); text-align: center;
+  }
+  .tagline span { color: var(--navy); }
+
+  /* 區段標題：左邊一顆圓章，下面一條縫線波浪 */
+  .room { padding: clamp(52px, 11vw, 70px) var(--gutter) 0; }
+  .head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .badge { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--gold-soft); color: var(--navy); }
+  .badge svg { width: 24px; height: 24px; }
+  .head small { display: block; font: 700 12px/1.4 var(--sans); letter-spacing: .2em; color: var(--gold); }
+  h2 { margin: 0; font: 700 clamp(21px, 5.6vw, 25px)/1.35 var(--sans); letter-spacing: .1em; color: var(--navy); }
+  .head > div::after {
+    content: ""; display: block; width: 120px; height: 8px; margin-top: 6px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='8' viewBox='0 0 20 8'%3E%3Cpath d='M0 4Q5 0 10 4T20 4' fill='none' stroke='%23b9862a' stroke-width='1.4' stroke-dasharray='2.5 2'/%3E%3C/svg%3E") 0 0 / 20px 8px repeat-x;
+  }
+  .card { background: var(--paper); border-radius: 18px; box-shadow: var(--shadow); border: 1px solid rgba(36, 54, 111, .07); }
+
+  /* 他是誰：資料小卡 */
+  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .chips div { padding: 12px 16px 13px; }
+  .chips dt { font: 700 12px/1.5 var(--sans); letter-spacing: .2em; color: var(--gold); }
+  .chips dd { margin-top: 2px; font-size: 15px; line-height: 1.75; word-break: keep-all; overflow-wrap: anywhere; }
+  .desc { margin-top: 18px; padding: 0 4px; font: 700 15px/2 var(--serif); text-wrap: balance; word-break: keep-all; overflow-wrap: anywhere; }
+  .desc span { display: block; color: var(--muted); }
+  .desc em { font-style: normal; padding: 1px 6px; border-radius: 999px; background: var(--peach-soft); color: var(--navy); }
+  .sunquote {
+    position: relative; margin: 26px 0 0; padding: 22px 24px 22px 76px; border-radius: 24px; overflow: hidden;
+    background:
+      repeating-linear-gradient(115deg, rgba(255, 255, 255, .22) 0 18px, transparent 18px 46px),
+      linear-gradient(135deg, #ffefc2, #f6d083);
+    box-shadow: var(--shadow);
+    font: 700 17px/1.85 var(--serif); color: var(--navy-deep);
+  }
+  .sunquote svg { position: absolute; left: 20px; top: 50%; width: 40px; height: 40px; translate: 0 -50%; color: #c57d12; }
+  .sunquote span { display: block; text-wrap: balance; word-break: keep-all; overflow-wrap: anywhere; }
+
+  /* 觸手能幫你做的事：圖示清單 */
+  .services { display: grid; gap: 10px; }
+  .services li { display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: center; padding: 14px 18px 14px 14px; }
+  .ico { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--peach-soft); color: var(--navy); }
+  .ico svg { width: 28px; height: 28px; }
+  .services b { display: block; font: 700 16px/1.5 var(--sans); letter-spacing: .12em; color: var(--navy); }
+  .services p { font-size: 14px; line-height: 1.75; color: var(--muted); word-break: keep-all; overflow-wrap: anywhere; }
+
+  /* 睡前確認：枕頭 */
+  .pillow {
+    position: relative; padding: clamp(22px, 6vw, 30px) clamp(22px, 6vw, 34px);
+    background: radial-gradient(130% 110% at 50% 30%, #fffaf3, var(--peach-soft) 70%, #f1cfb2);
+    border-radius: 38px / 48px;
+    box-shadow: var(--shadow), inset 0 -10px 22px rgba(190, 120, 80, .18), inset 0 8px 18px rgba(255, 255, 255, .8);
+  }
+  .pillow::before { content: ""; position: absolute; inset: 9px; border: 1.5px dashed rgba(226, 163, 121, .8); border-radius: 30px / 40px; pointer-events: none; }
+  .checks li { display: grid; grid-template-columns: 24px 1fr; gap: 12px; align-items: start; padding: 12px 0; border-bottom: 1px dashed rgba(226, 163, 121, .7); }
+  .checks li:last-child { border-bottom: 0; }
+  .checks li::before {
+    content: ""; width: 22px; height: 22px; margin-top: 4px; border-radius: 6px; border: 2px solid var(--navy);
+    background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M5 11.5l4 4 8-9' fill='none' stroke='%2324366f' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat;
+  }
+  .checks p { font-size: 15px; line-height: 1.85; word-break: keep-all; overflow-wrap: anywhere; }
+  .checks strong { color: var(--navy); background: linear-gradient(transparent 62%, rgba(242, 213, 142, .8) 62%); }
+
+  /* 你身上的味道：氣味辨識表 */
+  .lead { margin: -6px 0 16px; color: var(--muted); font-size: 14.5px; }
+  .scents { display: grid; gap: 12px; }
+  .scents li { display: grid; grid-template-columns: 48px 1fr; column-gap: 14px; align-items: center; padding: 16px 18px 16px 14px; }
+  .swatch { grid-row: 1 / span 2; align-self: start; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: #fff; box-shadow: inset 0 -4px 8px rgba(0, 0, 0, .2); }
+  .swatch svg { width: 26px; height: 26px; }
+  .closet .swatch { background: radial-gradient(circle at 35% 30%, #a86ac2, #6b3480 70%); }
+  .butler .swatch { background: radial-gradient(circle at 35% 30%, #7fa8f5, #2f5fc8 70%); }
+  .others .swatch { background: conic-gradient(#c9962f 0 33%, #2b2b30 0 66%, #8a2033 0); }
+  .row-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+  .scents b { font: 700 16px/1.6 var(--sans); letter-spacing: .06em; color: var(--navy); word-break: keep-all; overflow-wrap: anywhere; }
+  .scents em { font: 700 12.5px/1.6 var(--sans); font-style: normal; letter-spacing: .1em; padding: 1px 10px; border-radius: 999px; background: var(--navy); color: var(--gold-soft); white-space: nowrap; }
+  .scents p { grid-column: 2; margin-top: 4px; font-size: 14.5px; line-height: 1.8; color: #474b62; word-break: keep-all; overflow-wrap: anywhere; }
+
+  /* 結尾：太陽，然後掉進床底 */
+  .ending { padding-top: clamp(66px, 13vw, 90px); text-align: center; }
+  .sunframe { position: relative; width: min(64%, 320px); aspect-ratio: 1; margin: 0 auto; }
+  .sunframe::before {
+    content: ""; position: absolute; inset: -14%; border-radius: 50%;
+    background: repeating-conic-gradient(rgba(242, 196, 100, .55) 0 4deg, transparent 4deg 15deg);
+    -webkit-mask: radial-gradient(circle, transparent 55%, #000 57%, transparent 72%); mask: radial-gradient(circle, transparent 55%, #000 57%, transparent 72%);
+    animation: spin 60s linear infinite;
+  }
+  .disc { position: relative; height: 100%; border-radius: 50%; overflow: hidden; border: 7px solid var(--gold-soft); box-shadow: 0 0 0 2px rgba(185, 134, 42, .5), 0 20px 44px rgba(196, 140, 40, .35); }
+  .disc img { height: 100%; object-fit: cover; object-position: 50% 15%; transform: scale(1.7); transform-origin: 35% 20%; }
+  .last { margin-top: clamp(34px, 8vw, 46px); padding: 0 var(--gutter); font: 700 clamp(17px, 4.6vw, 21px)/1.95 var(--serif); }
+  .last span { color: var(--navy); }
+  .underbed {
+    position: relative; margin-top: clamp(52px, 11vw, 70px); padding: 46px var(--gutter) 26px;
+    background: linear-gradient(180deg, #1a2348, var(--navy-deep) 40%, #070a17);
+    color: #9ba4c8;
+  }
+  .underbed::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 14px;
+    background:
+      radial-gradient(circle at 9px 6px, rgba(31, 39, 71, .35) 1.4px, transparent 1.9px) 0 0 / 18px 14px repeat-x,
+      linear-gradient(var(--paper), var(--paper)) 0 0 / 100% 5px no-repeat,
+      radial-gradient(circle at 9px 4px, var(--paper) 9px, transparent 9.5px) 0 0 / 18px 14px repeat-x;
+    filter: drop-shadow(0 3px 3px rgba(0, 0, 0, .45));
+  }
+  .knock {
+    display: inline-block; font: 700 14px/1 var(--serif); letter-spacing: .5em; padding-left: .5em; color: var(--gold-soft);
+    opacity: .25; animation: knock 5s ease-in-out 1.5s infinite;
+  }
+  @keyframes knock {
+    0%, 55%, 100% { opacity: .25; translate: 0 0; }
+    60% { opacity: 1; translate: 0 -2px; } 63% { translate: 0 0; } 66% { translate: 0 -2px; } 69%, 85% { opacity: 1; translate: 0 0; }
+  }
+  .sign { margin-top: 22px; font: 700 12px/1.6 var(--sans); letter-spacing: .24em; text-wrap: balance; word-break: keep-all; }
+
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .8s var(--ease), translate .8s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+
+  @media (min-width: 600px) {
+    .services { grid-template-columns: 1fr 1fr; }
+    .services li:last-child { grid-column: 1 / -1; }
+  }
+  @media (max-width: 480px) {
+    .chips { grid-template-columns: 1fr; }
+    .chips div { display: grid; grid-template-columns: 3.6em 1fr; gap: 10px; align-items: baseline; }
+    .chips dd { margin-top: 0; }
+    .scents li { grid-template-columns: 40px 1fr; column-gap: 12px; padding: 14px 16px; }
+    .swatch { grid-row: auto; width: 40px; height: 40px; }
+    .swatch svg { width: 22px; height: 22px; }
+    .scents p { grid-column: 1 / -1; margin-top: 10px; }
+  }
+  @media (max-width: 420px) {
+    .topline { letter-spacing: .16em; padding-left: calc(14px + .16em); }
+    .sunquote { padding: 20px 20px 20px 64px; font-size: 16px; }
+    .sunquote svg { left: 14px; width: 36px; height: 36px; }
+    .sunframe { width: 72%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .sunburst, .sunframe::before, .hang, .mote { animation: none; }
+    .knock { animation: none; opacity: .8; }
+  }
+</style>
+</head>
+<body>
+<svg class="defs" aria-hidden="true">
+  <symbol id="sun" viewBox="0 0 26 26">
+    <circle cx="13" cy="13" r="4.8" fill="currentColor"/>
+    <path d="M13 2v4M13 20v4M2 13h4M20 13h4M5.2 5.2l2.8 2.8M18 18l2.8 2.8M5.2 20.8l2.8-2.8M18 8l2.8-2.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="moon" viewBox="0 0 28 28">
+    <path d="M18.5 5A9.5 9.5 0 1 0 23 19A7.8 7.8 0 0 1 18.5 5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="21.5" cy="7.5" r="1.3" fill="currentColor"/>
+  </symbol>
+  <symbol id="button" viewBox="0 0 28 28">
+    <circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <circle cx="14" cy="14" r="6.5" fill="none" stroke="currentColor" stroke-width="1" opacity=".6"/>
+    <g fill="currentColor"><circle cx="11.6" cy="11.6" r="1.4"/><circle cx="16.4" cy="11.6" r="1.4"/><circle cx="11.6" cy="16.4" r="1.4"/><circle cx="16.4" cy="16.4" r="1.4"/></g>
+  </symbol>
+  <symbol id="tea" viewBox="0 0 28 28">
+    <path d="M5 12h15v4.5a6 6 0 0 1-6 6h-3a6 6 0 0 1-6-6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M20 14h1.5a3 3 0 0 1 0 6H19.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M10 4.5c-1.4 1.8 1.4 2.8 0 4.8M15 4.5c-1.4 1.8 1.4 2.8 0 4.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="lamp" viewBox="0 0 28 28">
+    <path d="M9.5 3.5h9l3 7.5h-15Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M14 11v5" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M4.5 16.5h19v3.5h-19ZM7 20v5M21 20v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="touch" viewBox="0 0 28 28">
+    <circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M10.8 11.2a3.3 3.3 0 1 1 4.6 3c-.9.4-1.4 1-1.4 2v.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    <circle cx="14" cy="20.2" r="1.2" fill="currentColor"/>
+  </symbol>
+  <symbol id="check" viewBox="0 0 26 26">
+    <rect x="4" y="4" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M8.5 13.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="scent" viewBox="0 0 26 26">
+    <path d="M8 21c-3-3 3-5 0-8s3-5 0-8M13 21c-3-3 3-5 0-8s3-5 0-8M18 21c-3-3 3-5 0-8s3-5 0-8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="stitch" viewBox="0 0 240 12">
+    <path d="M0 6Q10 0 20 6T40 6T60 6T80 6T100 6T120 6T140 6T160 6T180 6T200 6T220 6T240 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2.5"/>
+  </symbol>
+</svg>
+<main class="guide">
+  <header class="cover">
+    <div class="sunburst" aria-hidden="true"></div>
+    <span class="mote" aria-hidden="true"></span>
+    <span class="mote" aria-hidden="true"></span>
+    <span class="mote" aria-hidden="true"></span>
+    <span class="mote" aria-hidden="true"></span>
+    <p class="topline">怪物之館<i></i>曬過太陽的被子</p>
+    <figure class="airing">
+      <svg class="rope" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M-2,3 Q50,17 102,3" fill="none" stroke="#8d7556" stroke-width="2.4" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <div class="hang">
+        <span class="pin l" aria-hidden="true"></span>
+        <span class="pin r" aria-hidden="true"></span>
+        <div class="quilt-photo">
+          <img src="../images/characters/床底下的小怪物-1.jpg" alt="陽光照進臥室，床上有白色床單和兩顆枕頭，深藍色的被子印著金色的圓形花紋，地上鋪著花紋地毯">
+        </div>
+      </div>
+    </figure>
+    <div class="cover-title">
+      <p class="kicker" data-reveal>床底的住戶</p>
+      <h1 data-reveal>床底下的小怪物</h1>
+      <svg class="stitch" aria-hidden="true"><use href="#stitch"/></svg>
+      <p class="sub nobreak" data-reveal>住在床底下的黑色觸手，溫順又可愛</p>
+    </div>
+    <p class="tagline" data-reveal>離床太遠的話，<br><span>他會敲床架叫你回來。</span></p>
+  </header>
+
+  <section class="room" data-reveal>
+    <div class="head"><span class="badge"><svg aria-hidden="true"><use href="#sun"/></svg></span><div><h2>他是誰</h2></div></div>
+    <dl class="chips">
+      <div class="card"><dt>大小</dt><dd>約一張床的大小，觸手有細有粗</dd></div>
+      <div class="card"><dt>外觀</dt><dd>黑色的皮膚，照到光會反光</dd></div>
+      <div class="card"><dt>個性</dt><dd>溫順可愛，溫柔又渴望</dd></div>
+      <div class="card"><dt>感覺</dt><dd>沒有人的樣子，但感覺得出是青年男性</dd></div>
+      <div class="card"><dt>氣味</dt><dd>大多是洗衣精、陽光的味道</dd></div>
+      <div class="card"><dt>範圍</dt><dd>只在床底下，但能傳送到別張床</dd></div>
+    </dl>
+    <p class="desc">想要你注意他，努力表現得可愛、體貼又有趣。<span>不會說話，只會發出<em>咕啾</em>、<em>咕嚕</em>的聲音。</span></p>
+    <blockquote class="sunquote"><svg aria-hidden="true"><use href="#sun"/></svg>喜歡陽光，<span>但他對陽光的理解，只有曬過太陽的被子。</span></blockquote>
+  </section>
+
+  <section class="room" data-reveal>
+    <div class="head"><span class="badge"><svg aria-hidden="true"><use href="#moon"/></svg></span><div><h2>觸手能幫你做的事</h2></div></div>
+    <ul class="services">
+      <li class="card"><span class="ico"><svg aria-hidden="true"><use href="#moon"/></svg></span><div><b>陪睡</b><p>陪你睡覺，也陪你在床上做其他事</p></div></li>
+      <li class="card"><span class="ico"><svg aria-hidden="true"><use href="#button"/></svg></span><div><b>解扣子</b><p>觸手很靈活，會幫你解開扣子</p></div></li>
+      <li class="card"><span class="ico"><svg aria-hidden="true"><use href="#tea"/></svg></span><div><b>遞茶水</b><p>把茶水遞到你手邊</p></div></li>
+      <li class="card"><span class="ico"><svg aria-hidden="true"><use href="#lamp"/></svg></span><div><b>當床頭櫃</b><p>觸手也能當床頭櫃，幫你擺東西</p></div></li>
+      <li class="card"><span class="ico"><svg aria-hidden="true"><use href="#touch"/></svg></span><div><b>摸摸看</b><p>不認識的東西，先用觸手摸一摸，再決定它友不友善</p></div></li>
+    </ul>
+  </section>
+
+  <section class="room" data-reveal>
+    <div class="head"><span class="badge"><svg aria-hidden="true"><use href="#check"/></svg></span><div><h2>睡前確認</h2></div></div>
+    <div class="pillow">
+      <ul class="checks">
+        <li><p>你離床太遠，他會有點焦慮，<strong>敲地板、敲床架，想把你叫回床邊。</strong></p></li>
+        <li><p>太久沒看到人，他會有點興奮。</p></li>
+        <li><p>換一間臥室睡，他一樣找得到你：洋館裡其他的床，他都能傳送過去。</p></li>
+        <li><p>他把你當主人，<strong>想滿足你，也想滿足自己。</strong></p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="room" data-reveal>
+    <div class="head"><span class="badge"><svg aria-hidden="true"><use href="#scent"/></svg></span><div><small>洋館裡的其他住戶</small><h2>你身上的味道</h2></div></div>
+    <p class="lead">你身上沾到誰的味道，他都聞得出來。</p>
+    <ul class="scents">
+      <li class="card closet"><span class="swatch"><svg aria-hidden="true"><use href="#scent"/></svg></span><div class="row-head"><b>衣櫃裡的小怪物</b><em>鬧彆扭</em></div><p>對他比較有脾氣。不管在哪間臥室，都會敲離衣櫃最近的地板示威。</p></li>
+      <li class="card butler"><span class="swatch"><svg aria-hidden="true"><use href="#scent"/></svg></span><div class="row-head"><b>幽靈執事</b><em>不生氣</em></div><p>喜歡也尊敬幫他洗被子和床墊的執事，會用觸手輕輕纏住執事的手道謝。</p></li>
+      <li class="card others"><span class="swatch"><svg aria-hidden="true"><use href="#scent"/></svg></span><div class="row-head"><b>畫作之鬼、影之花、地下室的小怪物</b><em>困惑又好奇</em></div><p>沒見過面，但感覺得到他們，也對他們很好奇。</p></li>
+    </ul>
+  </section>
+
+  <section class="ending">
+    <figure class="sunframe" data-reveal>
+      <div class="disc"><img src="../images/characters/床底下的小怪物-1.jpg" alt="曬到陽光的枕頭和白色床單"></div>
+    </figure>
+    <p class="last" data-reveal>被子曬過太陽了，<br><span>早點回床邊吧。</span></p>
+    <div class="underbed">
+      <span class="knock" aria-hidden="true">叩、叩</span>
+      <p class="sign">床底下的小怪物　曬過太陽的被子　怪物之館</p>
+    </div>
+  </section>
+</main>
+</body>
+</html>
