@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>衣櫃裡的小怪物｜私人衣帽間</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：怪物之館的私人衣帽間，跟畫作之鬼同一套古典歌德風。暗紫底配玫瑰色暗紋；封面是一座衣櫃：雕花頂飾、齒飾飛簷、兩側壁柱、拱形櫃門自己打開，下面一層抽屜和托腳；內文用吊牌、縫線和皮尺；結尾是黃銅橢圓穿衣鏡 -->
+<style>
+  :root {
+    --bg: #100a0f;
+    --panel: #1b1119;
+    --ink: #f2e6e9;
+    --muted: #b9a3ad;
+    --line: rgba(217, 135, 155, .26);
+    --violet: #6b3480;
+    --violet-hi: #a768c2;
+    --violet-deep: #2b1236;
+    --rose: #d9879b;
+    --rose-hi: #f3bccb;
+    --rose-deep: #7e3448;
+    --brass: #c7a067;
+    --brass-hi: #efd6a3;
+    --brass-dark: #6b5030;
+    --wood: #3a2219;
+    --wood-hi: #6a4029;
+    --wood-dark: #1c0f0b;
+    --linen: #f2e8dd;
+    --linen-2: #e3d4c4;
+    --linen-ink: #2d1b24;
+    --linen-muted: #7a6169;
+    --linen-line: rgba(122, 97, 105, .3);
+    --tape: #ead79b;
+    --tape-ink: #5a4520;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    --gutter: clamp(16px, 5vw, 40px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background:
+      radial-gradient(110% 50% at 50% 0%, rgba(240, 170, 110, .1), transparent 62%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23d9879b' stroke-opacity='.07'%3E%3Cpath d='M32 14c6 6 6 12 0 18c-6-6-6-12 0-18zM32 50c6-6 6-12 0-18c-6 6-6 12 0 18zM14 32c6-6 12-6 18 0c-6 6-12 6-18 0zM50 32c-6-6-12-6-18 0c6 6 12 6 18 0z'/%3E%3Cpath d='M0 0L64 64M64 0L0 64'/%3E%3C/g%3E%3C/svg%3E"),
+      var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  .guide {
+    max-width: 720px; margin: 0 auto; overflow: hidden; padding-bottom: 8px;
+    background: radial-gradient(140% 70% at 50% 40%, transparent 55%, rgba(0, 0, 0, .55));
+    border-left: 1px solid rgba(217, 135, 155, .1); border-right: 1px solid rgba(217, 135, 155, .1);
+  }
+  img { display: block; width: 100%; pointer-events: none; -webkit-user-drag: none; }
+  figure { margin: 0; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  p { margin: 0; }
+  ul, ol, dl { margin: 0; padding: 0; list-style: none; }
+  dd { margin: 0; }
+  .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+  .orn { display: block; width: min(220px, 64%); height: 22px; margin: 10px auto 0; color: var(--rose); overflow: visible; }
+
+  /* 封面 */
+  .topline {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 12px var(--gutter);
+    font: 700 12px/1.4 var(--serif); letter-spacing: .26em; color: var(--brass);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 3px 0 -2px rgba(217, 135, 155, .16);
+  }
+  .wardrobe {
+    --side: clamp(18px, 5.4vw, 28px);
+    position: relative; width: min(76%, 440px); margin: clamp(58px, 12vw, 76px) auto 0;
+    filter: drop-shadow(0 22px 34px rgba(0, 0, 0, .6));
+  }
+  .crown { position: absolute; left: 50%; top: -42px; width: 52%; height: 44px; translate: -50% 0; overflow: visible; }
+  /* 飛簷：頂蓋、黃銅線、凹線、齒飾、底線 */
+  .cornice {
+    position: relative; z-index: 2; height: 28px; margin: 0 -6%;
+    border-top: 2px solid var(--brass); border-radius: 3px 3px 0 0;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, .45), transparent 7%, transparent 93%, rgba(0, 0, 0, .45)),
+      repeating-linear-gradient(90deg, #7a4a30 0 6px, var(--wood-dark) 6px 10px) 0 15px / 100% 6px no-repeat,
+      linear-gradient(var(--brass-dark), var(--brass-dark)) 0 7px / 100% 1px no-repeat,
+      linear-gradient(180deg, var(--wood-hi), var(--wood) 7px, var(--wood-dark) 8px, var(--wood-hi) 15px, var(--wood) 21px, var(--wood-dark));
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .5);
+  }
+  /* 櫃身：木紋，兩側是有凹槽的壁柱 */
+  .cabinet {
+    position: relative; z-index: 1; padding: 14px var(--side) 10px;
+    background:
+      repeating-linear-gradient(90deg, rgba(0, 0, 0, .07) 0 1px, transparent 1px 7px),
+      linear-gradient(90deg, var(--wood-dark), var(--wood-hi) 9%, var(--wood) 50%, var(--wood-hi) 91%, var(--wood-dark));
+    box-shadow: inset 0 9px 10px -6px rgba(0, 0, 0, .65);
+  }
+  .cabinet::before, .cabinet::after {
+    content: ""; position: absolute; top: 10px; bottom: 10px; width: calc(var(--side) - 10px);
+    border: 1px solid rgba(0, 0, 0, .55); border-block: 3px solid var(--brass-dark);
+    background: repeating-linear-gradient(90deg, rgba(0, 0, 0, .4) 0 1px, rgba(255, 214, 160, .1) 1px 2px, transparent 2px 4px), var(--wood);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .5);
+  }
+  .cabinet::before { left: 5px; }
+  .cabinet::after { right: 5px; }
+  .opening { position: relative; }
+  .arch { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: none; pointer-events: none; }
+  /* 鉸鏈 */
+  .opening::before, .opening::after {
+    content: ""; position: absolute; z-index: 1; top: 0; bottom: 0; width: 4px; pointer-events: none;
+    background:
+      linear-gradient(90deg, var(--brass-dark), var(--brass-hi) 50%, var(--brass-dark)) 0 24% / 100% 16px no-repeat,
+      linear-gradient(90deg, var(--brass-dark), var(--brass-hi) 50%, var(--brass-dark)) 0 82% / 100% 16px no-repeat;
+  }
+  .opening::before { left: -4px; }
+  .opening::after { right: -4px; }
+  .inside {
+    position: relative; aspect-ratio: 600 / 797; overflow: hidden; background: #000;
+    -webkit-clip-path: url(#cab); clip-path: url(#cab);
+  }
+  .inside img { height: 100%; object-fit: cover; filter: saturate(.9) contrast(1.04); }
+  .inside .shade {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 85% 75% at 50% 45%, transparent 50%, rgba(16, 10, 15, .55) 100%),
+      linear-gradient(to bottom, transparent 74%, rgba(16, 10, 15, .62));
+  }
+  .door {
+    position: absolute; top: 0; bottom: 0; width: 50%;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, .28), transparent 22%, transparent 78%, rgba(0, 0, 0, .32)),
+      linear-gradient(180deg, var(--wood-hi), var(--wood) 32%, var(--wood-dark));
+    -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  }
+  .door::before {
+    content: ""; position: absolute; inset: 11% 15% 6%;
+    border: 1px solid rgba(199, 160, 103, .5);
+    border-radius: 46% 46% 4px 4px / 12% 12% 4px 4px;
+    box-shadow: inset 0 0 0 4px rgba(0, 0, 0, .2), inset 0 0 0 5px rgba(199, 160, 103, .22);
+  }
+  .door i {
+    position: absolute; top: 52%; width: 11px; height: 11px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff1cf, var(--brass) 45%, #4c3618);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
+  }
+  .door.l { left: 0; transform-origin: left center; border-right: 1px solid rgba(0, 0, 0, .65); animation: open-l 1.9s cubic-bezier(.55, .05, .25, 1) .7s both; }
+  .door.r { right: 0; transform-origin: right center; animation: open-r 1.9s cubic-bezier(.55, .05, .25, 1) .7s both; }
+  .door.l i { right: 9px; }
+  .door.r i { left: 9px; }
+  @keyframes open-l { from { transform: perspective(1100px) rotateY(0deg); } to { transform: perspective(1100px) rotateY(-112deg); } }
+  @keyframes open-r { from { transform: perspective(1100px) rotateY(0deg); } to { transform: perspective(1100px) rotateY(112deg); } }
+  /* 抽屜：兩個黃銅提把 */
+  .drawer {
+    position: relative; margin-top: 12px; height: clamp(30px, 8vw, 40px);
+    border: 1px solid rgba(0, 0, 0, .6);
+    background:
+      linear-gradient(180deg, rgba(255, 220, 170, .08), transparent 40%, rgba(0, 0, 0, .25)),
+      repeating-linear-gradient(90deg, rgba(0, 0, 0, .08) 0 1px, transparent 1px 9px),
+      var(--wood);
+    box-shadow: inset 0 0 0 3px rgba(0, 0, 0, .18), inset 0 0 0 4px rgba(199, 160, 103, .28), 0 1px 0 rgba(255, 220, 170, .12);
+  }
+  .drawer i {
+    position: absolute; top: 50%; left: 27%; width: 24px; height: 11px; margin: -4px 0 0 -12px;
+    border: 2px solid var(--brass); border-top: 0; border-radius: 0 0 12px 12px;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .6));
+  }
+  .drawer i + i { left: 73%; }
+  .drawer i::before, .drawer i::after {
+    content: ""; position: absolute; top: -3px; width: 6px; height: 6px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff1cf, var(--brass) 50%, #4c3618);
+  }
+  .drawer i::before { left: -4px; }
+  .drawer i::after { right: -4px; }
+  /* 底座和托腳 */
+  .plinth {
+    position: relative; z-index: 2; height: 16px; margin: 0 -4%;
+    border-top: 2px solid var(--brass-dark); border-radius: 2px;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, .4), transparent 7%, transparent 93%, rgba(0, 0, 0, .4)),
+      linear-gradient(180deg, var(--wood-hi), var(--wood) 50%, var(--wood-dark));
+  }
+  .plinth::before, .plinth::after {
+    content: ""; position: absolute; top: 100%; width: 30px; height: 14px;
+    background: linear-gradient(180deg, var(--wood), var(--wood-dark));
+  }
+  .plinth::before { left: 4%; border-radius: 0 0 100% 2px / 0 0 100% 2px; }
+  .plinth::after { right: 4%; border-radius: 0 0 2px 100% / 0 0 2px 100%; }
+  .cover-title { margin-top: clamp(40px, 9vw, 52px); padding: 0 var(--gutter); text-align: center; }
+  .kicker { display: flex; align-items: center; justify-content: center; gap: 14px; font: 700 12px/1.4 var(--serif); letter-spacing: .34em; color: var(--brass); }
+  .kicker::before, .kicker::after { content: ""; width: 42px; border-top: 1px dashed var(--brass); opacity: .7; }
+  h1 {
+    margin: 10px 0 0; padding-left: .14em;
+    font: 700 clamp(34px, 9.6vw, 62px)/1.2 var(--serif); letter-spacing: .14em;
+    background: linear-gradient(180deg, #fbe3ea 5%, var(--rose-hi) 40%, var(--rose) 75%, #9b4a63);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 3px 14px rgba(0, 0, 0, .7));
+  }
+  .sub { margin-top: 8px; color: var(--muted); font-size: 14px; letter-spacing: .08em; text-wrap: balance; word-break: keep-all; overflow-wrap: anywhere; }
+  .tagline {
+    margin: clamp(28px, 6vw, 38px) var(--gutter) 0; padding: 20px 0 18px;
+    border-top: 1px dashed var(--line); border-bottom: 1px dashed var(--line);
+    font: 700 clamp(17px, 4.6vw, 20px)/1.9 var(--serif); text-align: center; letter-spacing: .04em;
+  }
+  .tagline span { color: var(--rose-hi); }
+
+  /* 區段標題：縫線夾著羅馬數字，下面一小段皮尺 */
+  .room { padding: clamp(52px, 11vw, 72px) var(--gutter) 0; }
+  .head { text-align: center; margin-bottom: 24px; }
+  .num { display: flex; align-items: center; justify-content: center; gap: 12px; font: 700 15px/1 var(--serif); color: var(--rose-hi); }
+  .num::before, .num::after { content: ""; width: 36px; border-top: 1px dashed var(--rose); opacity: .8; }
+  h2 { margin: 12px 0 0; padding-left: .3em; font: 700 clamp(21px, 5.4vw, 26px)/1.4 var(--serif); letter-spacing: .3em; color: var(--ink); }
+  .ruler {
+    display: block; width: 92px; height: 10px; margin: 12px auto 0; border-radius: 1px;
+    background:
+      repeating-linear-gradient(90deg, var(--tape-ink) 0 1px, transparent 1px 6px) top / 100% 45% no-repeat,
+      repeating-linear-gradient(90deg, var(--tape-ink) 0 1px, transparent 1px 30px) top / 100% 80% no-repeat,
+      var(--tape);
+    opacity: .9;
+  }
+
+  /* 亞麻布卡片 */
+  .linen {
+    position: relative; color: var(--linen-ink);
+    background: radial-gradient(120% 100% at 50% 0%, #f8f1e8, var(--linen) 45%, var(--linen-2));
+    border-radius: 3px;
+    box-shadow: 0 22px 46px rgba(0, 0, 0, .55), inset 0 0 40px rgba(120, 80, 70, .18);
+  }
+  .linen::before { content: ""; position: absolute; inset: 9px; border: 1px dashed rgba(126, 52, 72, .45); border-radius: 2px; pointer-events: none; }
+
+  /* Ⅰ 衣帽間主人：縫在衣服上的布標 */
+  .label-card { padding: 0 clamp(20px, 5.5vw, 32px) clamp(24px, 6vw, 32px); }
+  .woven {
+    margin: 0 auto 18px; width: fit-content; padding: 10px 22px 9px;
+    background: linear-gradient(180deg, var(--violet), var(--violet-deep));
+    border-radius: 0 0 4px 4px;
+    color: var(--brass-hi); font: 700 13px/1.4 var(--serif); letter-spacing: .3em; padding-left: calc(22px + .3em);
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .25), 0 3px 6px rgba(0, 0, 0, .25);
+  }
+  .label-card dl div { display: grid; grid-template-columns: 4.2em 1fr; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--linen-line); }
+  .label-card dt { color: var(--linen-muted); font-size: 13px; letter-spacing: .12em; }
+  .label-card dd { font-size: 15px; }
+  .desc { margin-top: 16px; font: 700 15px/2 var(--serif); }
+  .desc span { color: var(--rose-deep); }
+
+  .scent { margin-top: 30px; text-align: center; font: 700 15px/2 var(--serif); }
+  .scent span { display: block; color: var(--rose-hi); text-wrap: balance; }
+  .scent .orn { margin: 0 auto 8px; }
+
+  /* Ⅱ 服務項目：吊牌 */
+  .services { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .services li {
+    position: relative; padding: 18px 18px 18px; text-align: center;
+    background: linear-gradient(180deg, rgba(107, 52, 128, .26), rgba(27, 17, 25, .6));
+    -webkit-clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%, 0 10px);
+    clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%, 0 10px);
+  }
+  .services li::before { content: ""; position: absolute; inset: 7px; border: 1px dashed rgba(217, 135, 155, .38); pointer-events: none; }
+  .services li:last-child { grid-column: 1 / -1; }
+  .services svg { display: block; width: 40px; height: 24px; margin: 0 auto 4px; color: var(--brass); }
+  .services b { display: block; font: 700 17px/1.6 var(--serif); letter-spacing: .2em; padding-left: .2em; color: var(--rose-hi); }
+  .services p { margin-top: 4px; font-size: 14px; line-height: 1.8; color: var(--muted); word-break: keep-all; overflow-wrap: anywhere; }
+
+  /* Ⅲ 試衣間須知：上緣一條皮尺 */
+  .notice { overflow: hidden; }
+  .tape {
+    height: 24px;
+    background:
+      repeating-linear-gradient(90deg, var(--tape-ink) 0 1px, transparent 1px 8px) top / 100% 32% no-repeat,
+      repeating-linear-gradient(90deg, var(--tape-ink) 0 1px, transparent 1px 40px) top / 100% 62% no-repeat,
+      linear-gradient(180deg, #f3e3ae, var(--tape));
+    border-bottom: 1px solid rgba(90, 69, 32, .4);
+  }
+  .notice-body { padding: clamp(18px, 5vw, 26px) clamp(20px, 5.5vw, 32px) clamp(22px, 5.5vw, 30px); }
+  .rules { counter-reset: rule; }
+  .rules li { counter-increment: rule; display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; padding: 13px 0; border-bottom: 1px solid var(--linen-line); }
+  .rules li:last-child { border-bottom: 0; }
+  .rules li::before {
+    content: counter(rule); display: grid; place-items: center; width: 28px; height: 28px; margin-top: 2px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #b8566f, var(--rose-deep) 70%);
+    color: #fbe3ea; font: 700 13px/1 var(--serif);
+    box-shadow: inset 0 0 0 3px rgba(0, 0, 0, .12);
+  }
+  .rules p { font-size: 15px; line-height: 1.85; word-break: keep-all; overflow-wrap: anywhere; }
+  .notice::before { inset: 33px 9px 9px; }
+  .rules strong { color: var(--rose-deep); }
+
+  /* Ⅳ 洋館裡的其他住戶：掛起來的布吊牌 */
+  .neighbors { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 16px; padding-top: 22px; }
+  .neighbors li {
+    position: relative; padding: 34px 18px 20px; text-align: center; color: var(--linen-ink);
+    background: radial-gradient(120% 100% at 50% 0%, #f8f1e8, var(--linen) 50%, var(--linen-2));
+    border-radius: 14px 14px 4px 4px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, .45);
+  }
+  .neighbors li:nth-child(odd) { rotate: -1.2deg; }
+  .neighbors li:nth-child(even) { rotate: 1.2deg; }
+  .neighbors li::before {
+    content: ""; position: absolute; top: 12px; left: 50%; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%;
+    background: var(--bg); box-shadow: 0 0 0 2px var(--brass), 0 0 0 3px rgba(0, 0, 0, .2);
+  }
+  .neighbors li::after {
+    content: ""; position: absolute; top: -22px; left: 50%; width: 1px; height: 36px;
+    background: linear-gradient(180deg, var(--brass-hi), var(--brass-dark));
+  }
+  .neighbors b { display: block; font: 700 17px/1.6 var(--serif); letter-spacing: .1em; color: var(--violet); }
+  .neighbors b::after { content: ""; display: block; width: 40px; margin: 8px auto 6px; border-top: 1px dashed rgba(126, 52, 72, .55); }
+  .neighbors p { font-size: 14.5px; color: #4f3a43; text-wrap: balance; }
+
+  /* 結尾：黃銅橢圓穿衣鏡 */
+  .ending {
+    padding: clamp(66px, 13vw, 90px) var(--gutter) 0; text-align: center;
+    background: radial-gradient(60% 40% at 50% 34%, rgba(217, 135, 155, .1), transparent 70%);
+  }
+  .mirror-wrap { position: relative; width: min(64%, 330px); margin: 0 auto; }
+  .mirror-wrap .crown { top: -28px; width: 70%; height: 38px; }
+  .mirror {
+    aspect-ratio: 3 / 4; padding: clamp(12px, 3.2vw, 16px); border-radius: 50%;
+    background: linear-gradient(145deg, var(--brass-hi), var(--brass-dark) 30%, var(--brass) 55%, #5a4024 80%, var(--brass-hi));
+    box-shadow: 0 26px 54px rgba(0, 0, 0, .62), inset 0 0 0 3px rgba(0, 0, 0, .3), inset 0 0 0 6px rgba(239, 214, 163, .3);
+  }
+  .glass { position: relative; height: 100%; border-radius: 50%; overflow: hidden; box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .5); }
+  .glass img { height: 100%; object-fit: cover; transform: scale(1.9); transform-origin: 53% 46%; filter: saturate(.9) contrast(1.04); }
+  .glass::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(125deg, rgba(255, 255, 255, .16), transparent 38%, transparent 70%, rgba(255, 255, 255, .06)); }
+  .last { margin-top: clamp(32px, 7vw, 46px); font: 700 clamp(17px, 4.6vw, 21px)/1.95 var(--serif); }
+  .last span { color: var(--rose-hi); }
+  .sign {
+    margin: clamp(26px, 6vw, 36px) var(--gutter) 0; padding: 0 0 4px; text-align: center;
+    font: 700 12px/1.6 var(--serif); letter-spacing: .24em; color: var(--muted);
+  }
+  .sign .orn { margin: 0 auto 10px; }
+
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .8s var(--ease), translate .8s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+
+  @media (max-width: 560px) {
+    .services, .neighbors { grid-template-columns: 1fr; }
+    .services li:last-child { grid-column: auto; }
+    .neighbors li:nth-child(n) { rotate: none; }
+  }
+  @media (max-width: 420px) {
+    .topline { letter-spacing: .16em; }
+    h1 { letter-spacing: .08em; padding-left: .08em; }
+    .label-card dl div { grid-template-columns: 4em 1fr; gap: 10px; }
+    .mirror-wrap { width: 72%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .door { display: none; }
+  }
+</style>
+</head>
+<body>
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <clipPath id="cab" clipPathUnits="objectBoundingBox">
+      <path d="M0,1 L0,0.08 C0.18,0.03 0.32,0 0.5,0 C0.68,0 0.82,0.03 1,0.08 L1,1 Z"/>
+    </clipPath>
+    <linearGradient id="crown-wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7a4a30"/>
+      <stop offset="1" stop-color="#2a1610"/>
+    </linearGradient>
+  </defs>
+  <symbol id="flourish" viewBox="0 0 120 20">
+    <path d="M60 3L67 10L60 17L53 10Z" fill="currentColor"/>
+    <path d="M50 10C44 10 42 4 37 5C32 6 33 12 37 12M70 10C76 10 78 4 83 5C88 6 87 12 83 12" fill="none" stroke="currentColor" stroke-width="1.2"/>
+    <path d="M0 10H29M91 10H120" stroke="currentColor" stroke-width=".8"/>
+    <circle cx="31" cy="10" r="1.6" fill="currentColor"/>
+    <circle cx="89" cy="10" r="1.6" fill="currentColor"/>
+  </symbol>
+  <symbol id="crown" viewBox="0 0 200 44">
+    <path d="M0 44C22 44 32 34 48 30C72 24 86 12 100 4C114 12 128 24 152 30C168 34 178 44 200 44Z" fill="url(#crown-wood)"/>
+    <path d="M6 42C26 40 36 31 52 27C74 21 88 10 100 4C112 10 126 21 148 27C164 31 174 40 194 42" fill="none" stroke="#c7a067" stroke-width="1.4"/>
+    <path d="M100 20C92 20 90 30 97 31C102 31 101 25 98 26M100 20C108 20 110 30 103 31C98 31 99 25 102 26" fill="none" stroke="#c7a067" stroke-width="1.2"/>
+    <circle cx="100" cy="4" r="3.4" fill="#efd6a3"/>
+  </symbol>
+  <symbol id="hanger" viewBox="0 0 48 28">
+    <path d="M21 7.5a3 3 0 1 1 3 3v3.2M24 13.7L45 25H3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+  </symbol>
+</svg>
+<main class="guide">
+  <header>
+    <div class="topline"><span>怪物之館</span><span>私人衣帽間</span></div>
+    <figure class="wardrobe">
+      <svg class="crown" aria-hidden="true"><use href="#crown"/></svg>
+      <div class="cornice" aria-hidden="true"></div>
+      <div class="cabinet">
+        <div class="opening">
+          <div class="inside">
+            <img src="../images/characters/衣櫃裡的小怪物-1.jpg" alt="洋館房間裡敞開的衣櫃，掛著白色蕾絲洋裝和深色衣服，暖色的陽光照進來，地上散落著紙張和藍紫色的小花">
+            <div class="shade"></div>
+            <div class="door l" aria-hidden="true"><i></i></div>
+            <div class="door r" aria-hidden="true"><i></i></div>
+          </div>
+          <svg class="arch" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,1 L0,0.08 C0.18,0.03 0.32,0 0.5,0 C0.68,0 0.82,0.03 1,0.08 L1,1" stroke="#000" stroke-opacity=".6" stroke-width="5" vector-effect="non-scaling-stroke"/>
+            <path d="M0,1 L0,0.08 C0.18,0.03 0.32,0 0.5,0 C0.68,0 0.82,0.03 1,0.08 L1,1" stroke="#c7a067" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+          </svg>
+        </div>
+        <div class="drawer" aria-hidden="true"><i></i><i></i></div>
+      </div>
+      <div class="plinth" aria-hidden="true"></div>
+    </figure>
+    <div class="cover-title">
+      <p class="kicker" data-reveal>衣帽間的主人</p>
+      <h1 data-reveal>衣櫃裡的小怪物</h1>
+      <p class="sub" data-reveal>住在衣櫃裡的深紫色觸手，有自己的時尚美感</p>
+      <svg class="orn" aria-hidden="true"><use href="#flourish"/></svg>
+    </div>
+    <p class="tagline" data-reveal>今天穿什麼，<br><span>他來決定。</span></p>
+  </header>
+
+  <section class="room" data-reveal>
+    <div class="head"><p class="num">Ⅰ</p><h2>衣帽間主人</h2><span class="ruler" aria-hidden="true"></span></div>
+    <div class="linen label-card">
+      <p class="woven">衣櫃裡的小怪物</p>
+      <dl>
+        <div><dt>樣子</dt><dd>深紫色的觸手，櫃子是他的保護殼</dd></div>
+        <div><dt>觸感</dt><dd>表面偏乾燥，吸盤上有細小的絨毛</dd></div>
+        <div><dt>氣味</dt><dd>跟著克潮靈改變，最近是玫瑰味</dd></div>
+        <div><dt>個性</dt><dd>焦躁又固執，有自己的時尚美感</dd></div>
+        <div><dt>像是</dt><dd>對穿搭有主見的女僕</dd></div>
+        <div><dt>範圍</dt><dd>只在衣櫃裡，去不了其他地方</dd></div>
+      </dl>
+      <p class="desc">會用漂亮的東西換你的注意。<span>不會說話，只會發出咕啾、咕嚕的聲音。</span></p>
+    </div>
+    <p class="scent"><svg class="orn" aria-hidden="true"><use href="#flourish"/></svg>喜歡香氛，<span>卻討厭香氛裡的酒精弄壞衣服，所以選了有香味的克潮靈。</span></p>
+  </section>
+
+  <section class="room" data-reveal>
+    <div class="head"><p class="num">Ⅱ</p><h2>服務項目</h2><span class="ruler" aria-hidden="true"></span></div>
+    <ul class="services">
+      <li><svg aria-hidden="true"><use href="#hanger"/></svg><b>挑衣服</b><p>陪你換衣服，決定今天穿哪一套</p></li>
+      <li><svg aria-hidden="true"><use href="#hanger"/></svg><b>看搭配</b><p>不斷確認你今天的搭配怎麼樣</p></li>
+      <li><svg aria-hidden="true"><use href="#hanger"/></svg><b>修改</b><p>破掉的縫一縫，不好看但改得動的就直接改，針線包和剪刀都用得很順手</p></li>
+      <li><svg aria-hidden="true"><use href="#hanger"/></svg><b>汰換</b><p>髒汙、陳舊又沒品味的衣服，他會自己排出衣櫃</p></li>
+      <li><svg aria-hidden="true"><use href="#hanger"/></svg><b>試穿</b><p>把觸手穿進衣服裡，像自己在穿那些衣服</p></li>
+    </ul>
+  </section>
+
+  <section class="room" data-reveal>
+    <div class="head"><p class="num">Ⅲ</p><h2>試衣間須知</h2><span class="ruler" aria-hidden="true"></span></div>
+    <div class="linen notice">
+      <div class="tape" aria-hidden="true"></div>
+      <ol class="rules notice-body">
+        <li><p>更衣和量尺寸的時候，他會試探你的底線，<strong>故意挑逗、戲弄你。</strong></p></li>
+        <li><p>看到喜歡的人，他會拉進衣櫃裡摸一摸、抱一抱。<strong>這是他的欣賞，也是佔有。</strong></p></li>
+        <li><p>他最喜歡的衣服，誰都不能弄髒。</p></li>
+        <li><p>櫃門開著的時候，觸手一樣看得到外面。</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="room" data-reveal>
+    <div class="head"><p class="num">Ⅳ</p><h2>洋館裡的其他住戶</h2><span class="ruler" aria-hidden="true"></span></div>
+    <ul class="neighbors">
+      <li><b>床底下的小怪物</b><p>天天看得到的同事，關係卻不好。聽到床底下的聲音，就撞衣櫃比誰大聲，撞倒了得等幽靈執事來扶。</p></li>
+      <li><b>幽靈執事</b><p>總是把衣服拿去洗，所以對他很戒備；衣服洗乾淨拿回來，又稍微放下戒心。他太嚴厲的時候，會收斂一點。</p></li>
+      <li><b>畫作之鬼</b><p>客房門外剛好看得到一幅花瓶靜物畫，所以對他的印象是「會講話的花瓶」。羨慕又好奇，偶爾會拿出漂亮的衣服，想跟他互動。</p></li>
+      <li><b>影之花、地下室的小怪物</b><p>不認識，只知道他們在洋館裡。聽到窗外藤蔓的聲音會好奇探頭，從來不知道那是影之花。</p></li>
+    </ul>
+  </section>
+
+  <section class="ending">
+    <figure class="mirror-wrap" data-reveal>
+      <svg class="crown" aria-hidden="true"><use href="#crown"/></svg>
+      <div class="mirror"><div class="glass"><img src="../images/characters/衣櫃裡的小怪物-1.jpg" alt="同一座衣櫃裡掛著的洋裝特寫"></div></div>
+    </figure>
+    <p class="last" data-reveal>衣櫃裡，比外面舒服。<br><span>他想把你留久一點。</span></p>
+    <div class="sign"><svg class="orn" aria-hidden="true"><use href="#flourish"/></svg>衣櫃裡的小怪物　私人衣帽間　怪物之館</div>
+  </section>
+</main>
+</body>
+</html>
