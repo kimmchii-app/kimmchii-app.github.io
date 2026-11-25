@@ -6,7 +6,7 @@
 <title>凱吾爾｜菲索之都的古老童話</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <script src="poster.js"></script>
-<!-- 主題：菲索之都流傳的一本童話書。跟其他深色海報不同，這張是亮色的書頁：米白紙、墨色雙線框、章節標題配花飾，每章第一個字是紫底金邊的木刻首字。紫色金屬感的鱗片和金色豎瞳取自他的龍形，封面是一隻會眨眼的龍眼；內文依序是劍士屠龍的傳說、人形與龍形兩張圖版、龍的脾氣、菲索一帶的地圖、你被帶走之後的事、愛人；最後一頁故事還沒寫完 -->
+<!-- 主題：菲索之都流傳的一本童話書。跟其他深色海報不同，這張是亮色的書頁：米白紙、墨色雙線框、章節標題配花飾，每章第一個字是紫底金邊的木刻首字。紫色金屬感的鱗片和金色豎瞳取自他的龍形。封面是加了金角雙線框的卷首插圖（主圖），下緣壓著一枚會眨眼的龍眼徽章；內文依序是劍士屠龍的傳說、人形與龍形兩張圖版（各放一張照片）、龍的脾氣、菲索一帶的地圖、你被帶走之後的事、愛人；最後一頁故事還沒寫完 -->
 <style>
   :root {
     --paper: #f6f0e3;
@@ -50,6 +50,8 @@
   h1, h2, h3 { margin: 0; font-weight: 700; }
   .wrap { text-wrap: balance; word-break: keep-all; overflow-wrap: anywhere; }
   .nw { white-space: nowrap; }
+  figure { margin: 0; -webkit-user-select: none; user-select: none; }
+  img { display: block; width: 100%; height: auto; pointer-events: none; }
 
   /* 龍鱗：紫色金屬感，用在徽章、首字、分隔帶 */
   .scales {
@@ -64,10 +66,33 @@
   .cover { padding: 44px var(--gutter) 8px; text-align: center; }
   .eyebrow { color: var(--purple); font-size: 13px; letter-spacing: .4em; padding-left: .4em; }
   .eyebrow::before, .eyebrow::after { content: "◆"; font-size: 8px; color: var(--gold); margin: 0 .9em; vertical-align: 2px; }
+  /* 卷首插圖：墨色雙線框，四角壓金色角花，下緣蓋一枚龍眼徽章 */
+  .frontis { position: relative; max-width: 420px; margin: 26px auto 0; }
+  .frontis .frame {
+    position: relative; padding: 10px; background: #fbf8f0;
+    border: 1.5px solid var(--ink); box-shadow: 0 16px 34px rgba(38, 21, 64, .22);
+  }
+  .frontis .frame::before {
+    content: ""; position: absolute; inset: 4px; border: 1px solid var(--ink); pointer-events: none;
+  }
+  .frontis .frame::after {
+    content: ""; position: absolute; inset: -6px; pointer-events: none;
+    background:
+      linear-gradient(var(--gold), var(--gold)) 0 0 / 24px 3px,
+      linear-gradient(var(--gold), var(--gold)) 0 0 / 3px 24px,
+      linear-gradient(var(--gold), var(--gold)) 100% 0 / 24px 3px,
+      linear-gradient(var(--gold), var(--gold)) 100% 0 / 3px 24px,
+      linear-gradient(var(--gold), var(--gold)) 0 100% / 24px 3px,
+      linear-gradient(var(--gold), var(--gold)) 0 100% / 3px 24px,
+      linear-gradient(var(--gold), var(--gold)) 100% 100% / 24px 3px,
+      linear-gradient(var(--gold), var(--gold)) 100% 100% / 3px 24px;
+    background-repeat: no-repeat;
+  }
+  .frontis img { border: 1px solid var(--gold); }
   .medal {
-    position: relative; width: min(62vw, 280px); aspect-ratio: 1; margin: 22px auto 0; border-radius: 50%;
+    position: relative; z-index: 1; width: 108px; aspect-ratio: 1; margin: -54px auto 0; border-radius: 50%;
     display: grid; place-items: center;
-    box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--gold), 0 0 0 9px var(--paper), 0 0 0 10px var(--rule), 0 14px 30px rgba(38, 21, 64, .3);
+    box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--gold), 0 0 0 7px var(--paper), 0 0 0 8px var(--ink), 0 8px 18px rgba(38, 21, 64, .35);
   }
   .medal svg { width: 84%; overflow: visible; }
   .lid { transform-box: fill-box; transform-origin: center; animation: blink 7s infinite; }
@@ -75,7 +100,7 @@
   .pupil { transform-box: fill-box; transform-origin: center; animation: slit 7s ease-in-out infinite; }
   @keyframes slit { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.55); } }
   .cover h1 {
-    margin-top: 30px; font-family: var(--serif); font-size: clamp(40px, 12vw, 68px); line-height: 1.2;
+    margin-top: 24px; font-family: var(--serif); font-size: clamp(40px, 12vw, 68px); line-height: 1.2;
     letter-spacing: .14em; padding-left: .14em;
   }
   .cover .sub { margin-top: 6px; color: var(--muted); font-size: 14px; letter-spacing: .12em; }
@@ -126,7 +151,8 @@
   }
   .plate .no { display: block; text-align: center; font-size: 12px; letter-spacing: .3em; padding-left: .3em; color: var(--muted); }
   .plate h3 { text-align: center; font-family: var(--serif); font-size: 24px; letter-spacing: .3em; padding-left: .3em; }
-  .plate .swatch { height: 10px; margin: 10px 4px 12px; }
+  .plate-img { margin-top: 12px; padding: 4px; border: 1px solid var(--ink); background: var(--paper); }
+  .plate .swatch { height: 10px; margin: 12px 4px 12px; }
   .plate.human .swatch { background: linear-gradient(90deg, var(--ink) 0 34%, #e2c39b 34% 67%, var(--gold) 67%); }
   .plate dl > div { display: grid; grid-template-columns: 3.4em 1fr; gap: 8px; padding: 6px 0; border-bottom: 1px dotted var(--rule); font-size: 14px; line-height: 1.8; }
   .plate dl > div:last-child { border-bottom: 0; }
@@ -205,8 +231,10 @@
 <main class="guide">
   <header class="cover">
     <p class="eyebrow">菲索之都的古老童話</p>
-    <div class="medal scales" data-reveal>
-      <svg viewBox="0 0 300 160" aria-hidden="true">
+    <figure class="frontis" data-reveal>
+      <div class="frame"><img src="../images/characters/凱吾爾-3.jpg" alt="凱吾爾敞著黑色外衣坐著，身後盤著一隻紫黑色的巨龍" width="600" height="749"></div>
+    <div class="medal scales" aria-hidden="true">
+      <svg viewBox="0 0 300 160">
         <defs>
           <radialGradient id="iris" cx="50%" cy="45%" r="55%">
             <stop offset="0" stop-color="#fff3b8"/>
@@ -229,6 +257,7 @@
         </g>
       </svg>
     </div>
+    </figure>
     <h1>惡龍凱吾爾</h1>
     <p class="sub">目前活得最久的龍</p>
     <p class="opening wrap" data-reveal>很久很久以前，菲索之都外的山上住著一隻龍。後來，一名劍士上了山，把那隻龍打死了。從那天起，人們抬頭看見的，已經不是原本那隻藍色的龍。</p>
@@ -272,6 +301,7 @@
       <article class="plate human" data-reveal>
         <span class="no">圖版一</span>
         <h3>人形</h3>
+        <figure class="plate-img"><img src="../images/characters/凱吾爾-1.jpg" alt="凱吾爾的人形：黑色短髮、金色眼睛，敞著黑色高領外衣" width="600" height="749" loading="lazy"></figure>
         <div class="swatch" aria-hidden="true"></div>
         <dl>
           <div><dt>身高</dt><dd>189 公分</dd></div>
@@ -284,6 +314,7 @@
       <article class="plate dragon" data-reveal>
         <span class="no">圖版二</span>
         <h3>龍形</h3>
+        <figure class="plate-img"><img src="../images/characters/凱吾爾-2.jpg" alt="凱吾爾坐在彩繪玻璃窗前，紫黑色的巨龍從他身後探出頭" width="600" height="750" loading="lazy"></figure>
         <div class="swatch scales" aria-hidden="true"></div>
         <dl>
           <div><dt>外形</dt><dd>巨龍，長著黑色的角</dd></div>
