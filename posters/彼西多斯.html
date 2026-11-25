@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>彼西多斯｜鐵匠之子與惡龍鎧焰</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：鐵匠鋪的火候。彼西多斯的爸爸是菲索城裡有名的鐵匠，他自己是巨錘戰士，變成龍之後精通火魔法，所以整張海報是一座鍛爐：煤灰黑底、鉚釘鐵板、往上飄的火星。故事照打鐵的火色分成六段：生鐵（他和理查德的童年）、入爐（屠龍那一天）、鍛打（龍形與人形）、白熾（龍的傳承）、淬火（你是理查德的孩子）、回火（愛人）。每段標題燒成那一段的火色，頁面上緣的細線也跟著換色；淬火那一段的標題會從橘紅冷卻成鐵灰。紅色金屬感的鱗片和金色豎瞳取自他的龍形 -->
+<style>
+  :root {
+    --soot: #0e0b0a;
+    --iron: #2a2320;
+    --iron-2: #3a302b;
+    --ink: #f0e6da;
+    --muted: #b8a899;
+    --dim: #8c7d70;
+    --scale: #c42a1c;
+    --ember: #ff7a1a;
+    --molten: #ffb347;
+    --gold: #f0b232;
+    --steel: #9ba3ad;
+    --rule: rgba(240, 230, 218, .14);
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    --gutter: clamp(20px, 6vw, 44px);
+    --now: #8d9299;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background:
+      radial-gradient(rgba(255, 255, 255, .022) 1px, transparent 1.5px) 0 0 / 6px 6px,
+      radial-gradient(rgba(0, 0, 0, .35) 1px, transparent 1.6px) 3px 2px / 9px 9px,
+      var(--soot);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.95;
+    -webkit-font-smoothing: antialiased;
+  }
+  p, li, dd { text-wrap: pretty; }
+  .nw { white-space: nowrap; }
+
+  /* 頁面上緣的火色線：寬度是捲動進度，顏色是目前那一段的火色 */
+  .heat-bar { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 10; pointer-events: none; }
+  .heat-bar span {
+    display: block; height: 100%; background: var(--now);
+    box-shadow: 0 0 10px var(--now);
+    transform: scaleX(0); transform-origin: left;
+    transition: background-color .8s var(--ease), box-shadow .8s var(--ease);
+  }
+
+  main { position: relative; max-width: 760px; margin: 0 auto; padding: 0 var(--gutter) 72px; }
+
+  /* 淡入 */
+  .js [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; transform: none; }
+
+  /* ---------- 封面：鍛爐口 ---------- */
+  .hero { position: relative; padding: 54px 0 8px; text-align: center; isolation: isolate; }
+  .hero::before {
+    content: ""; position: absolute; z-index: -2; pointer-events: none;
+    left: calc(-1 * var(--gutter)); right: calc(-1 * var(--gutter)); top: 0; bottom: 0;
+    background:
+      radial-gradient(60% 38% at 50% 34%, rgba(255, 96, 24, .30), transparent 72%),
+      radial-gradient(80% 22% at 50% 62%, rgba(196, 42, 28, .18), transparent 75%);
+  }
+  .embers { position: absolute; inset: 0 calc(-1 * var(--gutter)); z-index: 2; overflow: hidden; pointer-events: none; }
+  .embers i {
+    position: absolute; bottom: 0; left: var(--x);
+    width: 3px; height: 3px; border-radius: 50%;
+    background: #ffc46b; box-shadow: 0 0 6px 2px rgba(255, 120, 30, .75);
+    opacity: 0; animation: rise var(--t) linear var(--d) infinite;
+  }
+  @keyframes rise {
+    0% { transform: translate(0, 0) scale(1); opacity: 0; }
+    12% { opacity: 1; }
+    100% { transform: translate(var(--dx), -620px) scale(.4); opacity: 0; }
+  }
+  .eyebrow { margin: 0 0 22px; font-size: 12px; letter-spacing: .32em; padding-left: .32em; color: var(--molten); }
+  .frame {
+    position: relative; margin: 0 auto; width: min(100%, 420px); padding: 12px; border-radius: 4px;
+    background: linear-gradient(145deg, #4b3f39, #221c19 45%, #3c322d);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .65), inset 0 1px 0 rgba(255, 255, 255, .12),
+      0 0 80px rgba(255, 90, 24, .30), 0 30px 60px rgba(0, 0, 0, .6);
+  }
+  .frame img {
+    display: block; width: 100%; height: auto; border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(255, 140, 60, .5), 0 0 22px rgba(255, 90, 24, .35);
+  }
+  .rivet {
+    position: absolute; width: 8px; height: 8px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #b09a8e, #4a3b34 60%, #1c1513);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .7);
+  }
+  .rivet.tl { top: 2px; left: 2px; } .rivet.tr { top: 2px; right: 2px; }
+  .rivet.bl { bottom: 2px; left: 2px; } .rivet.br { bottom: 2px; right: 2px; }
+  .nameplate { display: grid; justify-items: center; gap: 2px; margin-top: 30px; }
+  .mark { width: 52px; height: 52px; color: var(--gold); filter: drop-shadow(0 0 8px rgba(240, 178, 50, .45)); }
+  h1 {
+    margin: 8px 0 0; font-family: var(--serif); font-weight: 700; line-height: 1.15;
+    font-size: clamp(46px, 14vw, 78px); letter-spacing: .18em; padding-left: .18em;
+    background: linear-gradient(180deg, #fff1cf 0%, #ffb347 38%, #e0461b 72%, #8a1d12 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 18px rgba(255, 90, 24, .45));
+  }
+  .alias { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+  .alias strong { color: var(--ink); font-family: var(--serif); letter-spacing: .1em; }
+  .lead { max-width: 27em; margin: 24px auto 0; font-size: 16px; line-height: 2; text-wrap: balance; }
+  .specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 30px 0 0; }
+  .specs div {
+    padding: 10px 8px; border-radius: 3px;
+    background: linear-gradient(160deg, #332a26, #201a17);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07), inset 0 0 0 1px rgba(0, 0, 0, .45);
+  }
+  .specs dt { font-size: 11px; letter-spacing: .2em; padding-left: .2em; color: var(--dim); }
+  .specs dd { margin: 2px 0 0; font-family: var(--serif); font-size: 15px; line-height: 1.6; }
+
+  /* ---------- 鐵板 ---------- */
+  .plate {
+    position: relative; padding: 26px 22px; border-radius: 5px;
+    background:
+      radial-gradient(circle at 12px 12px, #8b7a70 0 2px, #1d1715 2.6px 3.6px, transparent 4px),
+      radial-gradient(circle at calc(100% - 12px) 12px, #8b7a70 0 2px, #1d1715 2.6px 3.6px, transparent 4px),
+      radial-gradient(circle at 12px calc(100% - 12px), #8b7a70 0 2px, #1d1715 2.6px 3.6px, transparent 4px),
+      radial-gradient(circle at calc(100% - 12px) calc(100% - 12px), #8b7a70 0 2px, #1d1715 2.6px 3.6px, transparent 4px),
+      radial-gradient(40% 30% at 25% 20%, rgba(255, 255, 255, .045), transparent),
+      radial-gradient(35% 25% at 75% 70%, rgba(255, 255, 255, .03), transparent),
+      linear-gradient(160deg, #2f2724, #1d1816);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07), inset 0 -2px 0 rgba(0, 0, 0, .45),
+      0 0 0 1px rgba(0, 0, 0, .55), 0 18px 40px rgba(0, 0, 0, .45);
+  }
+  .plate-label { margin: 0; font-size: 12px; letter-spacing: .24em; color: var(--dim); }
+  .plate h3 { margin: 2px 0 14px; font-family: var(--serif); font-size: 24px; letter-spacing: .08em; line-height: 1.4; }
+  .plate ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .plate li { position: relative; padding-left: 18px; }
+  .plate li::before {
+    content: ""; position: absolute; left: 2px; top: .8em; width: 6px; height: 6px;
+    background: var(--ember); transform: rotate(45deg); box-shadow: 0 0 6px rgba(255, 122, 26, .7);
+  }
+
+  /* ---------- 火候表 ---------- */
+  .chart { margin-top: 56px; }
+  .chart h2 { margin: 0; font-family: var(--serif); font-size: 22px; letter-spacing: .14em; text-align: center; }
+  .chart > p { margin: 2px 0 0; text-align: center; font-size: 13px; color: var(--dim); }
+  .chart li { padding-left: 0; }
+  .chart li::before { display: none; }
+  .chart ol { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .chart a {
+    display: grid; justify-items: center; gap: 4px; padding: 8px 2px 6px; border-radius: 4px;
+    color: var(--ink); text-decoration: none; transition: background-color .3s;
+  }
+  .chart a:hover, .chart a:focus-visible { background: rgba(255, 255, 255, .05); }
+  .chart .sw { width: 100%; height: 24px; border-radius: 3px; background: var(--c); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .45), 0 0 14px var(--g, transparent); }
+  .chart b { font-family: var(--serif); font-size: 16px; letter-spacing: .12em; padding-left: .12em; line-height: 1.4; }
+  .chart small { font-size: 11px; color: var(--dim); line-height: 1.4; }
+
+  /* ---------- 六段 ---------- */
+  .chapter { margin-top: 84px; scroll-margin-top: 28px; }
+  .ch-head { margin-bottom: 22px; }
+  .ch-step { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 12px; letter-spacing: .2em; color: var(--muted); }
+  .ch-step .sw { flex: none; width: 30px; height: 8px; border-radius: 2px; background: var(--heat); box-shadow: 0 0 var(--glow) var(--heat); }
+  .ch-step .heat-name { margin-left: auto; color: var(--dim); letter-spacing: .14em; }
+  .chapter h2 {
+    margin: 6px 0 0; font-family: var(--serif); line-height: 1.3; letter-spacing: .08em;
+    font-size: clamp(30px, 8.6vw, 42px); color: var(--heat-ink); text-shadow: 0 0 var(--glow) var(--heat);
+  }
+  .chapter > p { margin: 0 0 1em; }
+  .h-raw { --heat: #8d9299; --heat-ink: #cfd3d8; --glow: 0px; }
+  .h-red { --heat: #a3241a; --heat-ink: #e8583f; --glow: 14px; }
+  .h-orange { --heat: #ff7a1a; --heat-ink: #ff9d4a; --glow: 18px; }
+  .h-white { --heat: #ffe3a6; --heat-ink: #fff7e6; --glow: 26px; }
+  .h-quench { --heat: #8ea6b4; --heat-ink: #bccad3; --glow: 0px; }
+  .h-temper { --heat: #f0b232; --heat-ink: #f6c862; --glow: 14px; }
+
+  /* 生鐵：劍與錘 */
+  .tag {
+    position: relative; width: min(100%, 300px); margin: 30px auto 0; padding: 34px 20px 20px; text-align: center;
+    border-radius: 6px; background: linear-gradient(160deg, #3d3430, #221c19);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 0 0 1px rgba(0, 0, 0, .55), 0 14px 30px rgba(0, 0, 0, .45);
+  }
+  .tag::before {
+    content: ""; position: absolute; top: 11px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%;
+    background: var(--soot); box-shadow: inset 0 1px 2px rgba(0, 0, 0, .9), 0 0 0 2px #5d4d45;
+  }
+  .tag p { margin: 0; }
+  .tag .small { font-size: 12px; letter-spacing: .2em; color: var(--dim); }
+  .tag .big { font-family: var(--serif); font-size: 24px; letter-spacing: .1em; line-height: 1.6; }
+  .tools { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .tool { display: grid; justify-items: center; gap: 6px; padding: 16px 8px; border-top: 1px solid var(--rule); text-align: center; }
+  .tool svg { width: 40px; height: 40px; }
+  .tool p { margin: 0; font-family: var(--serif); font-size: 17px; letter-spacing: .08em; }
+  .tool.sword svg { color: #b7c3cf; }
+  .tool.hammer svg { color: var(--molten); }
+
+  /* 入爐：五下 */
+  .strikes { list-style: none; margin: 24px 0; padding: 0; display: grid; gap: 10px; }
+  .strikes li {
+    position: relative; padding: 14px 16px 14px 56px; border-radius: 4px;
+    background: linear-gradient(90deg, rgba(163, 36, 26, .18), rgba(255, 255, 255, .02) 60%);
+    border-left: 3px solid var(--scale);
+  }
+  .strikes li::before {
+    content: attr(data-n); position: absolute; left: 16px; top: 14px;
+    font-family: var(--serif); font-size: 22px; line-height: 1.4; color: var(--ember);
+    text-shadow: 0 0 10px rgba(255, 90, 24, .6);
+  }
+  .memory { margin: 30px 0 34px; text-align: center; font-family: var(--serif); font-size: 19px; line-height: 1.8; color: #ffb08a; letter-spacing: .04em; }
+  .memory::before, .memory::after { content: ""; display: block; width: 46px; height: 1px; margin: 12px auto; background: linear-gradient(90deg, transparent, var(--scale), transparent); }
+  .plate.cold {
+    background:
+      radial-gradient(circle at 12px 12px, #9aa6b0 0 2px, #1a1e22 2.6px 3.6px, transparent 4px),
+      radial-gradient(circle at calc(100% - 12px) 12px, #9aa6b0 0 2px, #1a1e22 2.6px 3.6px, transparent 4px),
+      radial-gradient(circle at 12px calc(100% - 12px), #9aa6b0 0 2px, #1a1e22 2.6px 3.6px, transparent 4px),
+      radial-gradient(circle at calc(100% - 12px) calc(100% - 12px), #9aa6b0 0 2px, #1a1e22 2.6px 3.6px, transparent 4px),
+      radial-gradient(40% 30% at 25% 20%, rgba(255, 255, 255, .05), transparent),
+      linear-gradient(160deg, #2a3036, #171b1f);
+  }
+  .plate.cold .plate-label { color: #8797a3; }
+  .fields { display: grid; grid-template-columns: 3.6em 1fr; gap: 6px 14px; margin: 0; }
+  .fields dt { font-size: 13px; letter-spacing: .1em; color: #8797a3; line-height: 1.95; }
+  .fields dd { margin: 0; }
+  .plate.cold .note { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .1); color: #c9d3da; }
+
+  /* 鍛打：兩種模樣 */
+  .forms { display: grid; gap: 16px; margin-top: 8px; }
+  .plate.dragon {
+    background:
+      radial-gradient(circle at 50% 100%, transparent 58%, rgba(0, 0, 0, .32) 60%, rgba(255, 110, 80, .16) 63%, transparent 67%) 0 0 / 22px 14px,
+      radial-gradient(circle at 50% 100%, transparent 58%, rgba(0, 0, 0, .32) 60%, rgba(255, 110, 80, .16) 63%, transparent 67%) 11px 7px / 22px 14px,
+      linear-gradient(160deg, #6e1a12, #2a0d0a 70%);
+    box-shadow: inset 0 1px 0 rgba(255, 160, 120, .18), 0 0 0 1px rgba(0, 0, 0, .55), 0 18px 40px rgba(0, 0, 0, .45);
+  }
+  .plate.dragon .plate-label { color: #f0a090; }
+  .plate.dragon h3 { color: #ffd9c8; }
+  .plate.dragon li::before { background: var(--gold); box-shadow: 0 0 6px rgba(240, 178, 50, .7); }
+  .plate.human { background: linear-gradient(160deg, #5a3c28, #2a1c13 75%); box-shadow: inset 0 1px 0 rgba(255, 220, 180, .12), 0 0 0 1px rgba(0, 0, 0, .55), 0 18px 40px rgba(0, 0, 0, .45); }
+  .plate.human .plate-label { color: #d6b08c; }
+  .meter { margin-top: 22px; }
+  .meter-label { display: flex; justify-content: space-between; gap: 12px; margin: 0 0 8px; font-size: 13px; color: var(--muted); }
+  .bar { display: flex; height: 34px; border-radius: 3px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .5); background: #1a1513; }
+  .bar .base {
+    flex: none; width: 46%; display: grid; place-items: center; font-family: var(--serif); font-size: 14px; color: #2a1206;
+    background: linear-gradient(90deg, #ff9d4a, #ffcf7a);
+  }
+  .bar .grow { flex: 1; position: relative; }
+  .bar .grow::before {
+    content: ""; position: absolute; inset: 0; transform-origin: left; transform: scaleX(.12);
+    background: linear-gradient(90deg, rgba(255, 207, 122, .75), rgba(255, 207, 122, 0));
+    transition: transform 2.6s var(--ease) .3s;
+  }
+  .meter.is-visible .bar .grow::before, html:not(.js) .bar .grow::before { transform: scaleX(1); }
+  .skills { display: grid; gap: 12px; margin-top: 26px; }
+  .skill { padding: 16px 18px; border-radius: 4px; background: rgba(255, 255, 255, .03); border-top: 2px solid var(--ember); }
+  .skill h4 { margin: 0 0 4px; font-family: var(--serif); font-size: 17px; letter-spacing: .08em; color: var(--molten); }
+  .skill p { margin: 0; }
+
+  /* 白熾：龍的傳承 */
+  .truth {
+    margin: 34px 0; padding: 30px 12px; text-align: center; font-family: var(--serif);
+    font-size: clamp(24px, 7vw, 34px); line-height: 1.6; letter-spacing: .06em; color: #fff7e6;
+    text-shadow: 0 0 24px rgba(255, 214, 140, .75), 0 0 60px rgba(255, 120, 30, .35);
+    background: radial-gradient(60% 70% at 50% 50%, rgba(255, 200, 120, .12), transparent 75%);
+  }
+  .castle { margin-top: 30px; }
+
+  /* 淬火：標題從橘紅冷卻成鐵灰，冒一陣蒸氣 */
+  .quench h2 { position: relative; display: inline-block; }
+  .js .quench h2 { color: #ffb05a; text-shadow: 0 0 20px rgba(255, 110, 30, .8); }
+  .js .quench.is-visible h2 { color: var(--heat-ink); text-shadow: 0 0 0 transparent; transition: color 2.6s ease .5s, text-shadow 2.6s ease .5s; }
+  .quench h2::after {
+    content: ""; position: absolute; left: 10%; right: 10%; top: -10px; height: 60px; pointer-events: none;
+    background: radial-gradient(50% 60% at 50% 60%, rgba(220, 230, 236, .35), transparent 70%);
+    filter: blur(6px); opacity: 0;
+  }
+  .js .quench.is-visible h2::after { animation: steam 2.8s ease-out .6s 1 both; }
+  @keyframes steam {
+    0% { opacity: 0; transform: translateY(10px) scaleX(.8); }
+    30% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-34px) scaleX(1.25); }
+  }
+  .you { margin: 0 0 18px; font-family: var(--serif); font-size: 24px; letter-spacing: .06em; color: #dbe5eb; }
+  .ways { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .ways li { position: relative; padding-left: 22px; }
+  .ways li::before { content: ""; position: absolute; left: 3px; top: .72em; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid #8ea6b4; }
+  .aftermath { margin-top: 30px; padding: 22px 20px; border-radius: 5px; border: 1px dashed rgba(255, 122, 26, .45); background: rgba(255, 122, 26, .05); }
+  .aftermath h3 { margin: 0 0 10px; font-family: var(--serif); font-size: 19px; letter-spacing: .08em; color: var(--molten); }
+  .aftermath ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .aftermath li { position: relative; padding-left: 18px; }
+  .aftermath li::before { content: ""; position: absolute; left: 2px; top: .85em; width: 8px; height: 1.5px; background: var(--ember); }
+  .aftermath .plan { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--rule); }
+  .aftermath .plan b { color: var(--molten); font-weight: 700; }
+
+  /* 回火：愛人 */
+  .love { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .love li { position: relative; padding: 14px 18px 14px 46px; border-radius: 4px; background: linear-gradient(90deg, rgba(240, 178, 50, .1), transparent 80%); }
+  .love li::before { content: ""; position: absolute; left: 18px; top: 1.45em; width: 12px; height: 12px; background: var(--gold); transform: rotate(45deg); box-shadow: 0 0 10px rgba(240, 178, 50, .6); }
+
+  .ending { margin-top: 90px; padding: 56px 0 28px; text-align: center; position: relative; isolation: isolate; }
+  .ending::before {
+    content: ""; position: absolute; z-index: -1; inset: 0 calc(-1 * var(--gutter));
+    background: radial-gradient(60% 60% at 50% 55%, rgba(255, 110, 30, .2), transparent 70%);
+  }
+  .ending p {
+    margin: 0; font-family: var(--serif); font-size: clamp(26px, 7.6vw, 40px); line-height: 1.6; letter-spacing: .06em;
+    background: linear-gradient(180deg, #fff1cf 0%, #ffb347 50%, #e0461b 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 16px rgba(255, 90, 24, .4)); text-wrap: balance;
+  }
+  footer { margin-top: 34px; text-align: center; font-size: 12px; letter-spacing: .3em; color: var(--dim); }
+  footer .sep { display: inline-block; width: 18px; height: 1px; margin: 0 .5em; vertical-align: middle; background: var(--dim); }
+
+  @media (min-width: 640px) {
+    body { font-size: 16px; }
+    .hero { padding-top: 72px; }
+    .specs { grid-template-columns: repeat(4, 1fr); }
+    .chart ol { grid-template-columns: repeat(6, 1fr); }
+    .plate { padding: 30px 32px; }
+    .forms { grid-template-columns: 1fr 1fr; }
+    .skill { display: grid; grid-template-columns: 6.5em 1fr; gap: 18px; align-items: baseline; }
+    .skill h4 { margin: 0; }
+    .tools { margin-top: 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .embers { display: none; }
+    .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+    .bar .grow::before { transform: scaleX(1); transition: none; }
+    .js .quench h2 { color: var(--heat-ink); text-shadow: none; transition: none; }
+    .js .quench.is-visible h2::after { animation: none; }
+    .heat-bar span { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="heat-bar" aria-hidden="true"><span></span></div>
+<main>
+
+  <header class="hero">
+    <div class="embers" aria-hidden="true">
+      <i style="--x:8%;--dx:14px;--t:7s;--d:-1s"></i><i style="--x:17%;--dx:-10px;--t:9s;--d:-5s"></i>
+      <i style="--x:26%;--dx:20px;--t:6.5s;--d:-3s"></i><i style="--x:35%;--dx:-16px;--t:8s;--d:-7s"></i>
+      <i style="--x:44%;--dx:8px;--t:7.5s;--d:-2s"></i><i style="--x:52%;--dx:-6px;--t:9.5s;--d:-6s"></i>
+      <i style="--x:60%;--dx:18px;--t:6.8s;--d:-4s"></i><i style="--x:68%;--dx:-14px;--t:8.4s;--d:-1.5s"></i>
+      <i style="--x:76%;--dx:10px;--t:7.2s;--d:-5.5s"></i><i style="--x:84%;--dx:-18px;--t:9s;--d:-3.5s"></i>
+      <i style="--x:91%;--dx:6px;--t:6.6s;--d:-0.5s"></i><i style="--x:30%;--dx:-4px;--t:10s;--d:-8s"></i>
+    </div>
+    <p class="eyebrow">菲索城的鐵匠之子</p>
+    <figure class="frame" data-reveal>
+      <img src="../images/characters/彼西多斯-1.jpg" width="600" height="797" alt="彼西多斯的人形：紅色長髮、金色豎瞳，身後是一隻紅鱗巨龍">
+      <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+    </figure>
+    <div class="nameplate">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="2.4"/>
+        <circle cx="32" cy="32" r="24.5" fill="none" stroke="currentColor" stroke-width="1" opacity=".55"/>
+        <path fill="currentColor" d="M32 31c-5.5 0-8.5-3.6-8.5-7.6 0-4.6 3.6-6.4 4.4-11 2 2.3 2.4 4.4 2.2 6.4 1.9-2.6 4.3-4.6 3.7-9.8 4.6 3.2 6.7 8.3 6.7 13.3 0 5-3 8.7-8.5 8.7z"/>
+        <path fill="currentColor" d="M13 34h37v4.6h-5.4l-4 3.6v4.2h4.4V50H19v-3.6h4.4v-4.2l-3.6-3.2c-3.6-.4-5.8-2.4-6.8-5z"/>
+      </svg>
+      <h1>彼西多斯</h1>
+      <p class="alias">本名彼西多斯·舒特，菲索人叫他<strong>惡龍鎧焰</strong></p>
+    </div>
+    <p class="lead">他本來是勇者探險隊的巨錘戰士，跟著隊伍去討伐惡龍。龍死了以後，最好的兄弟理查德拉他去擋龍的靈魂，他就成了<span class="nw">下一隻惡龍。</span></p>
+    <dl class="specs">
+      <div><dt>人形身高</dt><dd>197 cm</dd></div>
+      <div><dt>頭髮</dt><dd>紅色長髮</dd></div>
+      <div><dt>眼睛</dt><dd>金色豎瞳</dd></div>
+      <div><dt>龍形</dt><dd>黑角紅鱗</dd></div>
+    </dl>
+  </header>
+
+  <nav class="chart plate" aria-label="火候表" data-reveal>
+    <h2>火候表</h2>
+    <p>照鐵的火色，分成六段</p>
+    <ol>
+      <li><a href="#raw"><span class="sw" style="--c:linear-gradient(90deg,#5d6066,#9ba3ad)"></span><b>生鐵</b><small>未入爐</small></a></li>
+      <li><a href="#red"><span class="sw" style="--c:linear-gradient(90deg,#4a0f0a,#a3241a);--g:rgba(163,36,26,.5)"></span><b>入爐</b><small>暗紅</small></a></li>
+      <li><a href="#orange"><span class="sw" style="--c:linear-gradient(90deg,#d8410f,#ff9d4a);--g:rgba(255,122,26,.55)"></span><b>鍛打</b><small>橘紅</small></a></li>
+      <li><a href="#white"><span class="sw" style="--c:linear-gradient(90deg,#ffcf7a,#fff7e6);--g:rgba(255,227,166,.7)"></span><b>白熾</b><small>白熱</small></a></li>
+      <li><a href="#quench"><span class="sw" style="--c:linear-gradient(90deg,#4f6470,#a9bcc8)"></span><b>淬火</b><small>入水</small></a></li>
+      <li><a href="#temper"><span class="sw" style="--c:linear-gradient(90deg,#b77a12,#f6c862);--g:rgba(240,178,50,.5)"></span><b>回火</b><small>金黃</small></a></li>
+    </ol>
+  </nav>
+
+  <section class="chapter h-raw" id="raw" data-heat="#8d9299">
+    <header class="ch-head" data-reveal>
+      <p class="ch-step"><span class="sw"></span>第一段　生鐵<span class="heat-name">未入爐</span></p>
+      <h2>鐵匠的兒子</h2>
+    </header>
+    <p data-reveal>彼西多斯的爸爸是菲索城裡有名的鐵匠，跟理查德的爸爸很熟，兩家就住在附近。</p>
+    <p data-reveal>他和理查德從小玩在一起。出事以前，兩個人是彼此最好的兄弟。</p>
+    <div class="tag" data-reveal>
+      <p class="small">出自鐵匠之手</p>
+      <p class="big">理查德的劍</p>
+      <p>是彼西多斯的爸爸打的</p>
+    </div>
+    <div class="tools" data-reveal>
+      <div class="tool sword">
+        <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4l4 6v22h-8V10z"/><path d="M14 32h20M24 32v8M21 44h6"/></svg>
+        <p>理查德用劍</p>
+      </div>
+      <div class="tool hammer">
+        <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 8h28v12H10z"/><path d="M24 20v24"/><path d="M14 12v4M34 12v4" stroke-width="1.6"/></svg>
+        <p>彼西多斯用錘</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter h-red" id="red" data-heat="#a3241a">
+    <header class="ch-head" data-reveal>
+      <p class="ch-step"><span class="sw"></span>第二段　入爐<span class="heat-name">暗紅</span></p>
+      <h2>屠龍那一天</h2>
+    </header>
+    <p data-reveal>理查德是上一支勇者探險隊的隊長，彼西多斯是隊上的戰士。在菲索，成功討伐惡龍的勇者，就能當上<span class="nw">新的國王。</span></p>
+    <ol class="strikes">
+      <li data-n="一" data-reveal>理查德斬殺了龍。龍的屍體裡跑出一道黑色的靈魂，看起來就像傳說中<span class="nw">的詛咒。</span></li>
+      <li data-n="二" data-reveal>靈魂朝理查德過去。他怕了，拉住站在旁邊的彼西多斯擋在<span class="nw">前面。</span></li>
+      <li data-n="三" data-reveal>靈魂鑽進彼西多斯的身體，他<span class="nw">當場倒地。</span></li>
+      <li data-n="四" data-reveal>理查德以為他死了，嚇得把他和龍的屍體一起丟在<span class="nw">野外。</span></li>
+      <li data-n="五" data-reveal>理查德回到菲索，當上國王。</li>
+    </ol>
+    <p class="memory" data-reveal>彼西多斯最後的記憶，<br>只剩理查德拉著他。</p>
+    <div class="plate cold" data-reveal>
+      <p class="plate-label">現在的國王</p>
+      <h3>理查德·崑索</h3>
+      <dl class="fields">
+        <dt>身分</dt><dd>菲索的領導者，上一支勇者探險隊的隊長</dd>
+        <dt>身高</dt><dd>184 cm</dd>
+        <dt>外貌</dt><dd>咖啡色整齊短髮，藍色眼睛，鬍子修得乾淨</dd>
+        <dt>出身</dt><dd>劍士之家，劍術高超，性格卻<span class="nw">太過膽怯</span></dd>
+        <dt>年紀</dt><dd>跟彼西多斯差不多</dd>
+      </dl>
+      <p class="note">彼西多斯對他陷害自己、讓自己變成惡龍，又氣憤<span class="nw">又無奈。</span></p>
+    </div>
+  </section>
+
+  <section class="chapter h-orange" id="orange" data-heat="#ff7a1a">
+    <header class="ch-head" data-reveal>
+      <p class="ch-step"><span class="sw"></span>第三段　鍛打<span class="heat-name">橘紅</span></p>
+      <h2>兩種模樣</h2>
+    </header>
+    <p data-reveal>以前的惡龍都不能變成人，彼西多斯可以。他用幻化魔法變回人的樣子，本質<span class="nw">還是龍。</span></p>
+    <div class="forms">
+      <div class="plate dragon" data-reveal>
+        <p class="plate-label">龍形</p>
+        <h3>惡龍鎧焰</h3>
+        <ul>
+          <li>黑色龍角，紅色金屬感<span class="nw">鱗片，</span><span class="nw">金色豎瞳。</span></li>
+          <li>不用張嘴就能傳達心聲；張開嘴，只發得出龍的咆哮。</li>
+          <li>面對勇者探險隊、軍隊，或身邊有不熟的人，他會先<span class="nw">用龍形。</span></li>
+          <li>他不太喜歡「鎧焰」這個名字，覺得那不是自己真正<span class="nw">的樣子。</span></li>
+        </ul>
+      </div>
+      <div class="plate human" data-reveal>
+        <p class="plate-label">人形</p>
+        <h3>彼西多斯</h3>
+        <ul>
+          <li>身高 197 cm，紅色長髮，<span class="nw">金色豎瞳</span>，<span class="nw">身材壯碩。</span></li>
+          <li>上身赤裸，穿著戰士的皮革鎧甲，背上有火龍的印記。</li>
+          <li>遇到理查德的孩子、太弱小的生命，或身邊都是熟人，他會變回人，但也可能讓你看看<span class="nw">龍的樣子。</span></li>
+          <li>人形撐得越久越耗體力，得進食、休息，再變<span class="nw">回龍。</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="meter" data-reveal>
+      <p class="meter-label"><span>人形能撐多久</span><span>陪伴越久，撐得越久</span></p>
+      <div class="bar"><span class="base">4–6 小時</span><span class="grow"></span></div>
+    </div>
+    <div class="skills">
+      <div class="skill" data-reveal>
+        <h4>火魔法</h4>
+        <p>精通火魔法，人形也用<span class="nw">得出來。</span></p>
+      </div>
+      <div class="skill" data-reveal>
+        <h4>火焰錘子</h4>
+        <p>以前是巨錘戰士，很會用錘子；還能用魔力塑出一把火焰錘子，近戰、<span class="nw">遠攻都行。</span></p>
+      </div>
+      <div class="skill" data-reveal>
+        <h4>體力</h4>
+        <p>體力和魔力幾乎用不完。真的耗盡了，得睡上好幾天，或吃下大量富含魔力精華的生物、<span class="nw">水源或補品。</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter h-white" id="white" data-heat="#ffe3a6">
+    <header class="ch-head" data-reveal>
+      <p class="ch-step"><span class="sw"></span>第四段　白熾<span class="heat-name">白熱</span></p>
+      <h2>龍的傳承</h2>
+    </header>
+    <p data-reveal>菲索人說那是巨龍的詛咒。其實它是龍王的傳承：只有死亡才傳得下去，接下的人會變成龍，繼承前代龍王的記憶和技能，成為新<span class="nw">的龍王。</span>老死的龍，可以自己挑選認可的人，<span class="nw">繼承一切。</span></p>
+    <p class="truth" data-reveal>龍本來就是<br>菲索的國王。</p>
+    <p data-reveal>是人類把巨龍趕出菲索，才有了討伐惡龍的歷史，這段歷史只有龍知道。理查德也只是照傳統做事的勇者，真正開始這個傳統的，是幾百年前、早已<span class="nw">不可考的祖先。</span></p>
+    <p data-reveal>那天龍王的靈魂找上理查德，是要他當下一任國王。理查德怕了，把它推給<span class="nw">彼西多斯。</span></p>
+    <p data-reveal>龍的記憶一代一代傳下來，每一段的最後，都是那隻龍看到的最後一眼。彼西多斯接下了力量，也接下了這份使命和絕望。世上的龍永遠只有一隻，他想用自己的方式奪回菲索，結束惡龍<span class="nw">詛咒的輪迴。</span></p>
+    <div class="plate castle" data-reveal>
+      <p class="plate-label">菲索外的大山上</p>
+      <h3>惡龍的古堡</h3>
+      <ul>
+        <li>龍王被逐出菲索之後，用自己的力量打造了這裡。</li>
+        <li>通常是一座高聳的黑色古堡，外面是一片懸崖；有地牢、舞會交誼廳這些<span class="nw">中世紀常見的設施。</span></li>
+        <li>會隨著現任龍王的性格，改變大小、<span class="nw">陳設和外觀。</span></li>
+        <li>經過歷代勇者的討伐，加上魔法保護，到現在<span class="nw">仍然堅固。</span></li>
+        <li>沒有人住過的痕跡，只感覺得到一個孤單的生命，在這裡過了<span class="nw">幾千年。</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="chapter h-quench quench" id="quench" data-heat="#8ea6b4" data-reveal>
+    <header class="ch-head">
+      <p class="ch-step"><span class="sw"></span>第五段　淬火<span class="heat-name">入水</span></p>
+      <h2>仇人的孩子</h2>
+    </header>
+    <p class="you">你是理查德的孩子。</p>
+    <p>他把你半軟禁在身邊，想靠你的存在，奪回屬於<span class="nw">自己的權利。</span></p>
+    <ul class="ways">
+      <li>他希望你明白他變成龍的原因，幫他解開惡龍<span class="nw">詛咒的輪迴。</span></li>
+      <li>為了讓你好好跟理查德談，他會耐著性子，但<span class="nw">耐心不多。</span></li>
+      <li>一開始，他把你當成導正歷史的工具和合作對象，態度可能強硬、帶著脅迫，但不會拿你<span class="nw">來復仇。</span></li>
+      <li>你是仇人的孩子。他不信任你，會用試探的口吻問你的看法，看你的性格跟理查德像不像；你要是也有企圖心，他會更把你當工具，<span class="nw">保持距離。</span></li>
+      <li>他生性溫柔，不像歷史上那些暴虐的惡龍；只是火魔法容易牽動情緒，偶爾<span class="nw">會情緒化。</span></li>
+      <li>他不會主動攻擊人或其他生命，除非危害到自己或他重視<span class="nw">的生命。</span></li>
+    </ul>
+    <div class="aftermath">
+      <h3>你被帶走之後</h3>
+      <ul>
+        <li>國王的孩子被抓走，菲索<span class="nw">上上下下都亂了。</span></li>
+        <li>國王派出勇者探險隊屠龍，要把你<span class="nw">帶回去。</span></li>
+        <li>軍隊和探險隊經過，森林變得吵雜，魔物和魔法生物也<span class="nw">跟著躁動。</span></li>
+        <li>他只要停在森林裡，就會被發現、被攻擊，你也可能<span class="nw">受傷。</span></li>
+      </ul>
+      <p class="plan"><b>他的辦法：</b>擊退軍隊和探險隊，<span class="nw">盡快佔領菲索，</span><span class="nw">自己當國王。</span></p>
+    </div>
+  </section>
+
+  <section class="chapter h-temper" id="temper" data-heat="#f0b232">
+    <header class="ch-head" data-reveal>
+      <p class="ch-step"><span class="sw"></span>第六段　回火<span class="heat-name">金黃</span></p>
+      <h2>愛人</h2>
+    </header>
+    <ul class="love">
+      <li data-reveal>愛上你之後，他會放下把你當工具的想法，不管你有沒有答應<span class="nw">幫他。</span></li>
+      <li data-reveal>你不幫他，他也不會再用強硬的方式，逼你完成他<span class="nw">的理想。</span></li>
+      <li data-reveal>他會把一切都獻給愛人，像守著珍寶<span class="nw">一樣守著你。</span></li>
+      <li data-reveal>你們共享一樣的權利，是<span class="nw">平等的關係。</span></li>
+    </ul>
+  </section>
+
+  <section class="ending" data-reveal>
+    <p>你在他身邊越久，<br>他當人的時間就越長。</p>
+  </section>
+
+  <footer>惡龍鎧焰<span class="sep"></span>彼西多斯</footer>
+</main>
+<script>
+  // 上緣的火色線：寬度跟著捲動進度，顏色換成目前那一段的火色
+  const barFill = document.querySelector('.heat-bar span');
+  const updateBar = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    barFill.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+  };
+  addEventListener('scroll', updateBar, { passive: true });
+  addEventListener('resize', updateBar);
+  updateBar();
+  if ('IntersectionObserver' in window) {
+    const watch = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) document.documentElement.style.setProperty('--now', entry.target.dataset.heat);
+      }
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('[data-heat]').forEach(el => watch.observe(el));
+  }
+</script>
+</body>
+</html>
