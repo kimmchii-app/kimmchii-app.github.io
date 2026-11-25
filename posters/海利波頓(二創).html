@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>海利波頓｜特殊刑警檔案</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：90 年代警局裡的一份牛皮紙檔案夾。整張海報是打開的檔案夾，上緣有標籤頁，裡面夾著那個年代辦公桌上會有的東西：迴紋針夾住的拍立得、壓字標籤機打的編號、裝在證物袋裡的偽鈔樣張（按「打開驗鈔燈」會變成紫外線模式，藏在紙裡的螢光纖維和一行字會亮起來）、護貝過的證件、舊身分的複寫紙副本、點陣印表機印出的綠條報表、剛入獄時的檔案照和編號牌、兩張交易收據、橫線索引卡、顯示密碼的呼叫器、名片盒卡片、打洞的鑑定報告、黃色便利貼，最後是一份還沒勾選、也還沒核章的三聯單 -->
+<style>
+  :root {
+    --desk: #c3c7b8;
+    --manila: #e8d4a2;
+    --manila-dk: #c8ab69;
+    --paper: #fcfaf2;
+    --ink: #26231d;
+    --muted: #675f50;
+    --carbon: #2e3b8a;
+    --red: #b8262c;
+    --navy: #1f3f78;
+    --green: #1f5c4a;
+    --green-2: #3f8a6f;
+    --mint: #d7e8dc;
+    --card: #fbfbf5;
+    --bar: #d8e9d1;
+    --rule: rgba(38, 35, 29, .22);
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --type: "Courier New", Courier, "Noto Sans TC", monospace;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    --gutter: clamp(16px, 5vw, 40px);
+    --shadow: 0 1px 1px rgba(70, 52, 12, .14), 0 8px 20px rgba(70, 52, 12, .18);
+    --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpath d='M0 6Q6 0 12 6T24 6' fill='none' stroke='%231f5c4a' stroke-width='.8'/%3E%3Cpath d='M0 6Q6 12 12 6T24 6' fill='none' stroke='%231f5c4a' stroke-width='.8' opacity='.55'/%3E%3C/svg%3E");
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    padding-top: 34px;
+    background: radial-gradient(rgba(0, 0, 0, .06) 1px, transparent 1.3px) 0 0 / 5px 5px, var(--desk);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  .guide {
+    position: relative; max-width: 720px; margin: 0 auto; padding-bottom: 52px; overflow-x: clip;
+    background: repeating-linear-gradient(0deg, rgba(120, 90, 30, .04) 0 1px, transparent 1px 3px), var(--manila);
+    box-shadow: 0 12px 30px rgba(40, 40, 30, .28);
+  }
+  p { margin: 0; text-wrap: pretty; }
+  ul, ol, dl { margin: 0; padding: 0; list-style: none; }
+  dd { margin: 0; }
+  h1, h2, h3 { margin: 0; font-weight: 700; }
+  figure { margin: 0; -webkit-user-select: none; user-select: none; }
+  img { display: block; width: 100%; height: auto; pointer-events: none; }
+  .wrap { text-wrap: balance; word-break: keep-all; overflow-wrap: anywhere; }
+  .nw { white-space: nowrap; }
+  .num { font-variant-numeric: tabular-nums; }
+  .typed { font-family: var(--type); }
+
+  /* 檔案夾標籤頁 */
+  .folder-tab {
+    position: absolute; top: -30px; left: var(--gutter); height: 30px; padding: 0 18px;
+    display: flex; align-items: center; background: var(--manila); border-radius: 8px 8px 0 0;
+    font: 700 13px/1 var(--type); letter-spacing: .24em;
+  }
+
+  /* 封面 */
+  .cover { position: relative; padding: 34px var(--gutter) 0; }
+  .cover-grid { display: grid; gap: 30px; justify-items: center; }
+  .polaroid {
+    position: relative; z-index: 1; width: min(100%, 270px); padding: 12px 12px 0;
+    background: #fdfdf8; box-shadow: var(--shadow); rotate: -2.5deg;
+  }
+  .polaroid img { filter: sepia(.14) saturate(.92) contrast(1.03); }
+  .polaroid figcaption { padding: 10px 4px 14px; text-align: center; font-family: var(--serif); font-size: 16px; letter-spacing: .08em; color: #33407a; }
+  .clip { position: absolute; z-index: 2; top: -22px; left: 26px; width: 22px; height: 60px; }
+  .file-label { position: relative; z-index: 1; width: min(100%, 360px); padding: 14px 18px 18px; background: var(--paper); border-top: 8px solid var(--red); box-shadow: var(--shadow); text-align: center; }
+  .fl-band { font: 700 12px/1.6 var(--type); letter-spacing: .3em; padding-left: .3em; color: var(--muted); }
+  .file-label h1 { font-family: var(--serif); font-size: clamp(38px, 11vw, 52px); line-height: 1.25; letter-spacing: .14em; padding-left: .14em; }
+  .fl-role { font: 700 14px/1.6 var(--type); letter-spacing: .4em; padding-left: .4em; color: var(--red); }
+  .fl-full { margin-top: 2px; color: var(--muted); font-size: 13px; letter-spacing: .1em; }
+  .dymo {
+    display: inline-block; margin-top: 16px; padding: 5px 12px; background: #1b1b1b; color: #f2f2f2; border-radius: 2px;
+    font: 700 15px/1.2 var(--type); letter-spacing: .3em; rotate: 1.5deg;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 2px 3px rgba(0, 0, 0, .35);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .8), 0 1px 0 rgba(255, 255, 255, .25);
+  }
+  .cover-side { position: relative; display: grid; justify-items: center; width: 100%; }
+  .stamp-secret {
+    position: absolute; z-index: 2; top: -18px; right: -4px; padding: 0 8px 0 calc(8px + .3em);
+    border: 3px solid var(--red); color: var(--red); opacity: .8; rotate: 9deg;
+    font: 700 22px/1.4 var(--serif); letter-spacing: .3em;
+  }
+  .lead { max-width: 30em; margin: 30px auto 0; font-size: 16px; }
+
+  /* 小節標題：檔案分隔頁的標籤 */
+  .sec { padding: 58px var(--gutter) 0; }
+  .sec-head { display: flex; align-items: flex-end; gap: 12px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .tab {
+    position: relative; top: 2px; flex: none; padding: 2px 12px 1px; background: var(--paper);
+    border: 2px solid var(--ink); border-bottom-color: var(--paper); border-radius: 6px 6px 0 0;
+    font: 700 13px/1.7 var(--type); letter-spacing: .16em;
+  }
+  .sec-head h2 { padding-bottom: 6px; font-family: var(--serif); font-size: clamp(23px, 6vw, 30px); line-height: 1.35; letter-spacing: .08em; }
+  .sheet { position: relative; background: var(--paper); box-shadow: var(--shadow); }
+  .holes { padding-left: 36px; }
+  .holes::before {
+    content: ""; position: absolute; top: 0; bottom: 0; left: 8px; width: 16px;
+    background: radial-gradient(circle, var(--manila) 0 6px, rgba(70, 52, 12, .25) 6.5px, transparent 7.5px) center / 16px 33.333% repeat-y;
+  }
+
+  /* 證物：偽鈔樣張 */
+  .bag {
+    position: relative; max-width: 660px; margin: 0 auto; padding: 30px 12px 14px; border-radius: 6px;
+    background: linear-gradient(118deg, rgba(255, 255, 255, .5), rgba(255, 255, 255, .22) 38%, rgba(255, 255, 255, .55) 52%, rgba(255, 255, 255, .24) 66%);
+    border: 1px solid rgba(255, 255, 255, .8); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .05), 0 6px 16px rgba(70, 52, 12, .16);
+  }
+  .bag::before { content: ""; position: absolute; left: 0; right: 0; top: 10px; height: 7px; border-top: 2px solid rgba(184, 38, 44, .55); border-bottom: 2px solid rgba(184, 38, 44, .55); }
+  .bag-label { display: flex; margin-bottom: 12px; background: #fff; border: 1px solid var(--red); font-size: 13px; line-height: 1.7; }
+  .bag-label b { flex: none; display: grid; place-items: center; padding: 0 10px 0 calc(10px + .3em); background: var(--red); color: #fff; font-family: var(--serif); letter-spacing: .3em; }
+  .bag-label dl { padding: 4px 10px; }
+  .bag-label dl > div { display: flex; gap: 8px; }
+  .bag-label dt { flex: none; color: var(--muted); }
+  .note {
+    position: relative; padding: 10px; text-align: left; color: var(--ink);
+    background: linear-gradient(135deg, #f8f7ec, #dfece2 48%, #f3f1e3);
+    border: 1.5px solid var(--green); border-radius: 8px; overflow: hidden;
+    transition: background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);
+  }
+  .note-inner {
+    position: relative; z-index: 1; padding: 22px 16px;
+    border: 1px solid var(--green);
+    background: var(--wave) top / 24px 12px repeat-x, var(--wave) bottom / 24px 12px repeat-x;
+    transition: border-color .5s var(--ease);
+  }
+  .note-top, .note-bottom { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 11px; letter-spacing: .08em; white-space: nowrap; }
+  .serial { color: var(--red); font-weight: 700; letter-spacing: .16em; }
+  .note-top span:last-child, .note-bottom span:first-child { color: #55665e; }
+  .note-main { display: grid; justify-items: center; gap: 14px; margin: 14px 0 12px; text-align: center; }
+  .rosette { width: 128px; height: 128px; color: var(--green); overflow: visible; transition: color .5s var(--ease), filter .5s var(--ease); }
+  .rosette .core { fill: var(--green); transition: fill .5s var(--ease); }
+  .rosette .core-h { fill: #f8f7ec; stroke: #f8f7ec; transition: fill .5s var(--ease), stroke .5s var(--ease); }
+  .note-name { font-family: var(--serif); font-size: clamp(32px, 9vw, 44px); font-weight: 700; line-height: 1.2; letter-spacing: .12em; padding-left: .12em; }
+  .note .role { margin-top: 2px; font-size: 14px; letter-spacing: .3em; padding-left: .3em; color: var(--green); font-weight: 700; }
+  .denom { display: grid; justify-items: center; padding: 6px 16px; border: 1px solid var(--green); border-radius: 4px; background: rgba(255, 255, 255, .45); transition: background .5s var(--ease), border-color .5s var(--ease); }
+  .denom small { font-size: 12px; letter-spacing: .2em; padding-left: .2em; color: #55665e; }
+  .denom b { font-family: var(--serif); font-size: 38px; line-height: 1.15; color: var(--green); letter-spacing: .06em; }
+  .specimen {
+    position: absolute; z-index: 2; right: 5%; top: 25%; pointer-events: none;
+    font-family: var(--serif); font-size: 44px; font-weight: 700; letter-spacing: .3em; line-height: 1;
+    color: transparent; -webkit-text-stroke: 1.5px rgba(179, 38, 43, .45); transform: rotate(-14deg);
+  }
+  .fibers { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .fibers path { fill: none; stroke-width: 1.2; vector-effect: non-scaling-stroke; stroke-linecap: round; transition: stroke .5s, opacity .5s; }
+  .fibers .f1 { stroke: rgba(179, 38, 43, .35); }
+  .fibers .f2 { stroke: rgba(46, 92, 160, .3); }
+  .fibers .f3 { stroke: rgba(31, 92, 74, .3); }
+  .uv-only { margin-top: 12px; text-align: center; font-size: 13px; letter-spacing: .3em; padding-left: .3em; color: transparent; transition: color .5s var(--ease), text-shadow .5s var(--ease); }
+  .note.uv { background: radial-gradient(circle at 30% 25%, #2b1b55, #120a26 70%); border-color: #6c5ad8; color: #ddd6ff; }
+  .note.uv .note-inner { border-color: #6c5ad8; background: none; }
+  .note.uv .rosette { color: #7dffcf; filter: drop-shadow(0 0 4px rgba(125, 255, 207, .55)); }
+  .note.uv .rosette .core { fill: #7dffcf; }
+  .note.uv .rosette .core-h { fill: #120a26; stroke: #120a26; }
+  .note.uv .role, .note.uv .denom b { color: #7dffcf; }
+  .note.uv .denom small, .note.uv .note-top span:last-child, .note.uv .note-bottom span:first-child { color: #b4a9ee; }
+  .note.uv .denom { background: transparent; border-color: #6c5ad8; }
+  .note.uv .serial { color: #ff8fa3; }
+  .note.uv .specimen { -webkit-text-stroke-color: rgba(255, 143, 163, .5); opacity: .15; }
+  .note.uv .fibers .f1 { stroke: #ff7ad9; }
+  .note.uv .fibers .f2 { stroke: #ffe66b; }
+  .note.uv .fibers .f3 { stroke: #7dffcf; }
+  .note.uv .fibers { filter: drop-shadow(0 0 2px rgba(255, 255, 255, .7)); }
+  .note.uv .uv-only { color: #7dffcf; text-shadow: 0 0 8px rgba(125, 255, 207, .8); }
+  .uv-row { margin-top: 18px; text-align: center; }
+  .uv-btn {
+    display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px 7px;
+    background: linear-gradient(#f1ebd9, #d9cfb3); border: 1px solid #958a6d; border-radius: 4px; box-shadow: 0 3px 0 #958a6d;
+    color: var(--ink); font: 700 14px/1.4 var(--type); letter-spacing: .14em; cursor: pointer;
+    transition: translate .1s, box-shadow .1s;
+  }
+  .uv-btn:active { translate: 0 2px; box-shadow: 0 1px 0 #958a6d; }
+  .led { width: 9px; height: 9px; border-radius: 50%; background: #4a3d5e; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .5); transition: background .3s, box-shadow .3s; }
+  .uv-btn[aria-pressed="true"] .led { background: #b98cff; box-shadow: 0 0 6px 2px rgba(185, 140, 255, .8); }
+  .uv-btn:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+
+  /* 附件一：身分 */
+  .docs { display: grid; gap: 22px; }
+  .doc { position: relative; padding: 16px 18px 18px; box-shadow: var(--shadow); }
+  .doc-head { display: flex; justify-content: space-between; gap: 8px; padding-bottom: 4px; border-bottom: 1px solid currentColor; font: 700 12px/1.6 var(--type); letter-spacing: .2em; }
+  .doc-name { margin-top: 10px; font-family: var(--serif); font-size: 23px; line-height: 1.4; letter-spacing: .06em; }
+  .doc dl > div { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; padding: 6px 0; border-bottom: 1px dotted var(--rule); font-size: 14px; line-height: 1.8; }
+  .doc dt { color: var(--muted); font-size: 13px; padding-top: 1px; }
+  .doc-foot { margin-top: 10px; font-size: 13.5px; color: var(--muted); }
+  .carbon { background: #f2ecd6; color: var(--carbon); text-shadow: 0 0 .7px rgba(46, 59, 138, .6); }
+  .carbon dt, .carbon .doc-foot { color: rgba(46, 59, 138, .75); }
+  .carbon dl > div { border-bottom-color: rgba(46, 59, 138, .3); }
+  .stamp-void {
+    position: absolute; top: 46px; right: 14px; padding: 0 10px 0 calc(10px + .3em);
+    border: 3px double var(--red); color: var(--red); opacity: .85; text-shadow: none;
+    font: 700 26px/1.5 var(--serif); letter-spacing: .3em; rotate: -12deg;
+  }
+  .idoc { background: var(--paper); }
+  .idcard { position: relative; overflow: hidden; margin-bottom: 12px; border: 1px solid #9fb0c2; border-radius: 10px; background: linear-gradient(160deg, #fdfdfb, #e6ecf2); box-shadow: 0 3px 8px rgba(0, 0, 0, .16); }
+  .idcard::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, transparent 34%, rgba(255, 255, 255, .6) 46%, transparent 58%); }
+  .id-head { display: flex; justify-content: space-between; gap: 8px; padding: 4px 12px; background: var(--navy); color: #fff; font: 700 12px/1.6 var(--type); letter-spacing: .2em; }
+  .id-body { display: grid; grid-template-columns: 84px 1fr; gap: 12px; padding: 12px 12px 8px; }
+  .id-photo { border: 1px solid #9fb0c2; }
+  .id-fields dt { font: 11px/1.4 var(--type); color: var(--muted); letter-spacing: .1em; }
+  .id-fields dd { margin-bottom: 8px; font-family: var(--serif); font-size: 16px; line-height: 1.4; }
+  .barcode { display: block; height: 20px; margin: 0 12px 10px; background: repeating-linear-gradient(90deg, #222 0 2px, transparent 2px 3px, #222 3px 4px, transparent 4px 7px, #222 7px 10px, transparent 10px 11px, #222 11px 12px, transparent 12px 15px); }
+
+  /* 附件二：點陣印表機報表 */
+  .printout { position: relative; padding: 0 30px; background: #fbfdf7; box-shadow: var(--shadow); color: #2c2c2c; }
+  .printout::before, .printout::after {
+    content: ""; position: absolute; top: 0; bottom: 0; width: 30px;
+    background: radial-gradient(circle, var(--manila) 0 4.5px, rgba(70, 52, 12, .2) 5px, transparent 5.8px) center 6px / 30px 24px repeat-y;
+  }
+  .printout::before { left: 0; border-right: 1px dashed rgba(0, 0, 0, .2); }
+  .printout::after { right: 0; border-left: 1px dashed rgba(0, 0, 0, .2); }
+  .pt-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 12px; padding: 12px 12px 8px; border-bottom: 1px dashed rgba(0, 0, 0, .35); font: 700 13px/1.7 var(--type); letter-spacing: .12em; }
+  .rows li { display: grid; gap: 2px; padding: 10px 12px 12px; font-size: 14.5px; line-height: 1.85; }
+  .rows li:nth-child(odd) { background: var(--bar); }
+  .rows .age { font-family: var(--type); font-weight: 700; color: var(--green); }
+  .rows b { color: var(--green); }
+
+  /* 附件三：逃獄 */
+  .prison-top { display: grid; gap: 26px; }
+  .mug { width: min(100%, 280px); margin: 0 auto; }
+  .mug-photo { display: grid; grid-template-columns: 22px 1fr; padding: 8px 8px 8px 0; background: #fdfdf8; box-shadow: var(--shadow); }
+  .ruler {
+    background:
+      repeating-linear-gradient(to bottom, #3a3a3a 0 1.5px, transparent 1.5px 40px) right top / 16px 100% no-repeat,
+      repeating-linear-gradient(to bottom, #3a3a3a 0 1px, transparent 1px 8px) right top / 8px 100% no-repeat;
+  }
+  .placard {
+    width: 80%; margin: 0 auto; padding: 6px 10px 8px; display: grid; justify-items: center;
+    background: repeating-linear-gradient(#1c1c1c 0 3px, #272727 3px 5px); border: 3px solid #5a5a5a; border-top: 0;
+    color: #eee; font-family: var(--type);
+  }
+  .placard small { font-size: 11px; letter-spacing: .3em; padding-left: .3em; }
+  .placard b { font-size: 26px; line-height: 1.2; letter-spacing: .25em; padding-left: .25em; }
+  .mug figcaption { margin-top: 8px; text-align: center; font-size: 13px; color: var(--muted); letter-spacing: .1em; }
+  .index {
+    position: relative; padding: 0 16px 14px; font-size: 14.5px; line-height: 30px;
+    background: #fffef8 linear-gradient(transparent 29px, #c5d5e8 29px) 0 39px / 100% 30px; box-shadow: var(--shadow);
+  }
+  .index h3 { margin: 0 -16px; padding: 4px 16px 3px; background: #fffef8; border-bottom: 2px solid #d77a7d; font-family: var(--serif); font-size: 17px; line-height: 30px; letter-spacing: .08em; }
+  .index p + p { margin-top: 30px; }
+  .chains { display: grid; gap: 34px; margin-top: 34px; }
+  .receipt { position: relative; margin-bottom: 10px; padding: 16px 16px 18px; background: #fffef9; box-shadow: var(--shadow); font-family: var(--type); font-size: 14px; line-height: 1.75; }
+  .receipt::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 10px;
+    background: linear-gradient(135deg, #fffef9 50%, transparent 50%) 0 0 / 12px 10px repeat-x, linear-gradient(225deg, #fffef9 50%, transparent 50%) 0 0 / 12px 10px repeat-x;
+  }
+  .r-title { padding-bottom: 8px; border-bottom: 1px dashed rgba(0, 0, 0, .4); text-align: center; font-weight: 700; letter-spacing: .3em; padding-left: .3em; }
+  .receipt ol { counter-reset: c; }
+  .receipt li { display: grid; grid-template-columns: 2.4em 1fr; padding: 7px 0; border-bottom: 1px dashed rgba(0, 0, 0, .18); }
+  .receipt li::before { content: counter(c, decimal-leading-zero); counter-increment: c; color: var(--muted); }
+  .receipt li small { display: block; color: var(--muted); font-size: 12.5px; }
+  .receipt li.goal { margin-top: 4px; border-top: 3px double var(--ink); border-bottom: 0; color: var(--red); font-weight: 700; }
+  .receipt li.goal::before { content: "→"; color: var(--red); font-family: var(--sans); }
+  .cards { display: grid; gap: 22px; margin-top: 30px; }
+  .side-card { margin-top: 24px; }
+  .pager { display: grid; justify-items: center; gap: 12px; margin-top: 34px; text-align: center; }
+  .pager-body { padding: 14px 18px 22px; background: linear-gradient(#3b3b3b, #1f1f1f); border-radius: 14px 14px 20px 20px; box-shadow: 0 6px 14px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .15); position: relative; }
+  .pager-body::after { content: ""; position: absolute; left: 50%; bottom: 7px; width: 34px; height: 8px; translate: -50% 0; border-radius: 4px; background: #555; box-shadow: -44px 0 0 #555, 44px 0 0 #555; }
+  .lcd { display: flex; align-items: baseline; gap: 12px; padding: 6px 14px; background: linear-gradient(#b7c5a2, #a2b28c); border-radius: 4px; box-shadow: inset 0 2px 4px rgba(0, 0, 0, .35); color: #1d2716; font-family: var(--type); }
+  .lcd span { font-size: 12px; letter-spacing: .2em; }
+  .lcd b { position: relative; font-size: 34px; line-height: 1.1; letter-spacing: .2em; }
+  .lcd b::before { content: "8888"; position: absolute; inset: 0; color: rgba(29, 39, 22, .1); }
+  .pager p { max-width: 26em; font-size: 14.5px; }
+
+  /* 附件四：名片盒卡片 */
+  .intro-big { margin-bottom: 26px; font-family: var(--serif); font-size: clamp(19px, 5vw, 23px); line-height: 1.6; text-align: center; }
+  .donnies { display: grid; gap: 40px; }
+  .rolo { position: relative; padding: 14px 16px 28px; background: #fffef8; border: 1px solid #cdbf9c; border-radius: 6px; box-shadow: var(--shadow); }
+  .rolo-tab { position: absolute; top: -21px; left: 14px; height: 22px; padding: 0 12px; background: #fffef8; border: 1px solid #cdbf9c; border-bottom: 0; border-radius: 6px 6px 0 0; color: var(--red); font: 700 12px/21px var(--type); letter-spacing: .2em; }
+  .rolo::before, .rolo::after { content: ""; position: absolute; bottom: -1px; width: 26px; height: 13px; border: 1px solid #cdbf9c; border-bottom: 0; border-radius: 13px 13px 0 0; background: var(--manila); }
+  .rolo::before { left: calc(30% - 13px); }
+  .rolo::after { left: calc(70% - 13px); }
+  .rolo h3 { padding-bottom: 6px; border-bottom: 2px solid var(--red); font-family: var(--serif); font-size: 20px; letter-spacing: .06em; }
+  .rolo ul { display: grid; gap: 6px; margin-top: 10px; }
+  .rolo li { position: relative; padding-left: 16px; font-size: 14.5px; line-height: 1.8; }
+  .rolo li::before { content: "–"; position: absolute; left: 0; font-family: var(--type); }
+  .after-note { margin-top: 30px; padding: 14px 18px; border-left: 4px solid var(--red); }
+
+  /* 附件五：鑑定報告 */
+  .rep { padding-top: 14px; padding-right: 16px; padding-bottom: 16px; }
+  .rep-head { display: flex; flex-wrap: wrap; gap: 0 10px; align-items: baseline; padding-bottom: 8px; border-bottom: 2px solid var(--ink); }
+  .rep-head span { font: 700 12px/1.6 var(--type); letter-spacing: .16em; color: var(--muted); }
+  .rep-head b { font-family: var(--serif); font-size: 17px; letter-spacing: .06em; }
+  .report > div { display: grid; grid-template-columns: 1fr 34px; grid-template-areas: "t s" "d s"; gap: 0 10px; align-items: start; padding: 11px 0; border-bottom: 1px solid var(--rule); }
+  .report dt { grid-area: t; }
+  .report dd { grid-area: d; }
+  .report .true { grid-area: s; align-self: center; }
+  .report dt { font-family: var(--serif); font-weight: 700; color: var(--navy); }
+  .report dd { font-size: 14.5px; line-height: 1.8; }
+  .true { display: grid; place-items: center; width: 32px; height: 32px; border: 2px solid var(--red); border-radius: 50%; color: var(--red); opacity: .85; rotate: -10deg; font: 700 15px/1 var(--serif); }
+  .verdict { margin-top: 14px; text-align: right; font-size: 13px; color: var(--muted); letter-spacing: .1em; }
+  .verdict b { color: var(--red); }
+
+  /* 附件六：你 */
+  .you-lead { margin-bottom: 24px; text-align: center; font-size: 17px; }
+  .you-lead b { color: var(--red); }
+  .memo-sheet { padding-top: 16px; padding-right: 18px; padding-bottom: 18px; }
+  .memo-head { margin-bottom: 10px; padding-bottom: 4px; border-bottom: 3px double var(--ink); font: 700 16px/1.6 var(--type); letter-spacing: .4em; }
+  .memo { counter-reset: m; display: grid; }
+  .memo li { display: grid; grid-template-columns: 2em 1fr; padding: 9px 0; border-bottom: 1px dotted var(--rule); font-size: 14.5px; line-height: 1.85; }
+  .memo li:last-child { border-bottom: 0; }
+  .memo li::before { content: counter(m) "."; counter-increment: m; font-family: var(--type); font-weight: 700; color: var(--red); }
+  .postit { position: relative; width: min(100%, 300px); margin: 42px auto 8px; padding: 28px 20px 22px; text-align: center; background: linear-gradient(172deg, #fbef8e, #f2dd62); box-shadow: 0 12px 14px -9px rgba(0, 0, 0, .4); rotate: -2deg; }
+  .postit::before { content: ""; position: absolute; top: -10px; left: 50%; width: 90px; height: 22px; translate: -50% 0; rotate: 3deg; background: rgba(255, 255, 255, .55); box-shadow: 0 1px 2px rgba(0, 0, 0, .1); }
+  .postit p { font-family: var(--serif); font-size: clamp(24px, 7vw, 30px); line-height: 1.5; letter-spacing: .06em; }
+  .postit small { display: block; margin-top: 6px; color: #6b5b16; font-size: 13px; letter-spacing: .1em; }
+  .bro { margin-top: 32px; }
+  .bro h3 { margin-bottom: 10px; font-family: var(--serif); font-size: 19px; letter-spacing: .1em; }
+  .bro ul { display: grid; gap: 10px; }
+  .bro li { position: relative; padding-left: 22px; }
+  .bro li::before { content: "＊"; position: absolute; left: 0; color: var(--red); font-size: 13px; }
+  .deep { margin-top: 22px; padding: 14px 18px; background: rgba(255, 255, 255, .45); border: 1.5px dashed rgba(184, 38, 44, .55); font-size: 14.5px; }
+
+  /* 結尾：三聯單 */
+  .ending { padding: 64px var(--gutter) 0; }
+  .form-stack { position: relative; max-width: 480px; margin: 0 auto; }
+  .form-stack::before, .form-stack::after { content: ""; position: absolute; z-index: 0; inset: 0; box-shadow: var(--shadow); }
+  .form-stack::before { background: #f2c3ca; translate: 9px 10px; rotate: 1.4deg; }
+  .form-stack::after { background: #f4e6a2; translate: 4px 5px; rotate: .6deg; }
+  .form { position: relative; z-index: 1; padding: 22px 22px 26px; background: var(--paper); box-shadow: var(--shadow); }
+  .form h2 { font-family: var(--serif); font-size: 24px; letter-spacing: .2em; padding-left: .2em; text-align: center; }
+  .form .sub { text-align: center; color: var(--muted); font-size: 13px; letter-spacing: .1em; }
+  .copy { position: absolute; top: 10px; right: 12px; font: 700 11px/1.4 var(--type); letter-spacing: .16em; color: var(--muted); }
+  .boxes { display: grid; gap: 12px; margin: 18px 0 16px; }
+  .boxes li { display: flex; align-items: center; gap: 12px; font-size: 16px; }
+  .boxes li::before { content: ""; flex: none; width: 20px; height: 20px; border: 1.5px solid var(--ink); background: #fff; }
+  .form .note-line { padding-top: 12px; border-top: 1px dashed var(--rule); font-size: 14.5px; }
+  .pending {
+    position: absolute; right: 14px; bottom: 74px; display: grid; place-items: center; width: 84px; height: 84px;
+    border: 2px dashed var(--red); border-radius: 50%; color: var(--red); opacity: .75; rotate: -12deg;
+    font: 700 16px/1 var(--serif); letter-spacing: .1em;
+  }
+  .sign { margin-top: 36px; text-align: center; color: var(--muted); font: 12px/1.6 var(--type); letter-spacing: .3em; }
+
+  /* 淡入 */
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+
+  @media (min-width: 561px) {
+    .cover-grid { grid-template-columns: 270px 1fr; align-items: center; gap: 34px; }
+    .lead { margin-top: 34px; }
+    .note-main { grid-template-columns: 146px 1fr auto; justify-items: start; align-items: center; text-align: left; gap: 20px; }
+    .note-name, .note .role { padding-left: 0; }
+    .note-top, .note-bottom { font-size: 12px; letter-spacing: .16em; }
+    .serial { letter-spacing: .24em; }
+    .specimen { top: auto; bottom: 9%; right: 30%; }
+    .docs, .chains, .donnies, .cards { grid-template-columns: 1fr 1fr; align-items: start; }
+    .prison-top { grid-template-columns: 250px 1fr; align-items: start; }
+    .mug { width: 100%; }
+    .rows li { grid-template-columns: 4.4em 1fr; gap: 10px; padding: 12px; }
+    .holes { padding-left: 40px; }
+    .holes::before { left: 10px; }
+    .report > div { grid-template-columns: 3.4em 1fr 34px; grid-template-areas: "t d s"; }
+    .report .true { align-self: start; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+    .note, .note-inner, .rosette, .rosette .core, .rosette .core-h, .denom, .fibers path, .uv-only, .uv-btn, .led { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main class="guide">
+  <span class="folder-tab" aria-hidden="true">特殊刑警檔案</span>
+
+  <header class="cover">
+    <div class="cover-grid">
+      <figure class="polaroid" data-reveal>
+        <svg class="clip" viewBox="0 0 22 60" aria-hidden="true"><path d="M7 20V7a4 4 0 0 1 8 0v39a6.5 6.5 0 0 1-13 0V13" fill="none" stroke="#8c939a" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <img src="../images/characters/海利波頓(二創)-3.jpg" alt="海利波頓靠在深色沙發上，一手枕在腦後，戴著圓框眼鏡，領帶鬆開" width="600" height="750">
+        <figcaption>海利波頓·雷克斯</figcaption>
+      </figure>
+      <div class="cover-side">
+        <div class="file-label" data-reveal>
+          <p class="fl-band">舊金山警方</p>
+          <h1>海利波頓</h1>
+          <p class="fl-role">特殊刑警</p>
+          <p class="fl-full">海利波頓·雷克斯</p>
+        </div>
+        <p class="dymo num" aria-label="入獄編號 9958">No. 9958</p>
+        <span class="stamp-secret" aria-hidden="true">機密</span>
+      </div>
+    </div>
+    <p class="lead" data-reveal>以前做偽鈔流通和偽造文書，常年在全世界逍遙法外，直到被捕才開始和警方合作。現在住在舊金山，是警方手上的<span class="nw">特殊刑警。</span></p>
+  </header>
+
+  <section class="sec">
+    <div class="sec-head"><span class="tab">證物</span><h2>偽鈔樣張</h2></div>
+    <div class="bag" data-reveal>
+      <div class="bag-label">
+        <b>證物</b>
+        <dl>
+          <div><dt>品名</dt><dd>偽鈔樣張</dd></div>
+          <div><dt>備註</dt><dd>用驗鈔燈照照看</dd></div>
+        </dl>
+      </div>
+      <div class="note" id="note">
+        <svg class="fibers" viewBox="0 0 400 240" preserveAspectRatio="none" aria-hidden="true"><path class="f1" d="M239 63q-6.5 5.1 -5.6 13.5"/><path class="f2" d="M116 214q-2.0 9.7 -3.3 14.5"/><path class="f3" d="M322 102q1.5 2.8 7.4 1.3"/><path class="f1" d="M204 138q-2.4 1.5 -5.9 6.6"/><path class="f2" d="M341 111q-1.8 5.2 -9.4 4.4"/><path class="f3" d="M94 200q-6.6 6.3 -13.7 8.0"/><path class="f1" d="M63 230q3.8 -0.2 5.8 6.3"/><path class="f2" d="M129 19q2.5 1.6 -0.3 7.7"/><path class="f3" d="M163 51q-2.3 1.9 -5.3 7.5"/><path class="f1" d="M204 88q0.1 4.9 -5.5 5.3"/><path class="f2" d="M375 89q2.0 -1.6 7.7 0.1"/><path class="f3" d="M229 119q-0.5 4.4 -8.8 8.5"/><path class="f1" d="M246 142q0.8 7.3 0.8 7.3"/><path class="f2" d="M390 127q-3.7 2.1 -13.4 6.4"/><path class="f3" d="M205 139q-4.8 7.1 -5.6 8.9"/><path class="f1" d="M275 75q-7.6 5.1 -9.5 7.8"/><path class="f2" d="M207 95q0.4 3.7 5.1 9.5"/><path class="f3" d="M244 189q-6.0 2.4 -9.0 1.8"/><path class="f1" d="M39 184q0.1 4.1 -2.4 11.8"/><path class="f2" d="M64 13q-9.5 3.9 -11.0 6.2"/><path class="f3" d="M209 103q-3.0 4.6 -11.5 5.6"/><path class="f1" d="M33 145q2.2 5.8 7.6 4.6"/><path class="f2" d="M260 49q7.5 -1.5 10.2 0.6"/><path class="f3" d="M145 194q-4.0 6.3 -4.1 7.7"/><path class="f1" d="M159 100q-5.4 1.4 -7.6 8.2"/><path class="f2" d="M289 66q1.0 2.8 1.2 10.8"/><path class="f3" d="M184 187q-1.7 3.5 -0.7 10.4"/><path class="f1" d="M54 22q-2.2 -2.0 -7.3 1.2"/><path class="f2" d="M320 184q4.2 2.1 10.2 4.7"/><path class="f3" d="M305 187q-5.8 0.9 -5.3 6.9"/></svg>
+        <div class="note-inner">
+          <div class="note-top"><span class="serial num">No. 9958</span><span>舊金山警方</span></div>
+          <div class="note-main">
+            <svg class="rosette" viewBox="-100 -100 200 200" aria-hidden="true">
+              <defs>
+                <path id="ra" d="M76.0 0.0l3.5 1.7 2.5 1.9 0.8 1.8 -1.1 1.8 -2.7 1.5 -3.7 1.2 -3.6 1.1 -2.8 1.1 -1.2 1.4 0.6 1.6 2.1 2.1 3 2.5 2.9 2.5 2 2.5 0.3 2.0 -1.5 1.4 -3 0.7 -3.9 0.3 -3.8 0.1 -3 0.4 -1.5 0.9 0.1 1.8 1.6 2.6 2.2 3.1 2.2 3.2 1.2 2.9 -0.2 2.0 -1.8 1.0 -3.1 -0.1 -3.8 -0.7 -3.8 -0.9 -2.9 -0.4 -1.7 0.5 -0.3 1.7 0.8 2.9 1.3 3.6 1.3 3.7 0.4 3.1 -0.7 1.9 -2 0.5 -2.9 -0.9 -3.5 -1.7 -3.4 -1.8 -2.8 -1.2 -1.8 0.1 -0.7 1.6 0 3.0 0.4 3.8 0.2 3.9 -0.3 3.1 -1.2 1.6 -2 0.0 -2.7 -1.6 -2.9 -2.6 -2.8 -2.6 -2.4 -1.9 -1.7 -0.4 -1.2 1.4 -0.7 2.9 -0.6 3.8 -0.8 3.8 -1.1 2.9 -1.6 1.3 -2 -0.6 -2.1 -2.2 -2.2 -3.3 -2 -3.2 -1.8 -2.4 -1.6 -0.8 -1.4 1.0 -1.5 2.6 -1.6 3.5 -1.7 3.5 -1.9 2.5 -1.8 0.8 -1.8 -1.1 -1.5 -2.7 -1.2 -3.7 -1.1 -3.6 -1.1 -2.8 -1.4 -1.2 -1.6 0.6 -2.1 2.1 -2.5 3.0 -2.5 2.9 -2.5 2.0 -2 0.3 -1.4 -1.5 -0.7 -3.0 -0.3 -3.9 -0.1 -3.8 -0.4 -3.0 -0.9 -1.5 -1.8 0.1 -2.6 1.6 -3.1 2.2 -3.2 2.2 -2.9 1.2 -2 -0.2 -1 -1.8 0.1 -3.1 0.7 -3.8 0.9 -3.8 0.4 -2.9 -0.5 -1.7 -1.7 -0.3 -2.9 0.8 -3.6 1.3 -3.7 1.3 -3.1 0.4 -1.9 -0.7 -0.5 -2.0 0.9 -2.9 1.7 -3.5 1.8 -3.4 1.2 -2.8 -0.1 -1.8 -1.6 -0.7 -3 0.0 -3.8 0.4 -3.9 0.2 -3.1 -0.3 -1.6 -1.2 0 -2.0 1.6 -2.7 2.6 -2.9 2.6 -2.8 1.9 -2.4 0.4 -1.7 -1.4 -1.2 -2.9 -0.7 -3.8 -0.6 -3.8 -0.8 -2.9 -1.1 -1.3 -1.6 0.6 -2.0 2.2 -2.1 3.3 -2.2 3.2 -2.0 2.4 -1.8 0.8 -1.6 -1 -1.4 -2.6 -1.5 -3.5 -1.6 -3.5 -1.7 -2.5 -1.9 -0.8 -1.8 1.1 -1.8 2.7 -1.5 3.7 -1.2 3.6 -1.1 2.8 -1.1 1.2 -1.4 -0.6 -1.6 -2.1 -2.1 -3 -2.5 -2.9 -2.5 -2 -2.5 -0.3 -2.0 1.5 -1.4 3 -0.7 3.9 -0.3 3.8 -0.1 3 -0.4 1.5 -0.9 -0.1 -1.8 -1.6 -2.6 -2.2 -3.1 -2.2 -3.2 -1.2 -2.9 0.2 -2.0 1.8 -1.0 3.1 0.1 3.8 0.7 3.8 0.9 2.9 0.4 1.7 -0.5 0.3 -1.7 -0.8 -2.9 -1.3 -3.6 -1.3 -3.7 -0.4 -3.1 0.7 -1.9 2 -0.5 2.9 0.9 3.5 1.7 3.4 1.8 2.8 1.2 1.8 -0.1 0.7 -1.6 0 -3.0 -0.4 -3.8 -0.2 -3.9 0.3 -3.1 1.2 -1.6 2 0.0 2.7 1.6 2.9 2.6 2.8 2.6 2.4 1.9 1.7 0.4 1.2 -1.4 0.7 -2.9 0.6 -3.8 0.8 -3.8 1.1 -2.9 1.6 -1.3 2 0.6 2.1 2.2 2.2 3.3 2 3.2 1.8 2.4 1.6 0.8 1.4 -1.0 1.5 -2.6 1.6 -3.5 1.7 -3.5 1.9 -2.5 1.8 -0.8 1.8 1.1 1.5 2.7 1.2 3.7 1.1 3.6 1.1 2.8 1.4 1.2 1.6 -0.6 2.1 -2.1 2.5 -3.0 2.5 -2.9 2.5 -2.0 2 -0.3 1.4 1.5 0.7 3.0 0.3 3.9 0.1 3.8 0.4 3.0 0.9 1.5 1.8 -0.1 2.6 -1.6 3.1 -2.2 3.2 -2.2 2.9 -1.2 2 0.2 1 1.8 -0.1 3.1 -0.7 3.8 -0.9 3.8 -0.4 2.9 0.5 1.7 1.7 0.3 2.9 -0.8 3.6 -1.3 3.7 -1.3 3.1 -0.4 1.9 0.7 0.5 2.0 -0.9 2.9 -1.7 3.5 -1.8 3.4 -1.2 2.8 0.1 1.8 1.6 0.7 3 0.0 3.8 -0.4 3.9 -0.2 3.1 0.3 1.6 1.2 0 2.0 -1.6 2.7 -2.6 2.9 -2.6 2.8 -1.9 2.4 -0.4 1.7 1.4 1.2 2.9 0.7 3.8 0.6 3.8 0.8 2.9 1.1 1.3 1.6 -0.6 2.0 -2.2 2.1 -3.3 2.2 -3.2 2.0 -2.4 1.8 -0.8 1.6 1 1.4 2.6 1.5 3.5 1.6z"/>
+                <path id="rb" d="M55.0 0.0l3.4 1.6 2.8 1.8 1.4 1.9 -0.2 1.7 -1.7 1.6 -3.1 1.2 -3.7 0.9 -3.7 0.8 -3 0.7 -1.8 0.9 -0.4 1.2 1 1.8 2.1 2.3 2.7 2.6 2.6 2.9 1.8 2.7 0.6 2.2 -0.8 1.6 -2.2 0.7 -3.3 0.0 -3.8 -0.5 -3.7 -0.8 -3.1 -0.5 -2 0.1 -0.8 1.1 0.2 2.0 1.1 2.9 1.5 3.5 1.3 3.6 0.6 3.2 -0.3 2.3 -1.3 1.1 -2.4 -0.2 -3 -1.2 -3.2 -2.0 -3.2 -2.1 -2.6 -1.6 -2 -0.7 -1.1 0.6 -0.6 2.0 -0.1 3.1 0 3.8 -0.1 3.8 -0.7 3.2 -1.1 2.0 -1.7 0.5 -2.1 -1.0 -2.3 -2.3 -2.3 -3.1 -2.1 -3.1 -1.8 -2.5 -1.5 -1.4 -1.3 0.1 -1.3 1.7 -1.3 2.8 -1.4 3.5 -1.6 3.4 -1.8 2.8 -1.9 1.4 -1.7 -0.2 -1.6 -1.7 -1.2 -3.1 -0.9 -3.7 -0.8 -3.7 -0.7 -3.0 -0.9 -1.8 -1.2 -0.4 -1.8 1.0 -2.3 2.1 -2.6 2.7 -2.9 2.6 -2.7 1.8 -2.2 0.6 -1.6 -0.8 -0.7 -2.2 0 -3.3 0.5 -3.8 0.8 -3.7 0.5 -3.1 -0.1 -2.0 -1.1 -0.8 -2 0.2 -2.9 1.1 -3.5 1.5 -3.6 1.3 -3.2 0.6 -2.3 -0.3 -1.1 -1.3 0.2 -2.4 1.2 -3.0 2 -3.2 2.1 -3.2 1.6 -2.6 0.7 -2.0 -0.6 -1.1 -2 -0.6 -3.1 -0.1 -3.8 0.0 -3.8 -0.1 -3.2 -0.7 -2 -1.1 -0.5 -1.7 1 -2.1 2.3 -2.3 3.1 -2.3 3.1 -2.1 2.5 -1.8 1.4 -1.5 -0.1 -1.3 -1.7 -1.3 -2.8 -1.3 -3.5 -1.4 -3.4 -1.6 -2.8 -1.8 -1.4 -1.9 0.2 -1.7 1.7 -1.6 3.1 -1.2 3.7 -0.9 3.7 -0.8 3 -0.7 1.8 -0.9 0.4 -1.2 -1 -1.8 -2.1 -2.3 -2.7 -2.6 -2.6 -2.9 -1.8 -2.7 -0.6 -2.2 0.8 -1.6 2.2 -0.7 3.3 0.0 3.8 0.5 3.7 0.8 3.1 0.5 2 -0.1 0.8 -1.1 -0.2 -2.0 -1.1 -2.9 -1.5 -3.5 -1.3 -3.6 -0.6 -3.2 0.3 -2.3 1.3 -1.1 2.4 0.2 3 1.2 3.2 2.0 3.2 2.1 2.6 1.6 2 0.7 1.1 -0.6 0.6 -2.0 0.1 -3.1 0 -3.8 0.1 -3.8 0.7 -3.2 1.1 -2.0 1.7 -0.5 2.1 1.0 2.3 2.3 2.3 3.1 2.1 3.1 1.8 2.5 1.5 1.4 1.3 -0.1 1.3 -1.7 1.3 -2.8 1.4 -3.5 1.6 -3.4 1.8 -2.8 1.9 -1.4 1.7 0.2 1.6 1.7 1.2 3.1 0.9 3.7 0.8 3.7 0.7 3.0 0.9 1.8 1.2 0.4 1.8 -1.0 2.3 -2.1 2.6 -2.7 2.9 -2.6 2.7 -1.8 2.2 -0.6 1.6 0.8 0.7 2.2 0 3.3 -0.5 3.8 -0.8 3.7 -0.5 3.1 0.1 2.0 1.1 0.8 2 -0.2 2.9 -1.1 3.5 -1.5 3.6 -1.3 3.2 -0.6 2.3 0.3 1.1 1.3 -0.2 2.4 -1.2 3.0 -2 3.2 -2.1 3.2 -1.6 2.6 -0.7 2.0 0.6 1.1 2 0.6 3.1 0.1 3.8 0.0 3.8 0.1 3.2 0.7 2 1.1 0.5 1.7 -1 2.1 -2.3 2.3 -3.1 2.3 -3.1 2.1 -2.5 1.8 -1.4 1.5 0.1 1.3 1.7 1.3 2.8 1.3 3.5 1.4z"/>
+                <path id="rc" d="M37.0 0.0l2 1.6 1.6 1.8 0.8 1.8 0 1.8 -1 1.6 -1.7 1.3 -2.3 1.1 -2.4 0.8 -2.3 0.7 -1.9 0.8 -1.1 0.9 -0.4 1.3 0.2 1.7 0.6 2.2 0.8 2.3 0.7 2.5 0.2 2.4 -0.4 2.0 -1 1.4 -1.7 0.7 -2.2 0.1 -2.5 -0.5 -2.5 -0.8 -2.2 -0.7 -2 -0.5 -1.5 0.1 -1.1 0.8 -0.8 1.5 -0.7 2.1 -0.8 2.4 -0.9 2.4 -1.2 2.0 -1.5 1.4 -1.7 0.5 -1.8 -0.4 -1.8 -1.2 -1.7 -1.9 -1.6 -2.0 -1.3 -2.0 -1.3 -1.5 -1.3 -0.8 -1.3 0.0 -1.6 0.7 -1.8 1.3 -2 1.5 -2.2 1.4 -2.2 0.9 -2 0.3 -1.6 -0.6 -1.3 -1.4 -0.7 -2.1 -0.3 -2.5 0 -2.6 0 -2.4 -0.2 -1.9 -0.5 -1.4 -1.1 -0.8 -1.7 -0.4 -2.2 0.0 -2.5 0.0 -2.6 -0.1 -2.3 -0.5 -1.8 -1.0 -1 -1.4 -0.2 -1.9 0.7 -2.1 1.2 -2.2 1.5 -2.1 1.4 -1.9 1 -1.7 0.4 -1.5 -0.4 -1.3 -1.2 -1.2 -1.7 -1.3 -2.1 -1.5 -2 -1.6 -1.6 -1.8 -0.8 -1.8 0 -1.8 1 -1.6 1.7 -1.3 2.3 -1.1 2.4 -0.8 2.3 -0.7 1.9 -0.8 1.1 -0.9 0.4 -1.3 -0.2 -1.7 -0.6 -2.2 -0.8 -2.3 -0.7 -2.5 -0.2 -2.4 0.4 -2.0 1 -1.4 1.7 -0.7 2.2 -0.1 2.5 0.5 2.5 0.8 2.2 0.7 2 0.5 1.5 -0.1 1.1 -0.8 0.8 -1.5 0.7 -2.1 0.8 -2.4 0.9 -2.4 1.2 -2.0 1.5 -1.4 1.7 -0.5 1.8 0.4 1.8 1.2 1.7 1.9 1.6 2.0 1.3 2.0 1.3 1.5 1.3 0.8 1.3 0.0 1.6 -0.7 1.8 -1.3 2 -1.5 2.2 -1.4 2.2 -0.9 2 -0.3 1.6 0.6 1.3 1.4 0.7 2.1 0.3 2.5 0 2.6 0 2.4 0.2 1.9 0.5 1.4 1.1 0.8 1.7 0.4 2.2 0.0 2.5 0.0 2.6 0.1 2.3 0.5 1.8 1.0 1 1.4 0.2 1.9 -0.7 2.1 -1.2 2.2 -1.5 2.1 -1.4 1.9 -1 1.7 -0.4 1.5 0.4 1.3 1.2 1.2 1.7 1.3 2.1 1.5z"/>
+              </defs>
+              <g fill="none" stroke="currentColor" stroke-width=".7">
+                <circle r="97"/><circle r="93.5"/>
+                <path d="M88.0 0.0l1.5 1.5 0.7 1.5 -0.8 1.4 -1.6 1.4 -1.6 1.3 -0.8 1.3 0.5 1.5 1.3 1.6 1.4 1.6 0.4 1.6 -0.9 1.3 -1.8 1.2 -1.8 1.0 -0.9 1.3 0.3 1.5 1.1 1.8 1.1 1.8 0.2 1.6 -1 1.2 -2 0.9 -1.9 0.8 -1.1 1.1 0.1 1.6 0.9 1.9 0.9 1.9 0 1.6 -1.2 1.1 -2.1 0.6 -2 0.6 -1.2 0.9 -0.1 1.6 0.6 2.0 0.6 2.0 -0.2 1.6 -1.3 0.9 -2.1 0.4 -2.1 0.3 -1.4 0.8 -0.3 1.5 0.4 2.1 0.3 2.1 -0.4 1.5 -1.4 0.7 -2.1 0.1 -2.1 0.1 -1.5 0.6 -0.5 1.4 0.1 2.1 0.1 2.2 -0.6 1.4 -1.6 0.6 -2.1 -0.2 -2.1 -0.3 -1.5 0.4 -0.7 1.4 -0.1 2.1 -0.3 2.1 -0.8 1.4 -1.5 0.3 -2.1 -0.4 -2.1 -0.5 -1.5 0.2 -0.9 1.2 -0.4 2.1 -0.5 2.1 -1 1.2 -1.6 0.2 -2 -0.8 -1.9 -0.8 -1.6 0.1 -1 1.1 -0.7 2.0 -0.8 2.0 -1.1 1.1 -1.6 -0.1 -1.9 -1.0 -1.9 -1.0 -1.5 -0.2 -1.2 1.0 -0.9 1.9 -1 1.9 -1.3 0.9 -1.6 -0.3 -1.7 -1.2 -1.7 -1.3 -1.5 -0.3 -1.3 0.8 -1.2 1.7 -1.3 1.8 -1.4 0.8 -1.5 -0.5 -1.5 -1.5 -1.6 -1.5 -1.4 -0.5 -1.4 0.6 -1.4 1.6 -1.5 1.5 -1.5 0.7 -1.4 -0.8 -1.4 -1.6 -1.3 -1.6 -1.3 -0.8 -1.5 0.5 -1.6 1.3 -1.6 1.4 -1.6 0.4 -1.3 -0.9 -1.2 -1.8 -1 -1.8 -1.3 -0.9 -1.5 0.3 -1.8 1.1 -1.8 1.1 -1.6 0.2 -1.2 -1.0 -0.9 -2.0 -0.8 -1.9 -1.1 -1.1 -1.6 0.1 -1.9 0.9 -1.9 0.9 -1.6 0.0 -1.1 -1.2 -0.6 -2.1 -0.6 -2.0 -0.9 -1.2 -1.6 -0.1 -2 0.6 -2 0.6 -1.6 -0.2 -0.9 -1.3 -0.4 -2.1 -0.3 -2.1 -0.8 -1.4 -1.5 -0.3 -2.1 0.4 -2.1 0.3 -1.5 -0.4 -0.7 -1.4 -0.1 -2.1 -0.1 -2.1 -0.6 -1.5 -1.4 -0.5 -2.1 0.1 -2.2 0.1 -1.4 -0.6 -0.6 -1.6 0.2 -2.1 0.3 -2.1 -0.4 -1.5 -1.4 -0.7 -2.1 -0.1 -2.1 -0.3 -1.4 -0.8 -0.3 -1.5 0.4 -2.1 0.5 -2.1 -0.2 -1.5 -1.2 -0.9 -2.1 -0.4 -2.1 -0.5 -1.2 -1.0 -0.2 -1.6 0.8 -2.0 0.8 -1.9 -0.1 -1.6 -1.1 -1.0 -2 -0.7 -2 -0.8 -1.1 -1.1 0.1 -1.6 1 -1.9 1 -1.9 0.2 -1.5 -1 -1.2 -1.9 -0.9 -1.9 -1.0 -0.9 -1.3 0.3 -1.6 1.2 -1.7 1.3 -1.7 0.3 -1.5 -0.8 -1.3 -1.7 -1.2 -1.8 -1.3 -0.8 -1.4 0.5 -1.5 1.5 -1.5 1.5 -1.6 0.5 -1.4 -0.6 -1.4 -1.6 -1.4 -1.5 -1.5 -0.7 -1.5 0.8 -1.4 1.6 -1.4 1.6 -1.3 0.8 -1.3 -0.5 -1.5 -1.3 -1.6 -1.4 -1.6 -0.4 -1.6 0.9 -1.3 1.8 -1.2 1.8 -1.0 0.9 -1.3 -0.3 -1.5 -1.1 -1.8 -1.1 -1.8 -0.2 -1.6 1 -1.2 2 -0.9 1.9 -0.8 1.1 -1.1 -0.1 -1.6 -0.9 -1.9 -0.9 -1.9 0 -1.6 1.2 -1.1 2.1 -0.6 2 -0.6 1.2 -0.9 0.1 -1.6 -0.6 -2.0 -0.6 -2.0 0.2 -1.6 1.3 -0.9 2.1 -0.4 2.1 -0.3 1.4 -0.8 0.3 -1.5 -0.4 -2.1 -0.3 -2.1 0.4 -1.5 1.4 -0.7 2.1 -0.1 2.1 -0.1 1.5 -0.6 0.5 -1.4 -0.1 -2.1 -0.1 -2.2 0.6 -1.4 1.6 -0.6 2.1 0.2 2.1 0.3 1.5 -0.4 0.7 -1.4 0.1 -2.1 0.3 -2.1 0.8 -1.4 1.5 -0.3 2.1 0.4 2.1 0.5 1.5 -0.2 0.9 -1.2 0.4 -2.1 0.5 -2.1 1 -1.2 1.6 -0.2 2 0.8 1.9 0.8 1.6 -0.1 1 -1.1 0.7 -2.0 0.8 -2.0 1.1 -1.1 1.6 0.1 1.9 1.0 1.9 1.0 1.5 0.2 1.2 -1.0 0.9 -1.9 1 -1.9 1.3 -0.9 1.6 0.3 1.7 1.2 1.7 1.3 1.5 0.3 1.3 -0.8 1.2 -1.7 1.3 -1.8 1.4 -0.8 1.5 0.5 1.5 1.5 1.6 1.5 1.4 0.5 1.4 -0.6 1.4 -1.6 1.5 -1.5 1.5 -0.7 1.4 0.8 1.4 1.6 1.3 1.6 1.3 0.8 1.5 -0.5 1.6 -1.3 1.6 -1.4 1.6 -0.4 1.3 0.9 1.2 1.8 1 1.8 1.3 0.9 1.5 -0.3 1.8 -1.1 1.8 -1.1 1.6 -0.2 1.2 1.0 0.9 2.0 0.8 1.9 1.1 1.1 1.6 -0.1 1.9 -0.9 1.9 -0.9 1.6 0.0 1.1 1.2 0.6 2.1 0.6 2.0 0.9 1.2 1.6 0.1 2 -0.6 2 -0.6 1.6 0.2 0.9 1.3 0.4 2.1 0.3 2.1 0.8 1.4 1.5 0.3 2.1 -0.4 2.1 -0.3 1.5 0.4 0.7 1.4 0.1 2.1 0.1 2.1 0.6 1.5 1.4 0.5 2.1 -0.1 2.2 -0.1 1.4 0.6 0.6 1.6 -0.2 2.1 -0.3 2.1 0.4 1.5 1.4 0.7 2.1 0.1 2.1 0.3 1.4 0.8 0.3 1.5 -0.4 2.1 -0.5 2.1 0.2 1.5 1.2 0.9 2.1 0.4 2.1 0.5 1.2 1.0 0.2 1.6 -0.8 2.0 -0.8 1.9 0.1 1.6 1.1 1.0 2 0.7 2 0.8 1.1 1.1 -0.1 1.6 -1 1.9 -1 1.9 -0.2 1.5 1 1.2 1.9 0.9 1.9 1.0 0.9 1.3 -0.3 1.6 -1.2 1.7 -1.3 1.7 -0.3 1.5 0.8 1.3 1.7 1.2 1.8 1.3 0.8 1.4 -0.5 1.5 -1.5 1.5 -1.5 1.6 -0.5 1.4 0.6 1.4 1.6 1.4z"/>
+                <use href="#ra"/><use href="#ra" transform="rotate(3.75)"/><use href="#ra" transform="rotate(7.5)"/><use href="#ra" transform="rotate(11.25)"/>
+                <use href="#rb"/><use href="#rb" transform="rotate(5.625)"/><use href="#rb" transform="rotate(11.25)"/><use href="#rb" transform="rotate(16.875)"/>
+                <use href="#rc"/><use href="#rc" transform="rotate(12)"/><use href="#rc" transform="rotate(24)"/>
+              </g>
+              <circle class="core" r="26"/>
+              <g class="core-h" transform="scale(.42) skewX(-14)" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path stroke="none" d="M-15-38C-15-10-17 20-24 36C-9 20-6-10-12-38Z"/>
+                <path fill="none" stroke-width="3.6" d="M-38-20C-40-36-24-44-14-38"/>
+                <path fill="none" stroke-width="3.6" d="M-24 36C-28 44-40 42-40 34C-40 28-32 27-27 31"/>
+                <path stroke="none" d="M22-34C20-10 18 20 20 36C29 20 31-10 25-34Z"/>
+                <path fill="none" stroke-width="3.6" d="M36-30C36-40 25-42 23.5-34"/>
+                <path fill="none" stroke-width="3.6" d="M20 36C22 44 34 42 40 32"/>
+                <path fill="none" stroke-width="3.6" d="M-13 2C-26 10-30 0-20-2C-6-4 10-2 22 2"/>
+              </g>
+            </svg>
+            <div>
+              <p class="note-name">海利波頓</p>
+              <p class="role">特殊刑警</p>
+            </div>
+            <div class="denom"><small>入獄編號</small><b class="num">9958</b></div>
+          </div>
+          <div class="note-bottom"><span>偽鈔與偽造文書出身</span><span class="serial num">No. 9958</span></div>
+          <p class="uv-only">有三明治的年輕人</p>
+        </div>
+        <span class="specimen" aria-hidden="true">樣張</span>
+      </div>
+    </div>
+    <p class="uv-row"><button class="uv-btn" id="uv" type="button" aria-pressed="false" aria-controls="note"><span class="led" aria-hidden="true"></span><span class="uv-txt">打開驗鈔燈</span></button></p>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><span class="tab">附件一</span><h2>兩份身分</h2></div>
+    <div class="docs">
+      <article class="doc carbon" data-reveal>
+        <p class="doc-head"><span>舊身分</span><span>德國</span></p>
+        <p class="doc-name">麥斯·施密特</p>
+        <dl>
+          <div><dt>國籍</dt><dd>德國</dd></div>
+          <div><dt>來歷</dt><dd>跟家人從德國到紐約討生活</dd></div>
+          <div><dt>語言</dt><dd>聽得懂德語和英語</dd></div>
+        </dl>
+        <p class="doc-foot">加入黑幫後改名，不再用這個名字，也不再<span class="nw">提起舊家。</span></p>
+        <span class="stamp-void" aria-label="作廢">作廢</span>
+      </article>
+      <article class="doc idoc" data-reveal>
+        <div class="idcard">
+          <p class="id-head"><span>舊金山警方</span><span>特殊刑警</span></p>
+          <div class="id-body">
+            <figure class="id-photo"><img src="../images/characters/海利波頓(二創)-1.jpg" alt="海利波頓的正面照：金棕色頭髮、綠色眼睛、圓框眼鏡，深色西裝配紅棕色領帶" width="600" height="750" loading="lazy"></figure>
+            <dl class="id-fields">
+              <div><dt>姓名</dt><dd><span class="nw">海利波頓·</span><wbr><span class="nw">雷克斯</span></dd></div>
+              <div><dt>身高</dt><dd>183 公分</dd></div>
+            </dl>
+          </div>
+          <span class="barcode" aria-hidden="true"></span>
+        </div>
+        <dl>
+          <div><dt>外貌</dt><dd>金棕色整齊的短髮，綠色眼睛，<span class="nw">乾淨帥氣的臉</span></dd></div>
+          <div><dt>穿著</dt><dd>高級訂製西裝，戴一副偽裝用的<span class="nw">黑框眼鏡</span></dd></div>
+          <div><dt>住處</dt><dd>舊金山的高級公寓，四周有便衣警察盯著他的行蹤</dd></div>
+          <div><dt>負責</dt><dd>棘手案件、黑幫勾當、文書鑑定</dd></div>
+          <div><dt>專長</dt><dd>熟悉政府文件、公家機關和私人企業的流程，很會仿造、竄改<span class="nw">紙本文件</span></dd></div>
+        </dl>
+        <p class="doc-foot">這個名字是義父唐尼·雷克斯取的。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><span class="tab">附件二</span><h2>履歷</h2></div>
+    <div class="printout" data-reveal>
+      <p class="pt-head"><span>經歷紀錄</span><span>海利波頓·雷克斯</span></p>
+      <ol class="rows">
+        <li><span class="age">16 歲</span><p>在印鈔廠當工讀生。那裡不是正規工廠，是官員偷工減料、私下勾結的灰色地帶。他在這裡學會分辨墨水、紙張和耗材，也學會維修、拆解印鈔機。</p></li>
+        <li><span class="age">18 歲</span><p>老闆和官員一起被捕，印鈔廠倒閉。他把一部分零件和耗材搬進一座荒廢倉庫，自己組印鈔機，<span class="nw">印給自己用。</span></p></li>
+        <li><span class="age">19 歲</span><p>假鈔流通得太不隱蔽，被大黑幫和小地痞盯上。雷克斯派的首領<b>唐尼·雷克斯</b>搶先一步保護他，收他當義子。他正式加入黑幫，<span class="nw">改名海利波頓。</span></p></li>
+        <li><span class="age">24 歲</span><p>唐尼·雷克斯死在和警方的槍戰裡，雷克斯派瓦解，<span class="nw">他第一次入獄。</span></p></li>
+        <li><span class="age">34 歲</span><p>第二次入獄。警方拿手足的未來要脅他，<span class="nw">他成了特殊刑警。</span></p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><span class="tab">附件三</span><h2>逃獄交易鏈</h2></div>
+    <div class="prison-top">
+      <figure class="mug" data-reveal>
+        <div class="mug-photo">
+          <span class="ruler" aria-hidden="true"></span>
+          <img src="../images/characters/海利波頓(二創)-2.jpg" alt="剛入獄時的海利波頓還是少年模樣：瀏海蓋住半邊眼睛，戴著耳環，穿橘色外套，手指抵在唇邊" width="600" height="750" loading="lazy">
+        </div>
+        <div class="placard" aria-hidden="true"><small>入獄編號</small><b class="num">9958</b></div>
+        <figcaption>剛入獄時</figcaption>
+      </figure>
+      <div>
+        <p class="intro" data-reveal>入獄後，他先花一個月觀察地形、建立人脈，再靠最基本的以物易物，一路換到工具和<span class="nw">警察制服。</span></p>
+        <div class="side-card">
+          <div class="index" data-reveal>
+            <h3>獄中傳奇</h3>
+            <p>他在監獄裡跟大家打成一片，認識不少國外的黑幫和遊走灰色地帶的警察，被叫做「有三明治的年輕人」「有按摩券的年輕人」。從此三明治和按摩券就是他的<span class="nw">幸運物。</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chains">
+      <div class="receipt" data-reveal>
+        <p class="r-title">三明治路線</p>
+        <ol>
+          <li><span>一份雞肉三明治</span></li>
+          <li><span>一根迴紋針<small>跟長年吃不到飯的人換來的</small></span></li>
+          <li><span>牙刷、鋼刷、洗衣粉、<span class="nw">硬掉的馬鈴薯泥</span></span></li>
+          <li><span>用馬鈴薯泥做成補牆磚</span></li>
+          <li class="goal"><span>警衛的信任，和一點工具</span></li>
+        </ol>
+      </div>
+      <div class="receipt" data-reveal>
+        <p class="r-title">按摩券路線</p>
+        <ol>
+          <li><span>一張泰式按摩券<small>自己偽造的，但真的能用</small></span></li>
+          <li><span>大部分獄友的青睞</span></li>
+          <li><span>再轉而慫恿警察去按摩</span></li>
+          <li><span>從按摩店的小姐那裡拿到<span class="nw">警察制服</span></span></li>
+          <li class="goal"><span>逃獄成功</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="index" data-reveal>
+        <h3>典獄長換人</h3>
+        <p>典獄長韓森·強尼因為這場荒謬的逃獄被迫辭職，從此記恨他。</p>
+        <p>新任典獄長諾米斯·派克，就是當年幫他逃獄的警察。讓派克升官是海利波頓給的承諾，也是往後要派克<span class="nw">繼續幫忙的籌碼。</span></p>
+      </div>
+      <div class="pager" data-reveal>
+        <div class="pager-body"><div class="lcd" aria-hidden="true"><span>密碼</span><b class="num">9958</b></div></div>
+        <p>入獄編號 9958，現在是他大部分<span class="nw">工作設備的密碼。</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><span class="tab">附件四</span><h2>兩個唐尼</h2></div>
+    <p class="intro-big wrap" data-reveal>他這輩子有兩個父親，<wbr>都叫唐尼。</p>
+    <div class="donnies">
+      <article class="rolo" data-reveal>
+        <span class="rolo-tab">生父</span>
+        <h3>唐尼·施密特</h3>
+        <ul>
+          <li>在德國開公車，薪水不高，<span class="nw">早出晚歸。</span></li>
+          <li>說過去紐約也不會有什麼改變，還是拗不過妻子的美國夢。</li>
+          <li>妻子出軌、兩人離婚後一蹶不振，天天待在酒吧。麥斯也因此走上歪路。</li>
+          <li>現在被海利波頓送進芝加哥的<span class="nw">養老院。</span></li>
+        </ul>
+      </article>
+      <article class="rolo" data-reveal>
+        <span class="rolo-tab">義父</span>
+        <h3>唐尼·雷克斯</h3>
+        <ul>
+          <li>紐約街頭最大的毒梟，掌握<span class="nw">地下世界。</span></li>
+          <li>收麥斯當義子，替他取名海利波頓。</li>
+          <li>用他的印鈔機印大量假鈔，流進紐約的貧民區、唐人街和中產商業區，逼得全市警察<span class="nw">出動追查。</span></li>
+          <li>教他怎麼跟人打交道、怎麼看懂文書體系，讓他成了最年輕的偽造犯。</li>
+        </ul>
+      </article>
+    </div>
+    <p class="after-note sheet" data-reveal>在唐尼·雷克斯身邊，他又嘗到家人和父愛的滋味，也變得健談、風趣、懂禮儀，很會製造第一印象。失去之後，他知道重要的東西得小心保護。</p>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><span class="tab">附件五</span><h2>鑑定報告</h2></div>
+    <div class="sheet holes rep" data-reveal>
+      <p class="rep-head"><span>受鑑定人</span><b>海利波頓·雷克斯</b></p>
+      <dl class="report">
+        <div><dt>外表</dt><dd>優雅、時尚、有格調，<span class="nw">從談吐到內涵都是。</span></dd><span class="true" aria-label="鑑定為真">真</span></div>
+        <div><dt>頭腦</dt><dd>相當聰明，擅長用不明顯的肢體碰觸表達更深的意思。</dd><span class="true" aria-label="鑑定為真">真</span></div>
+        <div><dt>話術</dt><dd>偷換概念。沒有的事一再肯定，聽起來<span class="nw">就像真的。</span></dd><span class="true" aria-label="鑑定為真">真</span></div>
+        <div><dt>句型</dt><dd>肯定句比問句多，讓對方忙著自證，掉進他的邏輯陷阱。</dd><span class="true" aria-label="鑑定為真">真</span></div>
+        <div><dt>說話</dt><dd>刻意誇飾，有時又很真切，<span class="nw">讓人分不出真假。</span></dd><span class="true" aria-label="鑑定為真">真</span></div>
+        <div><dt>笑容</dt><dd>笑著做出看似無害、其實帶有<span class="nw">侵略性的事。</span></dd><span class="true" aria-label="鑑定為真">真</span></div>
+        <div><dt>觀察</dt><dd>靠五感和經驗觀察，<span class="nw">看得相當細。</span></dd><span class="true" aria-label="鑑定為真">真</span></div>
+        <div><dt>態度</dt><dd>表面平淡，其實一直在試探、<span class="nw">保留、觀察。</span></dd><span class="true" aria-label="鑑定為真">真</span></div>
+        <div><dt>舊手法</dt><dd>犯罪手法沒丟，改用在辦案、生活，也用在伴侶的<span class="nw">親密關係上。</span></dd><span class="true" aria-label="鑑定為真">真</span></div>
+      </dl>
+      <p class="verdict">鑑定結果：<b>以上為真</b></p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><span class="tab">附件六</span><h2>你</h2></div>
+    <p class="you-lead wrap" data-reveal>這個故事裡，<wbr>你是他<b>同母異父的手足</b>。</p>
+    <div class="sheet holes memo-sheet" data-reveal>
+      <p class="memo-head">備忘錄</p>
+      <ol class="memo">
+        <li><span>加入黑幫前，他去找過生母凡妮莎。她已經和外遇對象再婚，<span class="nw">你那時兩歲。</span></span></li>
+        <li><span>他遠遠看了三個月，偷偷在你們家附近放了自己用過的品牌、代表德國的東西，想勾起她的回憶，全都沒用。</span></li>
+        <li><span>看到她其實過得不好，他有點放心，信了「惡人自有惡人磨」，也開始想自己的<span class="nw">惡人會是誰。</span></span></li>
+        <li><span>他有點忌妒你，也覺得你可憐，生在這麼複雜的家。不過你們畢竟是同一個媽媽生的，以後還是要照顧你、<span class="nw">保護你。</span></span></li>
+        <li><span>你十八歲進警校，警方拿你的未來要脅他。那時他在舊金山海邊度假，聽到消息就直接投降，當上特殊刑警。</span></li>
+      </ol>
+    </div>
+    <div class="postit" data-reveal>
+      <p class="wrap">他的惡人，<wbr>就是你。</p>
+      <small>惡人自有惡人磨</small>
+    </div>
+    <div class="bro" data-reveal>
+      <h3>他對你</h3>
+      <ul>
+        <li>隨口說自己是你哥哥，卻不直接承認，在是與不是之間來回試探。</li>
+        <li>有時像幼稚的大哥哥，有時像<span class="nw">職場上的上司。</span></li>
+        <li>不定時惡作劇，包包裡的假蟑螂、嚇人的屋頂吊飾都有。</li>
+        <li>會引誘你犯下可能釀成大禍的錯，再自己出面收拾，讓自己變得不可或缺。</li>
+        <li>偶爾誘導你做點小壞事，用來證明你們<span class="nw">是一樣的。</span></li>
+        <li>你笨他也愛。用盡一切愛你、保護你，同時也玩弄你、逗你。</li>
+      </ul>
+    </div>
+    <p class="deep" data-reveal>他從小沒有完整的家，羨慕你有。他想毀掉你擁有的感情，又想保護你；也想在你身上，找到跟自己一樣的地方。</p>
+  </section>
+
+  <footer class="ending">
+    <div class="form-stack" data-reveal>
+      <div class="form">
+        <span class="copy" aria-hidden="true">第一聯</span>
+        <h2>去向登記</h2>
+        <p class="sub">特殊刑警　海利波頓·雷克斯</p>
+        <ul class="boxes">
+          <li>回到黑暗</li>
+          <li>繼續走正義</li>
+          <li>維持現狀</li>
+        </ul>
+        <p class="note-line">不一定要當特殊刑警。他可以變得更好、更壞，或維持現狀。</p>
+        <span class="pending" aria-hidden="true">待核章</span>
+      </div>
+    </div>
+    <p class="sign">特殊刑警檔案　海利波頓</p>
+  </footer>
+</main>
+<script>
+  const note = document.getElementById('note');
+  const uv = document.getElementById('uv');
+  uv.addEventListener('click', () => {
+    const on = note.classList.toggle('uv');
+    uv.setAttribute('aria-pressed', String(on));
+    uv.querySelector('.uv-txt').textContent = on ? '關掉驗鈔燈' : '打開驗鈔燈';
+  });
+</script>
+</body>
+</html>
