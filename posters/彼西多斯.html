@@ -222,7 +222,6 @@
   .fields { display: grid; grid-template-columns: 3.6em 1fr; gap: 6px 14px; margin: 0; }
   .fields dt { font-size: 13px; letter-spacing: .1em; color: #8797a3; line-height: 1.95; }
   .fields dd { margin: 0; }
-  .plate.cold .note { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .1); color: #c9d3da; }
 
   /* 鍛打：兩種模樣 */
   .forms { display: grid; gap: 16px; margin-top: 8px; }
@@ -319,8 +318,7 @@
     .chart ol { grid-template-columns: repeat(6, 1fr); }
     .plate { padding: 30px 32px; }
     .forms { grid-template-columns: 1fr 1fr; }
-    .skill { display: grid; grid-template-columns: 6.5em 1fr; gap: 18px; align-items: baseline; }
-    .skill h4 { margin: 0; }
+    .skills { grid-template-columns: repeat(3, 1fr); }
     .tools { margin-top: 22px; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -361,10 +359,10 @@
       <h1>彼西多斯</h1>
       <p class="alias">本名彼西多斯·舒特，菲索人叫他<strong>惡龍鎧焰</strong></p>
     </div>
-    <p class="lead">他本來是勇者探險隊的巨錘戰士，跟著隊伍去討伐惡龍。龍死了以後，最好的兄弟理查德拉他去擋龍的靈魂，他就成了<span class="nw">下一隻惡龍。</span></p>
+    <p class="lead">他本來是勇者探險隊的巨錘戰士，被最好的<span class="nw">兄弟</span>理查德推去擋龍的靈魂，成了下一隻惡龍。</p>
     <dl class="specs">
+      <div><dt>年齡</dt><dd>46 歲</dd></div>
       <div><dt>人形身高</dt><dd>197 cm</dd></div>
-      <div><dt>頭髮</dt><dd>紅色長髮</dd></div>
       <div><dt>眼睛</dt><dd>金色豎瞳</dd></div>
       <div><dt>龍形</dt><dd>黑角紅鱗</dd></div>
     </dl>
@@ -388,8 +386,7 @@
       <p class="ch-step"><span class="sw"></span>第一段　生鐵<span class="heat-name">未入爐</span></p>
       <h2>鐵匠的兒子</h2>
     </header>
-    <p data-reveal>彼西多斯的爸爸是菲索城裡有名的鐵匠，跟理查德的爸爸很熟，兩家就住在附近。</p>
-    <p data-reveal>他和理查德從小玩在一起。出事以前，兩個人是彼此最好的兄弟。</p>
+    <p data-reveal>爸爸是菲索城有名的鐵匠。他和理查德從小玩在一起，是彼此最好的兄弟。</p>
     <div class="tag" data-reveal>
       <p class="small">出自鐵匠之手</p>
       <p class="big">理查德的劍</p>
@@ -412,26 +409,23 @@
       <p class="ch-step"><span class="sw"></span>第二段　入爐<span class="heat-name">暗紅</span></p>
       <h2>屠龍那一天</h2>
     </header>
-    <p data-reveal>理查德是上一支勇者探險隊的隊長，彼西多斯是隊上的戰士。在菲索，成功討伐惡龍的勇者，就能當上<span class="nw">新的國王。</span></p>
+    <p data-reveal>在菲索，討伐惡龍的勇者就能當上國王。</p>
     <ol class="strikes">
-      <li data-n="一" data-reveal>理查德斬殺了龍。龍的屍體裡跑出一道黑色的靈魂，看起來就像傳說中<span class="nw">的詛咒。</span></li>
-      <li data-n="二" data-reveal>靈魂朝理查德過去。他怕了，拉住站在旁邊的彼西多斯擋在<span class="nw">前面。</span></li>
-      <li data-n="三" data-reveal>靈魂鑽進彼西多斯的身體，他<span class="nw">當場倒地。</span></li>
-      <li data-n="四" data-reveal>理查德以為他死了，嚇得把他和龍的屍體一起丟在<span class="nw">野外。</span></li>
-      <li data-n="五" data-reveal>理查德回到菲索，當上國王。</li>
+      <li data-n="一" data-reveal>理查德斬殺了惡龍黑噬，黑色的龍靈魂竄了出來。</li>
+      <li data-n="二" data-reveal>靈魂衝向理查德，他拉了<span class="nw">彼西多斯擋在前面。</span></li>
+      <li data-n="三" data-reveal>彼西多斯當場倒地。</li>
+      <li data-n="四" data-reveal>理查德以為他死了，把他<span class="nw">丟在野外。</span></li>
+      <li data-n="五" data-reveal>理查德回到菲索當上國王，說同伴都成了英靈。</li>
     </ol>
-    <p class="memory" data-reveal>彼西多斯最後的記憶，<br>只剩理查德拉著他。</p>
+    <p class="memory" data-reveal>彼西多斯最後的記憶，<br>只有理查德拉著他的武器，<br>代表他已經戰死。</p>
     <div class="plate cold" data-reveal>
       <p class="plate-label">現在的國王</p>
       <h3>理查德·崑索</h3>
       <dl class="fields">
-        <dt>身分</dt><dd>菲索的領導者，上一支勇者探險隊的隊長</dd>
         <dt>身高</dt><dd>184 cm</dd>
-        <dt>外貌</dt><dd>咖啡色整齊短髮，藍色眼睛，鬍子修得乾淨</dd>
-        <dt>出身</dt><dd>劍士之家，劍術高超，性格卻<span class="nw">太過膽怯</span></dd>
-        <dt>年紀</dt><dd>跟彼西多斯差不多</dd>
+        <dt>外貌</dt><dd>咖啡色短髮，藍色眼睛</dd>
+        <dt>個性</dt><dd>劍術高超，卻很膽怯</dd>
       </dl>
-      <p class="note">彼西多斯對他陷害自己、讓自己變成惡龍，又氣憤<span class="nw">又無奈。</span></p>
     </div>
   </section>
 
@@ -440,26 +434,24 @@
       <p class="ch-step"><span class="sw"></span>第三段　鍛打<span class="heat-name">橘紅</span></p>
       <h2>兩種模樣</h2>
     </header>
-    <p data-reveal>以前的惡龍都不能變成人，彼西多斯可以。他用幻化魔法變回人的樣子，本質<span class="nw">還是龍。</span></p>
+    <p data-reveal>以前的惡龍不能變成人，他可以。</p>
     <div class="forms">
       <div class="plate dragon" data-reveal>
         <p class="plate-label">龍形</p>
         <h3>惡龍鎧焰</h3>
         <ul>
-          <li>黑色龍角，紅色金屬感<span class="nw">鱗片，</span><span class="nw">金色豎瞳。</span></li>
-          <li>不用張嘴就能傳達心聲；張開嘴，只發得出龍的咆哮。</li>
-          <li>面對勇者探險隊、軍隊，或身邊有不熟的人，他會先<span class="nw">用龍形。</span></li>
-          <li>他不太喜歡「鎧焰」這個名字，覺得那不是自己真正<span class="nw">的樣子。</span></li>
+          <li>黑角、紅色金屬感鱗片</li>
+          <li>不張嘴也能傳心聲，<span class="nw">張嘴只有咆哮</span></li>
+          <li>面對軍隊和陌生人時用龍形</li>
         </ul>
       </div>
       <div class="plate human" data-reveal>
         <p class="plate-label">人形</p>
         <h3>彼西多斯</h3>
         <ul>
-          <li>身高 197 cm，紅色長髮，<span class="nw">金色豎瞳</span>，<span class="nw">身材壯碩。</span></li>
-          <li>上身赤裸，穿著戰士的皮革鎧甲，背上有火龍的印記。</li>
-          <li>遇到理查德的孩子、太弱小的生命，或身邊都是熟人，他會變回人，但也可能讓你看看<span class="nw">龍的樣子。</span></li>
-          <li>人形撐得越久越耗體力，得進食、休息，再變<span class="nw">回龍。</span></li>
+          <li>紅色長髮，身材壯碩</li>
+          <li>上身赤裸，背上有火龍印記</li>
+          <li>面對你或熟人時用人形</li>
         </ul>
       </div>
     </div>
@@ -470,15 +462,15 @@
     <div class="skills">
       <div class="skill" data-reveal>
         <h4>火魔法</h4>
-        <p>精通火魔法，人形也用<span class="nw">得出來。</span></p>
+        <p>人形也用得出來</p>
       </div>
       <div class="skill" data-reveal>
         <h4>火焰錘子</h4>
-        <p>以前是巨錘戰士，很會用錘子；還能用魔力塑出一把火焰錘子，近戰、<span class="nw">遠攻都行。</span></p>
+        <p>用魔力塑形，<span class="nw">近戰遠攻都行</span></p>
       </div>
       <div class="skill" data-reveal>
         <h4>體力</h4>
-        <p>體力和魔力幾乎用不完。真的耗盡了，得睡上好幾天，或吃下大量富含魔力精華的生物、<span class="nw">水源或補品。</span></p>
+        <p>耗盡了要睡上好幾天</p>
       </div>
     </div>
   </section>
@@ -488,20 +480,16 @@
       <p class="ch-step"><span class="sw"></span>第四段　白熾<span class="heat-name">白熱</span></p>
       <h2>龍的傳承</h2>
     </header>
-    <p data-reveal>菲索人說那是巨龍的詛咒。其實它是龍王的傳承：只有死亡才傳得下去，接下的人會變成龍，繼承前代龍王的記憶和技能，成為新<span class="nw">的龍王。</span>老死的龍，可以自己挑選認可的人，<span class="nw">繼承一切。</span></p>
+    <p data-reveal>菲索人說那是巨龍的詛咒，其實是龍王的傳承：只有死亡才傳得下去，接下的人會成為<span class="nw">新的龍王。</span></p>
     <p class="truth" data-reveal>龍本來就是<br>菲索的國王。</p>
-    <p data-reveal>是人類把巨龍趕出菲索，才有了討伐惡龍的歷史，這段歷史只有龍知道。理查德也只是照傳統做事的勇者，真正開始這個傳統的，是幾百年前、早已<span class="nw">不可考的祖先。</span></p>
-    <p data-reveal>那天龍王的靈魂找上理查德，是要他當下一任國王。理查德怕了，把它推給<span class="nw">彼西多斯。</span></p>
-    <p data-reveal>龍的記憶一代一代傳下來，每一段的最後，都是那隻龍看到的最後一眼。彼西多斯接下了力量，也接下了這份使命和絕望。世上的龍永遠只有一隻，他想用自己的方式奪回菲索，結束惡龍<span class="nw">詛咒的輪迴。</span></p>
+    <p data-reveal>是人類把巨龍趕出菲索，這段歷史只有龍知道。那天的龍靈魂，原本選的<span class="nw">是理查德。</span></p>
     <div class="plate castle" data-reveal>
       <p class="plate-label">菲索外的大山上</p>
       <h3>惡龍的古堡</h3>
       <ul>
-        <li>龍王被逐出菲索之後，用自己的力量打造了這裡。</li>
-        <li>通常是一座高聳的黑色古堡，外面是一片懸崖；有地牢、舞會交誼廳這些<span class="nw">中世紀常見的設施。</span></li>
-        <li>會隨著現任龍王的性格，改變大小、<span class="nw">陳設和外觀。</span></li>
-        <li>經過歷代勇者的討伐，加上魔法保護，到現在<span class="nw">仍然堅固。</span></li>
-        <li>沒有人住過的痕跡，只感覺得到一個孤單的生命，在這裡過了<span class="nw">幾千年。</span></li>
+        <li>龍王被逐出菲索後，親手打造的黑色古堡</li>
+        <li>外面是懸崖，裡面有地牢、舞會交誼廳</li>
+        <li>一個孤單的生命，在這裡<span class="nw">過了幾千年</span></li>
       </ul>
     </div>
   </section>
@@ -512,24 +500,20 @@
       <h2>仇人的孩子</h2>
     </header>
     <p class="you">你是理查德的孩子。</p>
-    <p>他把你半軟禁在身邊，想靠你的存在，奪回屬於<span class="nw">自己的權利。</span></p>
+    <p>大婚那天，他把你從教堂抓走，<span class="nw">半軟禁在身邊。</span></p>
     <ul class="ways">
-      <li>他希望你明白他變成龍的原因，幫他解開惡龍<span class="nw">詛咒的輪迴。</span></li>
-      <li>為了讓你好好跟理查德談，他會耐著性子，但<span class="nw">耐心不多。</span></li>
-      <li>一開始，他把你當成導正歷史的工具和合作對象，態度可能強硬、帶著脅迫，但不會拿你<span class="nw">來復仇。</span></li>
-      <li>你是仇人的孩子。他不信任你，會用試探的口吻問你的看法，看你的性格跟理查德像不像；你要是也有企圖心，他會更把你當工具，<span class="nw">保持距離。</span></li>
-      <li>他生性溫柔，不像歷史上那些暴虐的惡龍；只是火魔法容易牽動情緒，偶爾<span class="nw">會情緒化。</span></li>
-      <li>他不會主動攻擊人或其他生命，除非危害到自己或他重視<span class="nw">的生命。</span></li>
+      <li>想靠你奪回菲索，解開惡龍詛咒的輪迴</li>
+      <li>一開始把你當工具，態度強硬</li>
+      <li>不信任你，會試探你像不像理查德</li>
+      <li>生性溫柔，只是偶爾會情緒化</li>
     </ul>
     <div class="aftermath">
       <h3>你被帶走之後</h3>
       <ul>
-        <li>國王的孩子被抓走，菲索<span class="nw">上上下下都亂了。</span></li>
-        <li>國王派出勇者探險隊屠龍，要把你<span class="nw">帶回去。</span></li>
-        <li>軍隊和探險隊經過，森林變得吵雜，魔物和魔法生物也<span class="nw">跟著躁動。</span></li>
-        <li>他只要停在森林裡，就會被發現、被攻擊，你也可能<span class="nw">受傷。</span></li>
+        <li>菲索派出軍隊和勇者探險隊，要把<span class="nw">你帶回去</span></li>
+        <li>森林不再安寧，你也可能受傷</li>
       </ul>
-      <p class="plan"><b>他的辦法：</b>擊退軍隊和探險隊，<span class="nw">盡快佔領菲索，</span><span class="nw">自己當國王。</span></p>
+      <p class="plan"><b>他的辦法：</b>擊退軍隊，<span class="nw">盡快佔領菲索。</span></p>
     </div>
   </section>
 
@@ -539,10 +523,10 @@
       <h2>愛人</h2>
     </header>
     <ul class="love">
-      <li data-reveal>愛上你之後，他會放下把你當工具的想法，不管你有沒有答應<span class="nw">幫他。</span></li>
-      <li data-reveal>你不幫他，他也不會再用強硬的方式，逼你完成他<span class="nw">的理想。</span></li>
-      <li data-reveal>他會把一切都獻給愛人，像守著珍寶<span class="nw">一樣守著你。</span></li>
-      <li data-reveal>你們共享一樣的權利，是<span class="nw">平等的關係。</span></li>
+      <li data-reveal>愛上你之後，他不再把你當工具</li>
+      <li data-reveal>你不幫他，他也不會逼你</li>
+      <li data-reveal>他像守著珍寶一樣守著你</li>
+      <li data-reveal>你們是平等的</li>
     </ul>
   </section>
 
