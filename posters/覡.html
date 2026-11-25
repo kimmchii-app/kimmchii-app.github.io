@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>覡｜夜裡搖鈴的趕屍人</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：夜路上的黃符。覡在夜裡搖著銅鈴趕屍，所以整張海報是一段山裡的夜路：靛藍夜色取自他的藍色道士服，黃符紙和朱砂紅是他隨身帶的黃符，封面上飄著紙錢。四個夥計各是一張符；易容術那一段可以按「下一場雨」，易容遇水就溶，底下是他的真面目。每段標題前面的銅鈴，捲到時會搖一下 -->
+<style>
+  :root {
+    --night: #0b0e1c;
+    --night-2: #141a31;
+    --robe: #2d4787;
+    --ink: #ebe5d6;
+    --muted: #b4ae9f;
+    --dim: #7d786d;
+    --paper: #e8d391;
+    --paper-2: #d8bd68;
+    --paper-ink: #2c2416;
+    --cinnabar: #c3321f;
+    --bronze: #c9a25a;
+    --violet: #9b7fd0;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    --gutter: clamp(18px, 5.5vw, 40px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background:
+      radial-gradient(90% 40% at 50% 0%, rgba(45, 71, 135, .45), transparent 70%),
+      radial-gradient(60% 30% at 80% 60%, rgba(155, 127, 208, .07), transparent 70%),
+      linear-gradient(180deg, var(--night) 0%, #0e1226 50%, var(--night) 100%);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.95;
+    -webkit-font-smoothing: antialiased;
+  }
+  p, li, dd { text-wrap: pretty; }
+  .nw { white-space: nowrap; }
+
+  main { max-width: 680px; margin: 0 auto; padding: 0 var(--gutter) 64px; }
+
+  /* 淡入 */
+  .js [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; transform: none; }
+
+  /* 銅鈴：捲到時搖一下 */
+  .bell { width: 22px; height: 26px; color: var(--bronze); flex: none; transform-origin: 50% 8%; }
+  .js .is-visible .bell { animation: ring 1.1s ease-in-out .3s 1; }
+  @keyframes ring {
+    0%, 100% { transform: rotate(0); }
+    20% { transform: rotate(16deg); }
+    40% { transform: rotate(-12deg); }
+    60% { transform: rotate(8deg); }
+    80% { transform: rotate(-4deg); }
+  }
+
+  /* ---------- 封面 ---------- */
+  .hero { position: relative; padding: 46px 0 10px; text-align: center; isolation: isolate; }
+  .paper-money { position: absolute; inset: 0 calc(-1 * var(--gutter)); z-index: 3; overflow: hidden; pointer-events: none; }
+  .paper-money i {
+    position: absolute; top: -30px; left: var(--x); width: var(--s); height: var(--s); opacity: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' fill='%23e3cf8f' d='M10 0a10 10 0 1 0 0 20a10 10 0 1 0 0-20zM7.6 7.6h4.8v4.8H7.6z'/%3E%3C/svg%3E") center / contain no-repeat;
+    animation: drift var(--t) linear var(--d) infinite;
+  }
+  @keyframes drift {
+    0% { transform: translate(0, 0) rotate(0); opacity: 0; }
+    10% { opacity: .75; }
+    85% { opacity: .55; }
+    100% { transform: translate(var(--dx), 900px) rotate(540deg); opacity: 0; }
+  }
+  .mountains { position: absolute; left: calc(-1 * var(--gutter)); right: calc(-1 * var(--gutter)); bottom: 230px; z-index: -1; height: 160px; pointer-events: none; }
+  .mountains svg { display: block; width: 100%; height: 100%; }
+  .eyebrow { margin: 0 0 22px; font-size: 12px; letter-spacing: .34em; padding-left: .34em; color: var(--bronze); }
+
+  /* 照片：貼在黃符上 */
+  .fu {
+    position: relative; width: min(100%, 380px); margin: 0 auto; padding: 16px;
+    background:
+      radial-gradient(40% 30% at 20% 15%, rgba(255, 255, 255, .25), transparent),
+      radial-gradient(30% 20% at 80% 85%, rgba(120, 80, 20, .12), transparent),
+      linear-gradient(170deg, var(--paper), var(--paper-2));
+    border-radius: 2px;
+    box-shadow: 0 0 60px rgba(232, 211, 145, .12), 0 30px 60px rgba(0, 0, 0, .55);
+  }
+  .fu::before {
+    content: ""; position: absolute; inset: 7px; pointer-events: none;
+    border: 2px solid var(--cinnabar); box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 4px rgba(195, 50, 31, .7);
+  }
+  .fu img { position: relative; display: block; width: 100%; height: auto; }
+  .fu.no-photo .shot { aspect-ratio: 4 / 5; display: grid; place-items: center; }
+  .fu.no-photo img { display: none; }
+  .fu .wait { display: none; }
+  .fu.no-photo .wait { display: block; font-family: var(--serif); font-size: 18px; letter-spacing: .3em; padding-left: .3em; color: var(--cinnabar); }
+  .shot { position: relative; margin: 0; }
+  .seal {
+    position: absolute; right: -10px; bottom: 26px; z-index: 2; display: grid; place-items: center;
+    width: 54px; height: 54px; border-radius: 4px; background: var(--cinnabar); color: #f6e7d2;
+    font-family: var(--serif); font-size: 32px; line-height: 1; transform: rotate(-6deg);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .45);
+  }
+
+  .nameplate { display: grid; justify-items: center; margin-top: 30px; }
+  .hero-bell { width: 34px; height: 40px; color: var(--bronze); transform-origin: 50% 8%; animation: ring 1.4s ease-in-out .8s 1; }
+  h1 {
+    margin: 4px 0 0; font-family: var(--serif); font-weight: 700; line-height: 1.1;
+    font-size: clamp(88px, 26vw, 140px); color: var(--ink);
+    text-shadow: 0 0 30px rgba(155, 127, 208, .35);
+  }
+  .alias { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+  .lead { margin: 18px auto 0; max-width: 24em; font-family: var(--serif); font-size: 18px; line-height: 1.9; letter-spacing: .04em; }
+  .specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 30px 0 0; }
+  .specs div { padding: 10px 8px; border-top: 2px solid var(--robe); background: rgba(45, 71, 135, .14); }
+  .specs dt { font-size: 11px; letter-spacing: .22em; padding-left: .22em; color: var(--dim); }
+  .specs dd { margin: 2px 0 0; font-family: var(--serif); font-size: 15px; line-height: 1.6; }
+  .specs .eye { color: #cdb8f2; }
+
+  /* ---------- 各段 ---------- */
+  .block { margin-top: 80px; }
+  .block h2 {
+    display: flex; align-items: center; gap: 12px; margin: 0 0 18px;
+    font-family: var(--serif); font-size: clamp(26px, 7vw, 32px); line-height: 1.3; letter-spacing: .1em;
+  }
+  .block > p { margin: 0 0 1em; }
+
+  /* 趕屍人：夜與晝 */
+  .shifts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 22px 0; }
+  .shift { padding: 16px 16px 14px; border-radius: 3px; }
+  .shift b { display: block; font-family: var(--serif); font-size: 26px; line-height: 1.2; }
+  .shift p { margin: 6px 0 0; font-size: 14px; line-height: 1.8; }
+  .shift.night { background: linear-gradient(160deg, #1c2650, #10152c); box-shadow: inset 0 0 0 1px rgba(155, 127, 208, .22); }
+  .shift.night b { color: #cdb8f2; }
+  .shift.day { background: linear-gradient(160deg, #3a3524, #24211a); box-shadow: inset 0 0 0 1px rgba(232, 211, 145, .2); }
+  .shift.day b { color: var(--paper); }
+  .facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .facts li { position: relative; padding-left: 20px; }
+  .facts li::before { content: ""; position: absolute; left: 3px; top: .8em; width: 7px; height: 7px; border-radius: 50%; background: var(--bronze); box-shadow: 0 0 8px rgba(201, 162, 90, .6); }
+
+  /* 四個夥計：四張黃符 */
+  .crew { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+  .talisman {
+    position: relative; padding: 18px 12px 16px; text-align: center; border-radius: 2px;
+    background: linear-gradient(175deg, var(--paper), var(--paper-2)); color: var(--paper-ink);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, .45);
+  }
+  .talisman::before { content: ""; position: absolute; inset: 5px; border: 1.5px solid rgba(195, 50, 31, .75); pointer-events: none; }
+  .talisman .past { margin: 0; font-size: 12px; letter-spacing: .2em; padding-left: .2em; color: #6e5a31; }
+  .talisman h3 { margin: 2px 0 6px; font-family: var(--serif); font-size: 26px; line-height: 1.35; letter-spacing: .08em; color: var(--cinnabar); }
+  .talisman dl { margin: 0; display: grid; gap: 4px; }
+  .talisman dt { font-size: 11px; letter-spacing: .16em; color: #7b6a45; line-height: 1.6; }
+  .talisman dd { margin: 0 0 4px; font-family: var(--serif); font-size: 15px; line-height: 1.6; }
+  .talisman .h { margin: 8px 0 0; font-size: 12px; color: #7b6a45; }
+  .js .crew .talisman { transform: rotate(var(--r, 0deg)); }
+  .crew .talisman:nth-child(1) { --r: -1.2deg; }
+  .crew .talisman:nth-child(2) { --r: 1deg; }
+  .crew .talisman:nth-child(3) { --r: .8deg; }
+  .crew .talisman:nth-child(4) { --r: -.9deg; }
+  .whisper { margin: 8px 0 0; padding: 14px 18px; border-left: 3px solid var(--violet); background: rgba(155, 127, 208, .07); font-family: var(--serif); }
+
+  /* 易容術：下一場雨，易容就溶掉 */
+  .faces { position: relative; display: grid; gap: 12px; }
+  .face { position: relative; overflow: hidden; padding: 24px 20px; border-radius: 4px; text-align: center; }
+  .face .who { margin: 0; font-size: 12px; letter-spacing: .24em; padding-left: .24em; }
+  .face .look { margin: 6px 0 0; font-family: var(--serif); font-size: clamp(20px, 5.6vw, 26px); line-height: 1.6; }
+  .face.disguise {
+    background:
+      radial-gradient(circle at 20% 30%, rgba(0, 0, 0, .22) 0 3px, transparent 4px) 0 0 / 26px 22px,
+      radial-gradient(circle at 70% 70%, rgba(255, 255, 255, .06) 0 2px, transparent 3px) 0 0 / 18px 16px,
+      linear-gradient(160deg, #4a4a2c, #2b2a1a);
+    color: #e2dcb8;
+  }
+  .face.disguise .who { color: #b3ac80; }
+  .face.real { background: linear-gradient(160deg, #24305e, #121733); box-shadow: inset 0 0 0 1px rgba(155, 127, 208, .3); }
+  .face.real .who { color: #cdb8f2; }
+  .face.real .look { color: #f4f1ff; }
+  .js .faces { gap: 0; }
+  .js .faces .face { grid-area: 1 / 1; }
+  .js .faces .disguise { z-index: 1; transition: opacity 1.6s ease .5s, filter 1.6s ease .5s, transform 1.6s ease .5s; }
+  .js .faces.wet .disguise { opacity: 0; filter: blur(6px); transform: translateY(18px); pointer-events: none; }
+  .rain {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .6s ease;
+    background-image: repeating-linear-gradient(104deg, transparent 0 18px, rgba(200, 216, 255, .38) 18px 19px, transparent 19px 34px);
+    background-size: 100% 90px;
+  }
+  .js .faces.wet .rain { opacity: 1; animation: fall .45s linear infinite; }
+  @keyframes fall { to { background-position: -22px 90px; } }
+  .faces-wrap { position: relative; }
+  .rain-btn {
+    display: none; margin: 16px auto 0; padding: 8px 22px; border-radius: 999px;
+    border: 1.5px solid var(--bronze); background: transparent; color: var(--paper);
+    font: inherit; font-size: 15px; letter-spacing: .14em; cursor: pointer;
+  }
+  .rain-btn:hover, .rain-btn:focus-visible { background: rgba(201, 162, 90, .14); }
+  .js .rain-btn { display: block; }
+  .mask-note { margin: 18px 0 0; color: var(--muted); }
+
+  /* 師父 */
+  .master { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 1px solid rgba(201, 162, 90, .45); display: grid; gap: 16px; }
+  .master li { position: relative; }
+  .master li::before { content: ""; position: absolute; left: -27px; top: .75em; width: 9px; height: 9px; border-radius: 50%; background: var(--night); border: 1.5px solid var(--bronze); }
+  .master .last { font-family: var(--serif); font-size: clamp(19px, 5.4vw, 23px); line-height: 1.75; color: var(--paper); }
+
+  /* 結尾 */
+  .ending { margin-top: 96px; padding: 50px 0 20px; text-align: center; position: relative; isolation: isolate; }
+  .ending::before {
+    content: ""; position: absolute; z-index: -1; inset: 0 calc(-1 * var(--gutter));
+    background: radial-gradient(55% 55% at 50% 55%, rgba(155, 127, 208, .16), transparent 70%);
+  }
+  .ending .pre { margin: 0 0 14px; color: var(--muted); letter-spacing: .1em; }
+  .ending .big { margin: 0; font-family: var(--serif); font-size: clamp(30px, 8.6vw, 44px); line-height: 1.6; letter-spacing: .06em; text-wrap: balance; }
+  footer { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 40px; font-size: 12px; letter-spacing: .32em; color: var(--dim); }
+  footer .bell { width: 14px; height: 17px; }
+
+  @media (min-width: 640px) {
+    body { font-size: 16px; }
+    .hero { padding-top: 64px; }
+    .specs { grid-template-columns: repeat(4, 1fr); }
+    .crew { grid-template-columns: repeat(4, 1fr); }
+    .faces { grid-template-columns: 1fr 1fr; }
+    .js .faces { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .paper-money { display: none; }
+    .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+    .js .is-visible .bell, .hero-bell { animation: none; }
+    .js .faces.wet .rain { animation: none; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bell" viewBox="0 0 48 56"><path fill="currentColor" d="M24 3a3 3 0 0 1 3 3v2.4c7.2 1.5 11 7.8 11 16v9.4l5.4 7.4H4.6L10 33.8v-9.4c0-8.2 3.8-14.5 11-16V6a3 3 0 0 1 3-3z"/><circle fill="currentColor" cx="24" cy="48" r="4.6"/></symbol>
+</svg>
+<main>
+
+  <header class="hero">
+    <div class="paper-money" aria-hidden="true">
+      <i style="--x:10%;--s:16px;--dx:40px;--t:11s;--d:-2s"></i><i style="--x:24%;--s:12px;--dx:-30px;--t:14s;--d:-7s"></i>
+      <i style="--x:38%;--s:18px;--dx:26px;--t:12.5s;--d:-4s"></i><i style="--x:55%;--s:13px;--dx:-44px;--t:15s;--d:-10s"></i>
+      <i style="--x:68%;--s:17px;--dx:30px;--t:13s;--d:-1s"></i><i style="--x:82%;--s:12px;--dx:-24px;--t:11.5s;--d:-6s"></i>
+      <i style="--x:92%;--s:15px;--dx:-36px;--t:16s;--d:-12s"></i>
+    </div>
+    <div class="mountains" aria-hidden="true">
+      <svg viewBox="0 0 400 160" preserveAspectRatio="none">
+        <path fill="rgba(45,71,135,.28)" d="M0 110 60 60l40 30 60-70 70 80 50-40 60 50 60-40v130H0z"/>
+        <path fill="rgba(11,14,28,.9)" d="M0 140 50 100l50 22 70-50 60 54 60-36 50 30 60-26v66H0z"/>
+      </svg>
+    </div>
+    <p class="eyebrow">夜裡趕路的趕屍人</p>
+    <div class="fu" data-reveal>
+      <figure class="shot">
+        <img src="../images/characters/覡-1.jpg" width="600" height="797" alt="覡：白色長髮，穿藍色道士服，手提一盞燈籠" onerror="this.closest('.fu').classList.add('no-photo')">
+        <span class="wait" aria-hidden="true">照片準備中</span>
+      </figure>
+      <span class="seal" aria-hidden="true">覡</span>
+    </div>
+    <div class="nameplate">
+      <svg class="hero-bell" aria-hidden="true"><use href="#bell"/></svg>
+      <h1>覡</h1>
+      <p class="alias">名字是師父蛤蟆祖取的</p>
+    </div>
+    <p class="lead">他在夜裡搖著銅鈴，<br>帶死去的人回家。</p>
+    <dl class="specs">
+      <div><dt>身高</dt><dd>181 cm</dd></div>
+      <div><dt>頭髮</dt><dd>白色長髮</dd></div>
+      <div><dt>眼睛</dt><dd>黑色<span class="eye">．眼尾帶紫</span></dd></div>
+      <div><dt>衣著</dt><dd>藍色道士服</dd></div>
+    </dl>
+  </header>
+
+  <section class="block" data-reveal>
+    <h2><svg class="bell" aria-hidden="true"><use href="#bell"/></svg>趕屍人</h2>
+    <p>趕屍這一行越來越沒落，他還是替留在偏鄉的人，把屍體送回同姓的家村。</p>
+    <div class="shifts">
+      <div class="shift night"><b>夜</b><p>趕屍</p></div>
+      <div class="shift day"><b>晝</b><p>休息、採藥、防腐、寫符、習武</p></div>
+    </div>
+    <ul class="facts">
+      <li>居無定所，住多半已荒廢的<span class="nw">趕屍客棧</span>，<span class="nw">或露宿野外</span></li>
+      <li>茅山法術、苗疆巫術都很強，最<span class="nw">擅長操控死物</span></li>
+      <li>有手機，但沒什麼機會用，不太熟練</li>
+    </ul>
+  </section>
+
+  <section class="block" data-reveal>
+    <h2><svg class="bell" aria-hidden="true"><use href="#bell"/></svg>四個夥計</h2>
+    <p>四具綠僵都是無名屍。名字是他取的，身上的衣服是他縫的；他一搖銅鈴，他們就<span class="nw">一蹦一跳地跟上。</span></p>
+    <div class="crew">
+      <article class="talisman">
+        <p class="past">生前　書生</p>
+        <h3>小四</h3>
+        <dl><dt>是覡的</dt><dd>溫柔</dd><dt>不動時像</dt><dd>一朵風鈴草</dd></dl>
+        <p class="h">177 cm</p>
+      </article>
+      <article class="talisman">
+        <p class="past">生前　農夫</p>
+        <h3>鋤葉</h3>
+        <dl><dt>是覡的</dt><dd>堅持</dd><dt>不動時像</dt><dd>田裡的稻草人</dd></dl>
+        <p class="h">179 cm</p>
+      </article>
+      <article class="talisman">
+        <p class="past">生前　將士</p>
+        <h3>哭江</h3>
+        <dl><dt>是覡的</dt><dd>保護慾</dd><dt>不動時像</dt><dd>威嚴的雕像</dd></dl>
+        <p class="h">183 cm</p>
+      </article>
+      <article class="talisman">
+        <p class="past">生前　獵戶</p>
+        <h3>拔遂</h3>
+        <dl><dt>是覡的</dt><dd>野性</dd><dt>不動時像</dt><dd>傷痕累累的大樹</dd></dl>
+        <p class="h">187 cm</p>
+      </article>
+    </div>
+    <p class="whisper">他心裡想要什麼，夥計會先<span class="nw">替他動起來。</span><br>對他來說，他們是最後的家人。</p>
+  </section>
+
+  <section class="block" data-reveal>
+    <h2><svg class="bell" aria-hidden="true"><use href="#bell"/></svg>易容術</h2>
+    <div class="faces-wrap">
+      <div class="faces">
+        <div class="face disguise">
+          <p class="who">外人看到的覡</p>
+          <p class="look">矮小、醜陋，<br>像一隻癩蝦蟆。</p>
+        </div>
+        <div class="face real">
+          <p class="who">真正的覡</p>
+          <p class="look">白色長髮，黑色眼睛，<br>眼尾一點紫。</p>
+        </div>
+        <span class="rain" aria-hidden="true"></span>
+      </div>
+      <button class="rain-btn" type="button" aria-pressed="false">下一場雨</button>
+    </div>
+    <p class="mask-note">易容遇水就溶，洗澡、下雨都藏不住。只有家人、情人和他感興趣的人看得到<span class="nw">真面目</span>；第一次給你看之前，他會先要你<span class="nw">親一下他的臉。</span></p>
+  </section>
+
+  <section class="block" data-reveal>
+    <h2><svg class="bell" aria-hidden="true"><use href="#bell"/></svg>師父</h2>
+    <ul class="master">
+      <li>他是棄嬰，被上一代趕屍人蛤蟆祖撿回去，學了一身法術。</li>
+      <li>師父覺得他這張臉不適合趕屍，他<span class="nw">還是要做。</span></li>
+      <li class="last">師父病逝那天，<br>是他親手起屍，<br>送師父回老家下葬。</li>
+    </ul>
+  </section>
+
+  <section class="ending" data-reveal>
+    <p class="pre">趕屍人不能有後。</p>
+    <p class="big">明知道不能擁有，<br>還是想擁有。</p>
+  </section>
+
+  <footer><svg class="bell" aria-hidden="true"><use href="#bell"/></svg>趕屍人　覡</footer>
+</main>
+<script>
+  // 易容術：按一下下雨，易容溶掉；再按一下雨停，易容回來
+  const faces = document.querySelector('.faces');
+  const rainBtn = document.querySelector('.rain-btn');
+  rainBtn.addEventListener('click', () => {
+    const wet = faces.classList.toggle('wet');
+    rainBtn.setAttribute('aria-pressed', String(wet));
+    rainBtn.textContent = wet ? '雨停了' : '下一場雨';
+  });
+</script>
+</body>
+</html>
