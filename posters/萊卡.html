@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>萊卡｜擺渡人的日課經</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script src="poster.js"></script>
+<!-- 主題：擺渡人的日課經。夜裡的教堂是底色，米色羊皮紙是經頁；玫瑰花窗和水仙是聖水仙教堂，紅色念珠是他手裡的串珠，
+     雙聯畫分開大愛和小愛，金色鳥籠是看不見的鳥籠，黑框追思卡是假死協會：卡上的人其實還活著 -->
+<style>
+  :root {
+    --night: #0d0a0b;
+    --night-2: #171012;
+    --nave: #221619;
+    --ink: #efe6d6;
+    --muted: #b6a690;
+    --gold: #c9a14f;
+    --gold-hi: #f2dc96;
+    --gold-lo: #7a5a22;
+    --line: rgba(201, 161, 79, .32);
+    --wine: #8e1326;
+    --wine-hi: #d03a4d;
+    --wine-text: #e4717f;
+    --lapis: #1f3c78;
+    --vellum: #f1e5c8;
+    --vellum-2: #e5d3ac;
+    --vellum-ink: #2b1d14;
+    --vellum-muted: #6e5843;
+    --rubric: #a3182b;
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --latin: "Cormorant Garamond", "Garamond", "Georgia", "Times New Roman", serif;
+    --sans: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--night); }
+  body {
+    margin: 0;
+    color: var(--ink);
+    font: 16px/1.85 var(--serif);
+    background:
+      radial-gradient(120% 60% at 50% 0%, rgba(142, 19, 38, .22), transparent 60%),
+      radial-gradient(90% 50% at 50% 100%, rgba(201, 161, 79, .08), transparent 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='96' viewBox='0 0 72 96'%3E%3Cg fill='none' stroke='%23c9a14f' stroke-opacity='.07' stroke-width='1'%3E%3Cpath d='M36 10C46 22 46 34 36 44C26 34 26 22 36 10Z'/%3E%3Cpath d='M36 44C30 52 22 54 16 50M36 44C42 52 50 54 56 50'/%3E%3Cpath d='M36 44V58M30 62C33 58 39 58 42 62'/%3E%3Ccircle cx='36' cy='27' r='3'/%3E%3Cpath d='M0 58C6 70 6 82 0 92M72 58C66 70 66 82 72 92'/%3E%3Ccircle cx='0' cy='75' r='2.4'/%3E%3Ccircle cx='72' cy='75' r='2.4'/%3E%3C/g%3E%3C/svg%3E"),
+      var(--night);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; }
+  .nw { white-space: nowrap; }
+  main { max-width: 600px; margin: 0 auto; padding: 0 16px 56px; }
+
+  /* ---------- 共用 ---------- */
+  .rosary { display: block; width: min(100%, 420px); margin: 30px auto; overflow: visible; }
+  .chain { fill: none; stroke: #b08a3e; stroke-width: 1; stroke-dasharray: 1.6 1.3; }
+  .dp { fill: var(--petal, url(#gl-w)); stroke: rgba(110, 80, 25, .4); stroke-width: .6; }
+  .dv { stroke: rgba(150, 115, 40, .35); stroke-width: .5; fill: none; }
+  .dc { fill: var(--cup, #f2b632); stroke: #a8650f; stroke-width: .7; }
+  .dd { fill: #c4610f; opacity: .55; }
+  .ds { fill: #fff1a8; }
+  .rubric {
+    margin: 0 0 4px;
+    font: italic 500 15px/1.4 var(--latin);
+    letter-spacing: .16em;
+    color: var(--gold);
+    text-align: center;
+  }
+  .rubric b { font-style: normal; color: var(--wine-hi); margin-right: .55em; letter-spacing: .08em; }
+  h2 {
+    margin: 0 0 22px;
+    font: 700 clamp(25px, 7vw, 32px)/1.35 var(--serif);
+    text-align: center;
+    letter-spacing: .08em;
+  }
+  h2::after {
+    content: "";
+    display: block;
+    width: 72px; height: 9px;
+    margin: 12px auto 0;
+    background:
+      radial-gradient(circle, var(--gold) 0 2.4px, transparent 2.6px) center / 9px 9px no-repeat,
+      linear-gradient(90deg, transparent, var(--gold) 30%, transparent 46%, transparent 54%, var(--gold) 70%, transparent) center / 100% 1px no-repeat;
+  }
+  .sec { padding: 8px 0; }
+  .climax {
+    margin: 26px 0 0;
+    font: 700 19px/1.75 var(--serif);
+    text-align: center;
+    color: var(--gold-hi);
+  }
+
+  /* ---------- 封面 ---------- */
+  .cover { position: relative; margin: 0 -16px; padding: 40px 16px 8px; text-align: center; overflow: clip; }
+  .cover::before {
+    content: "";
+    position: absolute;
+    left: 50%; top: 96px;
+    width: 980px; height: 980px;
+    margin: -490px 0 0 -490px;
+    background: repeating-conic-gradient(from 0deg, rgba(255, 222, 150, .075) 0deg 3.2deg, transparent 3.2deg 12deg);
+    -webkit-mask: radial-gradient(circle, #000 4%, transparent 52%);
+            mask: radial-gradient(circle, #000 4%, transparent 52%);
+    animation: spin 120s linear infinite;
+    pointer-events: none;
+  }
+  .kicker { position: relative; margin: 0 0 18px; font-size: 14px; letter-spacing: .3em; color: var(--gold); }
+  .rose-wrap { position: relative; width: 132px; margin: 0 auto; }
+  .rose { display: block; width: 100%; filter: drop-shadow(0 0 18px rgba(255, 190, 90, .28)); animation: breathe 7s ease-in-out infinite; }
+  .rose .lead { stroke: #120b09; stroke-width: 2.4; stroke-linejoin: round; }
+  .rose .lead.thin { stroke-width: 1.1; }
+  .rose .sheen { mix-blend-mode: screen; animation: sheen 7s ease-in-out infinite; }
+  .arch { position: relative; width: min(80%, 330px); margin: 22px auto 0; aspect-ratio: 4 / 5; }
+  .arch .frame {
+    position: absolute; inset: 0;
+    overflow: hidden;
+    border-radius: 50% 50% 4px 4px / 40% 40% 4px 4px;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 0 5px var(--night), 0 0 0 6.5px var(--gold-lo), 0 24px 60px rgba(0, 0, 0, .65), 0 0 90px rgba(196, 42, 60, .2);
+    background: #120c0c;
+  }
+  .arch img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; }
+  .arch .frame::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(110% 75% at 50% 32%, transparent 55%, rgba(8, 5, 5, .55));
+  }
+  .keystone { position: absolute; left: 50%; top: -19px; width: 38px; height: 38px; margin-left: -19px; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .6)); }
+  .capital { position: absolute; top: 40%; width: 24px; height: 30px; margin-top: -15px; }
+  .capital.l { left: -14px; } .capital.r { right: -14px; transform: scaleX(-1); }
+  h1 {
+    position: relative;
+    margin: 26px 0 0;
+    font: 900 clamp(54px, 17vw, 76px)/1.1 var(--serif);
+    letter-spacing: .22em;
+    padding-left: .22em;
+    background: linear-gradient(100deg, #8a6424 0%, #f6e3a4 22%, #c9a14f 40%, #fff6d6 50%, #c9a14f 60%, #8a6424 100%) 0 0 / 250% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    animation: gild 9s ease-in-out infinite;
+  }
+  .fullname { position: relative; margin: 4px 0 0; font-size: 15px; letter-spacing: .28em; color: var(--muted); }
+  .chips { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+  .chips li { padding: 3px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; color: var(--ink); background: rgba(13, 10, 11, .55); }
+  .tagline { position: relative; margin: 24px 0 0; font-size: 19px; line-height: 1.8; color: var(--gold-hi); }
+
+  /* ---------- 羊皮紙經頁 ---------- */
+  .vellum {
+    position: relative;
+    padding: 30px 22px 30px;
+    color: var(--vellum-ink);
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .24 0 0 0 0 .12 0 0 0 0.1 0'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(120% 90% at 50% 40%, transparent 60%, rgba(120, 84, 40, .28)),
+      linear-gradient(var(--vellum), var(--vellum-2));
+    border-radius: 3px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .55), inset 0 0 0 7px var(--vellum), inset 0 0 0 8px rgba(163, 24, 43, .55), inset 0 0 0 10px var(--vellum), inset 0 0 0 11px rgba(122, 90, 34, .6);
+  }
+  .vellum .rubric { color: var(--rubric); }
+  .vellum .rubric b { color: var(--rubric); }
+  .vellum h2 { color: var(--vellum-ink); }
+  .vellum h2::after { background:
+      radial-gradient(circle, var(--rubric) 0 2.4px, transparent 2.6px) center / 9px 9px no-repeat,
+      linear-gradient(90deg, transparent, var(--gold-lo) 30%, transparent 46%, transparent 54%, var(--gold-lo) 70%, transparent) center / 100% 1px no-repeat; }
+  .vellum p { margin: 0 0 14px; }
+  .intro p + p { clear: left; }
+  .vellum .climax { color: var(--rubric); margin-top: 22px; }
+  .initial {
+    float: left;
+    display: grid; place-items: center;
+    width: 2.9em; height: 2.9em;
+    margin: .3em .7em .1em 0;
+    font: 900 1.85em/1 var(--serif);
+    color: transparent;
+    background:
+      linear-gradient(135deg, #f6e3a4, #c9a14f 45%, #8a6424) text,
+      radial-gradient(circle, rgba(242, 220, 150, .45) 0 1px, transparent 1.4px) 0 0 / 7px 7px,
+      linear-gradient(160deg, #2f5bb0, var(--lapis) 60%, #10214a);
+    -webkit-background-clip: text, border-box, border-box;
+    border: 2px solid #c9a14f;
+    box-shadow: 0 0 0 2px var(--vellum), 0 0 0 3px var(--rubric);
+    border-radius: 2px;
+  }
+  .register { margin: 0; font-size: 15px; }
+  .register div { display: grid; grid-template-columns: 3.2em 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid rgba(122, 90, 34, .28); }
+  .register div:first-child { border-top: 1px solid rgba(122, 90, 34, .28); }
+  .register dt { color: var(--rubric); font-weight: 700; letter-spacing: .12em; }
+  .register dd { margin: 0; }
+  .seal { position: absolute; right: -10px; top: -16px; width: 66px; transform: rotate(14deg); filter: drop-shadow(0 4px 5px rgba(0, 0, 0, .45)); }
+
+  /* ---------- 雙聯畫 ---------- */
+  .lead-in { margin: 0 0 22px; text-align: center; color: var(--muted); }
+  .diptych { container-type: inline-size; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: stretch; }
+  .panel {
+    position: relative;
+    padding: 22px 14px 20px;
+    text-align: center;
+    border: 3px solid var(--gold);
+    border-radius: 999px 999px 6px 6px / 70px 70px 6px 6px;
+    border-radius: 50% 50% 6px 6px / calc((100cqi - 10px) / 4) calc((100cqi - 10px) / 4) 6px 6px;
+    box-shadow: inset 0 0 0 4px var(--night), inset 0 0 0 5px var(--gold-lo), 0 16px 40px rgba(0, 0, 0, .5);
+  }
+  .panel.grand { background: radial-gradient(90% 60% at 50% 22%, rgba(255, 214, 120, .22), transparent 70%), linear-gradient(#2a2016, #18110d); }
+  .panel.small { background: radial-gradient(90% 60% at 50% 22%, rgba(208, 58, 77, .25), transparent 70%), linear-gradient(#3a0d16, #1a070b); }
+  .panel svg { display: block; height: 76px; width: auto; max-width: 92%; margin: 8px auto 6px; overflow: visible; }
+  .panel h3 { margin: 0 0 8px; font: 700 24px/1.3 var(--serif); letter-spacing: .3em; padding-left: .3em; color: var(--gold-hi); }
+  .panel p { margin: 0 0 6px; font-size: 15px; line-height: 1.75; }
+  .panel .angel { color: var(--wine-text); font-weight: 700; }
+  .panel .fe { fill: url(#feather); stroke: #a8904f; stroke-width: .6; }
+  .panel .fs { stroke: #c9b27a; stroke-width: .5; }
+  .hinge { margin: 18px 0 0; text-align: center; font-size: 17px; color: var(--ink); }
+  .hinge b { color: var(--wine-text); }
+
+  /* ---------- 鳥籠 ---------- */
+  .cage-wrap { width: min(70%, 260px); margin: 0 auto 8px; }
+  .cage { display: block; width: 100%; overflow: visible; }
+  .cage .swing { transform-box: view-box; transform-origin: 120px 30px; animation: swing 7s ease-in-out infinite alternate; }
+  .cage .bar { fill: none; stroke: url(#gold-v); stroke-width: 2; }
+  .cage .bar.thin { stroke-width: 1.2; }
+  .cage .band { fill: none; stroke: #d8b660; stroke-width: 3; }
+  .cage .band.thin { stroke-width: 1.6; }
+  .cage .perch { stroke: #8a6424; stroke-width: 3.2; stroke-linecap: round; }
+  .ghost-chain { fill: none; stroke: #c9a14f; stroke-width: 1.8; stroke-dasharray: 3.4 2.2; opacity: .22; }
+  .glint { fill: none; stroke: #fff6d6; stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 14 260; opacity: .7; animation: glint 6s linear infinite; }
+  .ways { margin: 0; padding: 0; list-style: none; }
+  .ways li { position: relative; padding: 0 0 0 30px; margin: 0 0 14px; }
+  .ways li::before {
+    content: "";
+    position: absolute; left: 4px; top: .6em;
+    width: 12px; height: 12px;
+    background: radial-gradient(circle at 35% 30%, #ff6a78, #a3182b 55%, #3b0510);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(208, 58, 77, .5);
+  }
+  .first { margin: 22px 0 0; text-align: center; font: 700 20px/1.6 var(--serif); color: var(--gold-hi); }
+
+  /* ---------- 教堂 ---------- */
+  .scene { margin: 0 0 22px; border: 1px solid var(--line); border-radius: 160px 160px 4px 4px / 80px 80px 4px 4px; overflow: hidden; box-shadow: 0 0 0 4px var(--night), 0 0 0 5px var(--gold-lo), 0 20px 50px rgba(0, 0, 0, .5); }
+  .scene svg { display: block; width: 100%; }
+  .scene .star { animation: twinkle 4s ease-in-out infinite; animation-delay: var(--d); }
+  .scene .sway { transform-box: fill-box; transform-origin: 50% 100%; animation: sway 5s ease-in-out infinite alternate; animation-delay: var(--d); }
+  .scene .ripple { fill: none; stroke: #ffd27a; stroke-width: .6; opacity: 0; transform-box: fill-box; transform-origin: center; animation: ripple 5s ease-out infinite; }
+  .church p { margin: 0 0 14px; }
+  .church .climax { margin-top: 20px; }
+
+  /* ---------- 追思卡 ---------- */
+  .cards { position: relative; }
+  .santino {
+    position: relative; z-index: 2;
+    width: min(62%, 230px);
+    margin: 0 auto -34px;
+    padding: 14px;
+    background: #111;
+    transform: rotate(-4deg);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .7);
+    border-radius: 3px;
+  }
+  .santino .face {
+    padding: 16px 12px 14px;
+    text-align: center;
+    color: var(--vellum-ink);
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .24 0 0 0 0 .12 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E"), linear-gradient(var(--vellum), var(--vellum-2));
+    box-shadow: inset 0 0 0 4px var(--vellum), inset 0 0 0 5px #111;
+  }
+  .santino svg { display: block; width: 62%; margin: 0 auto 6px; overflow: visible; }
+  .santino .eng { stroke: #3b2a1c; stroke-width: .9; }
+  .santino .mem { margin: 0; font: italic 600 17px/1.3 var(--latin); letter-spacing: .06em; }
+  .santino .blank { margin: 8px 0 2px; letter-spacing: .1em; color: var(--vellum-muted); }
+  .santino .rip { margin: 6px 0 0; font: italic 13px/1.3 var(--latin); letter-spacing: .12em; color: var(--vellum-muted); }
+  .vellum.limbo { padding-top: 78px; }
+  .limbo .alive { margin: 0 0 18px; text-align: center; font-weight: 700; color: var(--rubric); }
+  .roles { margin: 18px 0; }
+  .roles div { display: grid; grid-template-columns: 4.2em 1fr; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(122, 90, 34, .28); }
+  .roles div:first-child { border-top: 1px solid rgba(122, 90, 34, .28); }
+  .roles dt { color: var(--rubric); font-weight: 700; }
+  .roles dd { margin: 0; }
+  .roles dd b { display: block; }
+  .roles dd span { font-size: 14px; color: var(--vellum-muted); }
+  .roles .me b { color: var(--rubric); }
+
+  /* ---------- 結尾 ---------- */
+  .end { position: relative; padding: 20px 0 0; text-align: center; }
+  .end .arch { width: min(70%, 290px); margin-top: 10px; }
+  .end .arch img { object-position: 50% 35%; }
+  .candle { position: absolute; bottom: -6px; width: 46px; overflow: visible; }
+  .candle.l { left: -58px; } .candle.r { right: -58px; }
+  .candle .flame { transform-box: fill-box; transform-origin: 50% 100%; animation: flicker 2.6s ease-in-out infinite; }
+  .candle.r .flame { animation-delay: -1.1s; }
+  .candle .glow { animation: glow 2.6s ease-in-out infinite; }
+  .last { margin: 38px 0 0; font: 700 clamp(21px, 6vw, 26px)/1.75 var(--serif); }
+  .last span { color: var(--wine-text); }
+  .hope { margin: 18px 0 0; color: var(--muted); }
+  .amen { margin: 34px 0 0; font: italic 500 22px/1 var(--latin); letter-spacing: .5em; padding-left: .5em; color: var(--gold); }
+  .colophon { margin: 10px 0 0; font-size: 13px; letter-spacing: .2em; color: var(--muted); }
+
+  /* ---------- 動態 ---------- */
+  @keyframes spin { to { rotate: 360deg; } }
+  @keyframes breathe { 50% { filter: drop-shadow(0 0 28px rgba(255, 190, 90, .45)); } }
+  @keyframes sheen { 50% { opacity: .55; } }
+  @keyframes gild { 50% { background-position: 100% 0; } }
+  @keyframes swing { from { rotate: -1.6deg; } to { rotate: 1.6deg; } }
+  @keyframes glint { from { stroke-dashoffset: 14; } to { stroke-dashoffset: -260; } }
+  @keyframes twinkle { 50% { opacity: .25; } }
+  @keyframes sway { from { rotate: -3deg; } to { rotate: 3deg; } }
+  @keyframes ripple { 0% { opacity: .8; scale: .4; } 100% { opacity: 0; scale: 2.2; } }
+  @keyframes flicker { 0%, 100% { scale: 1 1; skew: 0deg; } 30% { scale: .94 1.06; skew: 1.5deg; } 60% { scale: 1.04 .95; skew: -1.2deg; } 80% { scale: .98 1.03; skew: .6deg; } }
+  @keyframes glow { 50% { opacity: .7; } }
+  .js [data-reveal] { opacity: 0; translate: 0 16px; transition: opacity .8s var(--ease), translate .8s var(--ease); }
+  .js [data-reveal].is-visible { opacity: 1; translate: none; }
+
+  @media (max-width: 420px) {
+    .vellum { padding: 26px 18px; }
+    .candle { width: 36px; }
+    .candle.l { left: -40px; } .candle.r { right: -40px; }
+    .panel { padding: 18px 10px 16px; }
+    .panel p { font-size: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before { animation: none !important; }
+    .js [data-reveal] { opacity: 1; translate: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="gl-r" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#ff9a9a"/><stop offset=".45" stop-color="#c42a3c"/><stop offset="1" stop-color="#4e0612"/></radialGradient>
+    <radialGradient id="gl-b" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#a9c8ff"/><stop offset=".45" stop-color="#2f5bb0"/><stop offset="1" stop-color="#10214a"/></radialGradient>
+    <radialGradient id="gl-a" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#fff2b8"/><stop offset=".45" stop-color="#efb02e"/><stop offset="1" stop-color="#7f4c0e"/></radialGradient>
+    <radialGradient id="gl-g" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#bdf2cf"/><stop offset=".45" stop-color="#3a8f62"/><stop offset="1" stop-color="#123826"/></radialGradient>
+    <radialGradient id="gl-w" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#fffef6"/><stop offset=".6" stop-color="#efe5c4"/><stop offset="1" stop-color="#a89768"/></radialGradient>
+    <radialGradient id="gl-w2" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#fffbe6"/><stop offset=".6" stop-color="#f6e3a4"/><stop offset="1" stop-color="#b8953e"/></radialGradient>
+    <radialGradient id="stone" r="60%"><stop offset=".8" stop-color="#3a2c25"/><stop offset="1" stop-color="#1b1310"/></radialGradient>
+    <radialGradient id="sheen" cx="30%" cy="22%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".38"/><stop offset=".5" stop-color="#fff" stop-opacity=".04"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="bead" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ff6a78"/><stop offset=".5" stop-color="#a3182b"/><stop offset="1" stop-color="#3b0510"/></radialGradient>
+    <radialGradient id="gold-ball" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff3c4"/><stop offset=".5" stop-color="#d4ab52"/><stop offset="1" stop-color="#6b4a17"/></radialGradient>
+    <linearGradient id="gold-v" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6e3a4"/><stop offset=".45" stop-color="#c9a14f"/><stop offset="1" stop-color="#7a5a22"/></linearGradient>
+    <linearGradient id="gold-h" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7a5a22"/><stop offset=".3" stop-color="#e9cf86"/><stop offset=".55" stop-color="#c9a14f"/><stop offset="1" stop-color="#6b4a17"/></linearGradient>
+    <radialGradient id="host" cx="40%" cy="35%"><stop offset="0" stop-color="#fffdf4"/><stop offset="1" stop-color="#e7dcbc"/></radialGradient>
+    <linearGradient id="ribbon" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8344a"/><stop offset="1" stop-color="#6d0a19"/></linearGradient>
+    <linearGradient id="feather" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fffdf6"/><stop offset="1" stop-color="#d9ccaa"/></linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1230"/><stop offset=".55" stop-color="#3a2846"/><stop offset=".85" stop-color="#a65a44"/><stop offset="1" stop-color="#d98a52"/></linearGradient>
+    <radialGradient id="dusk"><stop offset="0" stop-color="#ffcf7a" stop-opacity=".55"/><stop offset="1" stop-color="#ffcf7a" stop-opacity="0"/></radialGradient>
+    <linearGradient id="stone-lit" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#f0dcb2"/><stop offset="1" stop-color="#b59e78"/></linearGradient>
+    <radialGradient id="halo"><stop offset="0" stop-color="#ffd27a" stop-opacity=".75"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+    <linearGradient id="door" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3a3"/><stop offset="1" stop-color="#e08a3c"/></linearGradient>
+    <linearGradient id="pool" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3d5e"/><stop offset="1" stop-color="#0d1626"/></linearGradient>
+    <linearGradient id="reflect" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd27a" stop-opacity=".9"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></linearGradient>
+    <radialGradient id="glow"><stop offset="0" stop-color="#ffd27a" stop-opacity=".55"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="flame" cx="50%" cy="70%" r="65%"><stop offset="0" stop-color="#fff6d0"/><stop offset=".45" stop-color="#ffc24a"/><stop offset="1" stop-color="#e2571c" stop-opacity=".2"/></radialGradient>
+    <linearGradient id="wax" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d8ccb0"/><stop offset=".45" stop-color="#fbf5e6"/><stop offset="1" stop-color="#c2b493"/></linearGradient>
+    <radialGradient id="wax-red" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#d43348"/><stop offset=".6" stop-color="#8e1326"/><stop offset="1" stop-color="#4a0712"/></radialGradient>
+    <symbol id="daff" viewBox="-24 -24 48 48" overflow="visible"><g transform="rotate(30)"><path d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" class="dp"/><path d="M0 -5V-17" class="dv"/></g><g transform="rotate(90)"><path d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" class="dp"/><path d="M0 -5V-17" class="dv"/></g><g transform="rotate(150)"><path d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" class="dp"/><path d="M0 -5V-17" class="dv"/></g><g transform="rotate(210)"><path d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" class="dp"/><path d="M0 -5V-17" class="dv"/></g><g transform="rotate(270)"><path d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" class="dp"/><path d="M0 -5V-17" class="dv"/></g><g transform="rotate(330)"><path d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" class="dp"/><path d="M0 -5V-17" class="dv"/></g><g transform="rotate(0)"><path d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" class="dp"/><path d="M0 -5V-17" class="dv"/></g><g transform="rotate(60)"><path d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" class="dp"/><path d="M0 -5V-17" class="dv"/></g><g transform="rotate(120)"><path d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" class="dp"/><path d="M0 -5V-17" class="dv"/></g><g transform="rotate(180)"><path d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" class="dp"/><path d="M0 -5V-17" class="dv"/></g><g transform="rotate(240)"><path d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" class="dp"/><path d="M0 -5V-17" class="dv"/></g><g transform="rotate(300)"><path d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" class="dp"/><path d="M0 -5V-17" class="dv"/></g><path d="M0 -8A2.79 2.79 0 0 1 4.33 -6.73A2.79 2.79 0 0 1 7.28 -3.32A2.79 2.79 0 0 1 7.92 1.14A2.79 2.79 0 0 1 6.05 5.24A2.79 2.79 0 0 1 2.25 7.68A2.79 2.79 0 0 1 -2.25 7.68A2.79 2.79 0 0 1 -6.05 5.24A2.79 2.79 0 0 1 -7.92 1.14A2.79 2.79 0 0 1 -7.28 -3.32A2.79 2.79 0 0 1 -4.33 -6.73A2.79 2.79 0 0 1 0 -8Z" class="dc"/><circle r="5" class="dd"/><circle r="1" cx="-1.6" cy="-.6" class="ds"/><circle r="1" cx="1.5" cy="-.9" class="ds"/><circle r="1" cx=".1" cy="1.6" class="ds"/></symbol>
+    <symbol id="daff-line" viewBox="-24 -24 48 48" overflow="visible"><path transform="rotate(0)" d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" fill="none"/><path transform="rotate(0)" d="M0 -6V-15M-2 -8 0 -14 2 -8" fill="none" stroke-width=".5"/><path transform="rotate(60)" d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" fill="none"/><path transform="rotate(60)" d="M0 -6V-15M-2 -8 0 -14 2 -8" fill="none" stroke-width=".5"/><path transform="rotate(120)" d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" fill="none"/><path transform="rotate(120)" d="M0 -6V-15M-2 -8 0 -14 2 -8" fill="none" stroke-width=".5"/><path transform="rotate(180)" d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" fill="none"/><path transform="rotate(180)" d="M0 -6V-15M-2 -8 0 -14 2 -8" fill="none" stroke-width=".5"/><path transform="rotate(240)" d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" fill="none"/><path transform="rotate(240)" d="M0 -6V-15M-2 -8 0 -14 2 -8" fill="none" stroke-width=".5"/><path transform="rotate(300)" d="M0 -3C6.5 -7 7.5 -16 0 -21C-7.5 -16 -6.5 -7 0 -3Z" fill="none"/><path transform="rotate(300)" d="M0 -6V-15M-2 -8 0 -14 2 -8" fill="none" stroke-width=".5"/><path d="M0 -8A2.79 2.79 0 0 1 4.33 -6.73A2.79 2.79 0 0 1 7.28 -3.32A2.79 2.79 0 0 1 7.92 1.14A2.79 2.79 0 0 1 6.05 5.24A2.79 2.79 0 0 1 2.25 7.68A2.79 2.79 0 0 1 -2.25 7.68A2.79 2.79 0 0 1 -6.05 5.24A2.79 2.79 0 0 1 -7.92 1.14A2.79 2.79 0 0 1 -7.28 -3.32A2.79 2.79 0 0 1 -4.33 -6.73A2.79 2.79 0 0 1 0 -8Z" fill="var(--vellum)"/><circle r="4.6" fill="none"/><path d="M-3 -2.5Q0 -5 3 -2.5M-3.4 0Q0 -2.6 3.4 0" fill="none" stroke-width=".5"/></symbol>
+    <symbol id="rosary" viewBox="0 0 360 54"><path d="M8 6Q180 30 352 6" class="chain"/><circle cx="25.2" cy="8.28" r="3.4" fill="url(#bead)"/><circle cx="24.1" cy="7.08" r=".85" fill="#fff" opacity=".6"/><circle cx="38.96" cy="9.93" r="3.4" fill="url(#bead)"/><circle cx="37.86" cy="8.73" r=".85" fill="#fff" opacity=".6"/><circle cx="52.72" cy="11.43" r="3.4" fill="url(#bead)"/><circle cx="51.62" cy="10.23" r=".85" fill="#fff" opacity=".6"/><circle cx="66.48" cy="12.77" r="3.4" fill="url(#bead)"/><circle cx="65.38" cy="11.57" r=".85" fill="#fff" opacity=".6"/><circle cx="80.24" cy="13.96" r="3.4" fill="url(#bead)"/><circle cx="79.14" cy="12.76" r=".85" fill="#fff" opacity=".6"/><circle cx="94" cy="15" r="3.4" fill="url(#bead)"/><circle cx="92.9" cy="13.8" r=".85" fill="#fff" opacity=".6"/><circle cx="107.76" cy="15.88" r="3.4" fill="url(#bead)"/><circle cx="106.66" cy="14.68" r=".85" fill="#fff" opacity=".6"/><circle cx="121.52" cy="16.61" r="3.4" fill="url(#bead)"/><circle cx="120.42" cy="15.41" r=".85" fill="#fff" opacity=".6"/><circle cx="135.28" cy="17.19" r="3.4" fill="url(#bead)"/><circle cx="134.18" cy="15.99" r=".85" fill="#fff" opacity=".6"/><circle cx="149.04" cy="17.61" r="3.4" fill="url(#bead)"/><circle cx="147.94" cy="16.41" r=".85" fill="#fff" opacity=".6"/><circle cx="334.8" cy="8.28" r="3.4" fill="url(#bead)"/><circle cx="333.7" cy="7.08" r=".85" fill="#fff" opacity=".6"/><circle cx="321.04" cy="9.93" r="3.4" fill="url(#bead)"/><circle cx="319.94" cy="8.73" r=".85" fill="#fff" opacity=".6"/><circle cx="307.28" cy="11.43" r="3.4" fill="url(#bead)"/><circle cx="306.18" cy="10.23" r=".85" fill="#fff" opacity=".6"/><circle cx="293.52" cy="12.77" r="3.4" fill="url(#bead)"/><circle cx="292.42" cy="11.57" r=".85" fill="#fff" opacity=".6"/><circle cx="279.76" cy="13.96" r="3.4" fill="url(#bead)"/><circle cx="278.66" cy="12.76" r=".85" fill="#fff" opacity=".6"/><circle cx="266" cy="15" r="3.4" fill="url(#bead)"/><circle cx="264.9" cy="13.8" r=".85" fill="#fff" opacity=".6"/><circle cx="252.24" cy="15.88" r="3.4" fill="url(#bead)"/><circle cx="251.14" cy="14.68" r=".85" fill="#fff" opacity=".6"/><circle cx="238.48" cy="16.61" r="3.4" fill="url(#bead)"/><circle cx="237.38" cy="15.41" r=".85" fill="#fff" opacity=".6"/><circle cx="224.72" cy="17.19" r="3.4" fill="url(#bead)"/><circle cx="223.62" cy="15.99" r=".85" fill="#fff" opacity=".6"/><circle cx="210.96" cy="17.61" r="3.4" fill="url(#bead)"/><circle cx="209.86" cy="16.41" r=".85" fill="#fff" opacity=".6"/><circle cx="164.52" cy="17.9" r="4.5" fill="url(#gold-ball)"/><circle cx="163.12" cy="16.4" r="1" fill="#fff" opacity=".7"/><circle cx="195.48" cy="17.9" r="4.5" fill="url(#gold-ball)"/><circle cx="194.08" cy="16.4" r="1" fill="#fff" opacity=".7"/><ellipse cx="180" cy="19" rx="4.2" ry="5.2" fill="url(#gold-ball)" stroke="#6b4a17" stroke-width=".6"/><path d="M178.6 19h2.8M180 17.4v3.2" stroke="#6b4a17" stroke-width=".7"/><path d="M180 24.4V30" class="chain"/><path d="M180 30.5V51M172.5 37.5H187.5" stroke="url(#gold-v)" stroke-width="2.6" stroke-linecap="round"/><circle cx="180" cy="51.4" r="1.5" fill="#e9cf86"/><circle cx="172.3" cy="37.5" r="1.4" fill="#e9cf86"/><circle cx="187.7" cy="37.5" r="1.4" fill="#e9cf86"/><path d="M180 35.2v6.4M178.4 37h3.2" stroke="#6b4a17" stroke-width=".7" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+<main>
+
+  <!-- 封面 -->
+  <header class="cover">
+    <p class="kicker" data-reveal><span class="nw">聖水仙教堂</span>・<span class="nw">擺渡人</span>的日課經</p>
+    <div class="rose-wrap" data-reveal>
+      <svg class="rose" viewBox="-100 -100 200 200" aria-hidden="true"><circle r="98" fill="url(#stone)" stroke="#7a5a22" stroke-width="1.4"/><circle r="95" fill="none" stroke="#c9a14f" stroke-width=".8" stroke-dasharray="1.2 3.2"/><circle r="90.5" fill="#0c0708"/><g transform="rotate(0)"><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="url(#gl-r)"/><path d="M0 -39V-68" class="lead thin"/><path d="M-9.5 -52H9.5" class="lead thin"/><circle cy="-73" r="4.2" fill="url(#gl-a)" class="lead thin"/><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="none" class="lead"/></g><g transform="rotate(30)"><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="url(#gl-b)"/><path d="M0 -39V-68" class="lead thin"/><path d="M-9.5 -52H9.5" class="lead thin"/><circle cy="-73" r="4.2" fill="url(#gl-g)" class="lead thin"/><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="none" class="lead"/></g><g transform="rotate(60)"><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="url(#gl-a)"/><path d="M0 -39V-68" class="lead thin"/><path d="M-9.5 -52H9.5" class="lead thin"/><circle cy="-73" r="4.2" fill="url(#gl-r)" class="lead thin"/><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="none" class="lead"/></g><g transform="rotate(90)"><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="url(#gl-g)"/><path d="M0 -39V-68" class="lead thin"/><path d="M-9.5 -52H9.5" class="lead thin"/><circle cy="-73" r="4.2" fill="url(#gl-b)" class="lead thin"/><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="none" class="lead"/></g><g transform="rotate(120)"><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="url(#gl-r)"/><path d="M0 -39V-68" class="lead thin"/><path d="M-9.5 -52H9.5" class="lead thin"/><circle cy="-73" r="4.2" fill="url(#gl-a)" class="lead thin"/><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="none" class="lead"/></g><g transform="rotate(150)"><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="url(#gl-b)"/><path d="M0 -39V-68" class="lead thin"/><path d="M-9.5 -52H9.5" class="lead thin"/><circle cy="-73" r="4.2" fill="url(#gl-g)" class="lead thin"/><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="none" class="lead"/></g><g transform="rotate(180)"><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="url(#gl-a)"/><path d="M0 -39V-68" class="lead thin"/><path d="M-9.5 -52H9.5" class="lead thin"/><circle cy="-73" r="4.2" fill="url(#gl-r)" class="lead thin"/><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="none" class="lead"/></g><g transform="rotate(210)"><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="url(#gl-g)"/><path d="M0 -39V-68" class="lead thin"/><path d="M-9.5 -52H9.5" class="lead thin"/><circle cy="-73" r="4.2" fill="url(#gl-b)" class="lead thin"/><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="none" class="lead"/></g><g transform="rotate(240)"><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="url(#gl-r)"/><path d="M0 -39V-68" class="lead thin"/><path d="M-9.5 -52H9.5" class="lead thin"/><circle cy="-73" r="4.2" fill="url(#gl-a)" class="lead thin"/><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="none" class="lead"/></g><g transform="rotate(270)"><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="url(#gl-b)"/><path d="M0 -39V-68" class="lead thin"/><path d="M-9.5 -52H9.5" class="lead thin"/><circle cy="-73" r="4.2" fill="url(#gl-g)" class="lead thin"/><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="none" class="lead"/></g><g transform="rotate(300)"><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="url(#gl-a)"/><path d="M0 -39V-68" class="lead thin"/><path d="M-9.5 -52H9.5" class="lead thin"/><circle cy="-73" r="4.2" fill="url(#gl-r)" class="lead thin"/><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="none" class="lead"/></g><g transform="rotate(330)"><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="url(#gl-g)"/><path d="M0 -39V-68" class="lead thin"/><path d="M-9.5 -52H9.5" class="lead thin"/><circle cy="-73" r="4.2" fill="url(#gl-b)" class="lead thin"/><path d="M-6 -36L-12.5 -63A18 18 0 0 1 0 -84A18 18 0 0 1 12.5 -63L6 -36Z" fill="none" class="lead"/></g><circle cx="20.71" cy="-77.27" r="6.4" fill="url(#gl-b)" class="lead"/><circle cx="56.57" cy="-56.57" r="6.4" fill="url(#gl-a)" class="lead"/><circle cx="77.27" cy="-20.71" r="6.4" fill="url(#gl-b)" class="lead"/><circle cx="77.27" cy="20.71" r="6.4" fill="url(#gl-a)" class="lead"/><circle cx="56.57" cy="56.57" r="6.4" fill="url(#gl-b)" class="lead"/><circle cx="20.71" cy="77.27" r="6.4" fill="url(#gl-a)" class="lead"/><circle cx="-20.71" cy="77.27" r="6.4" fill="url(#gl-b)" class="lead"/><circle cx="-56.57" cy="56.57" r="6.4" fill="url(#gl-a)" class="lead"/><circle cx="-77.27" cy="20.71" r="6.4" fill="url(#gl-b)" class="lead"/><circle cx="-77.27" cy="-20.71" r="6.4" fill="url(#gl-a)" class="lead"/><circle cx="-56.57" cy="-56.57" r="6.4" fill="url(#gl-b)" class="lead"/><circle cx="-20.71" cy="-77.27" r="6.4" fill="url(#gl-a)" class="lead"/><circle r="34" fill="none" class="lead"/><circle r="88.5" fill="none" class="lead"/><path transform="rotate(30)" d="M0 -6C7 -10 8 -21 0 -30C-8 -21 -7 -10 0 -6Z" fill="url(#gl-w)" class="lead thin"/><path transform="rotate(90)" d="M0 -6C7 -10 8 -21 0 -30C-8 -21 -7 -10 0 -6Z" fill="url(#gl-w)" class="lead thin"/><path transform="rotate(150)" d="M0 -6C7 -10 8 -21 0 -30C-8 -21 -7 -10 0 -6Z" fill="url(#gl-w)" class="lead thin"/><path transform="rotate(210)" d="M0 -6C7 -10 8 -21 0 -30C-8 -21 -7 -10 0 -6Z" fill="url(#gl-w)" class="lead thin"/><path transform="rotate(270)" d="M0 -6C7 -10 8 -21 0 -30C-8 -21 -7 -10 0 -6Z" fill="url(#gl-w)" class="lead thin"/><path transform="rotate(330)" d="M0 -6C7 -10 8 -21 0 -30C-8 -21 -7 -10 0 -6Z" fill="url(#gl-w)" class="lead thin"/><path transform="rotate(0)" d="M0 -6C6 -10 7 -19 0 -27C-7 -19 -6 -10 0 -6Z" fill="url(#gl-w2)" class="lead thin"/><path transform="rotate(60)" d="M0 -6C6 -10 7 -19 0 -27C-7 -19 -6 -10 0 -6Z" fill="url(#gl-w2)" class="lead thin"/><path transform="rotate(120)" d="M0 -6C6 -10 7 -19 0 -27C-7 -19 -6 -10 0 -6Z" fill="url(#gl-w2)" class="lead thin"/><path transform="rotate(180)" d="M0 -6C6 -10 7 -19 0 -27C-7 -19 -6 -10 0 -6Z" fill="url(#gl-w2)" class="lead thin"/><path transform="rotate(240)" d="M0 -6C6 -10 7 -19 0 -27C-7 -19 -6 -10 0 -6Z" fill="url(#gl-w2)" class="lead thin"/><path transform="rotate(300)" d="M0 -6C6 -10 7 -19 0 -27C-7 -19 -6 -10 0 -6Z" fill="url(#gl-w2)" class="lead thin"/><path d="M0 -11A3.53 3.53 0 0 1 5.5 -9.53A3.53 3.53 0 0 1 9.53 -5.5A3.53 3.53 0 0 1 11 0A3.53 3.53 0 0 1 9.53 5.5A3.53 3.53 0 0 1 5.5 9.53A3.53 3.53 0 0 1 0 11A3.53 3.53 0 0 1 -5.5 9.53A3.53 3.53 0 0 1 -9.53 5.5A3.53 3.53 0 0 1 -11 0A3.53 3.53 0 0 1 -9.53 -5.5A3.53 3.53 0 0 1 -5.5 -9.53A3.53 3.53 0 0 1 0 -11Z" fill="url(#gl-a)" class="lead thin"/><circle r="5" fill="#b9520f" class="lead thin"/><circle r="90" fill="url(#sheen)" class="sheen"/></svg>
+    </div>
+    <figure class="arch" data-reveal>
+      <div class="frame"><img src="../images/characters/萊卡-1.jpg" alt="萊卡穿著黑色神父披風，傾斜手中的酒杯，紅酒流了出來，耳上掛著十字架耳環"></div>
+      <svg class="keystone" viewBox="-24 -24 48 48" aria-hidden="true"><circle r="22" fill="#0d0a0b" stroke="#c9a14f" stroke-width="2"/><use href="#daff" x="-20" y="-20" width="40" height="40"/></svg>
+      <svg class="capital l" viewBox="0 0 24 30" aria-hidden="true"><path d="M2 4H22V9H2Z" fill="url(#gold-h)"/><path d="M4 9H20L18 13H6Z" fill="#a37f35"/><path d="M8 13C3 13 3 22 8 22C11 22 11 17 8 17" fill="none" stroke="#e9cf86" stroke-width="1.6"/><path d="M8 13H22V28H8" fill="none" stroke="#c9a14f" stroke-width="1.6"/></svg>
+      <svg class="capital r" viewBox="0 0 24 30" aria-hidden="true"><path d="M2 4H22V9H2Z" fill="url(#gold-h)"/><path d="M4 9H20L18 13H6Z" fill="#a37f35"/><path d="M8 13C3 13 3 22 8 22C11 22 11 17 8 17" fill="none" stroke="#e9cf86" stroke-width="1.6"/><path d="M8 13H22V28H8" fill="none" stroke="#c9a14f" stroke-width="1.6"/></svg>
+    </figure>
+    <h1 data-reveal>萊卡</h1>
+    <p class="fullname" data-reveal><span class="nw">萊卡尼歐·旺達</span></p>
+    <ul class="chips" data-reveal><li>神父</li><li><span class="nw">假死協會</span><span class="nw">運送員</span></li><li>代號「<span class="nw">擺渡人</span>」</li></ul>
+    <p class="tagline" data-reveal>他想照自己的道理，<br>行神的<span class="nw">救贖</span>。</p>
+  </header>
+
+  <svg class="rosary" viewBox="0 0 360 54" aria-hidden="true"><use href="#rosary"/></svg>
+
+  <!-- I 進堂 -->
+  <section class="sec vellum intro">
+    <p class="rubric" data-reveal><b>I</b>Introitus</p>
+    <h2 data-reveal>神父，也是<span class="nw">擺渡人</span></h2>
+    <p data-reveal><span class="initial">他</span>是經過<span class="nw">天主教會</span>審核的<span class="nw">正牌神父</span>，在<span class="nw">義大利</span>東北的小教堂「<span class="nw">聖水仙教堂</span>」<span class="nw">主持彌撒</span>。</p>
+    <p data-reveal>他也是<span class="nw">靈獄假死協會</span>的<span class="nw">運送員</span>。<span class="nw">申請</span>假死的人，由他<span class="nw">迷暈</span>，再送到新的<span class="nw">地方</span>生活。這份<span class="nw">工作</span>，他做了<span class="nw">三年多</span>。</p>
+    <p data-reveal>他想為世上受迫害的人多出<span class="nw">一份力</span>，社會卻太不公、太<span class="nw">黑暗</span>。看過太多<span class="nw">黑暗</span>之後，他開始<span class="nw">懷疑</span>：神的<span class="nw">救贖</span>，是不是該由人來<span class="nw">執行</span>。</p>
+    <p class="climax" data-reveal>他嘴上說的是神，<br>其實說的是自己。</p>
+  </section>
+
+  <svg class="rosary" viewBox="0 0 360 54" aria-hidden="true"><use href="#rosary"/></svg>
+
+  <!-- II 名冊 -->
+  <section class="sec vellum">
+    <svg class="seal" viewBox="-36 -36 72 72" aria-hidden="true"><path d="M30.2 0L31.78 7.25L25.95 12.5L25.49 20.33L17.96 22.52L14.75 30.63L6.41 28.08L0 32.6L-6.41 28.08L-14.14 29.37L-18.83 23.61L-25.49 20.33L-25.95 12.5L-31.78 7.25L-28.8 0L-33.15 -7.57L-25.95 -12.5L-25.49 -20.33L-17.96 -22.52L-14.14 -29.37L-6.72 -29.44L0 -32.6L6.41 -28.08L14.14 -29.37L17.96 -22.52L26.58 -21.2L25.95 -12.5L31.78 -7.25Z" fill="url(#wax-red)" stroke-linejoin="round"/><circle r="21" fill="none" stroke="#5a0714" stroke-width="1.4" opacity=".7"/><circle r="21" fill="none" stroke="#ff9aa3" stroke-width=".6" opacity=".35" transform="translate(.6 .6)"/><path d="M0 -15L4 -5L15 0L4 5L0 15L-4 5L-15 0L-4 -5Z" fill="#6d0a19"/><path d="M0 -15L4 -5L15 0L4 5L0 15L-4 5L-15 0L-4 -5Z" fill="none" stroke="#ff8d98" stroke-width=".6" opacity=".45" transform="translate(.5 .5)"/></svg>
+    <p class="rubric" data-reveal><b>II</b>Registrum</p>
+    <h2 data-reveal>人物檔案</h2>
+    <dl class="register" data-reveal>
+      <div><dt>本名</dt><dd><span class="nw">萊卡尼歐·旺達</span></dd></div>
+      <div><dt>國籍</dt><dd><span class="nw">義大利</span>，會說<span class="nw">義大利文</span></dd></div>
+      <div><dt>身高</dt><dd>178 cm</dd></div>
+      <div><dt>代號</dt><dd><span class="nw">擺渡人</span></dd></div>
+      <div><dt>外貌</dt><dd>淡金色短髮、紅色眼睛</dd></div>
+      <div><dt>衣著</dt><dd>黑色神父長袍，手裡常拿著紅色串珠和<span class="nw">十字架</span></dd></div>
+      <div><dt>酒量</dt><dd>酒品很好，偏好<span class="nw">紅酒</span>、<span class="nw">白酒</span></dd></div>
+      <div><dt>藝術</dt><dd>最迷<span class="nw">文藝復興時期</span>，擅長<span class="nw">油畫</span>、<span class="nw">版畫、素描</span></dd></div>
+      <div><dt>音樂</dt><dd><span class="nw">管風琴</span>、鋼琴等琴鍵<span class="nw">樂器</span></dd></div>
+      <div><dt>講道</dt><dd>能完整解釋<span class="nw">聖經</span>故事，也有自己的<span class="nw">見解</span></dd></div>
+    </dl>
+  </section>
+
+  <svg class="rosary" viewBox="0 0 360 54" aria-hidden="true"><use href="#rosary"/></svg>
+
+  <!-- III 雙聯畫 -->
+  <section class="sec">
+    <p class="rubric" data-reveal><b>III</b>Diptychon</p>
+    <h2 data-reveal><span class="nw">大愛</span>與<span class="nw">小愛</span></h2>
+    <p class="lead-in" data-reveal>他把身邊的人事物分成兩邊。</p>
+    <div class="diptych" data-reveal>
+      <div class="panel grand">
+        <svg viewBox="-50 -50 100 116" aria-hidden="true"><path transform="rotate(0)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(11.25)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(22.5)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(33.75)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(45)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(56.25)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(67.5)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(78.75)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(90)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(101.25)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(112.5)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(123.75)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(135)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(146.25)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(157.5)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(168.75)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(180)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(191.25)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(202.5)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(213.75)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(225)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(236.25)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(247.5)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(258.75)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(270)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(281.25)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(292.5)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(303.75)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(315)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(326.25)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><path transform="rotate(337.5)" d="M-2.4 -18L0 -47L2.4 -18Z" fill="url(#gold-v)"/><path transform="rotate(348.75)" d="M-1.8 -18Q2.6 -24 -.8 -29Q-3 -33 0 -38Q3 -33 .8 -29Q-2.6 -24 1.8 -18Z" fill="url(#gold-v)" opacity=".85"/><circle r="17.5" fill="none" stroke="url(#gold-v)" stroke-width="3"/><circle r="15.2" fill="url(#host)"/><path d="M0 -8V8M-6 -2H6" stroke="#cdb77f" stroke-width="1.4" stroke-linecap="round"/><path d="M0 47V60M-9 60H9M-5 64H5" stroke="url(#gold-v)" stroke-width="3" stroke-linecap="round"/></svg>
+        <h3><span class="nw">大愛</span></h3>
+        <p>能和<span class="nw">全世界</span><br>一起分享。</p>
+        <p>對<span class="nw">大愛</span>，<br>他善良、<br>大度、博愛。</p>
+      </div>
+      <div class="panel small">
+        <svg viewBox="0 0 160 116" aria-hidden="true"><path d="M116.13 16.81C98.32 24.56 81.09 46.39 78.73 52.93C85.34 50.8 107.76 34.34 116.13 16.81Z" class="fe"/><path d="M116.13 16.81L83.96 47.87" class="fs"/><path d="M108.94 15.86C89.73 22.1 69.22 42.65 65.93 49.06C72.96 47.5 98.04 32.86 108.94 15.86Z" class="fe"/><path d="M108.94 15.86L71.95 44.41" class="fs"/><path d="M101.41 15.91C80.93 20.41 57.22 39.22 53.01 45.37C60.41 44.45 88 32.03 101.41 15.91Z" class="fe"/><path d="M101.41 15.91L59.78 41.25" class="fs"/><path d="M93.55 16.94C71.96 19.51 45.2 36.11 40.08 41.88C47.79 41.66 77.71 31.83 93.55 16.94Z" class="fe"/><path d="M93.55 16.94L47.57 38.39" class="fs"/><path d="M85.37 18.97C62.85 19.4 33.25 33.35 27.26 38.6C35.21 39.14 67.2 32.28 85.37 18.97Z" class="fe"/><path d="M85.37 18.97L35.39 35.85" class="fs"/><path d="M76.85 21.99C53.63 20.11 21.46 30.97 14.65 35.59C22.77 36.95 56.53 33.39 76.85 21.99Z" class="fe"/><path d="M76.85 21.99L23.36 33.68" class="fs"/><path d="M68 26C44.32 21.65 9.92 29.03 2.36 32.9C10.56 35.11 45.74 35.18 68 26Z" class="fe"/><path d="M68 26L11.55 31.93" class="fs"/><path d="M150 40C141.32 54.33 141.67 77.93 143.88 83.57C147.55 78.76 154.39 56.17 150 40Z" class="fe"/><path d="M150 40L144.73 77.47" class="fs"/><path d="M145.96 35.03C136.13 49.16 134.55 73.46 136.3 79.42C140.36 74.72 149.03 51.97 145.96 35.03Z" class="fe"/><path d="M145.96 35.03L137.65 73.2" class="fs"/><path d="M141.73 30.63C130.73 44.46 127.13 69.3 128.37 75.54C132.82 70.99 143.38 48.23 141.73 30.63Z" class="fe"/><path d="M141.73 30.63L130.24 69.25" class="fs"/><path d="M137.32 26.79C125.13 40.24 119.41 65.44 120.12 71.92C124.96 67.56 137.47 44.94 137.32 26.79Z" class="fe"/><path d="M137.32 26.79L122.53 65.6" class="fs"/><path d="M132.71 23.53C119.34 36.48 111.43 61.87 111.59 68.54C116.81 64.4 131.29 42.09 132.71 23.53Z" class="fe"/><path d="M132.71 23.53L114.54 62.23" class="fs"/><path d="M127.91 20.84C113.37 33.19 103.21 58.58 102.78 65.38C108.38 61.5 124.86 39.67 127.91 20.84Z" class="fe"/><path d="M127.91 20.84L106.3 59.15" class="fs"/><path d="M122.92 18.72C107.22 30.36 94.77 55.55 93.74 62.45C99.71 58.85 118.2 37.69 122.92 18.72Z" class="fe"/><path d="M122.92 18.72L97.83 56.33" class="fs"/><path d="M117.74 17.17C100.91 28 86.15 52.78 84.5 59.72C90.83 56.44 111.31 36.12 117.74 17.17Z" class="fe"/><path d="M117.74 17.17L89.15 53.76" class="fs"/><path d="M148.79 38.43C140.94 45.13 141.06 58.27 142.99 61.71C146.3 59.57 152.58 48.03 148.79 38.43Z" class="fe"/><path d="M148.79 38.43L143.8 58.45" class="fs"/><path d="M143 31.87C134.44 37.94 133.13 51.32 134.67 55.01C138.21 53.15 145.73 42 143 31.87Z" class="fe"/><path d="M143 31.87L135.84 51.77" class="fs"/><path d="M136.84 26.43C127.62 31.79 124.83 45.26 125.96 49.15C129.7 47.59 138.44 36.97 136.84 26.43Z" class="fe"/><path d="M136.84 26.43L127.48 45.97" class="fs"/><path d="M130.31 22.1C120.49 26.68 116.18 40.07 116.87 44.12C120.79 42.89 130.73 32.94 130.31 22.1Z" class="fe"/><path d="M130.31 22.1L118.75 41.04" class="fs"/><path d="M123.41 18.9C113.04 22.63 107.21 35.77 107.45 39.92C111.51 39.03 122.6 29.88 123.41 18.9Z" class="fe"/><path d="M123.41 18.9L109.68 36.98" class="fs"/><path d="M116.13 16.81C105.3 19.63 97.95 32.34 97.72 36.55C101.9 36.02 114.07 27.81 116.13 16.81Z" class="fe"/><path d="M116.13 16.81L100.3 33.79" class="fs"/><path d="M108.48 15.83C97.26 17.68 88.43 29.8 87.72 34.01C91.99 33.86 105.17 26.71 108.48 15.83Z" class="fe"/><path d="M108.48 15.83L90.62 31.47" class="fs"/><path d="M100.46 15.98C88.94 16.81 78.67 28.15 77.47 32.31C81.8 32.56 95.89 26.59 100.46 15.98Z" class="fe"/><path d="M100.46 15.98L80.69 30.03" class="fs"/><path d="M92.07 17.24C80.34 17 68.7 27.41 67.02 31.47C71.36 32.11 86.27 27.44 92.07 17.24Z" class="fe"/><path d="M92.07 17.24L70.53 29.48" class="fs"/><path d="M83.3 19.62C71.46 18.28 58.54 27.59 56.4 31.49C60.72 32.53 76.31 29.26 83.3 19.62Z" class="fe"/><path d="M83.3 19.62L60.17 29.82" class="fs"/><path d="M74.16 23.12C62.32 20.66 48.22 28.71 45.63 32.39C49.89 33.84 66.03 32.07 74.16 23.12Z" class="fe"/><path d="M74.16 23.12L49.62 31.09" class="fs"/><path d="M147.56 36.91C142.23 38.9 142.19 45.17 143.44 47.1C145.69 46.59 150.02 42.05 147.56 36.91Z" class="fe"/><path d="M147.56 36.91L144.02 45.68" class="fs"/><path d="M142.59 31.46C137.08 33.07 136.49 39.39 137.58 41.44C139.87 41.09 144.59 36.84 142.59 31.46Z" class="fe"/><path d="M142.59 31.46L138.28 40.04" class="fs"/><path d="M137.35 26.82C131.7 28.02 130.55 34.36 131.46 36.5C133.78 36.32 138.87 32.39 137.35 26.82Z" class="fe"/><path d="M137.35 26.82L132.28 35.14" class="fs"/><path d="M131.84 22.99C126.07 23.78 124.36 30.07 125.08 32.29C127.42 32.29 132.87 28.72 131.84 22.99Z" class="fe"/><path d="M131.84 22.99L126.02 30.99" class="fs"/><path d="M126.05 19.97C120.21 20.33 117.93 26.53 118.45 28.82C120.8 28.99 126.58 25.81 126.05 19.97Z" class="fe"/><path d="M126.05 19.97L119.52 27.58" class="fs"/><path d="M120 17.76C114.1 17.69 111.27 23.74 111.58 26.08C113.92 26.43 120.01 23.66 120 17.76Z" class="fe"/><path d="M120 17.76L112.76 24.92" class="fs"/><path d="M113.68 16.37C107.76 15.85 104.37 21.71 104.49 24.08C106.8 24.6 113.16 22.28 113.68 16.37Z" class="fe"/><path d="M113.68 16.37L105.77 23" class="fs"/><path d="M107.09 15.78C101.18 14.81 97.26 20.43 97.16 22.81C99.44 23.51 106.04 21.67 107.09 15.78Z" class="fe"/><path d="M107.09 15.78L98.55 21.83" class="fs"/><path d="M100.22 16C94.37 14.59 89.92 19.91 89.61 22.29C91.85 23.16 98.65 21.81 100.22 16Z" class="fe"/><path d="M100.22 16L91.1 21.41" class="fs"/><path d="M93.09 17.03C87.32 15.17 82.37 20.16 81.85 22.51C84.03 23.55 91 22.72 93.09 17.03Z" class="fe"/><path d="M93.09 17.03L83.43 21.74" class="fs"/><path d="M85.69 18.87C80.03 16.57 74.62 21.17 73.89 23.48C75.99 24.69 83.09 24.4 85.69 18.87Z" class="fe"/><path d="M85.69 18.87L75.54 22.84" class="fs"/><path d="M78.01 21.52C72.51 18.79 66.65 22.95 65.72 25.21C67.74 26.57 74.92 26.84 78.01 21.52Z" class="fe"/><path d="M78.01 21.52L67.44 24.69" class="fs"/><path d="M70.07 24.99C64.75 21.82 58.49 25.52 57.36 27.69C59.27 29.21 66.49 30.04 70.07 24.99Z" class="fe"/><path d="M70.07 24.99L59.14 27.31" class="fs"/><path d="M150 40Q120 0 68 26" fill="none" stroke="url(#feather)" stroke-width="7" stroke-linecap="round"/><path d="M150 37Q120 -3 68 23" fill="none" stroke="#c9a14f" stroke-width="1" opacity=".8"/></svg>
+        <h3><span class="nw">小愛</span></h3>
+        <p>只能留給<br>自己收藏。</p>
+        <p>對<span class="nw">小愛</span>，<br>他自私、<br><span class="nw">佔有慾</span>強。</p>
+        <p class="angel">他叫<span class="nw">小愛</span><br>「<span class="nw">天使</span>」。</p>
+      </div>
+    </div>
+    <p class="hinge" data-reveal>你，在右邊那一扇。</p>
+  </section>
+
+  <svg class="rosary" viewBox="0 0 360 54" aria-hidden="true"><use href="#rosary"/></svg>
+
+  <!-- IV 鳥籠 -->
+  <section class="sec">
+    <p class="rubric" data-reveal><b>IV</b>Cavea</p>
+    <h2 data-reveal>看不見的<span class="nw">鳥籠</span></h2>
+    <div class="cage-wrap" data-reveal><svg class="cage" viewBox="0 0 240 320" aria-hidden="true"><g class="swing"><path d="M120 4C133 4 135 21 120 22" fill="none" stroke="url(#gold-v)" stroke-width="3" stroke-linecap="round"/><circle cx="120" cy="30" r="8" fill="none" stroke="url(#gold-v)" stroke-width="3"/><path d="M120 38C104 30 98 44 110 46C114 46 118 42 120 38ZM120 38C136 30 142 44 130 46C126 46 122 42 120 38Z" fill="url(#ribbon)"/><path d="M118 39C114 52 108 60 100 66L106 67C112 60 117 52 119.5 41ZM122 39C126 52 132 60 140 66L134 67C128 60 123 52 120.5 41Z" fill="url(#ribbon)" opacity=".92"/><circle cx="120" cy="39" r="3.2" fill="#8e1326"/><circle cx="120" cy="48" r="5" fill="url(#gold-ball)"/><path d="M40 262V118C40 80 94.4 56 120 52" class="bar"/><path d="M56 262V118C56 80 99.52 56 120 52" class="bar"/><path d="M72 262V118C72 80 104.64 56 120 52" class="bar"/><path d="M88 262V118C88 80 109.76 56 120 52" class="bar"/><path d="M104 262V118C104 80 114.88 56 120 52" class="bar"/><path d="M120 206V118C120 80 120 56 120 52" class="bar"/><path d="M136 262V118C136 80 125.12 56 120 52" class="bar"/><path d="M152 262V118C152 80 130.24 56 120 52" class="bar"/><path d="M168 262V118C168 80 135.36 56 120 52" class="bar"/><path d="M184 262V118C184 80 140.48 56 120 52" class="bar"/><path d="M200 262V118C200 80 145.6 56 120 52" class="bar"/><ellipse cx="120" cy="118" rx="80" ry="9" class="band"/><ellipse cx="120" cy="190" rx="80" ry="9" class="band thin"/><path d="M104 262V214A16 16 0 0 1 136 214V262" class="band"/><path d="M136 214L162 206V256L136 262" fill="rgba(201,161,79,.06)" class="band thin"/><path d="M144 211.5V260M152 209V258.2M136 230L162 223.5M136 246L162 240" class="bar thin"/><path d="M58 232H100" class="perch"/><path d="M140 232H182" class="perch"/><g transform="translate(86 229) rotate(-10)"><path d="M0 0C6 -9 18 -15 34 -17C22 -9 12 -3 0 0Z" fill="url(#feather)"/><path d="M0 0C10 -6 20 -11 33 -16.6" fill="none" stroke="#c9b27a" stroke-width=".6"/></g><ellipse cx="120" cy="262" rx="80" ry="9" class="band"/><path d="M38 264H202L194 286H46Z" fill="url(#gold-h)"/><path d="M46 286H194" stroke="#5c4214" stroke-width="1.2"/><path d="M60 292a6 6 0 1 0 12 0a6 6 0 1 0 -12 0M168 292a6 6 0 1 0 12 0a6 6 0 1 0 -12 0" fill="url(#gold-ball)"/><path d="M70 275h100" stroke="#fff3c4" stroke-width=".8" opacity=".5"/></g><path id="chain-path" d="M128 236C150 250 160 276 176 300S214 318 232 312" class="ghost-chain"/><path d="M128 236C150 250 160 276 176 300S214 318 232 312" class="glint"/></svg></div>
+    <ul class="ways">
+      <li data-reveal>他不用強硬的方式<span class="nw">拘留</span>你，只是一再<span class="nw">證明</span>：留在他身邊，才是<span class="nw">最好的選擇</span>。</li>
+      <li data-reveal>你可以走出一定的<span class="nw">界線</span>，但他會讓你知道，你還是他的。</li>
+      <li data-reveal>他不阻止你有自己的<span class="nw">想法</span>，那是你<span class="nw">美好的地方</span>。</li>
+      <li data-reveal>你越界了，他就把你拉回身邊，關得更嚴，但不傷害你。</li>
+    </ul>
+    <p class="first" data-reveal>在你之前，<br>他沒有<span class="nw">囚禁</span>過任何人。</p>
+  </section>
+
+  <svg class="rosary" viewBox="0 0 360 54" aria-hidden="true"><use href="#rosary"/></svg>
+
+  <!-- V 教堂 -->
+  <section class="sec church">
+    <p class="rubric" data-reveal><b>V</b>Ecclesia</p>
+    <h2 data-reveal><span class="nw">聖水仙教堂</span></h2>
+    <figure class="scene" data-reveal><svg viewBox="0 0 360 230" role="img" aria-label="黃昏的丘陵上有一座小教堂和鐘樓，前面的水池邊開滿各色水仙"><rect width="360" height="230" fill="url(#sky)"/><circle cx="262" cy="150" r="90" fill="url(#dusk)"/><circle cx="22" cy="18" r="1" fill="#fff6dc" class="star" style="--d:0s"/><circle cx="64" cy="40" r="0.7" fill="#fff6dc" class="star" style="--d:1.2s"/><circle cx="110" cy="14" r="0.9" fill="#fff6dc" class="star" style="--d:2.1s"/><circle cx="152" cy="34" r="0.6" fill="#fff6dc" class="star" style="--d:0.6s"/><circle cx="300" cy="22" r="1" fill="#fff6dc" class="star" style="--d:1.6s"/><circle cx="338" cy="46" r="0.7" fill="#fff6dc" class="star" style="--d:2.6s"/><circle cx="232" cy="12" r="0.8" fill="#fff6dc" class="star" style="--d:0.9s"/><circle cx="196" cy="46" r="0.6" fill="#fff6dc" class="star" style="--d:3.1s"/><path d="M0 152C50 128 104 140 160 130C216 120 290 136 360 124V230H0Z" fill="#2b2a45"/><g transform="translate(28 137)"><rect width="9" height="7" fill="#d9b48a" opacity=".55"/><path d="M-1 0L4.5 -4L10 0Z" fill="#a4533a" opacity=".7"/><rect x="3.5" y="2" width="2" height="2.4" fill="#ffd38a" opacity=".8"/></g><g transform="translate(40 139)"><rect width="7" height="7" fill="#d9b48a" opacity=".55"/><path d="M-1 0L3.5 -4L8 0Z" fill="#a4533a" opacity=".7"/><rect x="2.5" y="2" width="2" height="2.4" fill="#ffd38a" opacity=".8"/></g><g transform="translate(52 136)"><rect width="10" height="7" fill="#d9b48a" opacity=".55"/><path d="M-1 0L5.0 -4L11 0Z" fill="#a4533a" opacity=".7"/><rect x="4.0" y="2" width="2" height="2.4" fill="#ffd38a" opacity=".8"/></g><g transform="translate(66 140)"><rect width="8" height="7" fill="#d9b48a" opacity=".55"/><path d="M-1 0L4.0 -4L9 0Z" fill="#a4533a" opacity=".7"/><rect x="3.0" y="2" width="2" height="2.4" fill="#ffd38a" opacity=".8"/></g><g transform="translate(84 138)"><rect width="7" height="7" fill="#d9b48a" opacity=".55"/><path d="M-1 0L3.5 -4L8 0Z" fill="#a4533a" opacity=".7"/><rect x="2.5" y="2" width="2" height="2.4" fill="#ffd38a" opacity=".8"/></g><path d="M0 178C60 166 116 140 186 132C252 126 306 150 360 162V230H0Z" fill="#17241f"/><path d="M142 136C146.5 124 146 106 142 92C138 106 137.5 124 142 136Z" fill="#0f1c17"/><path d="M152 135C156.5 123 156 105 152 99C148 105 147.5 123 152 135Z" fill="#0f1c17"/><path d="M276 140C280.5 128 280 110 276 98C272 110 271.5 128 276 140Z" fill="#0f1c17"/><path d="M288 142C292.5 130 292 112 288 110C284 112 283.5 130 288 142Z" fill="#0f1c17"/><path d="M98 152C102.5 140 102 122 98 122C94 122 93.5 140 98 152Z" fill="#0f1c17"/><circle cx="122" cy="144" r="8" fill="#132119"/><circle cx="130" cy="140" r="6" fill="#132119"/><circle cx="312" cy="150" r="9" fill="#132119"/><circle cx="322" cy="154" r="7" fill="#132119"/><circle cx="60" cy="162" r="9" fill="#132119"/><g class="chapel"><rect x="236" y="62" width="15" height="74" fill="url(#stone-lit)"/><path d="M234 62L243.5 46L253 62Z" fill="#8f4532"/><path d="M243.5 46V37M240.5 40H246.5" stroke="#e8cf8a" stroke-width="1.2" stroke-linecap="round"/><path d="M239.5 68h8v9a4 4 0 0 1 -8 0Z" fill="#20161a"/><path d="M241 74h5" stroke="#c9a14f" stroke-width="1"/><rect x="186" y="94" width="50" height="42" fill="url(#stone-lit)"/><path d="M183 95L211 72L239 95Z" fill="#ead9b6"/><path d="M183 95L211 72L239 95" fill="none" stroke="#b79d74" stroke-width="1.2"/><path d="M211 72V63M207.5 66.5H214.5" stroke="#e8cf8a" stroke-width="1.3" stroke-linecap="round"/><circle cx="211" cy="87" r="13" fill="url(#halo)"/><path d="M211 87L217 87A6 6 0 0 1 215.24 91.24Z" fill="#e84a5a"/><path d="M211 87L215.24 91.24A6 6 0 0 1 211 93Z" fill="#f2c94c"/><path d="M211 87L211 93A6 6 0 0 1 206.76 91.24Z" fill="#4f78c8"/><path d="M211 87L206.76 91.24A6 6 0 0 1 205 87Z" fill="#f2c94c"/><path d="M211 87L205 87A6 6 0 0 1 206.76 82.76Z" fill="#e84a5a"/><path d="M211 87L206.76 82.76A6 6 0 0 1 211 81Z" fill="#5bbf8a"/><path d="M211 87L211 81A6 6 0 0 1 215.24 82.76Z" fill="#4f78c8"/><path d="M211 87L215.24 82.76A6 6 0 0 1 217 87Z" fill="#f2c94c"/><circle cx="211" cy="87" r="6.2" fill="none" stroke="#3b2a20" stroke-width="1"/><circle cx="211" cy="87" r="2" fill="#fff2c4"/><circle cx="211" cy="126" r="16" fill="url(#halo)"/><path d="M204 136V124a7 7 0 0 1 14 0V136Z" fill="url(#door)"/><path d="M190 110a4 4 0 0 1 8 0v8h-8ZM224 110a4 4 0 0 1 8 0v8h-8Z" fill="url(#door)" opacity=".75"/></g><path d="M0 200C70 188 140 184 200 186C260 188 320 196 360 204V230H0Z" fill="#0f1814"/><ellipse cx="190" cy="206" rx="116" ry="16" fill="url(#pool)" stroke="#6b5d4a" stroke-width="3"/><ellipse cx="190" cy="206" rx="116" ry="16" fill="none" stroke="#a08c6c" stroke-width=".8" stroke-dasharray="6 3" opacity=".6"/><path d="M205 194V219" stroke="url(#reflect)" stroke-width="10" opacity=".55"/><ellipse cx="160" cy="208" rx="10" ry="2" class="ripple"/><ellipse cx="236" cy="204" rx="8" ry="1.6" class="ripple" style="animation-delay:-2s"/><g class="sway" style="--d:0.0s"><path d="M88 218C87 212 89 208 88 204" stroke="#3f7a4a" stroke-width="1.2" fill="none"/><path d="M88 218C82 212 81 206 80 202C84 208 86 213 88 218Z" fill="#2f6b4f"/><use href="#daff" x="81" y="197" width="14" height="14" style="--petal:#f7f0dc;--cup:#f2b632"/></g><g class="sway" style="--d:-0.7s"><path d="M100 228C99 222 101 218 100 214" stroke="#3f7a4a" stroke-width="1.2" fill="none"/><path d="M100 228C94 222 93 216 92 212C96 218 98 223 100 228Z" fill="#2f6b4f"/><use href="#daff" x="93" y="207" width="14" height="14" style="--petal:#f2c94c;--cup:#e8771a"/></g><g class="sway" style="--d:-1.4s"><path d="M112 236C111 230 113 226 112 222" stroke="#3f7a4a" stroke-width="1.2" fill="none"/><path d="M112 236C106 230 105 224 104 220C108 226 110 231 112 236Z" fill="#2f6b4f"/><use href="#daff" x="105" y="215" width="14" height="14" style="--petal:#f7f0dc;--cup:#e8771a"/></g><g class="sway" style="--d:-2.1s"><path d="M128 240C127 234 129 230 128 226" stroke="#3f7a4a" stroke-width="1.2" fill="none"/><path d="M128 240C122 234 121 228 120 224C124 230 126 235 128 240Z" fill="#2f6b4f"/><use href="#daff" x="121" y="219" width="14" height="14" style="--petal:#ffe58a;--cup:#f2b632"/></g><g class="sway" style="--d:-2.8s"><path d="M276 238C275 232 277 228 276 224" stroke="#3f7a4a" stroke-width="1.2" fill="none"/><path d="M276 238C270 232 269 226 268 222C272 228 274 233 276 238Z" fill="#2f6b4f"/><use href="#daff" x="269" y="217" width="14" height="14" style="--petal:#f7f0dc;--cup:#f2b632"/></g><g class="sway" style="--d:-3.5s"><path d="M292 230C291 224 293 220 292 216" stroke="#3f7a4a" stroke-width="1.2" fill="none"/><path d="M292 230C286 224 285 218 284 214C288 220 290 225 292 230Z" fill="#2f6b4f"/><use href="#daff" x="285" y="209" width="14" height="14" style="--petal:#f2c94c;--cup:#f2c94c"/></g><g class="sway" style="--d:-4.2s"><path d="M306 220C305 214 307 210 306 206" stroke="#3f7a4a" stroke-width="1.2" fill="none"/><path d="M306 220C300 214 299 208 298 204C302 210 304 215 306 220Z" fill="#2f6b4f"/><use href="#daff" x="299" y="199" width="14" height="14" style="--petal:#fbe7c4;--cup:#e8771a"/></g><g class="sway" style="--d:-4.9s"><path d="M318 228C317 222 319 218 318 214" stroke="#3f7a4a" stroke-width="1.2" fill="none"/><path d="M318 228C312 222 311 216 310 212C314 218 316 223 318 228Z" fill="#2f6b4f"/><use href="#daff" x="311" y="207" width="14" height="14" style="--petal:#f7f0dc;--cup:#d95f2b"/></g><g class="sway" style="--d:-5.6s"><path d="M76 230C75 224 77 220 76 216" stroke="#3f7a4a" stroke-width="1.2" fill="none"/><path d="M76 230C70 224 69 218 68 214C72 220 74 225 76 230Z" fill="#2f6b4f"/><use href="#daff" x="69" y="209" width="14" height="14" style="--petal:#ffe58a;--cup:#e8771a"/></g><g class="sway" style="--d:-6.3s"><path d="M150 210C149 204 151 200 150 196" stroke="#3f7a4a" stroke-width="1.2" fill="none"/><path d="M150 210C144 204 143 198 142 194C146 200 148 205 150 210Z" fill="#2f6b4f"/><use href="#daff" x="143" y="189" width="14" height="14" style="--petal:#f7f0dc;--cup:#f2b632"/></g><g class="sway" style="--d:-7.0s"><path d="M250 210C249 204 251 200 250 196" stroke="#3f7a4a" stroke-width="1.2" fill="none"/><path d="M250 210C244 204 243 198 242 194C246 200 248 205 250 210Z" fill="#2f6b4f"/><use href="#daff" x="243" y="189" width="14" height="14" style="--petal:#f2c94c;--cup:#e8771a"/></g><path d="M0 222C40 216 80 224 120 230H0Z" fill="#0b120f"/><path d="M360 220C320 216 280 224 250 230H360Z" fill="#0b120f"/></svg></figure>
+    <p data-reveal><span class="nw">義大利</span>東北，丘陵、草地和樹林圍著一座小教堂。附近村莊民風<span class="nw">淳樸</span>，村民會<span class="nw">定期</span>來做<span class="nw">禮拜</span>。</p>
+    <p data-reveal>教堂有一座<span class="nw">水仙池</span>，種著不同顏色的<span class="nw">水仙</span>，擺飾和彩繪玻璃上也有<span class="nw">水仙</span>。</p>
+    <p class="climax" data-reveal>這座<span class="nw">百年</span>教堂由協會建立。<br><span class="nw">水仙</span>在這裡，<span class="nw">象徵</span><span class="nw">重生</span>。</p>
+  </section>
+
+  <svg class="rosary" viewBox="0 0 360 54" aria-hidden="true"><use href="#rosary"/></svg>
+
+  <!-- VI 靈薄獄 -->
+  <section class="sec cards">
+    <p class="rubric" data-reveal><b>VI</b>Limbus</p>
+    <h2 data-reveal><span class="nw">靈獄假死協會</span></h2>
+    <div class="santino" data-reveal>
+      <div class="face">
+        <svg viewBox="-26 -34 52 60" aria-hidden="true"><path d="M0 -33V-24M-3.5 -29.5H3.5" stroke="#3b2a1c" stroke-width="1.2" stroke-linecap="round"/>
+          <g class="eng"><use href="#daff-line" x="-22" y="-22" width="44" height="44"/></g>
+          <path d="M0 21C-1 16 1 12 0 8" fill="none" stroke="#3b2a1c" stroke-width=".9"/></svg>
+        <p class="mem">In memoriam</p>
+        <p class="blank">＿＿＿＿＿＿</p>
+        <p class="rip">Requiescat in pace</p>
+      </div>
+    </div>
+    <div class="vellum limbo" data-reveal>
+      <p class="alive">卡片上的人，其實還活著。</p>
+      <p>協會替人偽造<span class="nw">死亡證明</span>，再安排他們到新的<span class="nw">地方</span>生活。</p>
+      <p>名字取自<span class="nw">天堂</span>與地獄交會的中界「<span class="nw">靈薄獄</span>」，意思是能把人從地獄<span class="nw">帶往天堂</span>。</p>
+      <dl class="roles">
+        <div><dt>死神</dt><dd><b><span class="nw">法穆·伊索耶</span></b><span>協會<span class="nw">負責人</span>，熱愛<span class="nw">歌劇</span></span></dd></div>
+        <div class="me"><dt><span class="nw">擺渡人</span></dt><dd><b>萊卡</b><span>三位<span class="nw">擺渡人</span>之一，負責<span class="nw">聖水仙教堂</span></span></dd></div>
+        <div><dt><span class="nw">搜屍犬</span></dt><dd><b><span class="nw">安東·韋瓦第</span></b><span>業績最好的<span class="nw">搜屍犬</span></span></dd></div>
+      </dl>
+      <p>萊卡對協會部分<span class="nw">認同</span>、部分不<span class="nw">認同</span>。協會是他達成最終目標的<span class="nw">表象</span>，也是他將來要親手<span class="nw">了結的因果</span>。</p>
+    </div>
+  </section>
+
+  <svg class="rosary" viewBox="0 0 360 54" aria-hidden="true"><use href="#rosary"/></svg>
+
+  <!-- 結尾 -->
+  <section class="end">
+    <figure class="arch" data-reveal>
+      <div class="frame"><img src="../images/characters/萊卡-2.jpg" alt="萊卡側著臉，舉杯喝紅酒，戴著白色羅馬領"></div>
+      <svg class="keystone" viewBox="-24 -24 48 48" aria-hidden="true"><circle r="22" fill="#0d0a0b" stroke="#c9a14f" stroke-width="2"/><use href="#daff" x="-20" y="-20" width="40" height="40"/></svg>
+      <svg class="candle l" viewBox="0 0 40 130" aria-hidden="true"><circle cx="20" cy="30" r="19" fill="url(#glow)" class="glow"/><g class="flame"><path d="M20 12C27 24 27 33 20 38C13 33 13 24 20 12Z" fill="url(#flame)"/><path d="M20 24C23 29 23 33 20 35.5C17 33 17 29 20 24Z" fill="#fffbe8"/></g><path d="M20 36V42" stroke="#2a1d16" stroke-width="1.2"/><path d="M12 44C12 41 28 41 28 44V112H12Z" fill="url(#wax)"/><path d="M24 43C25 50 23 54 24.6 60C26 54 26.6 48 26 43.5Z" fill="#fffaf0" opacity=".85"/><path d="M6 112H34L31 118H9Z" fill="url(#gold-h)"/><path d="M14 118H26L28 126H12Z" fill="url(#gold-h)"/><path d="M4 126H36" stroke="url(#gold-h)" stroke-width="3" stroke-linecap="round"/></svg>
+      <svg class="candle r" viewBox="0 0 40 130" aria-hidden="true"><circle cx="20" cy="30" r="19" fill="url(#glow)" class="glow"/><g class="flame"><path d="M20 12C27 24 27 33 20 38C13 33 13 24 20 12Z" fill="url(#flame)"/><path d="M20 24C23 29 23 33 20 35.5C17 33 17 29 20 24Z" fill="#fffbe8"/></g><path d="M20 36V42" stroke="#2a1d16" stroke-width="1.2"/><path d="M12 44C12 41 28 41 28 44V112H12Z" fill="url(#wax)"/><path d="M24 43C25 50 23 54 24.6 60C26 54 26.6 48 26 43.5Z" fill="#fffaf0" opacity=".85"/><path d="M6 112H34L31 118H9Z" fill="url(#gold-h)"/><path d="M14 118H26L28 126H12Z" fill="url(#gold-h)"/><path d="M4 126H36" stroke="url(#gold-h)" stroke-width="3" stroke-linecap="round"/></svg>
+    </figure>
+    <p class="last" data-reveal><span class="nw">大愛</span>，他分給<span class="nw">全世界</span>。<br><span>你，他要留給自己。</span></p>
+    <p class="hope" data-reveal>也許有一天，<br>你能讓他重新相信世界和愛。</p>
+    <p class="amen" data-reveal>AMEN</p>
+    <p class="colophon" data-reveal>萊卡｜<span class="nw">聖水仙教堂</span>・<span class="nw">擺渡人</span></p>
+  </section>
+
+</main>
+</body>
+</html>
